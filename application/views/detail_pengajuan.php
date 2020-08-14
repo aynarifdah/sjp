@@ -28,7 +28,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
           <div class="col-lg-4 col-12">
             <div class="text-center">
               <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle img-border mb-1" alt="avatar" style="width: 105px">
-              <h4 class="text-center"><strong><?php echo $key['nama_pasien']; ?></strong></h4>
+              <h4 class="text-center"><strong><?php echo strtoupper($key['nama_pasien']); ?></strong></h4>
               <ul class="list-inline list-inline-pipe">
                 <i class="ft-phone-call"></i> &nbsp;&nbsp;
                 <li><a href="tel:02192729182"><?php echo $key['telepon']; ?></a> (Telp)</li>
@@ -268,7 +268,8 @@ echo $a - $b;
       </div>
     </div>
     <?php }elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7))  {?>
-    <div class="btn  btn-secondary btn-sm" onclick="logCetak()"><i class="ft-printer"></i> Cetak SJP</div>
+    <!-- <div class="btn  btn-secondary btn-sm" onclick="logCetak()"><i class="ft-printer"></i> Cetak SJP</div> -->
+    <a class="btn  btn-secondary btn-sm" href="<?php echo base_url('Dinkes/CetakTest/'.$key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
     <?php } ?>
   </div>
 </div>
@@ -313,27 +314,27 @@ echo $a - $b;
               </tr>
               <tr>
                 <th scope="row" class="border-top-0">Nama Pasien</th>
-                <td class="border-top-0"><?php echo $key['nama_pasien']; ?></td>
+                <td class="border-top-0"><?php echo strtoupper($key['nama_pasien']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Tempat/ Tanggal Lahir</th>
-                <td><?php echo $key['tempat_lahir']; ?>, <?php echo $key['tanggal_lahir']; ?></td>
+                <td><?php echo strtoupper($key['tempat_lahir']); ?>, <?php echo strtoupper($key['tanggal_lahir']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Alamat</th>
-                <td><?php echo $key['alamat']; ?>, Kec. <?php echo $key['kd_kecamatan']; ?>, Kel. <?php echo $key['kd_kelurahan']; ?>, Rt/Rw : <?php echo $key['rt']; ?>/<?php echo $key['rw']; ?></td>
+                <td><?php echo strtoupper($key['alamat']); ?>, KEC. <?php echo strtoupper($key['kd_kecamatan']); ?>, KEL. <?php echo strtoupper($key['kd_kelurahan']); ?>, RT/RW : <?php echo strtoupper($key['rt']); ?>/<?php echo strtoupper($key['rw']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Email</th>
-                <td><?php echo $key['email']; ?></td>
+                <td><?php echo strtoupper($key['email']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Golongan Darah</th>
-                <td><?php echo $key['golongan_darah']; ?></td>
+                <td><?php echo strtoupper($key['golongan_darah']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Pekerjaan</th>
-                <td><?php echo $key['pekerjaan']; ?></td>
+                <td><?php echo strtoupper($key['pekerjaan']); ?></td>
               </tr>
             </tbody>
           </table><br>
@@ -344,23 +345,23 @@ echo $a - $b;
             <tbody>
               <tr>
                 <th scope="row" class="border-top-0">Nama Pemohon</th>
-                <td class="border-top-0"><?php echo $key['nama_pemohon']; ?></td>
+                <td class="border-top-0"><?php echo strtoupper($key['nama_pemohon']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Alamat</th>
-                <td><?php echo $key['alamatpemohon']; ?>, Kec. <?php echo $key['kelpemohon']; ?>, Kel. <?php echo $key['kecpemohon']; ?>, Rt/Rw : <?php echo $key['rtpemohon']; ?>/<?php echo $key['rwpemohon']; ?></td>
+                <td><?php echo strtoupper($key['alamatpemohon']); ?>, KEC. <?php echo strtoupper($key['kecpemohon']); ?>, KEL. <?php echo strtoupper($key['kelpemohon']); ?>, RT/RW : <?php echo strtoupper($key['rtpemohon']); ?>/<?php echo strtoupper($key['rwpemohon']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Email</th>
-                <td><?php echo $key['emailpemohon']; ?></td>
+                <td><?php echo strtoupper($key['emailpemohon']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Telepon/Whatsapp</th>
-                <td><?php echo $key['telpemohon']; ?> / <?php echo $key['wapemohon']; ?></td>
+                <td><?php echo strtoupper($key['telpemohon']); ?> / <?php echo strtoupper($key['wapemohon']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Status Hubungan Dengan Pasien</th>
-                <td><?php echo $key['status_hubungan']; ?></td>
+                <td><?php echo strtoupper($key['status_hubungan']); ?></td>
               </tr>
             </tbody>
           </table>
@@ -371,15 +372,15 @@ echo $a - $b;
             <tbody>
               <tr>
                 <th scope="row" class="border-top-0">Jenis Jaminan</th>
-                <td class="border-top-0"><?php echo $key['nama_jenis']; ?></td>
+                <td class="border-top-0"><?php echo strtoupper($key['nama_jenis']); ?></td>
               </tr>
               <tr>
                 <th scope="row" class="border-top-0">Puskesmas</th>
-                <td class="border-top-0"><?php echo $key['nama_puskesmas']; ?></td>
+                <td class="border-top-0"><?php echo strtoupper($key['nama_puskesmas']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Rumah Sakit</th>
-                <td class="border-top-0"><?php echo $key['nm_rs']; ?></td>
+                <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Diagnosa</th>
@@ -387,7 +388,7 @@ echo $a - $b;
                   <?php if ($penyakit) {
                     foreach ($penyakit as $keypenyakit) {?>
 
-                    <li>- <?php echo $keypenyakit['namadiag']; ?></li>
+                    <li>-<?php echo strtoupper($keypenyakit['namadiag']); ?></li>
 
                     <?php }
                   } ?>
@@ -416,8 +417,8 @@ echo $a - $b;
               foreach ($riwayatpengajuan as $key) {?>
               <tr> 
                 <td><?php echo date_format(date_create($key['tanggal_pengajuan']),"d-m-Y") ?></td>
-                <td><?php echo $key['nama_puskesmas']; ?></td>
-                <td><?php echo $key['nama_rs']; ?></td>
+                <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
+                <td><?php echo strtoupper($key['nama_rs']); ?></td>
                
                 <td><ul>
                   <?php if ($penyakit) {
@@ -491,22 +492,14 @@ echo $a - $b;
    <p> <strong>Catatan:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
  </div>
  -->
+    <div class="note">
+   <p> <strong>Catatan Dokumen:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
+ </div>
  <section id="image-gallery" class="card">
    <div class="card-content">
      <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
        <div class="row">
-         <?php if (!empty($getdokumenpersyaratan)) {
-         foreach ($getdokumenpersyaratan as $at) {?>
-         <table class="table mb-0 ">
-            <tbody>
-              <tr>
-                <th scope="row" class="border-top-0">Feedback dokumen </th>
-                <td class="border-top-0"><?php echo $at['feedback']; ?></td>
-              </tr>
-            </tbody>
-          </table>
-          <?php }
-      } ?>
+   
         <?php if (!empty($getdokumenpersyaratan)) {
          foreach ($getdokumenpersyaratan as $att) {?>
         

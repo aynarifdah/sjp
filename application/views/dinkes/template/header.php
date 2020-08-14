@@ -8,8 +8,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
           <li class="nav-item">
             <a class="navbar-brand">
-              <img src="https://img.icons8.com/bubbles/50/000000/doctors-bag.png">
-              <h3 class="brand-text">Sistem SJP</h3>
+              <img src="<?php echo base_url("assets/images/logo sjp.png");?>" width="220" height="50">
             </a>
           </li>
           <li class="nav-item d-md-none">

@@ -218,6 +218,13 @@
             name="emailpasien" id="emailpasien" required value="<?= $detail[0]['email'] ?>">
           </div>
         </div>
+        <div class="form-group row">
+                  <label class="col-lg-3 label-control" for="namalengkap">Feedback Dokumen</label>
+                  <div class="col-lg-5">
+                    <input type="text" class="form-control kontrakform" placeholder="Feedback"
+                      name="feedback" id="feedback" required value="<?= $detail[0]['feedback'] ?>">
+                  </div>
+                </div>
         <!-- <div class="form-group row">
           <label class="col-lg-3 label-control" for="notelp">Informasi Sakit</label>
           <div class="col-lg-3">                        

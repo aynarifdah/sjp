@@ -13,7 +13,7 @@
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <div class="p-1">
-                       <img src="<?php echo base_url('assets/img/logo_dinkes.jpg');?>" alt="branding logo" height="150" width="120">
+                        <img src="<?php echo base_url("assets/images/logo sjp.png");?>" width="250" height="70">
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0">

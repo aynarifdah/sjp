@@ -26,7 +26,7 @@ private function load($title = '', $datapath = '')
     return $page;
 }
 public function index(){
-    redirect('Home/UserManagement','refresh');exit();
+    redirect('Home/pengajuan','refresh');exit();
 
     $path = "";
     $data1 = array(
@@ -235,6 +235,7 @@ public function input_pasien(){
         $jenisjaminan    = $this->input->post('jenisjaminan'); 
         $mulairawat      = $this->input->post('mulairawat'); 
         $akhirrawat      = $this->input->post('akhirrawat'); 
+        $feedback      = $this->input->post('feedback');
        
 
         $datasjp       = array(
@@ -261,6 +262,7 @@ public function input_pasien(){
          'kelas_rawat'      => $kelas_rawat,
          'mulai_rawat'      => $mulairawat,
          'selesai_rawat'      => $akhirrawat,
+         'feedback'        => $feedback,
          
                     // 'nama_rumah_sakit' => $rumahsakit,
      );  
@@ -300,8 +302,9 @@ public function input_pasien(){
         // $this->load->library('upload',$config);
 
         $nama_persyaratan = $this->input->post('nama_persyaratan'); 
-        //var_dump($nama_persyaratan);die;
+       // var_dump($nama_persyaratan);die;
         $dokumen          = $this->input->post('dokumen'); 
+        //var_dump($_FILES['dokumen']);die;
         $persyaratan      = array();
         for ($i=0; $i < count($nama_persyaratan); $i++) { 
 
@@ -322,17 +325,19 @@ public function input_pasien(){
             //var_dump($this->upload->initialize($config));die;
             if($this->upload->do_upload('file')){
                     // Uploaded file data
-                $feedback      = $this->input->post('feedback');
+                
                 $fileData      = $this->upload->data();
                 $persyaratan[] = array(
                   'id_jenis_izin'  => $jenisizin,
                   'attachment'     => $fileData['file_name'],
-                  'feedback'       => $feedback,
+                  //'feedback'       => $feedback,
                   'id_pengajuan'   => $id_pengajuan,
                   'id_persyaratan' => $nama_persyaratan[$i],
               );    
             }
-            
+            // else{
+            //     echo "gagal";die;
+            // }
            // var_dump($persyaratan);die;
     //     if(!$this->upload->do_upload( 'dokumen')){
     //     $this->upload->display_errors();
@@ -922,6 +927,7 @@ public function UserManagement(){
     $this->load->view('template/default_template', $data);
 }
 
+
 public function AddUser(){
     if ($this->session->userdata('level') != 1) {
         redirect('Home/pengajuan','refresh');exit();
@@ -1133,6 +1139,7 @@ public function detail_pengajuan($idsjp, $id_pengajuan){
             'alamat'            => $this->input->post("alamatpemohon"),
             'rt'                => $this->input->post("rtpemohon"),
             'rw'                => $this->input->post("rwpemohon"),
+
             'kd_kecamatan'      => $this->input->post("kd_kecamatanpemohon"),
             'kd_kelurahan'      => $this->input->post("kd_kelurahanpemohon")
         ];
@@ -1157,7 +1164,8 @@ public function detail_pengajuan($idsjp, $id_pengajuan){
             'rt'                => $this->input->post("rtpasien"),
             'rw'                => $this->input->post("rwpasien"),
             'kd_kecamatan'      => $this->input->post("kd_kecamatanpasien"),
-            'kd_kelurahan'      =>  $this->input->post("kd_kelurahanpasien")
+            'kd_kelurahan'      =>  $this->input->post("kd_kelurahanpasien"),
+            'feedback'          => $this->input->post("feedback")
         ];
         $id_sjp = $this->input->post("id_sjp");
         $this->M_SJP->editSJP($id_sjp, $data_pasien);      

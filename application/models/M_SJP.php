@@ -15,6 +15,12 @@ class M_SJP extends CI_Model {
   return $query->result_array();
 }
 
+//  public function pejabat($id)
+//  {
+//   $query = $this->db->query('SELECT * FROM `pejabat` WHERE `pejabat`.`id_pejabat` = '.$id.' ');
+//   return $query->result_array();
+// }
+
 function select_all(){
   $results = array();
   $this->db->select('sjp.*,permohonan_pengajuan.*,puskesmas.*,rumah_sakit.*,diagnosa.*,penyakit.*,sp.*');
@@ -209,6 +215,29 @@ function select_all_by_id($id_sjp){
   $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = permohonan_pengajuan.id_status_pengajuan', 'left');
       // $this->db->join('diagnosa','diagnosa.id_sjp = sjp.id_sjp', 'left');
       // $this->db->join('penyakit','diagnosa.id_penyakit = penyakit.id_penyakit', 'left');
+  
+  $query = $this->db->get();
+
+  if($query->num_rows() > 0) {
+    $results = $query->result();
+  }
+  return $results;
+  
+
+}
+function detail_cetak($id_sjp){
+  $results = array();
+  $this->db->select('sjp.*,permohonan_pengajuan.*,puskesmas.*,rumah_sakit.*,sp.*, CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, rumah_sakit.nama_rumah_sakit as nm_rs, sjp.jenis_kelamin as jkpasien, jenis_sjp.nama_jenis, kelas_rawat.nama_kelas');
+  $this->db->from('sjp');
+  $this->db->where('sjp.id_sjp',$id_sjp);
+  $this->db->join('permohonan_pengajuan', 'permohonan_pengajuan.id_pengajuan = sjp.id_pengajuan', 'left');
+  $this->db->join('puskesmas','sjp.id_puskesmas = puskesmas.id_puskesmas', 'left');
+  $this->db->join('kelas_rawat','sjp.kelas_rawat = kelas_rawat.id_kelas', 'left');
+  $this->db->join('jenis_sjp','sjp.jenis_sjp = jenis_sjp.id_jenissjp', 'left');
+  $this->db->join('rumah_sakit','rumah_sakit.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+  $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = permohonan_pengajuan.id_status_pengajuan', 'left');
+  // $this->db->join('diagnosa','diagnosa.id_sjp = sjp.id_sjp', 'left');
+  // $this->db->join('d_penyakit','diagnosa.id_penyakit = d_penyakit.id_penyakit', 'left');
   
   $query = $this->db->get();
 

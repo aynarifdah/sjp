@@ -27,7 +27,7 @@ private function load($title = '', $datapath = '')
     return $page;
 }
 public function index(){
-    redirect('Dinsos/UserManagement','refresh');exit();
+    redirect('Dinsos/pengajuan_dinsos','refresh');exit();
 
     $path = "";
     $data1 = array(
@@ -322,7 +322,8 @@ public function input_pasien(){
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan'); 
         $mulairawat      = $this->input->post('mulairawat'); 
-        $akhirrawat      = $this->input->post('akhirrawat'); 
+        $akhirrawat      = $this->input->post('akhirrawat');
+        $feedback      = $this->input->post('feedback'); 
 
         $datasjp       = array(
          'id_pengajuan'     => $id_pengajuan,
@@ -347,7 +348,8 @@ public function input_pasien(){
          'jenis_sjp'         => $jenisjaminan,
          'kelas_rawat'      => $kelas_rawat,
          'mulai_rawat'      => $mulairawat,
-         'selesai_rawat'      => $akhirrawat
+         'selesai_rawat'      => $akhirrawat,
+         'feedback'        => $feedback,
                     // 'nama_rumah_sakit' => $rumahsakit,
      );  
           // var_dump($datasjp);                    

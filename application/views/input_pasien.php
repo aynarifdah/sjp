@@ -50,13 +50,26 @@
                     name="email_pemohon" id="emailpemohon">
                   </div>
                 </div>
-                <div class="form-group row" id="modalwal">
+                  <div class="form-group row">
+                  <label class="col-lg-3 label-control" for="namalengkap">Status Hubungan Dengan Pasien*</label>
+                 
+                  <div class="col-lg-3">
+                    <select name="status_hubungan" id="status_hubungan" class="form-control" required>
+                      <option value="">Pilih Status</option>
+                      <option value="Anak">Anak</option>
+                      <option value="Istri">Istri</option>
+                      <option value="Suami">Suami</option>
+                      <option value="Keluarga Lain">Keluarga Lain</option>
+                    </select>
+                  </div>
+                </div>
+              <!--   <div class="form-group row" id="modalwal">
                   <label class="col-lg-3 label-control" for="modal">Status Hubungan Dengan Pasien* </label>
                   <div class="col-lg-3">
                     <input type="status" class="form-control" placeholder="Status Hubungan"
                     name="status_hubungan" id="status_hubungan" required>
                   </div>
-                </div> 
+                </div>  -->
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw*</label>
                   <div class="col-lg-6">

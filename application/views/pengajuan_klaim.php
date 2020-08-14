@@ -38,7 +38,7 @@ th {
         <div class="row">
           <div class="col-lg-12">
             <div class="element mb-0 p-r-15">
-               <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button>
+               <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
                
               <?php if ($status_klaim == 3) {?>
               <button type="button" class="btn btn-secondary btn-sm" id="updatestatbayar"><i class="ft-credit-card"></i>&nbsp; Update Status Bayar</button>

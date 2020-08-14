@@ -71,7 +71,7 @@ public function uploadDokPersyaratan($id_pengajuan)
     $file = $this->custom_upload->single_upload('file', array(
         'upload_path' => './uploads/dokumen/',
         'allowed_types' => 'jpg|jpeg|bmp|png|gif'
-    
+
     ));
 
     $persyaratan = array(
@@ -80,12 +80,12 @@ public function uploadDokPersyaratan($id_pengajuan)
       'id_pengajuan'   =>  $id_pengajuan,
       'id_persyaratan' => $nama_persyaratan,
 
-  );  
+  );
   if (!empty($file)) {
          $this->db->insert('attachment', $persyaratan);
-    }  
+    }
    // var_dump($persyaratan);die;
-   
+
     $datapengajuan = array('id_status_pengajuan' =>  $id_status_pengajuan);
     $this->db->where('id_pengajuan', $id_pengajuan);
     $this->db->update('permohonan_pengajuan', $datapengajuan);
@@ -143,7 +143,7 @@ public function updatestatbayar()
     $id_rumah_sakit = 1;
     $datay = array(
         'dataklaim' => $this->M_SJP->view_pembayaran_klaimdinas($idsjp),
-        'penyakit'  => $this->M_SJP->diagpasien(),      
+        'penyakit'  => $this->M_SJP->diagpasien(),
 
     );
         // var_dump($datay['penyakit']);die;
@@ -170,8 +170,8 @@ public function proses_update_bayar(){
               'status_klaim'    => 4,
           ));
             $index++; }
-            $this->db->update_batch('sjp',$dataklaim,'id_sjp');     
-            redirect ('Dinkes/pengajuan_klaim/4', 'refresh'); 
+            $this->db->update_batch('sjp',$dataklaim,'id_sjp');
+            redirect ('Dinkes/pengajuan_klaim/4', 'refresh');
         }
         public function rekapitulasi_sjp(){
             $path = "";
@@ -202,10 +202,10 @@ public function input_pembiayaan()
     // }
  public function export_excel_pembiayaan()
 {
-   $id_status_klaim = 3; 
+   $id_status_klaim = 3;
  $data = array( 'title' => 'Laporan Excel Pembiayaan',
  'dataklaim' => $this->M_SJP->getdatapengajuanklaim($id_status_klaim),
- 'penyakit' => $this->M_SJP->diagpasien(),  
+ 'penyakit' => $this->M_SJP->diagpasien(),
 );
  $this->load->view('laporan_excel_pembiayaan',$data);
 
@@ -447,7 +447,7 @@ public function getdatapengajuanklaim(){
         $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
     }
 
-    
+
     $result = [
         'data' => $data,
         'draw' => '',
@@ -462,8 +462,8 @@ public function daftar_pembiayaan(){
    $id_status_klaim = 3;
    $datay = array(
     'dataklaim' => $this->M_SJP->getdatapengajuanklaim($id_status_klaim),
-    'penyakit' => $this->M_SJP->diagpasien(),   
-    'rs'            => $this->M_data->getRS(),   
+    'penyakit' => $this->M_SJP->diagpasien(),
+    'rs'            => $this->M_data->getRS(),
     'controller'    => $this->instansi()
   );
    //var_dump($datay['dataklaim']);die;
@@ -588,6 +588,35 @@ public function UserManagement(){
     );
 
     $this->load->view('template/default_template', $data);
+}
+public function AddPejabat(){
+
+      $path = "";
+      $data = array(
+        "page"    => $this->load("add_pejabat", $path) ,
+        "content" => $this->load->view('add_pejabat', false, true)
+    );
+
+    $this->load->view('template/default_template', $data);
+}
+
+public function tambah_pejabat(){
+      $nip           = $this->input->post('nip');
+      $nama_pejabat  = $this->input->post('nama_pejabat');
+      $jabatan       = $this->input->post('jabatan');
+      $instansi      = $this->input->post('instansi');
+      $tanda_tangan  = $this->input->post('tanda_tangan');
+
+      $datapejabat = array(
+               'nip'          => $nip,
+               'nama_pejabat' => $nama_pejabat,
+               'jabatan'      => $jabatan,
+               'instansi'     => $instansi,
+               'tanda_tangan' => $tanda_tangan,
+      );
+        $this->db->insert('pejabat', $datapejabat);
+        $id_pejabat = $this->db->insert_id();
+redirect('Dinkes/UserManagement/');
 }
 
 public function AddUser(){
@@ -768,8 +797,165 @@ public function getPuskesmas(){
     echo json_encode($pus);
 }
 
+ public function CetakTest($id_sjp)
+    {
+      // setlocale(LC_ALL, 'in_ID');
+       $sjp = $this->M_SJP->detail_cetak($id_sjp);
+       $diagpasien = $this->M_SJP->diagpasien($id_sjp);
+       $diag = implode(', ', array_column($diagpasien, 'namadiag'));
+       $img = base_url('/assets/uploads/cap.png');
+       $img_kop = base_url('/assets/images/kop_surat.png');
+       $ttd = base_url('assets/images/tandatangan.PNG');
+
+       // print_r($idtest);
+       // $this->load->view('cetak_test', $data);
+       $this->load->library('dompdf_gen');
+       $paper_size = 'A4';
+       $orientation = 'portrait';
+       $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+       // $this->dompdf->set_paper($paper_size, $orientation);
+       $this->dompdf->load_html($html);
+       $this->dompdf->set_option('isRemoteEnabled', TRUE);
+       $this->dompdf->render();
+       $this->dompdf->stream("CetakTest_.pdf", ['Attachment' =>0]);
+      //  $this->dompdf->stream("CetakTest_$t.pdf");
+    }
+
+        public function drawpdf($img, $img_kop, $ttd, $diag, $sjp) {
+       
+      $html =
+      '<html><head>
+        <meta charset="utf-8">
+        <title>Surat Jaminan Pelayanan</title>
+        <style>
+        body {
+          margin-top:0px;
+          margin-left:10px;
+        }
+        #kop {
+          margin-bottom:30px;
+        }
+        .a { display: inline-block; width: 70px; font-size:16px;}
+        .b { display: inline-block; width: 20px; font-size:16px;}
+        .c { display: inline-block; width: 400px; font-size:16px;}
+
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        th, td {
+        text-align: left;
+        padding: 5px;
+        }
+
+        .content {
+        font-family:Times New Roman;
+        font-size:16px;
+        text-align:justify;
+        margin-left: 100px;
+        margin-right: 30px;
+        }
+        .right{
+        float:right;
+        }
+
+        .left{
+        float:left;
+        }
+
+        </style>
+      </head><body>
+        <img src='.$img_kop.' alt="" id="kop" width="100%">
+        <br>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Depok,'.$sjp[0]->tanggal_surat.'<br>
+
+
+         <span class="a">Nomor</span> <span class="b">:</span><span class="c">443.24/P2P/2020</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kepada :<br>
+
+         <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span>Yth. Direktur RSUP Fatmawati<br>
+        <span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Di
+ 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Tempat<br>
+     
+  
+      <br>
+      <div class="row">
+        <div class="col-lg-12">
+
+          Dari hasil penelitian kami atas surat-surat dari :
+            <table class="table table-borderless table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 30%">Nama Pasien</td>
+                  <td style="width: 5%">:</td>
+                  <td>'.strtoupper($sjp[0]->nama_pasien).'</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Tanggal Lahir</td>
+                  <td style="width: 5%">:</td>
+                  <td>'.$sjp[0]->tanggal_lahir.'</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Jenis Kelamin</td>
+                  <td style="width: 5%">:</td>
+                  <td>'.strtoupper($sjp[0]->jenis_kelamin).'</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Tgl. Mulai Rawat</td>
+                  <td style="width: 5%">:</td>
+                  <td>'.$sjp[0]->mulai_rawat.'</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Alamat</td>
+                  <td style="width: 5%">:</td>
+                  <td>'.$sjp[0]->alamatpasien.'</td>
+                </tr>
+              </tbody>
+            </table><br>
+      
+          Ternyata pasien tersebut memenuhi syarat :
+           <table class="table table-borderless table-sm">
+            <tbody>
+              <tr>
+                <td  style="width: 30%">Dirawat di</td>
+                <td style="width: 5%">:</td>
+                <td>'.$sjp[0]->nama_rumah_sakit.'</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Dilakukan</td>
+                <td style="width: 5%">:</td>
+                <td>'.$sjp[0]->jenis_rawat.'</td>
+              </tr>
+              
+              <tr>
+                <td  style="width: 30%">Diagnosa sementara</td>
+                <td style="width: 5%">:</td>
+                <td>'.$diag.'</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Diberikan jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>'.$sjp[0]->mulai_rawat.' s/d '.$sjp[0]->selesai_rawat.'</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>'.$sjp[0]->nama_jenis.'</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+ <img src='.$ttd.' alt="" id="kop" width="280" height="161" align="right">
+
+      </body></html>';
+      return $html;
+    }
+
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 // MAHDI - (Maaf, biar gampang kebaca)
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-} 	
+}

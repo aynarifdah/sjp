@@ -40,7 +40,7 @@ th {
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
               <!-- <button type="button" class="btn btn-info btn-sm" id="advancedfilterbtn"><i class="ft-filter"></i>&nbsp; Filter</button> -->
-              <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button>
+              <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
      
               <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Tambah Pengajuan</button></a>
         

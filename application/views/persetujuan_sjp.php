@@ -40,7 +40,7 @@ th {
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
               <!-- <button type="button" class="btn btn-info btn-sm" id="advancedfilterbtn"><i class="ft-filter"></i>&nbsp; Filter</button> -->
-              <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button>
+             <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
             <!--   <span class="dropdown">
                 <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-plus"></i> Tambah</button>

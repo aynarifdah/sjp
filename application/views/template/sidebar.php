@@ -3,10 +3,7 @@
       <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
         <!-- <li class=" nav-item"><a href="<?php echo base_url('Home/dashboard1');?>"><i class="la la-dashboard"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
       </li> -->
-        <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi') == 3): ?>
-          <li class=" nav-item"><a href="<?php echo base_url('Home/UserManagement');?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>
-          </li>
-        <?php endif ?>
+       
          <li class=" nav-item"><a href="<?php echo base_url('Home/pengajuan');?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
         </li>
         <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span></a>
@@ -16,6 +13,10 @@
             <li><a class="menu-item" href="<?php echo base_url('Home/persetujuan_sjp');?>" data-i18n="nav.templates.horz.main">Persetujuan SJP</a></li>
           </ul>
         </li>
+         <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi') == 3): ?>
+          <li class=" nav-item"><a href="<?php echo base_url('Home/UserManagement');?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>
+          </li>
+        <?php endif ?>
       </ul>
     </div>
   </div>

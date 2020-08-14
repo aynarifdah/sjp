@@ -39,7 +39,7 @@ th {
         <div class="row">
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
-              <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button>
+              <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
               <button type="button" id="entryklaim" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Entry Klaim</button>
                
           
