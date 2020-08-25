@@ -824,12 +824,12 @@ public function UserManagement(){
         redirect('Home/pengajuan','refresh');exit();
     }
     
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     // Tambah
     if ($this->input->post("btntambah") !== null) {
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
         $data = [
@@ -851,7 +851,7 @@ public function UserManagement(){
         $id_user    = $this->input->post("id_user");
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
 
@@ -960,7 +960,7 @@ public function editUser($id){
     if ($this->session->userdata('level') != 1) {
         redirect('Home/pengajuan','refresh');exit();
     }
-  $this->load->library('encrypt');
+  $this->load->library('encryption');
     if (empty($id)){
         redirect($this->instansi().'UserManagement','refresh');
     }
@@ -1258,7 +1258,7 @@ public function edit_data_pasien($idsjp, $id_pengajuan){
     if (empty($idsjp) || empty($id_pengajuan)){
         redirect($this->instansi().'UserManagement','refresh');
     }
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     $data = [
         "level"      => $this->M_data->getLevel(),
         'instansi'   => $this->M_data->getInstansi(),

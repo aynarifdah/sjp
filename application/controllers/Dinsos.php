@@ -931,12 +931,12 @@ public function UserManagement(){
     if ($this->session->userdata('level') != 1) {
         redirect('Dinsos/pengajuan_dinsos','refresh');exit();
     }
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     // Tambah
     if ($this->input->post("btntambah") !== null) {
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
 
@@ -964,7 +964,7 @@ public function UserManagement(){
         $id_user    = $this->input->post("id_user");
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
         $id_join    = $this->input->post("id_join");
@@ -1074,7 +1074,7 @@ public function editUser($id){
     if ($this->session->userdata('level') != 1) {
         redirect('Dinsos/pengajuan_dinsos','refresh');exit();
     }
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     if (empty($id)){
         redirect($this->instansi().'UserManagement','refresh');
     }
