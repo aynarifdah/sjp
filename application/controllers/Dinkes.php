@@ -17,11 +17,11 @@ class Dinkes extends CI_Controller {
 private function load($title = '', $datapath = '')
 {
     $page = array(
-        "head"    => $this->load->view('dinkes/template/head', array("title" => $title), true),
-        "header"  => $this->load->view('dinkes/template/header', false, true),
+        "head"    => $this->load->view('template/head', array("title" => $title), true),
+        "header"  => $this->load->view('template/header', false, true),
         "sidebar" => $this->load->view('dinkes/template/sidebar', false, true),
-        "main_js" => $this->load->view('dinkes/template/main_js', false, true),
-        "footer"  => $this->load->view('dinkes/template/footer', false, true)
+        "main_js" => $this->load->view('template/main_js', false, true),
+        "footer"  => $this->load->view('template/footer', false, true)
     );
     return $page;
 }

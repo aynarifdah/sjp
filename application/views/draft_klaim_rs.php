@@ -95,8 +95,8 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered" style="cursor:pointer">
+        <section id="configuration" style="padding: 10px;">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th>
@@ -167,17 +167,10 @@ th {
 @import url("<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css");
 @import url("<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css");
 </style>
-<!-- <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/forms/selects/select2.min.css"> -->
-<!-- <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css"> -->
 
 <script src="<?= base_url()?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
-
-
-
-
-
 <script src="<?= base_url()?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">

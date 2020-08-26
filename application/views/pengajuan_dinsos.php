@@ -42,7 +42,7 @@ th {
          
              <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
      
-              <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+              <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border: none !important; border-radius: 10px;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
     
             </div>
           </div>
@@ -91,8 +91,8 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered" style="cursor:pointer">
+        <section id="configuration" style="padding: 10px;">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->

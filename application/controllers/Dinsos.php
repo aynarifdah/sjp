@@ -18,11 +18,11 @@ class Dinsos extends CI_Controller {
 private function load($title = '', $datapath = '')
 {
     $page = array(
-        "head"    => $this->load->view('dinsos/template/head', array("title" => $title), true),
-        "header"  => $this->load->view('dinsos/template/header', false, true),
+        "head"    => $this->load->view('template/head', array("title" => $title), true),
+        "header"  => $this->load->view('template/header', false, true),
         "sidebar" => $this->load->view('dinsos/template/sidebar', false, true),
-        "main_js" => $this->load->view('dinsos/template/main_js', false, true),
-        "footer"  => $this->load->view('dinsos/template/footer', false, true)
+        "main_js" => $this->load->view('template/main_js', false, true),
+        "footer"  => $this->load->view('template/footer', false, true)
     );
     return $page;
 }

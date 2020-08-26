@@ -35,8 +35,8 @@
         </div>
       </div>
 
-      
-      <table id="datatable" class="table table-bordered" style="cursor:pointer;">
+      <div class="table-responsive">
+      <table id="datatable" class="table table-bordered" style="width: 100%;">
         <thead>
           <tr>
             <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
@@ -70,11 +70,11 @@
               
             </tbody>
           </table>
-          
+          </div>
           
           <button type="button" style="float: right;  margin-left: 5px;" class="btn btn-danger btn-sm" id=""></i>Batal</button>&nbsp;&nbsp;&nbsp;
           <button type="button" style="float: right; margin-left: 5px;" class="btn btn-warning btn-sm" id=""></i>Simpan Sebagai Draft</button>&nbsp;&nbsp;&nbsp;
-          <button type="submit" style="float: right;" class="btn btn-primary btn-sm" id="simpanklaim"></i>Ajukan Klaim</button></a>
+          <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm" id="simpanklaim"></i>Ajukan Klaim</button></a>
         </div>
       </form>
     </div>

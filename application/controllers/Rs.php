@@ -16,11 +16,11 @@ class Rs extends CI_Controller {
   private function load($title = '', $datapath = '')
   {
     $page = array(
-      "head"    => $this->load->view('rs/template/head', array("title" => $title), true),
-      "header"  => $this->load->view('rs/template/header', false, true),
+      "head"    => $this->load->view('template/head', array("title" => $title), true),
+      "header"  => $this->load->view('template/header', false, true),
       "sidebar" => $this->load->view('rs/template/sidebar', false, true),
-      "main_js" => $this->load->view('rs/template/main_js', false, true),
-      "footer"  => $this->load->view('rs/template/footer', false, true)
+      "main_js" => $this->load->view('template/main_js', false, true),
+      "footer"  => $this->load->view('template/footer', false, true)
     );
     return $page;
   }

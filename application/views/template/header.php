@@ -7,9 +7,8 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
           <li class="nav-item">
-            <a class="navbar-brand">
-              <img src="<?php echo base_url("assets/images/logo sjp.png");?>" width="220" height="50">
-              <!-- <h3 class="brand-text">Sistem SJP</h3> -->
+            <a class="navbar-brand" style="padding: 0px !important;">
+              <img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: 10px;">
             </a>
           </li>
           <li class="nav-item d-md-none">
@@ -21,7 +20,6 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
         <div class="collapse navbar-collapse" id="navbar-mobile">
           <ul class="nav navbar-nav mr-auto float-left">
             <li class="nav-item d-  none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
-            <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
             </li>
           </ul>
           <ul class="nav navbar-nav float-right">

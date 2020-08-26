@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
-<?php echo $page["head"]; ?>
+<?php echo $page["template/head"]; ?>
 <!-- <body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar"
 	data-open="click" data-menu="vertical-content-menu" data-col="2-columns"> -->
 	<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
 	data-open="click" data-menu="vertical-menu" data-col="2-columns">
-	<?php echo $page["header"]; ?>
+	<?php echo $page["template/header"]; ?>
 	<?php echo $page["sidebar"]; ?>
-	<?php echo $page['main_js'];?>
+	<?php echo $page['template/main_js'];?>
 	<!-- ////////////////////////////////////////////////////////////////////////////-->
 	<div class="app-content content">
 		<div class="content-wrapper">
@@ -19,6 +19,6 @@
 		</div>
 	</div>
 	<!-- ////////////////////////////////////////////////////////////////////////////-->
-	<?php echo $page["footer"]; ?>
+	<?php echo $page["template/footer"]; ?>
 </body>
 </html>

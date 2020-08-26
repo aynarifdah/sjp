@@ -30,7 +30,6 @@ th {
           <h4 class="card-title">Data Semua Pengajuan</h4>
         </div>
       </div>
-      <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
     </div>
   </div>
   <div class="card-content">
@@ -40,8 +39,6 @@ th {
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
          
-             <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
-    
             </div>
           </div>
         </div>
@@ -88,8 +85,10 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered" style="cursor:pointer">
+
+        <section id="configuration" style="padding: 10px;">
+        <div class="table-responsive">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
@@ -106,6 +105,7 @@ th {
           <tbody>
           </tbody>
         </table>
+      </div>
       </section>
       </div>
     </div>
