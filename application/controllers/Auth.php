@@ -8,7 +8,7 @@ class Auth extends CI_Controller {
 	    $this->load->helper('text');
 	    $this->load->model('M_SJP');
 	    $this->load->model('M_login');
-	    $this->load->library('encrypt');
+	    $this->load->library('encryption');
 	    // auth_menu();
 	}
 

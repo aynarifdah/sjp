@@ -3,17 +3,32 @@
   body{
     background-color: royalblue !important;
   }
+
+@media (min-width: 768px){
+    .card {
+
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .card {
+      width: 800px;
+      height: 1200px;
+      margin-left: -200px;
+    }
+}
+
 </style>
 
-<div class="content-body">
+<div class="content-body col-12">
   <section class="container">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="col-md-5 col-sm-5 col-lg-5 col-xs-6 offset-2 box-shadow-2 p-0">
+    <div class="col-12">
+      <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12 offset-2 box-shadow-2 p-0">
               <div class="card border-grey border-lighten-3">
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <div class="p-1">
-                        <img src="<?php echo base_url("assets/images/logo sjp.png");?>" width="250" height="70">
+                        <img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 100%; height: auto;">
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0">
