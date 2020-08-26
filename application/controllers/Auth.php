@@ -48,12 +48,15 @@ class Auth extends CI_Controller {
 	    $password 	= $this->input->post('password'); 
 	    $user 		= $this->M_login->readBy($username);
 	    // var_dump($user);die;
-
+            // echo  $this->encryption->encrypt($password);die; 
+          // echo "<br><br>";
+           // echo $this->encryption->decrypt($user->password); 
+           // echo $password;die;
 	    if(empty($user)){ 
 	        $this->session->set_flashdata('message', '<div class="alert alert-warning fade show mb-1">Username tidak ditemukan !</div>'); 
 	        redirect('Auth/', 'refresh');
 	    } else {
-	        if($password == $this->encrypt->decode($user->password)){
+	        if($password == $this->encryption->decrypt($user->password)){
 	            $session = array(
 	                'authenticated' =>	true, 
 	                'id_user' 		=>	$user->id_user, 
