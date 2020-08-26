@@ -40,7 +40,7 @@ th {
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
               <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi')==1): ?>
-                <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalLevel"><i class="ft-plus"> </i>Tambah Level</a>
+                <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalLevel" style="margin: 10px;"><i class="ft-plus"> </i>Tambah Level</a>
                 <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalInstansi"><i class="ft-plus"> </i>Tambah Instansi</a>
                  <a href="<?= base_url('Dinkes/AddPejabat')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-secondary btn-sm"> <i class="ft-plus"> </i>Tambah Pejabat</button></a>
               <?php endif ?>
@@ -89,8 +89,9 @@ th {
           </div>
           <?= $this->session->flashdata('message'); ?>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered">
+        <section id="configuration" style="padding: 10px;">
+        <div class="table-responsive">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <th style="width: 10px !important; color: #6B6F82!important;">Nama</th>
@@ -108,6 +109,7 @@ th {
           <tbody>
           </tbody>
         </table>
+            </div>
       </section>
       </div>
     </div>

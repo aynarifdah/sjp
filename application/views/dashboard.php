@@ -17,11 +17,10 @@
   <script src="<?php echo base_url()?>app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js"
   type="text/javascript"></script>
 
-   <span><strong> Filter Custom :</strong></span>
       <div class="form-row">
 
         <div class="form-group col-md-3 col-sm-6">
-          <select class="form-control form-control-select" id="bulan">
+          <select class="form-control form-control-select" id="bulan" style="border: none !important;">
             <option value="" selected>Semua Bulan</option>
             <option value="2020-01-11">Januari.</option>
             <option value="2020-02-11">Februari</option>
@@ -38,7 +37,7 @@
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6">
-          <select class="form-control form-control-select" id="tahun">
+          <select class="form-control form-control-select" id="tahun" style="border: none !important;">
             <option value="" selected>Semua Tahun</option>
             <!-- <option value="2021" >Test1</option>
             <option value="2022" >Test2</option> -->
@@ -50,7 +49,7 @@
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6">
-         <select class="form-control form-control-select" id="kecamatan" name="kecamatan" >
+         <select class="form-control form-control-select" id="kecamatan" name="kecamatan" style="border: none !important;">
             <option value="" selected>Semua Kecamatan</option>
             <?php if (!empty($kecamatan)) {
               foreach ($kecamatan as $key) {?>
@@ -60,7 +59,7 @@
           </select>
       </div>
       <div class="form-group col-md-3 col-sm-6">
-       <select class="form-control form-control-select"  id="kd_kelurahanpemohon" name="kd_kelurahanpemohon">
+       <select class="form-control form-control-select"  id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="border: none !important;">
         <option value="" selected>Semua Kelurahan</option>
       </select>
     </div>
@@ -85,7 +84,7 @@ th {
                 <h4 class="card-title">Jumlah Pengajuan SJP</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
               </div>
-              <div class="card-content collapse show">
+              <div class="card-content collapse show" style="padding: 10px;">
                 <div class="card-body p-0">
                     <table class="table mb-0">
                       <tbody id="sjp">
@@ -97,26 +96,6 @@ th {
                             <td class="border-top-0"><?= $sjp["jumlah"] ?></td>
                           </tr>
                         <?php endforeach; }?>
-                        <!-- <tr>
-                          <th scope="row" class="border-top-0">Baru</th>
-                          <td class="border-top-0">3</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Diajukan</th>
-                          <td>0</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Disetujui</th>
-                          <td>2</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Ditolak</th>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total</th>
-                          <td>2</td>
-                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -126,7 +105,7 @@ th {
             <div class="col-lg-4 col-12  col-sm-6">
             <div class="card pull-up">
               <div class="card-content">
-                <div class="card-body bg-warning">
+                <div class="card-body bg-warning" style="border-radius: 10px;">
                   <div class="media d-flex">
                     <div class="media-body text-left">
                       <h3 class="white" id="anggaran_tahun">Rp. <?= $anggaran_tahun?></h3>
@@ -142,7 +121,7 @@ th {
             </div>
             <div class="card pull-up">
               <div class="card-content">
-                <div class="card-body bg-info">
+                <div class="card-body bg-info" style="border-radius: 10px;">
                   <div class="media d-flex">
                     <div class="media-body text-left">
                       <h3 class="white" id="sisa_anggaran">Rp. <?= $sisa_anggaran ?></h3>
@@ -160,7 +139,7 @@ th {
           <div class="col-lg-4 col-12">
             <div class="card pull-up">
               <div class="card-content">
-                <div class="card-body bg-success">
+                <div class="card-body bg-success" style="border-radius: 10px;">
                   <div class="media d-flex">
                     <div class="media-body text-left">
                       <h3 class="white" id="nominal_pembiayaan">Rp. <?= $nominal_pembiayaan ?></h3>
@@ -176,7 +155,7 @@ th {
             </div>
             <div class="card pull-up">
               <div class="card-content">
-                <div class="card-body bg-danger">
+                <div class="card-body bg-danger" style="border-radius: 10px;">
                   <div class="media d-flex">
                     <div class="media-body text-left">
                       <h3 class="white" id="total_pasien"><?= $total_pasien ?></h3>
