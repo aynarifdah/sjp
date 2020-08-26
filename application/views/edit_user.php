@@ -39,7 +39,7 @@
                   <label class="col-lg-2 label-control" for="modal">Password* </label>
                   <div class="col-lg-9">
                     <input type="password" class="form-control" placeholder="Password"
-                    name="password" id="password" required value="<?= $this->encrypt->decode($user[0]['password']) ?>">
+                    name="password" id="password" required value="<?= $this->encryption->decrypt($user[0]['password']) ?>">
                   </div>
                 </div>
                   <div class="form-group row">
