@@ -5,15 +5,30 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
     <div class="navbar-wrapper">
       <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-          <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+
+          <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle" href="#"><i class="ft-menu font-large-1"></i></a></li>
           <li class="nav-item">
             <a class="navbar-brand" style="padding: 0px !important;">
               <img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: 10px;">
             </a>
           </li>
-          <li class="nav-item d-md-none">
-            <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a>
+
+          <li class="nav-item">
+
+            <ul class="nav navbar-nav float-right" style="position: fixed;">
+              <li class="dropdown dropdown-user nav-item">
+                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                  <span class="avatar avatar-online hidden-lg hidden-sm hidden-md" style="margin-left: -60px;">
+                    <img src="<?php echo base_url()?>app-assets/images/udefault.png" alt="avatar" style="max-width: none; width: 42px; height: 42px;"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="margin-left: -140px; margin-top: 5px;">
+                  <div class="dropdown-divider"></div><a class="dropdown-item" href="<?php echo base_url('Auth/logout');?>"><i class="ft-power"></i> Logout</a>
+                </div>
+              </li>
+            </ul>
+
           </li>
+
         </ul>
       </div>
       <div class="navbar-container content">
@@ -39,6 +54,8 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
         </div>
       </div>
     </div>
+  </div>
   </nav>
+
 
   
