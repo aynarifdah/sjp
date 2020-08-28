@@ -1,22 +1,19 @@
-
-<style>
-  body{
+ <style type="text/css">
+   body{
     background-color: royalblue !important;
-  }
-</style>
-
-<div class="content-body">
-  <section class="container">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="col-md-5 col-sm-5 col-lg-5 col-xs-6 offset-2 box-shadow-2 p-0">
-              <div class="card border-grey border-lighten-3">
+   }
+ </style>
+        <section class="flexbox-container">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-md-4 col-10 box-shadow-2 p-0">
+              <div class="card border-grey border-lighten-3 m-0">
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <div class="p-1">
-                        <img src="<?php echo base_url("assets/images/logo sjp.png");?>" width="250" height="70">
+                      <img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 100%; height: auto;">
                     </div>
                   </div>
-                  <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0">
+                  <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
                     <span>Login</span>
                   </h6>
                 </div>
@@ -38,15 +35,14 @@
                         <input type="password" name="password" class="form-control form-control-lg input-lg" id="user-password"
                         placeholder="Enter Password" required>
                         <div class="form-control-position">
-                          <i class="la la-key"></i>
+                          <i class="ft-lock"></i>
                         </div>
                       </fieldset>
                       <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
                     </form>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
-    </div>
-  </section>
-</div>
+        </section>

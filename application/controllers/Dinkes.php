@@ -17,11 +17,11 @@ class Dinkes extends CI_Controller {
 private function load($title = '', $datapath = '')
 {
     $page = array(
-        "head"    => $this->load->view('dinkes/template/head', array("title" => $title), true),
-        "header"  => $this->load->view('dinkes/template/header', false, true),
+        "head"    => $this->load->view('template/head', array("title" => $title), true),
+        "header"  => $this->load->view('template/header', false, true),
         "sidebar" => $this->load->view('dinkes/template/sidebar', false, true),
-        "main_js" => $this->load->view('dinkes/template/main_js', false, true),
-        "footer"  => $this->load->view('dinkes/template/footer', false, true)
+        "main_js" => $this->load->view('template/main_js', false, true),
+        "footer"  => $this->load->view('template/footer', false, true)
     );
     return $page;
 }
@@ -480,12 +480,12 @@ public function UserManagement(){
     if ($this->session->userdata('level') != 1) {
         redirect('Dinkes','refresh');exit();
     }
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     // Tambah
     if ($this->input->post("btntambah") !== null) {
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
 
@@ -513,7 +513,7 @@ public function UserManagement(){
         $id_user    = $this->input->post("id_user");
         $nama       = $this->input->post("nama");
         $username   = $this->input->post("username");
-        $password   = $this->encrypt->encode($this->input->post("password"));
+        $password   = $this->encryption->encrypt($this->input->post("password"));
         $level      = $this->input->post("level");
         $instansi   = $this->input->post("instansi");
         $id_join    = $this->input->post("id_join");
@@ -652,7 +652,7 @@ public function editUser($id){
     if ($this->session->userdata('level') != 1) {
         redirect('Dinkes','refresh');exit();
     }
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
     if (empty($id)){
         redirect($this->instansi().'UserManagement','refresh');
     }
@@ -867,7 +867,8 @@ public function getPuskesmas(){
       </head><body>
         <img src='.$img_kop.' alt="" id="kop" width="100%">
         <br>
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Depok,'.$sjp[0]->tanggal_surat.'<br>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Depok, '.date("d M Y", strtotime($sjp[0]->tanggal_surat)).'<br>
 
 
          <span class="a">Nomor</span> <span class="b">:</span><span class="c">443.24/P2P/2020</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kepada :<br>

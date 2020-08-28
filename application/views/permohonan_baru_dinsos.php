@@ -80,8 +80,8 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered" style="cursor:pointer">
+        <section id="configuration" style="padding: 10px;">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->

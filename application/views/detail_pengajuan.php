@@ -69,7 +69,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
                     $date2=date_create($now);
                     $diff=date_diff($date1,$date2);
                     ?>
-                    <div class="badge bg-secondary bg-darken-1" style="font-size: 14px;">
+                    <div class="badge bg-secondary bg-darken-1" style="font-size: 14px; margin: 0px 0px 5px 0px;">
                       <?php echo $diff->format("%a Hari");
                     }
                     ?>
@@ -273,16 +273,12 @@ echo $a - $b;
     <?php } ?>
   </div>
 </div>
-<div class="col-lg-12 mt-2 ml-1">
+<div class="col-lg-12 mt-2 ml-1" style="padding: 0px;">
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link active tabpenyewa" id="baseIcon-tab1" data-toggle="tab" aria-controls="tabIcon1"
       href="#tabIcon1" aria-expanded="true"><i class="ft-user"></i> Profil Pasien</a>
     </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link tabpenyewa" id="baseIcon-tabpemohon" data-toggle="tab" aria-controls="tabIcon1"
-          href="#tabpemohon" aria-expanded="true"><i class="ft-user"></i> Profil Pemohon</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link tabdetail" id="baseIcon-tab2" data-toggle="tab" aria-controls="tabIcon2"
           href="#tabIcon2" aria-expanded="false"><i class="ft-clipboard"></i> Diagnosa</a>
@@ -303,7 +299,7 @@ echo $a - $b;
       </ul>
       <div class="tab-content px-1 pt-1">
         <div role="tabpanel" class="tab-pane active panelpenyewa" id="tabIcon1" aria-expanded="true" aria-labelledby="baseIcon-tab1">
-          <table class="table mb-0 ">
+          <table class="table" style="width: 100%;">
             <div class="row">
               <h5>informasi pasien</h5>
             </div>

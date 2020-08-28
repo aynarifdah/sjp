@@ -30,7 +30,6 @@ th {
           <h4 class="card-title">Data Semua Pengajuan</h4>
         </div>
       </div>
-      <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
     </div>
   </div>
   <div class="card-content">
@@ -39,28 +38,9 @@ th {
         <div class="row">
           <div class="col-lg-12">
             <div class="element mb-1 p-r-15">
-              <!-- <button type="button" class="btn btn-info btn-sm" id="advancedfilterbtn"><i class="ft-filter"></i>&nbsp; Filter</button> -->
-              <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Export ke Excel</button> -->
-            <!--   <span class="dropdown">
-                <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-plus"></i> Tambah</button>
-                <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
-                  <a class="dropdown-item tambahkontrak" id="Baru" value="Tambah Kontrak"><i class="ft-file-plus"></i> Kontrak Baru</a>
-                  <a class="dropdown-item tambahkontrak" id="Perpanjangan" value="Perpanjangan Kontrak"><i class="ft-file-text"></i> Perpanjangan</a>
-                </span>
-              </span> -->
-              <a href="<?php echo base_url('Home/permohonan_sjp')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
-              <!-- <span class="dropdown"><button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary btn-sm dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i> Aksi</button>
-                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right action-menu">
-                  <a href="<?php echo base_url('Home/permohonan_sjp');?>" class="dropdown-item tambahkontrak" id="Baru" value="Tambah Kontrak"><i class="ft-file-plus"></i> Tambah Pengajuan</a>
-                  <a href="#" class="dropdown-item tambahkontrak" id="Perpanjangan" value="Perpanjangan Kontrak"><i class="ft-file-text"></i> Perpanjangan</a>
-                  <a href="#" class="dropdown-item" id="bayar"><i class="icon-credit-card"></i> Bayar</a>
-                  <a href="#" class="dropdown-item" id="btlkontrak"><i class="icon-close"></i> Pembatalan Kontrak</a>
-                  <a href="#" class="dropdown-item tambahkontrak" value="Perubahan Data" id="ubahdata"><i class="ft-edit-2"></i> Perubahan Data</a>
-                  <a href="#" class="dropdown-item cetakpedagang"><i class="ft-printer"></i> Kartu Pedagang</a>
-                  <a href="#" class="dropdown-item cetakkontrak"><i class="ft-printer"></i> Daftar Kontrak</a>
-                </span>
-              </span> -->
+
+              <a href="<?php echo base_url('Home/permohonan_sjp')?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+
             </div>
           </div>
         </div>
@@ -109,20 +89,20 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration">
-        <table id="datatable" class="table table-bordered">
+        <section id="configuration" style="padding-top: 10px;">
+        <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
               <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-              <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
-              <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
-              <th style="width: 30px;">Tanggal<br> Pengajuan</th>
+              <th style="color: #6B6F82!important;">Pemohon</th>
+              <th style="color: #6B6F82!important;">Pasien</th>
+              <th>Tanggal<br> Pengajuan</th>
               <!-- <th>Lama Pengajuan</th> -->
               <!-- <th>Puskesmas</th> -->
-              <th style="width: 30px;">Rumah <br>Sakit</th>
+              <th>Rumah <br>Sakit</th>
               <!-- <th>Diagnosa</th> -->
-              <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-              <th style="width: 30px;">Aksi</th>
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>

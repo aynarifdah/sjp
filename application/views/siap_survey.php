@@ -14,21 +14,22 @@
         <div class="card-content collapse show">
           <div class="card-body">
             <!-- <form class="form" > -->
+            <div class="table-responsive">
               <form action="<?php echo base_url('Home/proses_survey/'.$id_sjp.'/'.$id_pengajuan);?>" method="POST">
                 <?php foreach($pengajuan as $key => $value) { $id = $value->id_sjp;$id_pengajuan = $value->id_pengajuan; ?>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped col-12">
                   <tbody>
                     <tr>
-                      <th scope="row">
+                      <th scope="row" style="width: 50%;">
                         Nama Pasien
                       </th>
-                      <td><?php echo $value->nama_pasien; ?></td>
+                      <td style="width: 50%;"><?php echo $value->nama_pasien; ?></td>
                     </tr>
                     <tr>
-                      <th scope="row">
+                      <th scope="row" style="width: 50%;">
                         Alamat Lengkap
                       </th>
-                      <td><?php echo $value->alamatpasien; ?></td>
+                      <td style="width: 50%;"><?php echo $value->alamatpasien; ?></td>
                       </tr>
                       <tr>
                         <th scope="row">
@@ -76,6 +77,7 @@
 
                       </tbody>
                     </table>
+                </div>
                     <?php } ?>
                     <div class="table-responsive">
                       <table class="table table-bordered table-striped">

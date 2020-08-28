@@ -24,11 +24,11 @@
               <fieldset class="mt-2">
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
-                  <div class="col-lg-5">
+                  <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control kontrakform" placeholder="Nama"
                       name="nama_pemohon" id="nama_pemohon" required value="<?= $detail[0]['nama_pemohon'] ?>">
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required>
                       <option value="">Jenis Kelamin</option>
                       <option value="Perempuan" <?= ($detail[0]['jkpemohon'] == 'Perempuan')? 'selected' : '' ?> >Perempuan</option>
@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
-                  <div class="col-lg-2">
+                  <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Telp"
                     name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telepon'] ?>">
                   </div>
-                  <div class="col-lg-2">
+                  <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Whatsapp"
                     name="whatsappemohon" id="Whatsapp_pemohon" required value="<?= $detail[0]['whatsapp'] ?>">
                   </div>
@@ -60,15 +60,15 @@
                 </div> 
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
-                  <div class="col-lg-6">
+                  <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Alamat"
                     name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamat'] ?>">
                   </div>
-                  <div class="col-lg-1">
+                  <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rt"
                     name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rt'] ?>">
                   </div>
-                  <div class="col-lg-1">
+                  <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rw"
                     name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rw'] ?>">
                   </div>
@@ -76,7 +76,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
-                  <div class="col-lg-3">
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatanpemohon" style="width: 100%">
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) : $i=0;?>
@@ -86,7 +86,7 @@
                       <?php endif ?>
                   </select>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                   <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%">
                    <option>Pilih Kelurahan</option>
 
@@ -94,33 +94,10 @@
                </div>
              </div>
 
-          <!-- <div class="form-group row" id="modalwal">
-            <label class="col-lg-3 label-control" for="modal">Jenis Izin</label>
-            <div class="col-lg-3">
-              <select name="jenis_izin" id="jenisizin" class="form-control" required>
-                <option value="">Jenis Izin</option>
-                <option value="SJP">SJP</option>
-                
-              </select>
-            </div>
-          </div>   -->
         </fieldset>
         <!-- Step 2 -->
         <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
         <fieldset class="mt-2">
-          <!-- <div class="form-group row">
-            <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan</label>
-            <div class="col-lg-3">                        
-              <select name="jenisjaminan" class="form-control">
-                <option value="">Jenis Jaminan</option>
-                <?php if (!empty($jenisjaminan)) {
-                  foreach ($jenisjaminan as $key) {?>
-                  <option value="<?= $key['id_jenissjp'] ?>"><?= $key['nama_jenis'] ?></option>
-                  <?php }
-                } ?>
-              </select>
-            </div>
-          </div> -->
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="nik">NIK</label>
             <div class="col-lg-3">
@@ -130,11 +107,11 @@
           </div>
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap</label>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap"
               name="nama_pasien" id="namapasien" required value="<?= $detail[0]['nama_pasien'] ?>"> 
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <select name="jenis_kelamin_pasien" id="" name="jenis_kelamin_pasien" class="form-control" required>
                 <option value="">Jenis Kelamin</option>
                 <option value="Perempuan" <?= ($detail[0]['jenis_kelamin'] == 'Perempuan')? 'selected' : '' ?> >Perempuan</option>
@@ -144,22 +121,22 @@
           </div>
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="tempat">Tempat/ Tanggal Lahir</label>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control" placeholder="Tempat Lahir"
               name="tempat_lahir_pasien" id="tempatlahirpasien" required value="<?= $detail[0]['tempat_lahir'] ?>">
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <input type="date" class="form-control" placeholder="Tanggal Lahir"
               name="tanggal_lahir_pasien" id="tanggallahirpasien" required value="<?= $detail[0]['tanggal_lahir'] ?>">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="tempat">Pekerjaan/ Gol Darah</label>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control" placeholder="Pekerjaan"
               name="pekerjaanpasien" id="pekerjaanpasien" required value="<?= $detail[0]['pekerjaan'] ?>">
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <select class="select2 form-control block" id="golongandarah" name="golongan_darah_pasien" style="width: 100%">
                 <option value="">Golongan Darah</option>
                 <option value="A">A</option>
@@ -171,15 +148,15 @@
           </div>
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="alamat_pasien">Alamat/Rt/Rw</label>
-            <div class="col-lg-6">
+            <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control" placeholder="Alamat"
               name="alamatpasien" id="alamatpasien" required value="<?= $detail[0]['alamat'] ?>">
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-1" style="padding: 0px 15px 5px 15px;"> 
               <input type="text" class="form-control" placeholder="Rt"
               name="rtpasien" id="rtpasien" required value="<?= $detail[0]['rt'] ?>">
             </div>
-            <div class="col-lg-1  ">
+            <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control" placeholder="Rw"
               name="rwpasien" id="rwpasien" required value="<?= $detail[0]['rw'] ?>">
             </div>
@@ -187,7 +164,7 @@
           <div class="form-group row">
             <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
             
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <select class="select2 form-control block kecamatan" id="kd_kecamatanpasien" name="kd_kecamatanpasien" style="width: 100%">
                <option>Pilih Kecamatan</option>
                <?php if (!empty($kecamatan)) {
@@ -197,7 +174,7 @@
               } ?>
             </select>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
             <select class="select2 form-control block kelurahan" id="kd_kelurahanpasien" name="kd_kelurahanpasien" style="width: 100%">
               <option>Pilih Kelurahan</option>
             </select>
@@ -205,15 +182,15 @@
         </div>
         <div class="form-group row">
           <label class="col-lg-3 label-control" for="notelp">Informasi Kontak</label>
-          <div class="col-lg-2">
+          <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
             <input type="text" class="form-control" placeholder="No Telp"
             name="teleponpasien" id="teleponpasien" required value="<?= $detail[0]['telepon'] ?>">
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
             <input type="text" class="form-control" placeholder="No Whatsapp"
             name="whatsappasien" id="whatsapppasien" required value="<?= $detail[0]['whatsapp'] ?>">
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
             <input type="email" class="form-control" placeholder="Email"
             name="emailpasien" id="emailpasien" required value="<?= $detail[0]['email'] ?>">
           </div>
