@@ -173,7 +173,7 @@ public function proses_update_bayar(){
             $this->db->update_batch('sjp',$dataklaim,'id_sjp');
             redirect ('Dinkes/pengajuan_klaim/4', 'refresh');
         }
-        public function rekapitulasi_sjp(){
+        public function rekapitulasi_sjp(){h
             $path = "";
             $data = array(
                 "page"    => $this->load("Rekapitulasi SJP", $path) ,
