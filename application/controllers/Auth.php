@@ -48,7 +48,7 @@ class Auth extends CI_Controller {
 	    $password 	= $this->input->post('password'); 
 	    $user 		= $this->M_login->readBy($username);
 	    // var_dump($user);die;
-          //   echo  $this->encryption->encrypt($password);die; 
+          //  echo  $this->encryption->encrypt($password);die; 
           // echo "<br><br>";
             // echo $this->encryption->decrypt($user->password);
            // echo $password;die;
