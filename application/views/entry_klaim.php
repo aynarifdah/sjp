@@ -72,8 +72,8 @@
           </table>
           </div>
           
-          <button type="button" style="float: right;  margin-left: 5px;" class="btn btn-danger btn-sm" id=""></i>Batal</button>&nbsp;&nbsp;&nbsp;
-          <button type="button" style="float: right; margin-left: 5px;" class="btn btn-warning btn-sm" id=""></i>Simpan Sebagai Draft</button>&nbsp;&nbsp;&nbsp;
+         <!--  <button type="button" style="float: right;  margin-left: 5px;" class="btn btn-danger btn-sm" id=""></i>Batal</button>&nbsp;&nbsp;&nbsp;
+          <button type="button" style="float: right; margin-left: 5px;" class="btn btn-warning btn-sm" id=""></i>Simpan Sebagai Draft</button>&nbsp;&nbsp;&nbsp; -->
           <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm" id="simpanklaim"></i>Ajukan Klaim</button></a>
         </div>
       </form>

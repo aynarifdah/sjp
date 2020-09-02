@@ -124,7 +124,7 @@ echo $a - $b;
               <?php if (!empty($key['tanggal_survey'])) {?>
               <tr>
                 <th scope="row">Hasil Survey</th>
-                <td><h5><strong><span class="hasil">4</span><span>/</span><span class="persyaratan">15</span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5></td>
+                <td><h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5></td>
               </tr>
               <tr>
                 <th scope="row">Surveyor</th>

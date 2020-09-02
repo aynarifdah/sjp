@@ -96,7 +96,7 @@
                             <td><input type="hidden" class="ceklist_survey" value="<?php echo $key->id_ceklist_survey?>" name="ceklist_survey[]"><?php echo $key->ceklist_survey?></td>
                             <td><fieldset class="form-group position-relative"> 
                               <select class="form-control opsi"  name="opsi[]">
-                                <option value="">Pilih Keterangan</option>
+                                <option value="0">Pilih Keterangan</option>
                                 <?php if(!empty($opsi)){
                                   foreach ($opsi as $op ) {
                                     if ($op->id_ceklist_survey == $key->id_ceklist_survey) {
@@ -105,7 +105,7 @@
                                       <?php  } } }?>
                                     </select>
                                   </fieldset>
-                                  <input type="hidden" name="bobot[]" value="" class="bobot">
+                                  <input type="hidden" name="bobot[]" value="0" class="bobot">
                                 </td>
                                 <?php } ?>
                               </tr>
@@ -159,12 +159,14 @@
         $('.opsi').each(function(index) {
           $('.opsi').eq(index).change(function() {
             var opsi = $(this).val();
+            //console.log (opsi);
             $.ajax({
               url: "<?php echo base_url(); ?>Home/getbobot", 
               method : "POST",
               dataType : "JSON",
               data : {idopsi : opsi},
               success: function(result){
+                //console.log(result)
                 $('.bobot').eq(index).val(result);
                 if (result == 0) {
                  $('.opsi').eq(index).removeClass('activegreen');
@@ -187,11 +189,12 @@
 
       });    
             var bobotisi = $('.bobot').eq(index).val();
+            //console.log(bobotisi);
             if (bobotisi != '') {
               countopsi.push(bobotisi);
 
             }
-     // console.log(countopsi);
+      // console.log(countopsi);
        //  
      })
         })
@@ -199,8 +202,10 @@
          var bobot = [];
          $('.bobot').each(function(i, e) {
            var bobotval = $(this).val();
+           // console.log(bobotval);
            bobot.push(+bobotval);
          });
+         // console.log(bobot);
          var countbobot =  bobot.reduce(myFunc);
          $('.hasil').html(countbobot);
          $('.persyaratan').html(bobot.length);

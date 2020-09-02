@@ -750,7 +750,7 @@ public function getDataUserDinkes(){
 
 public function getKelurahan(){
     $KecId = $this->input->post('id');
-    $kel   = $this->M_SJP->wilayah('kelurahan', $KecId);
+    $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
     echo json_encode($kel);
 }
 

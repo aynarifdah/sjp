@@ -41,7 +41,7 @@ th {
        
             <div class="row" style="padding-left: 15px; padding-right: 15px;">
          
-          <div class="col-lg-3 filter">
+        <!--   <div class="col-lg-3 filter">
             <select name="rs" id="rs" class="form-control">
               <option value="">Rumah Sakit</option>
               <?php if (!empty($rs)): ?>
@@ -59,7 +59,7 @@ th {
                 <i class="ft-search"></i>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
        <section id="configuration" style="padding: 10px;">

@@ -303,8 +303,13 @@ public function getbobot($idopsi)
   $this->db->select('bobot');
   $this->db->from('opsi_ceklist');
   $this->db->where('id_opsi_ceklist',$idopsi);
-  $query = $this->db->get()->row()->bobot;
-  return $query;
+  $query = $this->db->get();
+  if ($query->num_rows() > 0 ) {
+    return $query->row()->bobot;
+  }else{
+    return "0";  
+  }
+  
 }
 
 
@@ -403,6 +408,20 @@ public function wilayah($param, $KecId = null)
   $this->db->select('kecamatan, kelurahan, kd_kecamatan, kd_kelurahan, jenis');
   $this->db->from('d_wilayah');
   $this->db->where('jenis', $param);
+  //$this->db->group_by('kecamatan');
+  if (!empty($KecId)) {
+    $this->db->where('kecamatan', $KecId);
+  }
+        // $this->db->group_by('kecamatan, kelurahan');
+  $query = $this->db->get()->result_array();
+  return $query;
+}
+public function wilayah_kelurahan($param, $KecId = null)
+{
+  $this->db->select('kecamatan, kelurahan, kd_kecamatan, kd_kelurahan, jenis');
+  $this->db->from('d_wilayah');
+  $this->db->where('jenis', $param);
+   //$this->db->group_by('kecamatan');
   if (!empty($KecId)) {
     $this->db->where('kecamatan', $KecId);
   }
@@ -1230,7 +1249,7 @@ public function view_permohonanklaim_rs($mulai=Null,$akhir=Null,$rs=Null,$status
     $this->db->where('sk.id_statusklaim =', $status);
   }
   if (!empty($cari)) {
-    $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
+    $this->db->like('CONCAT(pp.nama_pemohon)', $cari);
   }
 
   $this->db->where('id_status_pengajuan',6);
