@@ -108,6 +108,13 @@ class Rs extends CI_Controller {
 
 
 }
+public function gethasilsurvey()
+{
+    $id_puskesmas = 1;
+    $id_sjp = $this->input->post('id_sjp');
+    $data = $this->M_SJP->gethasilsurvey($id_sjp, $id_puskesmas);
+    echo json_encode($data);
+}
 
 public function entry_klaim(){
   if (!empty($this->input->get('get'))) {

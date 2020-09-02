@@ -146,7 +146,7 @@ public function permohonan_sjp()
     $data = array (
        'topik'      => $this->M_SJP->diagnosa(),
        'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-       'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+       'kecamatan'  => $this->M_SJP->wilayah_kelurahan('kecamatan'),
        'rumahsakit' => $this->M_SJP->rumahsakit(),
        'kelas_rawat' => $this->M_SJP->kelas_rawat(),
        'jenisjaminan' => $this->M_SJP->jenisjaminan(),
