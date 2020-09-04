@@ -427,7 +427,18 @@ echo $a - $b;
                 </ul>
               </td>
 
-              <td><?= number_format($key['nominal_klaim']); ?></td>
+              <td><?php
+              if(isset($key)  &&  !empty($key)){
+                echo number_format($key['nominal_klaim']);
+            
+              }
+              
+              else{
+     echo  "0";
+}
+              ?>
+                
+              </td>
               <td><?= number_format($key['nominal_pembiayaan']); ?></td>
 
               <td><?php if ($key['id_status_pengajuan'] == 1) {
