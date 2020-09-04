@@ -378,6 +378,10 @@ echo $a - $b;
                 <th scope="row">Rumah Sakit</th>
                 <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
               </tr>
+              <tr>
+                <th scope="row">Mulai/Selesai Rawat</th>
+                <td class="border-top-0"><?php echo strtoupper($key['mulai_rawat']); ?> <b>s/d</b> <?php echo strtoupper($key['selesai_rawat']); ?></td>
+              </tr>
                <tr>
                 <th scope="row" class="border-top-0">Jenis Rawat</th>
                 <td class="border-top-0"><?php echo strtoupper($key['jenis_rawat']); ?></td>
