@@ -920,7 +920,7 @@ public function getPuskesmas(){
               <tr>
                 <td  style="width: 30%">Dirawat di</td>
                 <td style="width: 5%">:</td>
-                <td>'.$sjp[0]->nama_rumah_sakit.'</td>
+                <td>'.$sjp[0]->nama_kelas.'</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Dilakukan</td>
