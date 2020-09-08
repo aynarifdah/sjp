@@ -4,7 +4,7 @@
 
          <li class=" nav-item"><a href="<?php echo base_url('Home/pengajuan');?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
         </li>
-        <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span></a>
+        <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span><i class="fa fa-phone"></i></a>
           <ul class="menu-content">
 
             <li><a class="menu-item" href="<?php echo base_url('Home/permohonan_baru');?>" data-i18n="nav.templates.horz.main">Pengajuan Baru</a></li>

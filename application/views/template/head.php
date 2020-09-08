@@ -47,7 +47,7 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/css/forms/icheck/custom.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/css/plugins/forms/checkboxes-radios.css">
 
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/js/gallery/photo-swipe/photoswipe.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/js/gallery/photo-swipe/photoswipee.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/css/pages/gallery.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/css/bootstrap-select.css">

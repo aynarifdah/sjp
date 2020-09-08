@@ -220,13 +220,15 @@
         <div class="form-group row">
           <label class="col-lg-3 label-control" for="notelp">Informasi Sakit</label>
           <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">                        
-            <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required>
+            <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required style="width: 100%">
              <option value="">Pilih Rumah Sakit</option>
+
              <?php if (!empty($rumahsakit)) {
               foreach ($rumahsakit as $key) {?>
               <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
               <?php }
-            } ?> 
+                    } ?> 
+
           </select>
         </div>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;"> 
@@ -263,7 +265,7 @@
         <div class="col-lg-9  mb-2 contact-repeater">
           <div data-repeater-list="repeater-group">
             <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
-              <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik"  style="width: 30%">
+              <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik"  style="width: 100%; padding: 10px; ">
                <option>Pilih Topik</option>
                <?php if (!empty($topik)) {
                 foreach ($topik as $key) {?>
@@ -271,7 +273,7 @@
                 <?php }
               } ?>
             </select>
-            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa"  name="diagnosa" style="width: 60%">
+            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa"  name="diagnosa" style="width: 85%; ">
               <option>Pilih Diagnosa</option>
               <?php if (!empty($diagnosa)) {
                 foreach ($diagnosa as $key) {?>
@@ -279,9 +281,6 @@
                 <?php }
               } ?>
             </select>
-
-            
-
 
             <span class="input-group-append" id="button-addon2">
               <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>

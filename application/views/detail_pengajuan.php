@@ -333,8 +333,9 @@ echo $a - $b;
                 <td><?php echo strtoupper($key['pekerjaan']); ?></td>
               </tr>
             </tbody>
-          </table><br>
-          <table class="table mb-0 ">
+          </table>
+
+          <table class="table" style="width: 100%;">
             <div class="row">
               <h5>informasi pemohon</h5>
             </div>
@@ -344,23 +345,18 @@ echo $a - $b;
                 <td class="border-top-0"><?php echo strtoupper($key['nama_pemohon']); ?></td>
               </tr>
               <tr>
-                <th scope="row">Alamat</th>
-                <td><?php echo strtoupper($key['alamatpemohon']); ?>, KEC. <?php echo strtoupper($key['kecpemohon']); ?>, KEL. <?php echo strtoupper($key['kelpemohon']); ?>, RT/RW : <?php echo strtoupper($key['rtpemohon']); ?>/<?php echo strtoupper($key['rwpemohon']); ?></td>
+                <th scope="row" class="border-top-0">Alamat</th>
+                <td class="border-top-0"><?php echo strtoupper($key['alamatpemohon']); ?>, KEC. <?php echo strtoupper($key['kecpemohon']); ?>, KEL. <?php echo strtoupper($key['kelpemohon']); ?>, RT/RW : <?php echo strtoupper($key['rtpemohon']); ?>/<?php echo strtoupper($key['rwpemohon']); ?></td>
               </tr>
               <tr>
                 <th scope="row">Email</th>
                 <td><?php echo strtoupper($key['emailpemohon']); ?></td>
               </tr>
-              <tr>
-                <th scope="row">Telepon/Whatsapp</th>
-                <td><?php echo strtoupper($key['telpemohon']); ?> / <?php echo strtoupper($key['wapemohon']); ?></td>
-              </tr>
-              <tr>
-                <th scope="row">Status Hubungan Dengan Pasien</th>
-                <td><?php echo strtoupper($key['status_hubungan']); ?></td>
-              </tr>
             </tbody>
           </table>
+          
+
+   
  
         </div>
         <div class="tab-pane paneldetail" id="tabIcon2" aria-labelledby="baseIcon-tab2">
@@ -501,10 +497,11 @@ echo $a - $b;
         
          <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
            <a href="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" itemprop="contentUrl" data-size="480x360">
-            <img class="img-thumbnail img-fluid" height="200" width="200" src="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>"
-            itemprop="thumbnail" alt="Image description" />
+            <img class="img-thumbnail img-fluid"src="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-size="480x360" widht="100" height="200"
+            itemprop="thumbnail" alt="Image description"/>
           </a>
         </figure>
+
         <?php }
       } ?>
     </div>

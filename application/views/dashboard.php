@@ -103,7 +103,7 @@ th {
               </div>
             </div>
             <div class="col-lg-4 col-12  col-sm-6">
-            <div class="card pull-up">
+            <div class="card pull-up" style="border-radius: 10px;">
               <div class="card-content">
                 <div class="card-body bg-warning" style="border-radius: 10px;">
                   <div class="media d-flex">
@@ -119,7 +119,7 @@ th {
                 </div>
               </div>
             </div>
-            <div class="card pull-up">
+            <div class="card pull-up" style="border-radius: 10px;">
               <div class="card-content">
                 <div class="card-body bg-info" style="border-radius: 10px;">
                   <div class="media d-flex">
@@ -137,7 +137,7 @@ th {
             </div>
           </div>
           <div class="col-lg-4 col-12">
-            <div class="card pull-up">
+            <div class="card pull-up" style="border-radius: 10px;">
               <div class="card-content">
                 <div class="card-body bg-success" style="border-radius: 10px;">
                   <div class="media d-flex">
@@ -153,7 +153,7 @@ th {
                 </div>
               </div>
             </div>
-            <div class="card pull-up">
+            <div class="card pull-up" style="border-radius: 10px;">
               <div class="card-content">
                 <div class="card-body bg-danger" style="border-radius: 10px;">
                   <div class="media d-flex">
