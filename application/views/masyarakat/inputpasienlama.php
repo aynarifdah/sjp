@@ -1,64 +1,20 @@
 <div class="container">
   <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
   <h4 class="text-center">Silahkan Isi Data Pasien</h4>
-<hr>
-   <div class="card-body">
-            <form action="<?php echo base_url('masyarakat/input_pasien'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
-               <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////-->
-               <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////--> 
-                <div class="form-group row">
-                 <label class="col-lg-3 label-control" for="namalengkap">NIK Pasien</label>
-                  <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control kontrakform" placeholder="Isikan Nomor Induk Kependudukan"
-                    name="nik" id="nik" required> 
+  <div class="alert alert-info mt-5" role="alert" >
+    <p style="color: white;">Contoh No. NIK 0101xxxxxxxxxxxxx31</p> 
+  </div>
+  <form class="mt-5 mb-5">
+
+    <div class="form-group row">
+                 <label class="col-lg-3 label-control" for="namalengkap">NIK* (Nomor Induk Kependudukan)</label>
+                  <div class="col-lg-9" style="padding: 0px 15px 5px 15px;">
+                    <input type="text" class="form-control kontrakform" placeholder="Nomor Induk Kependudukan"
+                    name="nama_pemohon" id="namapemohon" required> 
                   </div>
-                  <input type="hidden" id="idsjp"> <!-- add id sjp jika nik ditemukan -->
-                <input type="hidden" id="statussjp"> <!-- jangan dihapus untuk membedakan sjp lama dan baru dari hasil cek nik -->
-                </div>
-              <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pemohon</strong></h4>
-              <fieldset class="mt-2">
-                <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap"
-                    name="namalengkappemohon" id="namalengkappemohon" required> 
-                  </div>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jeniskelaminpemohon" id="jeniskelaminpemohon" class="form-control" required>
-                      <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
-                      <option value="Laki-Laki">Laki - Laki</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
-                  <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Telp"
-                    name="teleponpemohon" id="teleponpemohon" required>
-                  </div>
-                  <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Whatsapp"
-                    name="whatsapppemohon" id="whatsapppemohon">
-                  </div>
-                  <div class="col-lg-4" style="padding: 0px 15px 5px 15px;">
-                    <input type="email" class="form-control" placeholder="Email"
-                    name="emailpemohon" id="emailpemohon">
-                  </div>
-                </div>
-                  <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="namalengkap">Status Hubungan Dengan Pasien*</label>
                  
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="statushubungan" id="statushubungan" class="form-control" required>
-                      <option value="">Pilih Status</option>
-                      <option value="Anak">Anak</option>
-                      <option value="Istri">Istri</option>
-                      <option value="Suami">Suami</option>
-                      <option value="Keluarga Lain">Keluarga Lain</option>
-                    </select>
-                  </div>
                 </div>
+
      
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw*</label>
@@ -331,150 +287,18 @@
 
 </form>
 </div>
+
+    <button type="button" class="btn btn-primary" name="button">Submit</button>
+  </form>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/css/forms/selects/select2.min.css">
-<script src="<?= base_url()?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script> 
-<script src="<?= base_url()?>app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
-<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
 <script type="text/javascript">
- $('.skin-polaris input').iCheck({
-  checkboxClass: 'icheckbox_polaris',
-  increaseArea: '-10%'
-});
-  // Multiple Select Placeholder
-  function diagnosa2() {
-    $('.kd_diagnosa').select2({
-      placeholder: "Pilih penyakit",
-    });
-  }
-  $(".select2").select2();
-  $(document).ready(function(){
-      //getkelurahan();
-      diagnosapenyakit();
-      diagnosa2();
-     // $('.diagnosalainnya').hide();
-    });
-  $('#kd_kecamatanpemohon').change(function(){
-    getkelurahan();
-  })
-  function getkelurahan() {
-    var data = $('#kd_kecamatanpemohon').val();
-    $.ajax({
-      url : "<?= base_url();?>/masyarakat/getKelurahan",
-      method : "POST",
-      data : {id: data},
-      async : false,
-      dataType : 'json',
-      success: function(data){
-        var html = '<option>Pilih Kelurahan</option>';
-        var i;
-        for(i=0; i<data.length; i++){
-          html += '<option value = "'+data[i].kelurahan+'">'+data[i].kelurahan+'</option>';
-        }
-        $('#kd_kelurahanpemohon').html(html);
 
-      }
-    });
-  }
-  // $('.checkbox').on('ifChecked', function (event) {
-  //   $('.diagnosalainnya').show();
-  // });
-
-  // $('.checkbox').on('ifUnchecked', function (event) {
-  //   $('.diagnosalainnya').hide();
-  // });
-  $('.add').click(function (argument) {
-    diagnosapenyakit();
-    diagnosa2();
-    $('.skin-polaris input').iCheck({
-      checkboxClass: 'icheckbox_polaris',
-      increaseArea: '-10%'
-    });
-  });
-  function diagnosapenyakit() {
-   $('.diagnosapenyakit').each(function(index) {
-    $('.kd_topik').select2({
-     placeholder: "Pilih Topik"
-   }).eq(index).on('select2:select', function (evt) {
-    var data = $(this).val();
-    $.ajax({
-      url : "<?= base_url();?>/masyarakat/getDiagnosa",
-      method : "POST",
-      data : {id: data},
-      async : false,
-      dataType : 'json',
-      success: function(data){
-        var html = '<option>Pilih Diagnosa</option>';
-        var i;
-        for(i=0; i<data.length; i++){
-          html += '<option value = "'+data[i].namadiag+'">'+data[i].namadiag+'</option>';
-        }
-        $('.kd_diagnosa').eq(index).html(html);
-
-      }
-    });
-  });
- });
- }
-    //  $('.add').click(function() {
-    //       $('.kd_topik').each(function(index) {
-    //         //console.log(index)
-    //   $('.kd_topik').eq(index).change(function(){
-
-    // })
-    // })
-    //  })
-
-
-    function getdiagnosa() {
-      var data = $('#kd_topik').val();
-      $.ajax({
-        url : "<?= base_url();?>/masyarakat/getDiagnosa",
-        method : "POST",
-        data : {id: data},
-        async : false,
-        dataType : 'json',
-        success: function(data){
-          var html = '<option>Pilih Diagnosa</option>';
-          var i;
-          for(i=0; i<data.length; i++){
-            html += '<option value = "'+data[i].namadiag+'">'+data[i].namadiag+'</option>';
-          }
-          $('#kd_diagnosa').html(html);
-
-        }
-      });
-    }
-    $('#kd_kecamatanpasien').change(function(){
-      getkelurahanpasien();
-    })
-    function getkelurahanpasien() {
-      var data = $('#kd_kecamatanpasien').val();
-      $.ajax({
-        url : "<?= base_url();?>/masyarakat/getKelurahan",
-        method : "POST",
-        data : {id: data},
-        async : false,
-        dataType : 'json',
-        success: function(data){
-          var html = '<option>Pilih Kelurahan</option>';
-          var i;
-          for(i=0; i<data.length; i++){
-            html += '<option value = "'+data[i].kelurahan+'">'+data[i].kelurahan+'</option>';
-          }
-          $('#kd_kelurahanpasien').html(html);
-
-        }
-      });
-    }
     // $('#simpanpengajuan').click(function() {
     //   var tes = $('.sjpform').serialize();
     //   console.log(decodeURIComponent(tes));
@@ -547,4 +371,7 @@
    $(document).ready(function() {
     //$('.js-example-basic-multiple').select2({placeholder: "Pilih Diagnosa"});
   });
+</script>
+
+  })
 </script>

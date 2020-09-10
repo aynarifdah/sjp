@@ -451,6 +451,7 @@ public function detail_permohonansjp($idsjp,$id_puskesmas = null)
   return $query;
 }
 
+
   public function ceknik($nik)
   {
     $this->db->select('*');
@@ -1290,15 +1291,6 @@ public function editSJP($id,$data){
     return false;
   }
 }
-
-  // public function ceknik($nik)
-  // {
-  //   $this->db->select('*');
-  //   $this->db->from('sjp');
-  //   $this->db->where('nik', $nik);
-  //   $query = $this->db->get()->result_array();
-  //   return $query;
-  // }
 
 
 }
