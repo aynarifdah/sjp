@@ -226,14 +226,14 @@
           </select>
         </div>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;"> 
-          <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
+          <select name="jenisrawat" id="jenisrawat" class="form-control" style="width: 100%" required>
             <option value="">Pilih Jenis Rawat</option>
             <option value="Rawat Inap">Rawat Inap</option>
             <option value="Rawat Jalan">Rawat Jalan</option>
           </select>
         </div>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-          <select name="kelas_rawat" id="kelas_rawat" class="form-control" style="width: 100%">
+          <select name="kelasrawat" id="kelasrawat" class="form-control" style="width: 100%">
             <option value="">Pilih Kelas Rawat</option>
             <?php if (!empty($kelas_rawat)) {
               foreach ($kelas_rawat as $key) {?>
@@ -259,7 +259,7 @@
         <div class="col-lg-9  mb-2 contact-repeater">
           <div data-repeater-list="repeater-group">
             <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
-              <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik"  style="width: 30%">
+              <select class="js-example-basic-multiple kd_topik multiple" id="topik" name="topik"  style="width: 30%">
                <option>Pilih Topik</option>
                <?php if (!empty($topik)) {
                 foreach ($topik as $key) {?>
@@ -267,7 +267,7 @@
                 <?php }
               } ?>
             </select>
-            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa"  name="diagnosa" style="width: 60%">
+            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="diagnosa"  name="diagnosa" style="width: 60%">
               <option>Pilih Diagnosa</option>
               <?php if (!empty($diagnosa)) {
                 foreach ($diagnosa as $key) {?>
@@ -496,13 +496,13 @@
           $('.datasjp');
 
           // data pasien
-          $('#jenisjaminan').val(data.nama_jenis);
+          $('#jenisjaminan option[value='+data.id_jenissjp+']').attr('selected','selected');
           $('#namalengkap').val(data.nama_pasien);
           $('#jeniskelamin option[value='+data.jenis_kelamin+']').attr('selected','selected');
           $('#tempatlahir').val(data.tempat_lahir);
           $('#tanggallahir').val(data.tanggal_lahir);
           $('#pekerjaan').val(data.pekerjaan);
-          $('#golongandarah').val(data.golongan_darah);
+          $('#golongandarah option[value='+data.golongan_darah+']').attr('selected','selected');
           $('#alamat').val(data.alamat);
           $('#rw').val(data.rw);
           $("#rt").val(data.rw).trigger('change');
@@ -511,9 +511,15 @@
           $('#telepon').val(data.telepon);
           $('#whatsapp').val(data.whatsapp);
           $('#email').val(data.email);
-          $("#rumahsakit").val(data.nama_rumah_sakit).trigger('change');
+          $("#rumahsakit").val(data.id_rumah_sakit).trigger('change');
+          $('#jenisrawat option[value='+data.jenis_rawat+']').attr('selected','selected');
+          $("#kelasrawat").val(data.id_kelas).trigger('change');
           $('#mulairawat').val(data.mulai_rawat);
-           $('#akhirrawat').val(data.selesai_rawat);
+          $('#akhirrawat').val(data.selesai_rawat);
+          $('#topik option[value='+data.topik+']').attr('selected','selected');
+          $('#diagnosa option[value='+data.namadiag+']').attr('selected','selected');
+          $('#akhirrawat').val(data.selesai_rawat);
+          
           if (data.Foto != null) {
             $('#showq').attr('src', '<?= base_url();?>'+data.Foto);
           }
