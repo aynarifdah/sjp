@@ -13,11 +13,12 @@
       </ul>
         <ul class="navbar-nav my-2 my-lg-0">
           <li class="nav-item">
-            <a class="nav-link ml-5 text-primary" href="<?php echo site_url() ?>">Beranda</a>
+            <a class="nav-link ml-5 text-primary" href="">Beranda</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-primary" href="#">Informasi</a>
-          </li>
+         <!--  <li class="nav-item">
+            <a class="nav-link text-primary" href="#">Feedback</a>
+          </li> -->
+           
           <!-- <li class="nav-item">
             <a class="nav-link text-primary" href="#">Cek Status</a>
           </li> -->
@@ -31,3 +32,4 @@
     </div>
   </div>
 </nav>
+ <script src="<?php echo base_url('app-assets/js/scripts/modal/components-modal.js');?>" type="text/javascript"></script>

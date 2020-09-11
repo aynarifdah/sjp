@@ -1,7 +1,6 @@
 
     <div class="container">
-  <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
-  <h4 class="text-center">Silahkan Isi Data Pasien</h4><br>
+
 <section id="number-tabs">
   <div class="row">
     <div class="col-12">
@@ -18,6 +17,8 @@
             </ul>
           </div>
         </div> -->
+          <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
+  <h4 class="text-center">Silahkan Isi Data Pasien</h4><br>
         <div class="card-content collapse show">
           <div class="card-body">
             <form action="<?php echo base_url('masyarakat/input_pasien_lama'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
@@ -299,6 +300,7 @@
 
             <span class="input-group-append" id="button-addon2">
               <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
+
             </span>
             <br>
             <div class="row" style="width: 100%;">
@@ -339,7 +341,8 @@
             </div>
   </div>
  
-    <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" style="float: right;">
+    <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" style="float: right;"  onclick="return confirm('Apakah anda yakin? Data anda akan langsung dikirimkan ke Dinas Kesehatan.')">
+     
       <i class="ft-check-square"></i> Submit
     </button>
   </fieldset>
@@ -511,6 +514,7 @@
         success : function(datasjp) {
 
           var data = datasjp[0];
+
           if (datasjp.length > 0) {
             $('#statussjp').val('Lama'); //jika nik ditemukan di db maka pedagang lama
             $('#idsjp').val(data.Id);

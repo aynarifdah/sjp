@@ -1,60 +1,27 @@
-<div class="container">
-  <h2 class="text-center mt-4">CEK STATUS PENGAJUAN SJP</h2>
-  <h4 class="text-center">Silahkan Isi Data Pasien</h4>
+ <div class="container">
 
+<section id="number-tabs">
+  <div class="row">
+    <div class="col-12">
+
+      <div class="card">
+
+    <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
+  <h4 class="text-center">Silahkan Isi Data Pasien</h4><br>
+        <div class="card-content collapse show">
+          <div class="card-body">
   <form class="mt-5 mb-5" id="cek">
-
+ <h4 class="text-left ml-3"><i class="ft-file"></i> <strong>NIK</strong></h4>
     <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">NIK* (Nomor Induk Kependudukan)</label>
-                  <div class="col-lg-9" style="padding: 0px 15px 5px 15px;">
+                  <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control kontrakform" placeholder="Nomor Induk Kependudukan"
                     name="nik" id="nik"> 
                   </div>
                  
                 </div>
 
-             <!--    <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="namalengkap">Tanggal Lahir</label>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="date" class="form-control kontrakform" placeholder=" ISIKAN NAMA LENGKAP"
-                    name="nama_pemohon" id="namapemohon" required> 
-                  </div>
-                 
-                </div> -->
-  
-   <!--  <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Tanggal Kunjungan</label>
-      <div class="col-sm-9">
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-            </div>
-          </div>
-          <input type="date" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Jenis Bayar</label>
-      <div class="col-sm-9">
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fa fa-money" aria-hidden="true"></i>
-            </div>
-          </div>
-          <select class="form-control" id="jenis_bayar">
-            <option>-- Pilih Jenis Bayar --</option>
-            <option value="Bayar">Bayar</option>
-            <option value="BPJS">BPJS</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div id="jenis_bayar_value">
-    </div> -->
-    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+    <button type="submit" class="btn btn-primary" name="button" style="float: right;">Submit</button>
   </form>
    <div class="table-responsive">
         
@@ -64,12 +31,11 @@
           <thead>
             <tr>
               <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-              <th style="color: #6B6F82!important;">Pemohon</th>
-              <th style="color: #6B6F82!important;">Pasien</th>
-              <th>Tanggal<br> Pengajuan</th>
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Pemohon</th>
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Pasien</th>
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Tanggal<br> Pengajuan</th>
              
-              <th>Rumah <br>Sakit</th>
-        
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Rumah <br>Sakit</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
               
             </tr>
@@ -79,6 +45,12 @@
         </table>
         </section>
       </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

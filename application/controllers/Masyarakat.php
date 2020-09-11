@@ -274,7 +274,7 @@ private function load($title = '', $datapath = '')
         //     echo "<script>alert('Data Pasien GAGAL ditambahkan!')</script>";
         // }
 
-        redirect(site_url('masyarakat/index'));
+        redirect(site_url('masyarakat/feedback'));
         
 
         // $this->load->view('input_pasien');
@@ -502,7 +502,7 @@ private function load($title = '', $datapath = '')
         //     echo "<script>alert('Data Pasien GAGAL ditambahkan!')</script>";
         // }
 
-        redirect(site_url('masyarakat/index'));
+        redirect(site_url('masyarakat/feedback'));
         
 
         // $this->load->view('input_pasien');
@@ -564,5 +564,16 @@ public function ceknikk()
     ];
     echo json_encode($result);
   }
+
+  public function feedback()
+    {
+  $path = "";
+    $data = array(
+       "page"    => $this->load("feedback", $path) ,
+       "content" => $this->load->view('masyarakat/feedback', false, true)
+   );
+
+    $this->load->view('masyarakat/default_template', $data);
+   }
 
 }

@@ -5,6 +5,7 @@
   <div class="row">
     <div class="container">
       <div class="alert alert-info" role="alert">
+        
         <p style="color: white;">PERSYATANNYA, ANTARA LAIN :</p>
         <p style="color: white;">1. KTP (KARTU TANDA PENDUDUK)</p>
         <p style="color: white;">2. KK (KARTU KELUARGA)</p>
