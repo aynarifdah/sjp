@@ -21,7 +21,7 @@
                  
                 </div>
 
-    <button type="submit" class="btn btn-primary" name="button" style="float: right;">Submit</button>
+    <button type="submit" class="btn btn-dark" name="button" style="float: right;">Submit</button>
   </form>
    <div class="table-responsive">
         
@@ -51,6 +51,7 @@
 </div>
 </div>
 </section>
+  <a class="btn btn-dark btn-min-width mr-1 mb-1" style="margin-top: 30px;" href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

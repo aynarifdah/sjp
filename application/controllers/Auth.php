@@ -82,6 +82,9 @@ class Auth extends CI_Controller {
 	                case "4":
 	                    redirect('Dinsos/', 'refresh'); 
 	                    break;
+	                case "5":
+	                    redirect('Masyarakat/', 'refresh'); 
+	                    break;
 	                default:
 	                    echo "Error!";
 	            }

@@ -1,6 +1,8 @@
 <div class="container">
   <h2 class="text-center mt-4">SISTEM PENDAFTARAN ONLINE SJP</h2>
   <h4 class="text-center">Dokumen Persyaratan</h4>
+   <!-- <a class="btn btn-dark btn-min-width mr-1 mb-1" href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a> -->
+ <!--  <p> <a href="<?php echo base_url('masyarakat/index');?>">Kembali ke Home</a></p> -->
 <br>
   <div class="row">
     <div class="container">
@@ -16,4 +18,5 @@
       </div>
     </div>
   </div>
+  <a class="btn btn-dark btn-min-width mr-1 mb-1" style="margin-top: 30px;"href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a>
 </div>
