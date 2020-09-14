@@ -14,6 +14,7 @@ class Auth extends CI_Controller {
 
 	    //FUNGSI UNTUK MEMBUAT TEMPLATE
 	private function load($title = '', $datapath = ''){
+
 	    $page = array(
 	        "head"    => $this->load->view('template/head', array("title" => $title), true),
 	        "header"  => $this->load->view('template/header', false, true),

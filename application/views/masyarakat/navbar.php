@@ -12,9 +12,9 @@
 
       </ul>
         <ul class="navbar-nav my-2 my-lg-0">
-          <li class="nav-item">
+       <!--    <li class="nav-item">
             <a class="btn btn-primary btn-min-width mr-1 mb-1" href="<?php echo base_url('Auth/logout');?>"><i class="ft-power"></i>Log out</a>
-          </li>
+          </li> -->
          <!--  <li class="nav-item">
             <a class="nav-link text-primary" href="#">Feedback</a>
           </li> -->

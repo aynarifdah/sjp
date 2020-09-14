@@ -17,6 +17,15 @@ class Masyarakat extends CI_Controller {
     //FUNGSI UNTUK MEMBUAT TEMPLATE
 private function load($title = '', $datapath = '')
 {
+
+    
+        $session_user = $this->session->userdata();
+        $data = array (
+            'site' => 'Masyarakat',
+            'username' => 'masyarakat',
+            'avataruser' => '',
+            'list_menu' => '',
+        );
     $page = array(
         "head"    => $this->load->view('template/head', array("title" => $title), true),
         "header"  => $this->load->view('masyarakat/header', false, true),
