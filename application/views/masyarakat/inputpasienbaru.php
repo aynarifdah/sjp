@@ -343,6 +343,7 @@
 </div>
 </div>
 </section>
+<a class="btn btn-dark btn-min-width mr-1 mb-1" style="margin-top: 30px;"href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a>
 </div>
 </div>
 

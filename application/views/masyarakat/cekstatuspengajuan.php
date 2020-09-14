@@ -68,7 +68,7 @@ $('#cek').on("submit", function(e){
       e.preventDefault();
       var nik = $('#nik').val();
       if (nik=='') {
-        alert('Maaf')
+        alert('Maaf Anda Belum Memasukan Nomor NIK')
       }
       else{
         loaddata(nik);
