@@ -797,6 +797,8 @@ public function getPuskesmas(){
     echo json_encode($pus);
 }
 
+
+
  public function CetakTest($id_sjp)
     {
       // setlocale(LC_ALL, 'in_ID');

@@ -19,13 +19,13 @@ private function load($title = '', $datapath = '')
 {
 
     
-        $session_user = $this->session->userdata();
-        $data = array (
-            'site' => 'Masyarakat',
-            'username' => 'masyarakat',
-            'avataruser' => '',
-            'list_menu' => '',
-        );
+        // $session_user = $this->session->userdata();
+        // $data = array (
+        //     'site' => 'Masyarakat',
+        //     'username' => 'masyarakat',
+        //     'avataruser' => '',
+        //     'list_menu' => '',
+        // );
     $page = array(
         "head"    => $this->load->view('template/head', array("title" => $title), true),
         "header"  => $this->load->view('masyarakat/header', false, true),
@@ -584,5 +584,17 @@ public function ceknikk()
 
     $this->load->view('masyarakat/default_template', $data);
    }
+
+    public function getDataByNIK($nik) {
+         $url = 'https://dsw.depok.go.id/Html/ddata?nik='.$nik;
+
+         $ch = curl_init();
+         curl_setopt($ch, CURLOPT_URL, $url);
+         curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+         $output = curl_exec($ch);
+         curl_close($ch);
+         echo json_decode($output);
+    }
 
 }
