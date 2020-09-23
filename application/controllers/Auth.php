@@ -14,6 +14,7 @@ class Auth extends CI_Controller {
 
 	    //FUNGSI UNTUK MEMBUAT TEMPLATE
 	private function load($title = '', $datapath = ''){
+
 	    $page = array(
 	        "head"    => $this->load->view('template/head', array("title" => $title), true),
 	        "header"  => $this->load->view('template/header', false, true),
@@ -48,9 +49,9 @@ class Auth extends CI_Controller {
 	    $password 	= $this->input->post('password'); 
 	    $user 		= $this->M_login->readBy($username);
 	    // var_dump($user);die;
-            // echo  $this->encryption->encrypt($password);die; 
+          //  echo  $this->encryption->encrypt($password);die; 
           // echo "<br><br>";
-           // echo $this->encryption->decrypt($user->password); 
+            // echo $this->encryption->decrypt($user->password);
            // echo $password;die;
 	    if(empty($user)){ 
 	        $this->session->set_flashdata('message', '<div class="alert alert-warning fade show mb-1">Username tidak ditemukan !</div>'); 
@@ -81,6 +82,9 @@ class Auth extends CI_Controller {
 	                    break;
 	                case "4":
 	                    redirect('Dinsos/', 'refresh'); 
+	                    break;
+	                case "5":
+	                    redirect('Masyarakat/', 'refresh'); 
 	                    break;
 	                default:
 	                    echo "Error!";

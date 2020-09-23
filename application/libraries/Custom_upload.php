@@ -15,7 +15,7 @@ class Custom_upload {
 		$config = array(
 			'upload_path' => $upload_path,
 			'allowed_types' => $conf['allowed_types'],
-			'max_size' => 0,
+			'max_size' => 1000000,
 			'encrypt_name' => true
 		);
 		$this->CI->upload->initialize($config);
@@ -48,7 +48,7 @@ class Custom_upload {
 			$config = array(
 				'upload_path' => $upload_path,
 				'allowed_types' => $conf['allowed_types'],
-				'max_size' => 0,
+				'max_size' => 1000000,
 				'encrypt_name' => true
 			);
 			$this->CI->upload->initialize($config);

@@ -124,7 +124,7 @@ echo $a - $b;
               <?php if (!empty($key['tanggal_survey'])) {?>
               <tr>
                 <th scope="row">Hasil Survey</th>
-                <td><h5><strong><span class="hasil">4</span><span>/</span><span class="persyaratan">15</span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5></td>
+                <td><h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5></td>
               </tr>
               <tr>
                 <th scope="row">Surveyor</th>
@@ -375,6 +375,18 @@ echo $a - $b;
                 <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
               </tr>
               <tr>
+                <th scope="row">Mulai/Selesai Rawat</th>
+                <td class="border-top-0"><?php echo strtoupper($key['mulai_rawat']); ?> <b>s/d</b> <?php echo strtoupper($key['selesai_rawat']); ?></td>
+              </tr>
+               <tr>
+                <th scope="row" class="border-top-0">Jenis Rawat</th>
+                <td class="border-top-0"><?php echo strtoupper($key['jenis_rawat']); ?></td>
+              </tr>
+              <tr>
+                <th scope="row" class="border-top-0">Kelas Rawat</th>
+                <td class="border-top-0"><?php echo strtoupper($key['nama_kelas']); ?></td>
+              </tr>
+              <tr>
                 <th scope="row">Diagnosa</th>
                 <td><ul>
                   <?php if ($penyakit) {
@@ -423,7 +435,18 @@ echo $a - $b;
                 </ul>
               </td>
 
-              <td><?= number_format($key['nominal_klaim']); ?></td>
+              <td><?php
+              if(isset($key)  &&  !empty($key)){
+                echo number_format($key['nominal_klaim']);
+            
+              }
+              
+              else{
+     echo  "0";
+}
+              ?>
+                
+              </td>
               <td><?= number_format($key['nominal_pembiayaan']); ?></td>
 
               <td><?php if ($key['id_status_pengajuan'] == 1) {

@@ -750,7 +750,7 @@ public function getDataUserDinkes(){
 
 public function getKelurahan(){
     $KecId = $this->input->post('id');
-    $kel   = $this->M_SJP->wilayah('kelurahan', $KecId);
+    $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
     echo json_encode($kel);
 }
 
@@ -796,6 +796,8 @@ public function getPuskesmas(){
     $pus = $this->M_SJP->getPuskesmas();
     echo json_encode($pus);
 }
+
+
 
  public function CetakTest($id_sjp)
     {
@@ -873,7 +875,7 @@ public function getPuskesmas(){
 
          <span class="a">Nomor</span> <span class="b">:</span><span class="c">443.24/P2P/2020</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kepada :<br>
 
-         <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span>Yth. Direktur RSUP Fatmawati<br>
+         <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span>Yth. Direktur '.$sjp[0]->nama_rumah_sakit.'<br>
         <span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Di
  
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Tempat<br>
@@ -920,7 +922,7 @@ public function getPuskesmas(){
               <tr>
                 <td  style="width: 30%">Dirawat di</td>
                 <td style="width: 5%">:</td>
-                <td>'.$sjp[0]->nama_rumah_sakit.'</td>
+                <td>'.$sjp[0]->nama_kelas.'</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Dilakukan</td>

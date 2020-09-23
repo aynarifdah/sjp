@@ -48,14 +48,14 @@ th {
         </div>
         <div class="row" style="padding-left: 15px; padding-right: 15px;">
           <div class="col-lg-3 filter">
-            <label>Tanggal mulai :</label>
+            <label>Tanggal Pengajuan :</label>
             <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
           </div>
-          <div class="col-lg-3 filter">
+          <!-- <div class="col-lg-3 filter">
             <label>Tanggal akhir :</label>
             <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Akhir Referensi">
-          </div>
-          <?php if ($status_klaim <= 0): ?>
+          </div> -->
+         <!--  <?php if ($status_klaim <= 0): ?>
             <div class="col-lg-3 filter">
               <label>Status Klaim</label>
               <select name="status" id="status" class="form-control">
@@ -67,7 +67,7 @@ th {
                 <?php endif ?>
               </select>
             </div>
-          <?php else: ?>
+          <?php else: ?> -->
             <input type="hidden" name="status" id="status" value="">
           <?php endif ?>
           <?php if ($this->session->userdata('level') == 1 ): ?>
@@ -88,7 +88,7 @@ th {
           <div class="col-lg-3 filter">
             <label>Cari</label>
             <div class="position-relative has-icon-left">
-              <input type="text" class="form-control" name="cari" id="cari" placeholder="Cari Nama, No Referensi, No SJP">
+              <input type="text" class="form-control" name="cari" id="cari" placeholder="Cari Nama Pasien, Pemohon, No Surat">
               <div class="form-control-position">
                 <i class="ft-search"></i>
               </div>

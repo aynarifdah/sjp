@@ -119,7 +119,7 @@
             <label class="col-lg-3 label-control" for="nik">NIK</label>
             <div class="col-lg-3" >
               <input type="text" class="form-control" placeholder="NIK"
-              name="nik" id="nikpasien">
+              name="nik" id="nik">
             </div>
           </div>
           <div class="form-group row">
@@ -461,6 +461,57 @@
         }
       });
     }
+
+             $('#nik').change(function() {
+    var nik = $(this).val();
+    $.ajax({
+        url : "getDataByNIK/"+nik,
+        type : 'GET',
+        beforeSend: function(){
+          $('#loader_form').show();
+        },
+        complete: function(){
+            $('#loader_form').hide();
+        },
+        success : function(data) {
+          var json_data = JSON.parse(data);
+          var api_data = json_data.content[0];
+          if (api_data.hasOwnProperty('RESPONSE_CODE')) {
+            alert(api_data.RESPONSE_DESC+'. Masukkan data secara manual');
+          } else {
+            $('#namapasien').val(api_data.NAMA_LGKP);
+            // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
+            $('#tanggallahirpasien').val(api_data.TGL_LHR);
+            $('#tempatlahirpasien').val(api_data.TMPT_LHR);
+            $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
+            $('#alamatpasien').val(api_data.ALAMAT);
+            $('#rtpasien').val(api_data.NO_RT);
+            $('#rwpasien').val(api_data.NO_RW);
+            $("#"+api_data.AGAMA).attr('selected', true);
+            $("#jeniskelaminkpasien"+api_data.JENIS_KLMIN).attr('checked',true);
+            $('#Kecamatan').remove();
+            $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="'+api_data.KEC_NAME+'">');
+            var kelurahan = '';
+            kelurahan += '<div class="form-group row kecamatan_value">';
+            kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
+            kelurahan += '<div class="col-sm-9">';
+            kelurahan += '<div class="input-group mb-2">';
+            kelurahan += '<div class="input-group-prepend">';
+            kelurahan += '<div class="input-group-text">';
+            kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
+            kelurahan += '</div>';
+            kelurahan += '</div>';
+            kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="'+api_data.KEL_NAME+'">';
+            kelurahan += '</div>';
+            kelurahan += '</div>';
+            kelurahan += '</div>';
+            $('#kecamatan_value').append(kelurahan);
+          }
+          console.log(api_data);
+        },
+    });
+
+  })
     $('#kd_kecamatanpasien').change(function(){
       getkelurahanpasien();
     })
@@ -569,6 +620,8 @@
             }).data( "ui-autocomplete" )._renderItem = function( ul, item ){
               return $( "<li>" ).append("<a>" + item.sub +"</a>" ).appendTo(ul);
             };
+
+   
   </script>
 
   <script>
