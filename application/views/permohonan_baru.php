@@ -48,7 +48,7 @@ th {
 
         </div>
         <div class="row" style="padding-left: 15px; padding-right: 15px;">
-          <?php if ($this->session->userdata('level')==1): ?>
+        <!--   <?php if ($this->session->userdata('level')==1): ?>
             <div class="col-lg-3 filter">
               <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
                 <option value="" selected>Semua Puskesmas</option>
@@ -59,7 +59,7 @@ th {
                 <?php endif ?>
               </select>
             </div>
-          <?php endif ?>
+          <?php endif ?> -->
           <div class="col-lg-3 filter">
             <select name="rs" id="rs" class="form-control">
               <option value="" selected>Semua Rumah Sakit</option>
@@ -252,11 +252,9 @@ th {
     url: ' <?php echo base_url("Home/getnewdatapermohonan");?>',
     method: 'POST',
     "data": function(d) {
-          <?php if ($this->session->userdata('level')==1): ?>
-            d.puskesmas = $("#puskesmas").val();
-          <?php else: ?>
+          
             d.puskesmas  = <?= $this->session->userdata('id_join') ?>;
-          <?php endif ?>
+         
           d.rs         = $("#rs").val();
           d.status     = 2;
           d.cari       = $("#cari").val();

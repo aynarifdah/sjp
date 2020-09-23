@@ -69,9 +69,10 @@ class Rs extends CI_Controller {
     ];
     echo json_encode($result);
 }
- public function detail_pengajuan($idsjp, $id_pengajuan){
+ public function detail_pengajuan($idsjp, $id_pengajuan, $id_puskesmas){
     $level = $this->session->userdata('level');
-    $id_puskesmas = 1;
+    $id_instansi = $this->session->userdata("instansi");
+    $id_join     = $this->session->userdata("id_join");
     $id_jenis_izin = 1;
     $path = "";
     $data['page'] = $this->load("Detail Pengajuan", $path);
@@ -89,11 +90,11 @@ class Rs extends CI_Controller {
         'hl.id_instansi'  => $this->session->userdata('instansi')
     ];
     $data['riwayat_cetak'] = $this->M_log->getLast_log($kondisi);
-
+// echo $id_instansi;die;
     // Tanggal Menyetujui
     $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
-    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_puskesmas);
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi,$id_join);
     $data['anggaran'] = $this->M_SJP->anggaran_pasien();
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
@@ -509,16 +510,20 @@ public function index($id_status_klaim=Null){
 
    $this->load->view('template/default_template', $data);
 }
- public function view_permohonanklaim_rs()
-{
-    // $id_rumah_sakit = 1;
+ public function view_permohonanklaim_rs(){
+  
+   // $id_rumah_sakit = 1;
+    // echo $id_instansi;die;
     if ($this->input->post() !== Null) {
+          $id_instansi = $this->session->userdata("instansi");
+          $id_join     = $this->session->userdata("id_join");
+    // echo $id_instansi;die;
         $mulai           = $this->input->post("mulai");
         $akhir           = $this->input->post("akhir");
         $rs              = $this->input->post("rs");
         $status          = $this->input->post("status");
         $cari            = $this->input->post("cari");
-        $data            = $this->M_SJP->view_permohonanklaim_rs($mulai,$akhir,$rs,$status,$cari);
+        $data            = $this->M_SJP->view_permohonanklaim_rs($mulai,$akhir,$rs,$status,$cari, $id_instansi,$id_join);
         // $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim,$mulai,$akhir,$rs,$status,$cari);
     } else {
         $data            = $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit);

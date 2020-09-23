@@ -19,7 +19,7 @@
       <div class="text-center mt-5">
         <h4><B>INPUT PENGAJUAN SJP</B></h4>
       </div></a>
-    </div>
+    </div> 
 
     <div class="col-md-4 col-sm-4 mb-5">
       <a href="<?php echo site_url('Masyarakat/cekstatuspengajuan') ?>" class="puskesmas"><center>

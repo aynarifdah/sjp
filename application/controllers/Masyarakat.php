@@ -46,6 +46,47 @@ private function load($title = '', $datapath = '')
 
     $this->load->view('masyarakat/default_template', $data);
    }
+
+   public function detail_pengajuan($idsjp, $id_pengajuan){
+    $level = $this->session->userdata('level');
+    
+    $id_jenis_izin = 1;
+    $path = "";
+    $data['page'] = $this->load("Detail Pengajuan", $path);
+    $this->db->select('nik');
+    $this->db->from('sjp');
+    $this->db->where('id_sjp', $idsjp);
+    $nik = $this->db->get()->row();
+
+     // Riwayat Cetak
+    $kondisi = [
+        'log_tipe' => 4,
+        'log_desc'  => "Cetak SJP",
+        'log_user'  => $this->session->userdata('id_user'),
+        // hl = Tabble history_log
+        'hl.id_instansi'  => $this->session->userdata('instansi')
+    ];
+    $data['riwayat_cetak'] = $this->M_log->getLast_log($kondisi);
+
+    // Tanggal Menyetujui
+    $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
+
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp);
+    $data['anggaran'] = $this->M_SJP->anggaran_pasien();
+    $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
+    $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
+    $data['id_sjp'] = $idsjp;
+    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
+    $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
+    $data['level'] = $level;
+    // $data['controller'] = $this->instansi();
+    $data['content'] = $this->load->view('detail_pengajuan', $data ,true,false);
+    $this->load->view('masyarakat/default_template', $data);
+    //echo $data['level'];die;
+//var_dump($data['datapermohonan']);die;
+
+
+}
 	public function informasipersyaratan()
 		{
 	$path = "";
@@ -574,8 +615,7 @@ public function ceknikk()
     echo json_encode($result);
   }
 
-  public function feedback()
-    {
+  public function feedback() {
   $path = "";
     $data = array(
        "page"    => $this->load("feedback", $path) ,
@@ -586,6 +626,7 @@ public function ceknikk()
    }
 
     public function getDataByNIK($nik) {
+        // echo $nik;die;
          $url = 'https://dsw.depok.go.id/Html/ddata?nik='.$nik;
 
          $ch = curl_init();
@@ -596,5 +637,109 @@ public function ceknikk()
          curl_close($ch);
          echo json_decode($output);
     }
+
+    public function update_data_pasien($idsjp, $id_pengajuan){
+    if ($this->input->post("btnEditInfo") !== Null) {
+        // Informasi Pemohon | Tabel permohonan pengajuan
+        $data_pemohon = [
+            'nama_pemohon'      => $this->input->post("nama_pemohon"),
+            'jenis_kelamin'     => $this->input->post("jenis_kelamin_pemohon"),
+            'telepon'           => $this->input->post("teleponpemohon"),
+            'whatsapp'          => $this->input->post("whatsappemohon"),
+            'email'             => $this->input->post("emailpemohon"),
+            'status_hubungan'   => $this->input->post("status_hubungan"),
+            'alamat'            => $this->input->post("alamatpemohon"),
+            'rt'                => $this->input->post("rtpemohon"),
+            'rw'                => $this->input->post("rwpemohon"),
+            'kd_kecamatan'      => $this->input->post("kd_kecamatanpemohon"),
+            'kd_kelurahan'      => $this->input->post("kd_kelurahanpemohon")
+        ];
+
+        $id_pp = $this->input->post("id_pp");
+        $this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon);
+        // var_dump($this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon));
+
+        // Informasi Pasien | Tabel sjp
+        $data_pasien = [
+            'nik'               => $this->input->post("nikpasien"),
+            'nama_pasien'       => $this->input->post("nama_pasien"),
+            'jenis_kelamin'     => $this->input->post("jenis_kelamin_pasien"),
+            'tempat_lahir'      => $this->input->post("tempat_lahir_pasien"),
+            'tanggal_lahir'     => $this->input->post("tanggal_lahir_pasien"),
+            'pekerjaan'         => $this->input->post("pekerjaanpasien"),
+            'golongan_darah'    => $this->input->post("golongan_darah_pasien"),
+            'whatsapp'          => $this->input->post("whatsappasien"),
+            'telepon'           => $this->input->post("teleponpasien"),
+            'email'             => $this->input->post("emailpasien"),
+            'alamat'            => $this->input->post("alamatpasien"),
+            'rt'                => $this->input->post("rtpasien"),
+            'rw'                => $this->input->post("rwpasien"),
+            'kd_kecamatan'      => $this->input->post("kd_kecamatanpasien"),
+            'kd_kelurahan'      =>  $this->input->post("kd_kelurahanpasien"),
+            'feedback'          => $this->input->post("feedback")
+        ];
+        $id_sjp = $this->input->post("id_sjp");
+        $this->M_SJP->editSJP($id_sjp, $data_pasien);      
+        // var_dump($this->M_SJP->editSJP($id_sjp, $data_pasien));die;
+        
+    }
+
+    $level = $this->session->userdata('level');
+    $id_puskesmas = 1;
+    $id_jenis_izin = 1;
+    $path = "";
+    $data['page'] = $this->load("Detail Pengajuan", $path);
+    $this->db->select('nik');
+    $this->db->from('sjp');
+    $this->db->where('id_sjp', $idsjp);
+    $nik = $this->db->get()->row();
+
+     // Riwayat Cetak
+    $kondisi = [
+        'log_tipe' => 4,
+        'log_desc'  => "Cetak SJP",
+        'log_user'  => $this->session->userdata('id_user'),
+        // hl = Tabble history_log
+        'hl.id_instansi'  => $this->session->userdata('instansi')
+    ];
+    $data['riwayat_cetak'] = $this->M_log->getLast_log($kondisi);
+
+    // Tanggal Menyetujui
+    $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
+
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_puskesmas);
+    $data['anggaran'] = $this->M_SJP->anggaran_pasien();
+    $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
+    $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
+    $data['id_sjp'] = $idsjp;
+    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
+    $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
+    $data['level'] = $level;
+    $data['controller'] = $this->instansi();
+    $data['content'] = $this->load->view('detail_pengajuan', $data ,true,false);
+    $this->load->view('masyarakat/default_template', $data);
+}
+
+public function update_datapasien($idsjp, $id_pengajuan){
+    $data = [
+       'topik'        => $this->M_SJP->diagnosa(),
+       'dokumen'      => $this->M_SJP->dokumen_persyaratan(),
+       'kecamatan'    => $this->M_SJP->wilayah('kecamatan'),
+       'rumahsakit'   => $this->M_SJP->rumahsakit(),
+       'kelas_rawat'  => $this->M_SJP->kelas_rawat(),
+       'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+       'detail'       => $this->M_SJP->detail_permohonansjp($idsjp),
+       'id_pengajuan' => $id_pengajuan
+    ];
+    // var_dump($data["detail"]);die;
+
+    $path = "";
+    $data = array(
+        "page"    => $this->load("update data pasien", $path) ,
+        "content" => $this->load->view('masyarakat/update_datapasien', $data, true)
+    );
+
+    $this->load->view('masyarakat/default_template', $data);
+}
 
 }

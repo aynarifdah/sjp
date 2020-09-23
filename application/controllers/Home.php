@@ -110,7 +110,7 @@ public function proses_login(){
     $password = $this->input->post('password'); 
 
     $user = $this->M_Login->readBy($username); 
-
+    // var_dump($user);die;
     if(empty($user)){ 
         $this->session->set_flashdata('message', 'Username tidak ditemukan'); 
         redirect('Home/');
@@ -188,8 +188,15 @@ public function getDiagnosa()
     $diagnosa    = $this->M_SJP->diagnosa2($Kd_diagnosa);
     echo json_encode($diagnosa);
 }
+
+
+public function getIdPuskesmas($puskesmas_id) {
+  $id_puskesmas = $this->M_SJP->getByPuskesmasId($puskesmas_id);
+  return $id_puskesmas;
+}
+
 public function input_pasien(){
-        $id_puskesmas = 1; //set id puskesmas 1 rsud depok nanti diubah sesuai session
+        $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
         $nama            = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
         $alamat1         = $this->input->post('alamat_pemohon');
@@ -1080,6 +1087,9 @@ public function pengajuan(){
 }
 
 public function getalldatapermohonan(){
+    $id_instansi = $this->input->post("id_instansi");
+    $id_join     = $this->input->post("id_join");
+
     $id_jenissjp = 3;
 
     if ($this->input->post() !== Null) {
@@ -1087,7 +1097,7 @@ public function getalldatapermohonan(){
         $rs         = $this->input->post("rs");
         $status     = $this->input->post("status");
         $cari       = $this->input->post("cari");
-        $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp,$puskesmas,$rs,$status,$cari);
+        $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp,$puskesmas,$rs,$status,$cari,$id_join,$id_instansi);
     } else {
         $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
     }
@@ -1117,12 +1127,15 @@ public function permohonan_baru(){
 }
 
 public function getnewdatapermohonan(){
+     $id_instansi = $this->input->post("id_instansi");
+    $id_join     = $this->input->post("id_join");
+    
     if ($this->input->post() !== Null) {
         $puskesmas  = $this->input->post("puskesmas");
         $rs         = $this->input->post("rs");
         $status     = $this->input->post("status");
         $cari       = $this->input->post("cari");
-        $data       = $this->M_SJP->view_permohonansjp_pus(2,$puskesmas,$rs,$status,$cari);
+        $data       = $this->M_SJP->view_permohonansjp_pus(2,$puskesmas,$rs,$status,$cari, $id_instansi,$id_join);
     } else {
         $data       = $this->M_SJP->view_permohonansjp_pus(2,Null,Null,2);
     }
@@ -1186,7 +1199,8 @@ public function detail_pengajuan($idsjp, $id_pengajuan){
     }
 
     $level = $this->session->userdata('level');
-    $id_puskesmas = 1;
+    $id_instansi = $this->session->userdata("instansi");
+    $id_join     = $this->session->userdata("id_join");
     $id_jenis_izin = 1;
     $path = "";
     $data['page'] = $this->load("Detail Pengajuan", $path);
@@ -1208,12 +1222,12 @@ public function detail_pengajuan($idsjp, $id_pengajuan){
     // Tanggal Menyetujui
     $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
-    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_puskesmas);
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi,$id_join);
     $data['anggaran'] = $this->M_SJP->anggaran_pasien();
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
     $data['id_sjp'] = $idsjp;
-    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
+    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
     $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
     $data['level'] = $level;
     $data['controller'] = $this->instansi();
@@ -1238,8 +1252,8 @@ public function persetujuan_sjp(){
 }
 
 public function getpersetujuandatasjp(){
-   // $id_puskesmas = 1;
-   // $id_jenissjp = 3;
+   $id_instansi = $this->input->post("id_instansi");
+    $id_join     = $this->input->post("id_join");
    // $datapus = $this->M_SJP->getpersetujuandatasjp($id_puskesmas, $id_jenissjp);
 
    if ($this->input->post() !== Null) {
@@ -1247,7 +1261,7 @@ public function getpersetujuandatasjp(){
         $rs         = $this->input->post("rs");
         $status     = $this->input->post("status");
         $cari       = $this->input->post("cari");
-        $data       = $this->M_SJP->view_permohonansjp_pus(6,$puskesmas,$rs,$status,$cari);
+        $data       = $this->M_SJP->view_permohonansjp_pus(6,$puskesmas,$rs,$status,$cari,$id_join,$id_instansi);
     } else {
         $data       = $this->M_SJP->view_permohonansjp_pus(6,Null,Null,6);
     }

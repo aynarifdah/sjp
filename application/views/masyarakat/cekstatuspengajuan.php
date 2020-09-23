@@ -34,10 +34,9 @@
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Pemohon</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Pasien</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Tanggal<br> Pengajuan</th>
-             
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Rumah <br>Sakit</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-              
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -82,14 +81,35 @@ $('#cek').on("submit", function(e){
   });
 function loaddata(nik){
   $("#datatable_wrapper").show();
-
- 
 }
  var dtable = $("#datatable").DataTable({
     "paging":   true,
     "ordering": true,
     "info":     true,
     "bFilter": false,
+    "drawCallback": function(settings){
+      $('.update').each(function(index) {
+      $('.update:eq('+index+')').click(function(event) {
+          var id = $(this).data("id");
+          var pengajuan = $(this).data("idpengajuan");
+          window.location.href = "update_datapasien/"+id+"/"+pengajuan;
+        });
+      });
+       $('.detail').each(function(index) {
+      $('.detail:eq('+index+')').click(function(event) {
+          var id = $(this).data("id");
+          var pengajuan = $(this).data("idpengajuan");
+          window.location.href = "detail_pengajuan/"+id+"/"+pengajuan;
+        });
+      });
+        $('.cetak').each(function(index) {
+        $('.cetak:eq('+index+')').click(function(event) {
+          var id = $(this).data("id");
+          var pengajuan = $(this).data("idpengajuan");
+          window.location.href = "detail_pengajuan/"+id+"/"+pengajuan;
+        });
+      });
+    },
     columns: [
     {data: "nama_pemohon", className : "text-info dt-head-center dt-body-right bodyclick"},
     {data: "nama_pasien", className : "text-info dt-head-center dt-body-right bodyclick"},
@@ -142,7 +162,11 @@ function loaddata(nik){
       } 
 
     },className : "dt-head-center dt-body-right bodyclick statuspengajuan text-white"},
-  
+      {data: "id_sjp", "render": function ( data, type, row, meta ) {
+      return "<button type='button' class='btn btn-dark btn-sm mr-1 update' data-id='"
+      +data+"' data-idpengajuan='"+row.id_pengajuan+"' >Update</button><button type='button' class='btn btn-dark btn-circle btn-sm detail' data-id='"
+      +data+"' data-idpengajuan='"+row.id_pengajuan+"'>Detail</button> <button type='button' class='btn btn-dark btn-circle btn-sm'>Cetak</button>"
+    },className : "dt-head-center dt-body-right" },
 
   ],
   ajax: {
@@ -157,4 +181,20 @@ function loaddata(nik){
       pagingType: "simple_numbers",
       pageLength: 10,
     });
+  function update(id, column_name, value) {
+    var update = {
+    };
+    console.log(update);
+    $.ajax({
+      type: 'POST',
+      url: '<?=base_url();?>masyarakat/update_datapasien',
+      dataType : 'json',
+      data: {data : fasupdate},
+      success: function(data) {
+        alert('Data Pasien Berhasil di update!');
+        dtable.ajax.reload(function(){},true);
+      }
+    });
+  }
+
 </script>
