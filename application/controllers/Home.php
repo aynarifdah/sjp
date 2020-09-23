@@ -1281,6 +1281,8 @@ public function getpersetujuandatasjp(){
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public function edit_data_pasien($idsjp, $id_pengajuan){
+    $id_instansi = $this->session->userdata("instansi");
+    $id_join     = $this->session->userdata("id_join");
     if (empty($idsjp) || empty($id_pengajuan)){
         redirect($this->instansi().'UserManagement','refresh');
     }
@@ -1290,7 +1292,7 @@ public function edit_data_pasien($idsjp, $id_pengajuan){
         'instansi'   => $this->M_data->getInstansi(),
         'controller' => $this->instansi(),
         'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-        'detail'       => $this->M_SJP->detail_permohonansjp($idsjp),
+        'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
         'id_pengajuan' => $id_pengajuan
     ];
     // var_dump($data["detail"]);die;

@@ -48,8 +48,52 @@ private function load($title = '', $datapath = '')
    }
 
    public function detail_pengajuan($idsjp, $id_pengajuan){
+        if ($this->input->post("btnEditInfo") !== Null) {
+        // Informasi Pemohon | Tabel permohonan pengajuan
+        $data_pemohon = [
+            'nama_pemohon'      => $this->input->post("nama_pemohon"),
+            'jenis_kelamin'     => $this->input->post("jenis_kelamin_pemohon"),
+            'telepon'           => $this->input->post("teleponpemohon"),
+            'whatsapp'          => $this->input->post("whatsappemohon"),
+            'email'             => $this->input->post("emailpemohon"),
+            'status_hubungan'   => $this->input->post("status_hubungan"),
+            'alamat'            => $this->input->post("alamatpemohon"),
+            'rt'                => $this->input->post("rtpemohon"),
+            'rw'                => $this->input->post("rwpemohon"),
+
+            'kd_kecamatan'      => $this->input->post("kd_kecamatanpemohon"),
+            'kd_kelurahan'      => $this->input->post("kd_kelurahanpemohon")
+        ];
+
+        $id_pp = $this->input->post("id_pp");
+        $this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon);
+        // var_dump($this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon));
+
+        // Informasi Pasien | Tabel sjp
+        $data_pasien = [
+            'nik'               => $this->input->post("nikpasien"),
+            'nama_pasien'       => $this->input->post("nama_pasien"),
+            'jenis_kelamin'     => $this->input->post("jenis_kelamin_pasien"),
+            'tempat_lahir'      => $this->input->post("tempat_lahir_pasien"),
+            'tanggal_lahir'     => $this->input->post("tanggal_lahir_pasien"),
+            'pekerjaan'         => $this->input->post("pekerjaanpasien"),
+            'golongan_darah'    => $this->input->post("golongan_darah_pasien"),
+            'whatsapp'          => $this->input->post("whatsappasien"),
+            'telepon'           => $this->input->post("teleponpasien"),
+            'email'             => $this->input->post("emailpasien"),
+            'alamat'            => $this->input->post("alamatpasien"),
+            'rt'                => $this->input->post("rtpasien"),
+            'rw'                => $this->input->post("rwpasien"),
+            'kd_kecamatan'      => $this->input->post("kd_kecamatanpasien"),
+            'kd_kelurahan'      =>  $this->input->post("kd_kelurahanpasien"),
+            'feedback'          => $this->input->post("feedback")
+        ];
+        $id_sjp = $this->input->post("id_sjp");
+        $this->M_SJP->editSJP($id_sjp, $data_pasien);      
+        // var_dump($this->M_SJP->editSJP($id_sjp, $data_pasien));die;
+        
+    }
     $level = $this->session->userdata('level');
-    
     $id_jenis_izin = 1;
     $path = "";
     $data['page'] = $this->load("Detail Pengajuan", $path);

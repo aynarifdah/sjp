@@ -16,7 +16,7 @@
         </div>
         <div class="card-content collapse show">
           <div class="card-body">
-            <form action="<?= base_url('detail_pengajuan/'.$detail[0]['id_sjp'].'/'.$id_pengajuan); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform">
+            <form action="<?= base_url('masyarakat/detail_pengajuan/'.$detail[0]['id_sjp'].'/'.$id_pengajuan); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform">
               <input type="hidden" name="id_sjp" value="<?= $detail[0]['id_sjp'] ?>">
               <input type="hidden" name="id_pp" value="<?= $this->uri->segment(4)?>">
               <!-- Step 1 -->
@@ -301,7 +301,7 @@
                   <label class="col-lg-3 label-control" for="namalengkap">Feedback Dokumen</label>
                   <div class="col-lg-5">
                     <input type="text" class="form-control kontrakform" placeholder="Feedback"
-                      name="feedback" id="feedback" required value="<?= $detail[0]['feedback'] ?>">
+                      name="feedback" id="feedback" value="<?= $detail[0]['feedback'] ?>">
                   </div>
                 </div>
     
