@@ -71,7 +71,7 @@ private function load($title = '', $datapath = '')
     // Tanggal Menyetujui
     $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
-    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp);
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp_anjungan($idsjp);
     $data['anggaran'] = $this->M_SJP->anggaran_pasien();
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
@@ -728,7 +728,7 @@ public function update_datapasien($idsjp, $id_pengajuan){
        'rumahsakit'   => $this->M_SJP->rumahsakit(),
        'kelas_rawat'  => $this->M_SJP->kelas_rawat(),
        'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-       'detail'       => $this->M_SJP->detail_permohonansjp($idsjp),
+       'detail'       => $this->M_SJP->detail_permohonansjp_anjungan($idsjp),
        'id_pengajuan' => $id_pengajuan
     ];
     // var_dump($data["detail"]);die;
