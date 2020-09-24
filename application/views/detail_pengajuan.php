@@ -382,10 +382,10 @@ echo $a - $b;
                 <th scope="row" class="border-top-0">Jenis Rawat</th>
                 <td class="border-top-0"><?php echo strtoupper($key['jenis_rawat']); ?></td>
               </tr>
-              <tr>
+             <!--  <tr>
                 <th scope="row" class="border-top-0">Kelas Rawat</th>
                 <td class="border-top-0"><?php echo strtoupper($key['nama_kelas']); ?></td>
-              </tr>
+              </tr> -->
               <tr>
                 <th scope="row">Diagnosa</th>
                 <td><ul>

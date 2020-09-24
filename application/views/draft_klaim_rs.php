@@ -276,6 +276,8 @@ $('#entryklaim').click(function(event) {
     url: ' <?php echo base_url("Rs/view_permohonanklaim_rs");?>',
     method: 'POST',
     "data": function(d) {
+
+        // d.rumahsakit  = <?= $this->session->userdata('id_join') ?>;
         d.status_klaim = '<?php echo $status_klaim ?>';
         d.mulai        = $("#mulai").val();
         d.akhir        = $("#akhir").val();
@@ -303,9 +305,10 @@ $('#entryklaim').click(function(event) {
     var data= dtable.row(this).data();
     var id_sjp = data.id_sjp;
     var id_pengajuan = data.id_pengajuan;
+    var id_puskesmas =  data.id_puskesmas;
       //console.log(data.id);
       //console.log("<?php echo base_url('Html/detail_harga/'); ?>" + komoditi);
-      window.location.href = "<?php echo base_url('Rs/detail_pengajuan/'); ?>" + id_sjp+"/"+id_pengajuan;
+      window.location.href = "<?php echo base_url('Rs/detail_pengajuan/'); ?>" + id_sjp+"/"+id_pengajuan+"/"+id_puskesmas;
     });
   $(document).ready(function() {
     $('#advancedfilterform').hide();

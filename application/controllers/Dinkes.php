@@ -49,7 +49,7 @@ public function detail_pengajuan($idsjp, $id_pengajuan){
     // Tanggal Menyetujui
     $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
-    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp);
+    $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp_anjungan($idsjp);
     $data['anggaran'] = $this->M_SJP->anggaran_pasien();
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
@@ -290,7 +290,7 @@ public function index(){
     'controller'        => $this->instansi()
  ];
 
- // var_dump($d["chartJenisRawat"]);die;
+ // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
  $data = array(
         "page"    => $this->load("Dashboard", $path) ,

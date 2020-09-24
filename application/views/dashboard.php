@@ -4,23 +4,22 @@
   <title>Halaman utama</title>
 </head>
 
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
- <script src="<?php echo base_url()?>app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
- <script src="<?php echo base_url()?>app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
-  <script src="<?php echo base_url()?>app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
-  <script src="<?php echo base_url()?>app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
-  <script src="<?php echo base_url()?>app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js"
-  type="text/javascript"></script>
-  <script src="<?php echo base_url()?>app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js"
-  type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js"
+type="text/javascript"></script>
+<script src="<?php echo base_url()?>app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js"
+type="text/javascript"></script>
 
       <div class="form-row">
 
         <div class="form-group col-md-3 col-sm-6">
-          <select class="form-control form-control-select" id="bulan" style="border: none !important;">
+          <select class="form-control form-control-select" id="bulan" style="border: none !important; border-radius: 5px;">
             <option value="" selected>Semua Bulan</option>
             <option value="2020-01-11">Januari.</option>
             <option value="2020-02-11">Februari</option>
@@ -37,7 +36,7 @@
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6">
-          <select class="form-control form-control-select" id="tahun" style="border: none !important;">
+          <select class="form-control form-control-select" id="tahun" style="border: none !important; border-radius: 5px;">
             <option value="" selected>Semua Tahun</option>
             <!-- <option value="2021" >Test1</option>
             <option value="2022" >Test2</option> -->
@@ -49,7 +48,7 @@
           </select>
         </div>
         <div class="form-group col-md-3 col-sm-6">
-         <select class="form-control form-control-select" id="kecamatan" name="kecamatan" style="border: none !important;">
+         <select class="form-control form-control-select" id="kecamatan" name="kecamatan" style="border: none !important; border-radius: 5px;">
             <option value="" selected>Semua Kecamatan</option>
             <?php if (!empty($kecamatan)) {
               foreach ($kecamatan as $key) {?>
@@ -59,7 +58,7 @@
           </select>
       </div>
       <div class="form-group col-md-3 col-sm-6">
-       <select class="form-control form-control-select"  id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="border: none !important;">
+       <select class="form-control form-control-select"  id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="border: none !important; border-radius: 5px;">
         <option value="" selected>Semua Kelurahan</option>
       </select>
     </div>
@@ -78,13 +77,123 @@ th {
 </style>
     <section id="minimal-statistics-bg">
          <div class="row">
-          <div class="col-12 col-md-4 col-sm-6">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Jumlah Pengajuan SJP</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+            <div class="col-lg-4 col-12  col-sm-6">
+            <div class="card pull-up" style="border-radius: 10px;">
+              <div class="card-content">
+                <div class="card-body bg-warning" style="border-radius: 10px; padding: 30px; background-color: #FFB22B !important;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h2 class="white" id="anggaran_tahun" style="font-weight: bold;">Rp. <?php echo number_format($anggaran_tahun);?></h2>
+                      <h4 class="text-white">Anggaran Tahun Ini</h4>
+                 <!--      <h5 class="warning">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="card-content collapse show" style="padding: 10px;">
+            </div>
+            <div class="card pull-up" style="border-radius: 10px;">
+              <div class="card-content">
+                <div class="card-body bg-info" style="border-radius: 10px; padding: 30px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h2 class="white" id="sisa_anggaran" style="font-weight: bold;">Rp. <?php echo number_format($sisa_anggaran);?></h2>
+                      <h4 class="text-white">Sisa Anggaran Tahun Ini</h4>
+                     <!--  <h5 class="white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="col-lg-4 col-12">
+            <div class="card pull-up" style="border-radius: 10px;">
+              <div class="card-content">
+                <div class="card-body bg-success" style="border-radius: 10px; padding: 30px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h2 class="white" id="nominal_pembiayaan" style="font-weight: bold;">Rp. <?php echo number_format($nominal_pembiayaan);?></h2>
+                      <h4 class="text-white">Total Nominal Pembiayaan</h4>
+                      <!-- <h5 class="white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card pull-up" style="border-radius: 10px;">
+              <div class="card-content">
+                <div class="card-body bg-danger" style="border-radius: 10px; padding: 30px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h2 class="white" id="total_pasien" style="font-weight: bold;"><?php echo number_format($total_pasien);?></h2>
+                      <h4 class="text-white">Total Pasien</h4>
+                      <!-- <h5 class="text-white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-user font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             </div>
+              <div class="col-lg-4 col-12">
+                 <div class="card">
+              <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+                <h4 style="color: white; font-weight: bold;">Jumlah Pasien Kunjungan Bantuan Sosial</h4>
+              </div>
+              <div class="card-content collapse show" style="padding: 40px 10px 0px 10px; min-height: 185px;">
+                <div class="card-body pt-0">
+                  <div class="row mb-1" id="jenis_rawat">
+                    <?php foreach ($jenis_rawat as $jr): ?>
+                      <div class="col-6 col-md-4" >
+                        <h5 style="font-weight: bold;"><?= $jr['jenis_rawat'] ?></h5>
+                        <h2 class="<?= ($jr['jenis_rawat'] == 'Orang Terlantar')? 'danger' : 'text-muted' ?>"><?= $jr['jumlah'] ?></h2>
+                      </div>
+                    <?php endforeach ?>
+                  </div>
+                  <div class="chartjs">
+                    <div id="kunjungan_bantuan"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+          </div>
+        </section>
+
+<div class="row">
+             <div class="col-xl-8 col-12 col-sm-6">
+    <div class="card">
+      <div class="card-header pb-0">
+        <div class="form-group col-md-12">
+          <select class="form-control" id="orderDistribusi">
+            <option value="0" selected>ALL DISTRIBUSI SJP</option>
+            <option value="1">TOP TEN DISTRIBUSI SJP</option>
+            <option value="2">TOP FIVE DISTRIBUSI SJP</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-body pb-1">
+          <div id="distribusi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="col-12 col-md-4 col-sm-6">
+            <div class="card">
+              <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+                <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan SJP</h4>
+              </div>              <div class="card-content collapse show" style="padding: 10px; min-height: 440px;">
                 <div class="card-body p-0">
                     <table class="table mb-0">
                       <tbody id="sjp">
@@ -102,101 +211,17 @@ th {
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-12  col-sm-6">
-            <div class="card pull-up" style="border-radius: 10px;">
-              <div class="card-content">
-                <div class="card-body bg-warning" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="anggaran_tahun">Rp. <?= $anggaran_tahun?></h3>
-                      <h4 class="text-white">Anggaran Tahun Ini</h4>
-                      <h5 class="warning">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card pull-up" style="border-radius: 10px;">
-              <div class="card-content">
-                <div class="card-body bg-info" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="sisa_anggaran">Rp. <?= $sisa_anggaran ?></h3>
-                      <h4 class="text-white">Sisa Anggaran Tahun ini </h4>
-                      <h5 class="white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-12">
-            <div class="card pull-up" style="border-radius: 10px;">
-              <div class="card-content">
-                <div class="card-body bg-success" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="nominal_pembiayaan">Rp. <?= $nominal_pembiayaan ?></h3>
-                      <h4 class="text-white">Total Nominal Bantuan</h4>
-                      <h5 class="white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card pull-up" style="border-radius: 10px;">
-              <div class="card-content">
-                <div class="card-body bg-danger" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="total_pasien"><?= $total_pasien ?></h3>
-                      <h4 class="text-white">Total Pasien</h4>
-                      <h5 class="text-white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-user font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        </section>
+  
+</div>
+         
 
 <div class="row">
-  <div class="col-xl-6 col-12 col-sm-6">
-    <div class="card">
-      <div class="card-header pb-0">
-        <div class="form-group col-md-7">
-          <select class="form-control" id="orderDistribusi">
-            <option value="0" selected>ALL DISTRIBUSI SJP</option>
-            <option value="1">TOP TEN DISTRIBUSI SJP</option>
-            <option value="2">TOP FIVE DISTRIBUSI SJP</option>
-          </select>
-        </div>
-      </div>
-      <div class="card-content">
-        <div class="card-body pb-1">
-          <div id="distribusi"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
   <div class="col-xl-6 col-sm-6 col-12">
     <div class="card">
-      <div class="card-header pb-0">
-        <h4 class="card-title">Jumlah Kunjungan / Bulan</h4>
-      </div>
+              <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+                <h4 style="color: white; font-weight: bold;">Jumlah Kunjungan / Bulan</h4>
+              </div>
       <div class="card-content">
         <div class="card-body pb-1">
           <div id="kunjungan_bulan"></div>
@@ -204,14 +229,11 @@ th {
       </div>
     </div>
   </div>
-    
-</div>
-<div class="row">
-  <div class="col-xl-6 col-12 col-sm-6">
+      <div class="col-xl-6 col-12 col-sm-6">
     <div class="card">
-      <div class="card-header pb-0">
-        <h4 class="card-title">Tren Pasien Per Tahun</h4>
-      </div>
+              <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+                <h4 style="color: white; font-weight: bold;">Tren Pasien Per-Tahun</h4>
+              </div>
       <div class="card-content">
         <div class="card-body pb-1">
           <div id="trendpasien"></div>
@@ -219,46 +241,10 @@ th {
       </div>
     </div>
   </div>
-          <div class="col-xl-6 col-12 col-sm-6">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">JUMLAH KUNJUNGAN BANTUAN SOSIAL</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                  <ul class="list-inline mb-0">
-                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-content collapse show">
-                <div class="card-body pt-0">
-                  <div class="row mb-1" id="jenis_rawat">
-                    <?php foreach ($jenis_rawat as $jr): ?>
-                      <div class="col-6 col-md-4" >
-                        <h5><?= $jr['jenis_rawat'] ?></h5>
-                        <h2 class="<?= ($jr['jenis_rawat'] == 'Orang Terlantar')? 'danger' : 'text-muted' ?>"><?= $jr['jumlah'] ?></h2>
-                      </div>
-                    <?php endforeach ?>
-                    <!-- <div class="col-6 col-md-4">
-                      <h5>Rawat Inap</h5>
-                      <h2 class="text-muted">121</h2>
-                    </div>
-                    <div class="col-6 col-md-4">
-                      <h5>Rawat Jalan</h5>
-                      <h2 class="text-muted">57</h2>
-                    </div>
-                    <div class="col-6 col-md-4">
-                      <h5>Orang Terlantar</h5>
-                      <h2 class="danger">8</h2>
-                    </div> -->
-                  </div>
-                  <div class="chartjs">
-                    <div id="kunjungan_bantuan"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
+</div>
+<div class="row">
+
 
         </div>
 
@@ -599,60 +585,65 @@ th {
     });
   }
 
-  function chartKunjunganBantuan(data){
-    $("#kunjungan_bantuan").html('');
-    var kunjungan_bantuan = new Highcharts.chart('kunjungan_bantuan', {
-        credits: {
-          enabled: false
-        },
-        title: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        legend: {
-          enabled: false
-        },
-        tooltip: {
-            crosshairs: true,
-            shared: true
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: ''
-          }
-        },
-        plotOptions: {
-            spline: {
-                marker: {
-                    radius: 4,
-                    lineColor: '#666666',
-                    lineWidth: 1
-                }
-            }
-        },
-        series: data,
+  // function chartKunjunganBantuan(data){
 
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-    });
+  //   $("#kunjungan_bantuan").html('');
+  //   var kunjungan_bantuan = new Highcharts.chart('kunjungan_bantuan', {
+  //       credits: {
+  //         enabled: false
+  //       },
+  //       title: {
+  //           text: ''
+  //       },
+  //       xAxis: {
+  //           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  //       },
+  //       legend: {
+  //         enabled: false
+  //       },
+  //       tooltip: {
+  //           crosshairs: true,
+  //           shared: true
+  //       },
+  //       yAxis: {
+  //         min: 0,
+  //         title: {
+  //           text: ''
+  //         }
+  //       },
+  //       plotOptions: {
+  //           spline: {
+  //               marker: {
+  //                   radius: 4,
+  //                   lineColor: '#666666',
+  //                   lineWidth: 1
+  //               }
+  //           }
+  //       },
+  //       series: data,
 
-    // console.log("Ini DATA : " + data);
-  }
+  //       responsive: {
+  //           rules: [{
+  //               condition: {
+  //                   maxWidth: 500
+  //               },
+  //               chartOptions: {
+  //                   legend: {
+  //                       layout: 'horizontal',
+  //                       align: 'center',
+  //                       verticalAlign: 'bottom'
+  //                   }
+  //               }
+  //           }]
+  //       }
+  //   });
+
+  //    console.log(data);
+  //   alert(data);
+   
+  // }
+
+              
 
 
   // Next
