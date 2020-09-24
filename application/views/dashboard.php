@@ -78,7 +78,119 @@ th {
 </style>
     <section id="minimal-statistics-bg">
          <div class="row">
-          <div class="col-12 col-md-4 col-sm-6">
+            <div class="col-lg-4 col-12  col-sm-6">
+            <div class="card pull-up">
+              <div class="card-content">
+                <div class="card-body bg-warning" style="border-radius: 10px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="white" id="anggaran_tahun">Rp. <?= $anggaran_tahun?></h3>
+                      <h4 class="text-white">ANGGARAN TAHUN INI</h4>
+                 <!--      <h5 class="warning">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card pull-up">
+              <div class="card-content">
+                <div class="card-body bg-info" style="border-radius: 10px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="white" id="sisa_anggaran">Rp. <?= $sisa_anggaran ?></h3>
+                      <h4 class="text-white">SISA ANGGARAN TAHUN INI</h4>
+                     <!--  <h5 class="white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <div class="col-lg-4 col-12">
+            <div class="card pull-up">
+              <div class="card-content">
+                <div class="card-body bg-success" style="border-radius: 10px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="white" id="nominal_pembiayaan">Rp. <?= $nominal_pembiayaan ?></h3>
+                      <h4 class="text-white">TOTAL NOMINAL BANTUAN</h4>
+                      <!-- <h5 class="white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-money font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card pull-up">
+              <div class="card-content">
+                <div class="card-body bg-danger" style="border-radius: 10px;">
+                  <div class="media d-flex">
+                    <div class="media-body text-left">
+                      <h3 class="white" id="total_pasien"><?= $total_pasien ?></h3>
+                      <h4 class="text-white">TOTAL PASIEN</h4>
+                      <!-- <h5 class="text-white">50%</h5> -->
+                    </div>
+                    <div>
+                      <i class="la la-user font-large-2 float-right text-white"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             </div>
+              <div class="col-lg-4 col-12">
+                 <div class="card">
+              <div class="card-header">
+                <h3>JUMLAH PASIEN KUNJUNGAN BANTUAN SOSIAL</h3>
+              </div>
+              <div class="card-content collapse show">
+                <div class="card-body pt-0">
+                  <div class="row mb-1" id="jenis_rawat">
+                    <?php foreach ($jenis_rawat as $jr): ?>
+                      <div class="col-6 col-md-4" >
+                        <h5><?= $jr['jenis_rawat'] ?></h5>
+                        <h2 class="<?= ($jr['jenis_rawat'] == 'Orang Terlantar')? 'danger' : 'text-muted' ?>"><?= $jr['jumlah'] ?></h2>
+                      </div>
+                    <?php endforeach ?>
+                  </div>
+                  <div class="chartjs">
+                    <div id="kunjungan_bantuan"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+          </div>
+        </section>
+
+<div class="row">
+             <div class="col-xl-8 col-12 col-sm-6">
+    <div class="card">
+      <div class="card-header pb-0">
+        <div class="form-group col-md-12">
+          <select class="form-control" id="orderDistribusi">
+            <option value="0" selected>ALL DISTRIBUSI SJP</option>
+            <option value="1">TOP TEN DISTRIBUSI SJP</option>
+            <option value="2">TOP FIVE DISTRIBUSI SJP</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-body pb-1">
+          <div id="distribusi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="col-12 col-md-4 col-sm-6">
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title">Jumlah Pengajuan SJP</h4>
@@ -102,96 +214,12 @@ th {
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-12  col-sm-6">
-            <div class="card pull-up">
-              <div class="card-content">
-                <div class="card-body bg-warning" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="anggaran_tahun">Rp. <?= $anggaran_tahun?></h3>
-                      <h4 class="text-white">Anggaran Tahun Ini</h4>
-                      <h5 class="warning">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card pull-up">
-              <div class="card-content">
-                <div class="card-body bg-info" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="sisa_anggaran">Rp. <?= $sisa_anggaran ?></h3>
-                      <h4 class="text-white">Sisa Anggaran Tahun ini </h4>
-                      <h5 class="white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-12">
-            <div class="card pull-up">
-              <div class="card-content">
-                <div class="card-body bg-success" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="nominal_pembiayaan">Rp. <?= $nominal_pembiayaan ?></h3>
-                      <h4 class="text-white">Total Nominal Bantuan</h4>
-                      <h5 class="white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-money font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card pull-up">
-              <div class="card-content">
-                <div class="card-body bg-danger" style="border-radius: 10px;">
-                  <div class="media d-flex">
-                    <div class="media-body text-left">
-                      <h3 class="white" id="total_pasien"><?= $total_pasien ?></h3>
-                      <h4 class="text-white">Total Pasien</h4>
-                      <h5 class="text-white">50%</h5>
-                    </div>
-                    <div>
-                      <i class="la la-user font-large-2 float-right text-white"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        </section>
+  
+</div>
+         
 
 <div class="row">
-  <div class="col-xl-6 col-12 col-sm-6">
-    <div class="card">
-      <div class="card-header pb-0">
-        <div class="form-group col-md-7">
-          <select class="form-control" id="orderDistribusi">
-            <option value="0" selected>ALL DISTRIBUSI SJP</option>
-            <option value="1">TOP TEN DISTRIBUSI SJP</option>
-            <option value="2">TOP FIVE DISTRIBUSI SJP</option>
-          </select>
-        </div>
-      </div>
-      <div class="card-content">
-        <div class="card-body pb-1">
-          <div id="distribusi"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
   <div class="col-xl-6 col-sm-6 col-12">
     <div class="card">
       <div class="card-header pb-0">
@@ -204,10 +232,7 @@ th {
       </div>
     </div>
   </div>
-    
-</div>
-<div class="row">
-  <div class="col-xl-6 col-12 col-sm-6">
+      <div class="col-xl-6 col-12 col-sm-6">
     <div class="card">
       <div class="card-header pb-0">
         <h4 class="card-title">Tren Pasien Per Tahun</h4>
@@ -219,46 +244,10 @@ th {
       </div>
     </div>
   </div>
-          <div class="col-xl-6 col-12 col-sm-6">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">JUMLAH KUNJUNGAN BANTUAN SOSIAL</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                  <ul class="list-inline mb-0">
-                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-content collapse show">
-                <div class="card-body pt-0">
-                  <div class="row mb-1" id="jenis_rawat">
-                    <?php foreach ($jenis_rawat as $jr): ?>
-                      <div class="col-6 col-md-4" >
-                        <h5><?= $jr['jenis_rawat'] ?></h5>
-                        <h2 class="<?= ($jr['jenis_rawat'] == 'Orang Terlantar')? 'danger' : 'text-muted' ?>"><?= $jr['jumlah'] ?></h2>
-                      </div>
-                    <?php endforeach ?>
-                    <!-- <div class="col-6 col-md-4">
-                      <h5>Rawat Inap</h5>
-                      <h2 class="text-muted">121</h2>
-                    </div>
-                    <div class="col-6 col-md-4">
-                      <h5>Rawat Jalan</h5>
-                      <h2 class="text-muted">57</h2>
-                    </div>
-                    <div class="col-6 col-md-4">
-                      <h5>Orang Terlantar</h5>
-                      <h2 class="danger">8</h2>
-                    </div> -->
-                  </div>
-                  <div class="chartjs">
-                    <div id="kunjungan_bantuan"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
+</div>
+<div class="row">
+
 
         </div>
 
@@ -599,60 +588,65 @@ th {
     });
   }
 
-  function chartKunjunganBantuan(data){
-    $("#kunjungan_bantuan").html('');
-    var kunjungan_bantuan = new Highcharts.chart('kunjungan_bantuan', {
-        credits: {
-          enabled: false
-        },
-        title: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        legend: {
-          enabled: false
-        },
-        tooltip: {
-            crosshairs: true,
-            shared: true
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: ''
-          }
-        },
-        plotOptions: {
-            spline: {
-                marker: {
-                    radius: 4,
-                    lineColor: '#666666',
-                    lineWidth: 1
-                }
-            }
-        },
-        series: data,
+  // function chartKunjunganBantuan(data){
 
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-    });
+  //   $("#kunjungan_bantuan").html('');
+  //   var kunjungan_bantuan = new Highcharts.chart('kunjungan_bantuan', {
+  //       credits: {
+  //         enabled: false
+  //       },
+  //       title: {
+  //           text: ''
+  //       },
+  //       xAxis: {
+  //           categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  //       },
+  //       legend: {
+  //         enabled: false
+  //       },
+  //       tooltip: {
+  //           crosshairs: true,
+  //           shared: true
+  //       },
+  //       yAxis: {
+  //         min: 0,
+  //         title: {
+  //           text: ''
+  //         }
+  //       },
+  //       plotOptions: {
+  //           spline: {
+  //               marker: {
+  //                   radius: 4,
+  //                   lineColor: '#666666',
+  //                   lineWidth: 1
+  //               }
+  //           }
+  //       },
+  //       series: data,
 
-    // console.log("Ini DATA : " + data);
-  }
+  //       responsive: {
+  //           rules: [{
+  //               condition: {
+  //                   maxWidth: 500
+  //               },
+  //               chartOptions: {
+  //                   legend: {
+  //                       layout: 'horizontal',
+  //                       align: 'center',
+  //                       verticalAlign: 'bottom'
+  //                   }
+  //               }
+  //           }]
+  //       }
+  //   });
+
+  //    console.log(data);
+  //   alert(data);
+   
+  // }
+
+              
 
 
   // Next

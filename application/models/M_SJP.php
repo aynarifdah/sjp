@@ -652,26 +652,7 @@ public function bulan() {
   return $query;
 }
 
-public function jumlah_sjp($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Null) {
-  $this->db->select('sp.status_pengajuan as nama, COUNT(*) as jumlah');
-  $this->db->from('permohonan_pengajuan pp ');
-  $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
-  $this->db->group_by("sp.status_pengajuan");
 
-  if (!empty($bulan)) {
-    $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
-  }
-  if (!empty($tahun)) {
-    $this->db->where('YEAR(pp.tanggal_pengajuan)', date("Y", strtotime($tahun)));
-  }
-  if (!empty($kecamatan)) {
-    $this->db->where('kd_kecamatan', $kecamatan);
-  }
-  if (!empty($kelurahan)) {
-    $this->db->where('kd_kelurahan', $kelurahan);
-  }
-  return $this->db->get()->result_array();
-}
 
 public function anggaran($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Null) {
   $this->db->select('nominal_anggaran');
@@ -746,7 +727,7 @@ public function total_pasien($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=
 public function distribusi($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Null,$pilih=0){
   // Pilih all = Null, pilih 1 = Ten, pilih 2 = five
   // echo date("m", strtotime(str_replace('/', '-', $bulan)));die;
-  $this->db->select('rs.nama_rumah_sakit rs, count(*) as jumlah');
+  $this->db->select('rs.nama_rumah_sakit rs, count(sjp.id_rumah_sakit) as jumlah');
   $this->db->from('`rumah_sakit` rs');
   $this->db->join('sjp', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
   $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
@@ -789,6 +770,28 @@ public function distribusi($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Nu
   // print_r($result);die;
   // $query = $this->toArrayChart($query);
   return $result;
+}
+
+public function jumlah_sjp($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Null) {
+
+ $this->db->select('sp.status_pengajuan nama, count(pp.id_status_pengajuan) as jumlah');
+  $this->db->from('`status_pengajuan` sp');
+  $this->db->join('permohonan_pengajuan pp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+  // $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+  $this->db->group_by("sp.status_pengajuan");  
+  if (!empty($bulan)) {
+    $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
+  }
+  if (!empty($tahun)) {
+    $this->db->where('YEAR(pp.tanggal_pengajuan)', date("Y", strtotime($tahun)));
+  }
+  if (!empty($kecamatan)) {
+    $this->db->where('kd_kecamatan', $kecamatan);
+  }
+  if (!empty($kelurahan)) {
+    $this->db->where('kd_kelurahan', $kelurahan);
+  }
+  return $this->db->get()->result_array();
 }
 
 public function jumlah_kunjungan_bulan($bulan=Null,$tahun=Null,$kecamatan=Null,$kelurahan=Null){
