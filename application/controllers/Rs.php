@@ -69,7 +69,7 @@ class Rs extends CI_Controller {
     ];
     echo json_encode($result);
 }
- public function detail_pengajuan($idsjp, $id_pengajuan, $id_puskesmas){
+ public function detail_pengajuan($idsjp, $id_pengajuan){
     $level = $this->session->userdata('level');
     $id_instansi = $this->session->userdata("instansi");
     $id_join     = $this->session->userdata("id_join");
@@ -99,7 +99,7 @@ class Rs extends CI_Controller {
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
     $data['id_sjp'] = $idsjp;
-    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
+    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
     $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
     $data['level'] = $level;
     $data['controller'] = $this->instansi();
@@ -145,7 +145,6 @@ public function entry_klaim(){
 }
 public function proses_entry_klaim(){
   $id_sjp = $this->input->post('id_sjp');
-  //var_dump($id_sjp);die;
   $tanggaltagihan = $this->input->post('tanggal_tagihan');
   $nomortagihan   = $this->input->post('nomor_tagihan');
   $nominalklaim   = $this->input->post('nominal_klaim');
@@ -162,10 +161,57 @@ public function proses_entry_klaim(){
               'status_klaim'    => 2,
             ));
             $index++; }
+            $this->db->update_batch('sjp',$dataklaim,'id_sjp');  
 
-    //var_dump($dataklaim);
-            $this->db->update_batch('sjp',$dataklaim,'id_sjp');     
+       // $nama_persyaratan = $this->input->post('nama_persyaratan'); 
+      // var_dump($dataklaim);
+         $dokumen          = $this->input->post('dokumen'); 
+        //var_dump($_FILES['dokumen']);die;
+        $persyaratan      = array();
+        for ($i=0; $i < count($id_sjp); $i++) { 
+
+            $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
+            $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+            $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+            $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
+            $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+                // File upload configuration
+            $uploadPath = 'uploads/dokumen/';
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+
+                // Load and initialize upload library
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            //var_dump($this->upload->initialize($config));die;
+            if($this->upload->do_upload('file')){
+                    // Uploaded file data
+                
+                $fileData      = $this->upload->data();
+                $persyaratan[] = array(
+                  'namafile' => $fileData['file_name'],
+                  'id_sjp'   => $id_sjp[$i],
+              );    
+                 $this->db->update_batch('sjp',$persyaratan,'id_sjp');  
+
+
+            }
+            // else{
+            //     echo "gagal";die;
+            // }
+         //   var_dump($persyaratan);die;
+    //     if(!$this->upload->do_upload( 'dokumen')){
+    //     $this->upload->display_errors();
+    //     }else{
+    //     echo "Berhasil diupload";
+    //     };die;
+        }
+   
+
             redirect ('Rs/daftar_klaim', 'refresh'); 
+
+
           }
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -288,6 +288,10 @@ echo $a - $b;
           <a class="nav-link tabdetail" id="baseIcon-tab4" data-toggle="tab" aria-controls="tabIcon4"
           href="#tabIcon4" aria-expanded="false"><i class="ft-clipboard"></i> Hasil Survey</a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6"
+          href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dokumen Bukti Inacbg</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5"
           href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dokumen Persyaratan</a>
@@ -501,12 +505,75 @@ echo $a - $b;
    <!--  <td><a href="<?php echo base_url('Cetak/cetak_survey_sjp/');?><?php echo $id_sjp;?>"><button type="button" class="btn mr-1 mb-1 btn-primary btn-sm"  style="float: right;">Cetak</button></td></a> -->
   </div>
 </div>
-<div class="tab-pane paneldetail" id="tabIcon5" aria-labelledby="baseIcon-tab5">
+<div class="tab-pane paneldetail" id="tabIcon6" aria-labelledby="baseIcon-tab6">
+   
+ <section id="image-gallery" class="card">
+   <div class="card-content">
+     <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+       <div class="row">
+  
 
-<!--    <div class="note">
-   <p> <strong>Catatan:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
- </div>
- -->
+      <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+           <a href="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" itemprop="contentUrl" data-size="480x360">
+            <img class="img-thumbnail img-fluid"src="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-size="480x360" widht="100" height="200"
+            itemprop="thumbnail" alt="Image description"/>
+          </a>
+        </figure>
+    </div>
+
+
+  </div>
+  <!--/ Image grid -->
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+     It's a separate element as animating opacity is faster than rgba(). -->
+     <div class="pswp__bg"></div>
+     <!-- Slides wrapper with overflow:hidden. -->
+     <div class="pswp__scroll-wrap">
+      <!-- Container that holds slides. PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <!--  Controls are self-explanatory. Order can be changed. -->
+          <div class="pswp__counter"></div>
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader-active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+        </button>
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+        </button>
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ PhotoSwipe -->
+</section>
+</div>
+<div class="tab-pane paneldetail" id="tabIcon5" aria-labelledby="baseIcon-tab5">
     <div class="note">
    <p> <strong>Catatan Dokumen:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
  </div>
@@ -527,6 +594,8 @@ echo $a - $b;
 
         <?php }
       } ?>
+
+   
     </div>
 
 

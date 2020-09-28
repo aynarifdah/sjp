@@ -19,7 +19,7 @@
   <div class="card-content collapse show">
     <div class="card-body">
       
-      <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" class="form form-horizontal">
+      <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
        <div class="form-group row mt-2">
         <label class="col-lg-3 label-control" for="">Tanggal Tagihan</label>
         <div class="col-lg-3">
@@ -44,6 +44,7 @@
             <th>Nomor SJP</th>
             <th>Diagnosa</th>
             <th>Nominal Pengajuan</th>
+            <th>Upload Bukti</th>
             <th>Catatan</th>
           </tr>
         </thead>
@@ -63,6 +64,7 @@
                     <?php } }
                   } ?></td>
                   <td><input type="text" class="form-control" name="nominal_klaim[]" id="" placeholder="Nominal"></td>
+                 <td><input type="file" class="form-control" name="dokumen[]" placeholder=""></td>
                   <td><input type="textarea" class="form-control" name="catatan_klaim[]" placeholder="Catatan"></td>
                 </tr>
                 <?php }
@@ -84,5 +86,13 @@
 <script src="<?= base_url()?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+<script src="<?= base_url()?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
+<script src="<?= base_url()?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
+<script src="<?= base_url()?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 </body>
 </html>
+<script type="text/javascript">
+   $("#inputimages").change(function () {
+   readURL(this);
+ });
+</script>
