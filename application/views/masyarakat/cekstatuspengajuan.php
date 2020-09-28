@@ -1,15 +1,15 @@
- <div class="container">
+<main>
+<div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
-<section id="number-tabs">
-  <div class="row">
-    <div class="col-12">
+      <div class="main_title">
+        <h2>Silahkan isi <strong>Data Pasien</strong> dibawah</h2>
+        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
+      </div>
 
-      <div class="card">
-
-    <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
-  <h4 class="text-center">Silahkan Isi Data Pasien</h4><br>
+      <div class="card" style="padding: 20px;">
         <div class="card-content collapse show">
           <div class="card-body">
+  
   <form class="mt-5 mb-5" id="cek">
  <h4 class="text-left ml-3"><i class="ft-file"></i> <strong>NIK</strong></h4>
     <div class="form-group row">
@@ -21,8 +21,9 @@
                  
                 </div>
 
-    <button type="submit" class="btn btn-dark" name="button" style="float: right;">Submit</button>
+    <button type="submit" class="btn btn-primary btn-md" name="button" style="float: right;">Kirim</button>
   </form>
+
    <div class="table-responsive">
         
       
@@ -48,10 +49,11 @@
 </div>
 </div>
 </div>
-</div>
-</section>
-  <a class="btn btn-dark btn-min-width mr-1 mb-1" style="margin-top: 30px;" href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a>
-</div>
+
+<!-- Home -->
+    <p class="text-center"><a href="" class="btn_1 medium">Sebelumnya</a></p>
+    
+</main>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

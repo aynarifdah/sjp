@@ -3,8 +3,8 @@
   <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
       <div class="main_title">
-        <h2><strong>Sistem Pendaftaran Online</strong> SJP Kota Depok</h2>
-        <p>Silahkan Pilih Layanan dibawah.</p>
+        <h2>Silahkan <strong>Pilih Layanan</strong> dibawah Ini</h2>
+        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
       </div>
 
     <div class="row">
