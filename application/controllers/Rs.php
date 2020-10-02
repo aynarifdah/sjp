@@ -304,14 +304,14 @@ public function input_pasien(){
     $this->load->view('template/default_template', $data);
 }
 public function getalldatapermohonan(){
-    $id_instansi = $this->input->post("id_instansi");
-    $id_join     = $this->input->post("id_join");
+    $id_instansi = $this->session->userdata("id_instansi");
+    $id_join     = $this->session->userdata('id_join');
 
     $id_jenissjp = 3;
 
     if ($this->input->post() !== Null) {
         $puskesmas  = $this->input->post("puskesmas");
-        $rs         = $this->input->post("rs");
+        $rs         = $this->input->post("rumahsakit");
         $status     = $this->input->post("status");
         $cari       = $this->input->post("cari");
         $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp,$puskesmas,$rs,$status,$cari,$id_join,$id_instansi);
