@@ -231,6 +231,7 @@
 
           </select>
         </div>
+         
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;"> 
           <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
             <option value="">Pilih Jenis Rawat</option>
@@ -248,6 +249,21 @@
             } ?> 
           </select>
         </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-lg-3 label-control" for="notelp">Puskesmas</label>
+            <?php if ($this->session->userdata('instansi')==2): ?>
+            <div class="col-lg-3 filter">
+              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
+                <option value="" selected>Semua Puskesmas</option>
+                <?php if (!empty($puskesmas)): ?>
+                  <?php foreach ($puskesmas as $puskes): ?>
+                    <option value="<?= $puskes['id_puskesmas'] ?>" ><?= $puskes['nama_puskesmas']?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+          <?php endif ?>
       </div>
       <div class="form-group row">
         <label class="col-lg-3 label-control" for="notelp">Mulai/Akhir Rawat</label>
