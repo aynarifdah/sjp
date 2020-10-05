@@ -255,7 +255,7 @@
             <?php if ($this->session->userdata('instansi')==2): ?>
             <div class="col-lg-3 filter">
               <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
-                <option value="" selected>Semua Puskesmas</option>
+                <option value="" selected>Pilih Puskesmas</option>
                 <?php if (!empty($puskesmas)): ?>
                   <?php foreach ($puskesmas as $puskes): ?>
                     <option value="<?= $puskes['id_puskesmas'] ?>" ><?= $puskes['nama_puskesmas']?></option>
