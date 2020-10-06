@@ -1,15 +1,22 @@
-<main>
-  <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
+<section id="number-tabs">
+  <div class="row">
+    <div class="col-12">
 
-      <div class="main_title">
-        <h2>Silahkan isi <strong>Data Pasien</strong> dibawah</h2>
-        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
-      </div>
+      <div class="card">
 
-      <div class="card" style="padding: 20px;">
+        <div class="card-header">
+          <h4 class="card-title">Entry permohonan baru SJP</h4>
+          <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+          <div class="heading-elements">
+            <ul class="list-inline mb-0">
+              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+            </ul>
+          </div>
+        </div>
         <div class="card-content collapse show">
           <div class="card-body">
-            <form action="<?php echo base_url('masyarakat/input_pasien'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
+            <form action="<?php echo base_url('Rs/input_pasien'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
                <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////-->
                <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////--> 
               <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pemohon</strong></h4>
@@ -124,10 +131,10 @@
             <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
             <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
               <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap"
-              name="nama_pasien" id="nama" required> 
+              name="nama_pasien" id="namapasien" required> 
             </div>
             <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-              <select name="jenis_kelamin_pasien" id="gender" class="form-control" required>
+              <select name="jenis_kelamin_pasien" id="jeniskelaminkpasien" class="form-control" required>
                 <option value="">Pilih Jenis Kelamin</option>
                 <option value="Perempuan">Perempuan</option>
                 <option value="Laki-Laki">Laki - Laki</option>
@@ -213,15 +220,18 @@
         <div class="form-group row">
           <label class="col-lg-3 label-control" for="notelp">Informasi Sakit</label>
           <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">                        
-            <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required>
+            <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required style="width: 100%">
              <option value="">Pilih Rumah Sakit</option>
+
              <?php if (!empty($rumahsakit)) {
               foreach ($rumahsakit as $key) {?>
               <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
               <?php }
-            } ?> 
+                    } ?> 
+
           </select>
         </div>
+         
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;"> 
           <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
             <option value="">Pilih Jenis Rawat</option>
@@ -241,6 +251,21 @@
         </div>
       </div>
       <div class="form-group row">
+        <label class="col-lg-3 label-control" for="notelp">Puskesmas</label>
+            <?php if ($this->session->userdata('instansi')==2): ?>
+            <div class="col-lg-3 filter">
+              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
+                <option value="" selected>Pilih Puskesmas</option>
+                <?php if (!empty($puskesmas)): ?>
+                  <?php foreach ($puskesmas as $puskes): ?>
+                    <option value="<?= $puskes['id_puskesmas'] ?>" ><?= $puskes['nama_puskesmas']?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+          <?php endif ?>
+      </div>
+      <div class="form-group row">
         <label class="col-lg-3 label-control" for="notelp">Mulai/Akhir Rawat</label>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">                        
           <input type="date" class="form-control" placeholder="Tanggal Mulai Rawat" name="mulairawat">
@@ -256,7 +281,7 @@
         <div class="col-lg-9  mb-2 contact-repeater">
           <div data-repeater-list="repeater-group">
             <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
-              <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik"  style="width: 30%">
+              <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik"  style="width: 100%; padding: 10px; ">
                <option>Pilih Topik</option>
                <?php if (!empty($topik)) {
                 foreach ($topik as $key) {?>
@@ -264,7 +289,7 @@
                 <?php }
               } ?>
             </select>
-            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa"  name="diagnosa" style="width: 60%">
+            <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa"  name="diagnosa" style="width: 85%; ">
               <option>Pilih Diagnosa</option>
               <?php if (!empty($diagnosa)) {
                 foreach ($diagnosa as $key) {?>
@@ -272,9 +297,6 @@
                 <?php }
               } ?>
             </select>
-
-            
-
 
             <span class="input-group-append" id="button-addon2">
               <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
@@ -317,8 +339,8 @@
             </div>
   </div>
  
-    <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" style="float: right;" onclick="return confirm('Apakah anda yakin? Data anda akan langsung dikirimkan ke Dinas Kesehatan.')">
-      <i class="ft-check-square"></i> Kirim
+    <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" style="float: right;">
+      <i class="ft-check-square"></i> Submit
     </button>
   </fieldset>
   <!-- ////////////////////INPUTAN DATA PASIEN /////////////////////////-->
@@ -331,11 +353,10 @@
 </div>
 </div>
 </div>
-
-<!-- Home -->
-    <p class="text-center"><a href="" class="btn_1 medium">Sebelumnya</a></p>
-
-</main>
+</div>
+</section>
+</div>
+</div>
 
 <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/css/forms/selects/select2.min.css">
@@ -369,7 +390,7 @@
   function getkelurahan() {
     var data = $('#kd_kecamatanpemohon').val();
     $.ajax({
-      url : "<?= base_url();?>/masyarakat/getKelurahan",
+      url : "<?= base_url();?>/Rs/getKelurahan",
       method : "POST",
       data : {id: data},
       async : false,
@@ -407,7 +428,7 @@
    }).eq(index).on('select2:select', function (evt) {
     var data = $(this).val();
     $.ajax({
-      url : "<?= base_url();?>/masyarakat/getDiagnosa",
+      url : "<?= base_url();?>/Rs/getDiagnosa",
       method : "POST",
       data : {id: data},
       async : false,
@@ -438,7 +459,7 @@
     function getdiagnosa() {
       var data = $('#kd_topik').val();
       $.ajax({
-        url : "<?= base_url();?>/masyarakat/getDiagnosa",
+        url : "<?= base_url();?>/Rs/getDiagnosa",
         method : "POST",
         data : {id: data},
         async : false,
@@ -460,7 +481,7 @@
     function getkelurahanpasien() {
       var data = $('#kd_kecamatanpasien').val();
       $.ajax({
-        url : "<?= base_url();?>/masyarakat/getKelurahan",
+        url : "<?= base_url();?>/Rs/getKelurahan",
         method : "POST",
         data : {id: data},
         async : false,
@@ -497,8 +518,8 @@
           if (api_data.hasOwnProperty('RESPONSE_CODE')) {
             alert(api_data.RESPONSE_DESC+'. Masukkan data secara manual');
           } else {
-            $('#nama').val(api_data.NAMA_LGKP);
-            $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
+            $('#namapasien').val(api_data.NAMA_LGKP);
+            // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
             $('#tanggallahirpasien').val(api_data.TGL_LHR);
             $('#tempatlahirpasien').val(api_data.TMPT_LHR);
             $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
@@ -506,7 +527,7 @@
             $('#rtpasien').val(api_data.NO_RT);
             $('#rwpasien').val(api_data.NO_RW);
             $("#"+api_data.AGAMA).attr('selected', true);
-            $("#gender"+api_data.JENIS_KLMIN).attr('checked',true);
+            $("#jeniskelaminkpasien"+api_data.JENIS_KLMIN).attr('checked',true);
             $('#Kecamatan').remove();
             $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="'+api_data.KEC_NAME+'">');
             var kelurahan = '';

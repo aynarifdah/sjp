@@ -1,24 +1,12 @@
+<main>
+    <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
-    <div class="container">
+      <div class="main_title">
+        <h2>Silahkan isi <strong>Data Pasien</strong> dibawah</h2>
+        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
+      </div>
 
-<section id="number-tabs">
-  <div class="row">
-    <div class="col-12">
-
-      <div class="card">
-
-       <!--  <div class="card-header">
-          <h4 class="card-title">ENTRY PERMOHONAN BARU SJP</h4>
-          <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-          <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-            </ul>
-          </div>
-        </div> -->
-          <h2 class="text-center mt-4">Pendaftaran Online SJP Kota Depok</h2>
-  <h4 class="text-center">Silahkan Isi Data Pasien</h4><br>
+      <div class="card" style="padding: 20px;">
         <div class="card-content collapse show">
           <div class="card-body">
             <form action="<?php echo base_url('masyarakat/input_pasien_lama'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
@@ -343,7 +331,7 @@
  
     <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" style="float: right;"  onclick="return confirm('Apakah anda yakin? Data anda akan langsung dikirimkan ke Dinas Kesehatan.')">
      
-      <i class="ft-check-square"></i> Submit
+      <i class="ft-check-square"></i> Kirim
     </button>
   </fieldset>
   <!-- ////////////////////INPUTAN DATA PASIEN /////////////////////////-->
@@ -356,11 +344,11 @@
 </div>
 </div>
 </div>
-</div>
-</section>
-<a class="btn btn-dark btn-min-width mr-1 mb-1" style="margin-top: 30px;"href="<?php echo base_url('masyarakat/index');?>"><i class="ft-chevrons-left"></i>Kembali ke Home</a>
-</div>
-</div>
+  
+  <!-- Home -->
+    <p class="text-center"><a href="" class="btn_1 medium">Sebelumnya</a></p>
+
+</main>
 
 <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/forms/icheck/icheck.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/css/forms/selects/select2.min.css">

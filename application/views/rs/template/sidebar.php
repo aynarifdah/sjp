@@ -1,9 +1,11 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
       <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-     
+             <li class=" nav-item"><a href="<?php echo base_url('Rs/pengajuan_rs');?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Permohonan SJP</span></a>
+        </li>
          <li class=" nav-item"><a href="<?php echo base_url('Rs/index');?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List SJP</span></a>
         </li>
+
         <li class=" nav-item"><a href="<?php echo base_url('Rs/daftar_klaim');?>"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List Pengajuan Klaim</span></a>
         </li>
         

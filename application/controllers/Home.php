@@ -147,7 +147,7 @@ public function Dashboard(){
 
 public function gethasilsurvey()
 {
-    $id_puskesmas = 1;
+    $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
     $id_sjp = $this->input->post('id_sjp');
     $data = $this->M_SJP->gethasilsurvey($id_sjp, $id_puskesmas);
     echo json_encode($data);
@@ -162,6 +162,7 @@ public function permohonan_sjp()
        'rumahsakit' => $this->M_SJP->rumahsakit(),
        'kelas_rawat' => $this->M_SJP->kelas_rawat(),
        'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+
    );
 
         // var_dump($data['rumahsakit']);
@@ -648,7 +649,7 @@ public function proses_survey($id_sjp,$id_pengajuan)
     $ceklistsurvey = $this->input->post('ceklist_survey');
     $catatan       = $this->input->post('catatan');
     $bobot         = $this->input->post('bobot');
-    $id_puskesmas = 1;
+    $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
     $datainsert    = array();
             // echo count($ceklistsurvey);die;
             $index = 0; // Set index array awal dengan 0
