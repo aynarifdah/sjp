@@ -897,7 +897,7 @@ function diagnosapenyakit() {
     function myFunc(total, num) {
       return total + num;
     }
-    function gethasilsurvey() {
+   function gethasilsurvey() {
       var id_sjp = '<?= $id_sjp; ?>';
       var level = '<?= $this->session->userdata('instansi') ?>';
       if (level == 1) {
