@@ -250,9 +250,10 @@
           </select>
         </div>
       </div>
+        
       <div class="form-group row">
+        <?php if ($this->session->userdata('instansi')==2): ?>
         <label class="col-lg-3 label-control" for="notelp">Puskesmas</label>
-            <?php if ($this->session->userdata('instansi')==2): ?>
             <div class="col-lg-3 filter">
               <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
                 <option value="" selected>Semua Puskesmas</option>

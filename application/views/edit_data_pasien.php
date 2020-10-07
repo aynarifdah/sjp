@@ -40,15 +40,15 @@
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Telp"
-                    name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telepon'] ?>">
+                    name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>">
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Whatsapp"
-                    name="whatsappemohon" id="Whatsapp_pemohon" required value="<?= $detail[0]['whatsapp'] ?>">
+                    name="whatsappemohon" id="Whatsapp_pemohon" required value="<?= $detail[0]['wapemohon'] ?>">
                   </div>
                   <div class="col-lg-4">
                     <input type="email" class="form-control" placeholder="Email"
-                    name="emailpemohon" id="emailpemohon" required value="<?= $detail[0]['email'] ?>">
+                    name="emailpemohon" id="emailpemohon" required value="<?= $detail[0]['emailpemohon'] ?>">
                   </div>
                 </div>
                 <div class="form-group row" id="modalwal">
@@ -62,15 +62,15 @@
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Alamat"
-                    name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamat'] ?>">
+                    name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>">
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rt"
-                    name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rt'] ?>">
+                    name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>">
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rw"
-                    name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rw'] ?>">
+                    name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>">
                   </div>
                 </div>
                 <div class="form-group row">

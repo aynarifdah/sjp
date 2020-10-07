@@ -597,10 +597,10 @@ public function gethasilsurvey($id_sjp, $id_puskesmas = null)
 }
 public function kethasilsurvey($id_sjp,$id_puskesmas = null)
 {
-  $this->db->select('cs.ceklist_survey, ocs.keterangan');
-  $this->db->from('survey s');
-  $this->db->join('ceklist_survey cs', 'cs.id_ceklist_survey = s.id_ceklist_survey', 'left');
-  $this->db->join('opsi_ceklist ocs', 'ocs.id_opsi_ceklist = s.id_opsi_ceklist', 'left');
+  $this->db->select('ceklist_survey.ceklist_survey, opsi_ceklist.keterangan');
+  $this->db->from('survey');
+  $this->db->join('ceklist_survey', 'ceklist_survey.id_ceklist_survey = survey.id_ceklist_survey', 'left');
+  $this->db->join('opsi_ceklist', 'opsi_ceklist.id_opsi_ceklist = survey.id_opsi_ceklist', 'left');
 
   if (!empty($id_puskesmas)) {
     $this->db->where('id_puskesmas', $id_puskesmas);

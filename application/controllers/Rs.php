@@ -397,11 +397,12 @@ public function getalldatapermohonan(){
     $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
     $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi,$id_join);
+    $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
     $data['anggaran'] = $this->M_SJP->anggaran_pasien();
     $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
     $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
     $data['id_sjp'] = $idsjp;
-    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
+    $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
     $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
     $data['level'] = $level;
     $data['controller'] = $this->instansi();
