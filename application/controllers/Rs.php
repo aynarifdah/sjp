@@ -843,7 +843,7 @@ public function index($id_status_klaim=Null){
     'status_klaim'      => $id_status_klaim,
     'dataklaim'         => $this->M_SJP->getdatapengajuanklaim(),
     'statusklaim'       => $this->M_data->getStatusKlaim(),
-    // 'dataklaim'         => $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit),
+    //'dataklaim'         => $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit),
     'penyakit'          => $this->M_SJP->diagpasien(),
     'controller'        => $this->instansi(),
     'rs'                => $this->M_data->getRS(),
@@ -873,6 +873,7 @@ public function index($id_status_klaim=Null){
         $status          = $this->input->post("status");
         $cari            = $this->input->post("cari");
         $data            = $this->M_SJP->view_permohonanklaim_rs($mulai,$akhir,$rs,$status,$cari, $id_instansi,$id_join);
+        // echo $data;die;
         // $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim,$mulai,$akhir,$rs,$status,$cari);
     } else {
         $data            = $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit);

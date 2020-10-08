@@ -95,7 +95,7 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration" style="padding: 10px;">
+        <!-- <section id="configuration" style="padding: 10px;"> -->
         <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
@@ -114,7 +114,7 @@ th {
           <tbody>
           </tbody>
         </table>
-      </section>
+      <!-- </section> -->
       </div>
     </div>
   </div>
