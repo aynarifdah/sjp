@@ -266,7 +266,7 @@ public function input_pasien(){
 
     // $this->db->insert_batch('attachment',$persyaratan);
      //var_dump($persyaratan);die;
-        redirect(site_url('Rs/pengajuan'));
+        redirect(site_url('Rs/pengajuan_rs'));
         
 
         // $this->load->view('input_pasien');
