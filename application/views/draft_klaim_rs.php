@@ -95,7 +95,7 @@ th {
             </div>
           </div>
         </div>
-        <section id="configuration" style="padding: 10px;">
+        <!-- <section id="configuration" style="padding: 10px;"> -->
         <table id="datatable" class="table table-bordered" style="width: 100%;">
           <thead>
             <tr>
@@ -114,7 +114,7 @@ th {
           <tbody>
           </tbody>
         </table>
-      </section>
+      <!-- </section> -->
       </div>
     </div>
   </div>
@@ -273,7 +273,7 @@ $('#entryklaim').click(function(event) {
     
   ],
   ajax: {
-    url: ' <?php echo base_url($controller."view_permohonanklaim_rs");?>',
+    url: ' <?php echo base_url("Rs/view_permohonanklaim_rs");?>',
     method: 'POST',
     "data": function(d) {
 
