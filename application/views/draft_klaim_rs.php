@@ -273,7 +273,7 @@ $('#entryklaim').click(function(event) {
     
   ],
   ajax: {
-    url: ' <?php echo base_url($controller."view_permohonanklaim_rs");?>',
+    url: ' <?php echo base_url("Rs/view_permohonanklaim_rs");?>',
     method: 'POST',
     "data": function(d) {
 
