@@ -17,6 +17,10 @@
   type="text/javascript"></script>
   <!-- END PAGE VENDOR JS-->
 
+  <!-- Asset PopUP images -->
+
+  <script src="<?php echo base_url()?>app-assets/js/lightbox-plus-jquery.min.js" type="text/javascript"></script>  
+
   <!-- BEGIN MODERN JS-->
   <script src="<?php echo base_url()?>app-assets/js/core/app-menu.js" type="text/javascript"></script>
   <script src="<?php echo base_url()?>app-assets/js/core/app.js" type="text/javascript"></script>

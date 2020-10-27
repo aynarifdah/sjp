@@ -201,10 +201,10 @@ echo $a - $b;
               </div>
               <form class="form" action="<?= base_url(); ?>Dinkes/uploadDokPersyaratan/<?= $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                  <center><img src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" class="img-responsive img-center col-sm-6" alt="img" id="showimages"></center>
+                  <!-- <center><img src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" class="img-responsive img-center col-sm-6" alt="img" id="showimages"></center>
                   <p class="text-center img-center mt-1">Surat Keterangan Miskin</p>
                   
-                  <center>
+                  <center> -->
                     <button class=" img-center btn btn-light" type="button">
                     <input type="file" name="file" id="inputimages">
                   </button>
@@ -514,10 +514,12 @@ echo $a - $b;
   
 
       <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-           <a href="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" itemprop="contentUrl" data-size="480x360">
+           <!-- <a href="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" itemprop="contentUrl" data-size="480x360">
             <img class="img-thumbnail img-fluid"src="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-size="480x360" widht="100" height="200"
             itemprop="thumbnail" alt="Image description"/>
-          </a>
+          </a> -->
+          <a class="example-image-link" href="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+      <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url()?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
         </figure>
     </div>
 
@@ -585,17 +587,16 @@ echo $a - $b;
         <?php if (!empty($getdokumenpersyaratan)) {
          foreach ($getdokumenpersyaratan as $att) {?>
         
-         <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-           <a href="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" itemprop="contentUrl" data-size="480x360">
-            <img class="img-thumbnail img-fluid"src="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-size="480x360" widht="100" height="200"
-            itemprop="thumbnail" alt="Image description"/>
-          </a>
+         <figure class="col-lg-6 col-md-6 col-12">
+         <a class="example-image-link" href="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+      <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url()?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
         </figure>
+
+      
 
         <?php }
       } ?>
-
-   
+      
     </div>
 
 
