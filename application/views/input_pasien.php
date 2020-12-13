@@ -325,8 +325,9 @@
       <div class="form-group row" id="modalwal">
         <label class="col-lg-3 label-control" for="modal"><?= $key['nama_persyaratan'] ?></label>
         <div class="col-lg-9"> 
-          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" >
-          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" >
+          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
+          <input type="file" id="dokumen" class="form-control" name="dokumen[]" 
+          style="height: 40px;" required>
         </div>
       </div>
 
