@@ -38,7 +38,10 @@
 
   <!-- BEGIN Custom CSS-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/style.css">
-  
+
+    <!-- Asset Pop Up Jangan Diotak atik-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/css/lightbox.min.css">
+
   <!-- Data tables-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/vendors/css/tables/datatable/datatables.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url()?>app-assets/fonts/simple-line-icons/style.min.css">

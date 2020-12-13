@@ -165,8 +165,9 @@
               method : "POST",
               dataType : "JSON",
               data : {idopsi : opsi},
+              async : false,
               success: function(result){
-                //console.log(result)
+                console.log("getbobot",result)
                 $('.bobot').eq(index).val(result);
                 if (result == 0) {
                  $('.opsi').eq(index).removeClass('activegreen');
@@ -195,22 +196,23 @@
 
             }
       // console.log(countopsi);
-       //  
-     })
-        })
-        $('.opsi').blur(function(event) {
-         var bobot = [];
+       // 
+        var bobot = 0;
+        var jumlahbobot = 0;
          $('.bobot').each(function(i, e) {
            var bobotval = $(this).val();
-           // console.log(bobotval);
-           bobot.push(+bobotval);
+            console.log(bobotval);
+      //     bobot.push(+bobotval);
+
+             bobot +=parseInt(bobotval);
+             jumlahbobot++;
          });
          // console.log(bobot);
-         var countbobot =  bobot.reduce(myFunc);
+         var countbobot =  bobot;
          $('.hasil').html(countbobot);
          $('.persyaratan').html(bobot.length);
          if (countbobot >= 11) {
-          $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+          $('.catatan').html('Hasil survey '+countbobot+'/'+jumlahbobot+' Kriteria, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
           $('.kethasil').html('LAYAK');
           $('.iconhasil').removeClass('ft-user-x text-danger');
           $('.kethasil').removeClass('text-danger');
@@ -222,7 +224,7 @@
             $('.kethasil').addClass('text-success');
           }
         }else{
-           $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+           $('.catatan').html('Hasil survey '+countbobot+'/'+jumlahbobot+' Kriteria, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
           $('.kethasil').html('TIDAK LAYAK');
           $('.kethasil').removeClass('text-success');
           $('.iconhasil').removeClass('ft-user-check text-success');
@@ -232,9 +234,47 @@
             $('.iconhasil').addClass('ft-user-x text-danger');
             $('.kethasil').addClass('text-danger');
           }
-        }
-        // alert(countbobot);
-      });
+        } 
+     })
+        })
+      //   $('.opsi').change(function(event) {
+      //    var bobot = [];
+      //    $('.bobot').each(function(i, e) {
+      //      var bobotval = $(this).val();
+      //       console.log(bobotval);
+      // //     bobot.push(+bobotval);
+      //        bobot +=bobotval;
+      //    });
+      //    // console.log(bobot);
+      //    var countbobot =  bobot;
+      //    $('.hasil').html(countbobot);
+      //    $('.persyaratan').html(bobot.length);
+      //    if (countbobot >= 11) {
+      //     $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+      //     $('.kethasil').html('LAYAK');
+      //     $('.iconhasil').removeClass('ft-user-x text-danger');
+      //     $('.kethasil').removeClass('text-danger');
+      //     if ($('.iconhasil').hasClass('ft-user-x')) {
+      //       $('.iconhasil').removeClass('ft-user-x text-danger');
+      //       $('.kethasil').removeClass('text-danger');
+      //     }else{
+      //       $('.iconhasil').addClass('ft-user-check text-success');
+      //       $('.kethasil').addClass('text-success');
+      //     }
+      //   }else{
+      //      $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+      //     $('.kethasil').html('TIDAK LAYAK');
+      //     $('.kethasil').removeClass('text-success');
+      //     $('.iconhasil').removeClass('ft-user-check text-success');
+      //     if ($('.iconhasil').hasClass('ft-user-check  text-success')) {
+      //       $('.iconhasil').removeClass('ft-user-check text-success');
+      //     }else{
+      //       $('.iconhasil').addClass('ft-user-x text-danger');
+      //       $('.kethasil').addClass('text-danger');
+      //     }
+      //   }
+      //   // alert(countbobot);
+      // });
 
   //  console.log(countopsi);
  //  $('.surveybtn').click(function(event) {
