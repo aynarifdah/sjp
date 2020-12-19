@@ -5,8 +5,6 @@
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
 data-open="click" data-menu="vertical-menu" data-col="2-columns">
-
-
 <div class="card">
   <div class="card-header">
     <h4 class="card-title">Detail Pengajuan</h4>
@@ -105,22 +103,15 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               <th scope="row">Anggaran</th>
               <td class="text"><span class="angggaran"><?php if ($anggaran) {
                     foreach ($anggaran as $keyanggaran) {?>
-
                      <?= number_format($keyanggaran['nominal_anggaran']); ?>
-
                     <?php }
                   } ?></span>&nbsp;&nbsp;<span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit"><?php 
-$a =  $keyanggaran['nominal_anggaran']; 
-$b =  $key['nominal_pembiayaan'];
-//Operator pengurangan variabel a dengan variabel b
-echo $a - $b;
-?></span></span></td>
-            </tr>
-            
-             <!--  <tr>
-                <th scope="row">Sisa Anggaran</th>
-                <td class="text">150.000.000</td>
-              </tr> -->
+                    $a =  $keyanggaran['nominal_anggaran']; 
+                    $b =  $key['nominal_pembiayaan'];
+                    //Operator pengurangan variabel a dengan variabel b
+                    echo $a - $b;
+                    ?></span></span></td>
+                </tr>
               <?php if (!empty($key['tanggal_survey'])) {?>
               <tr>
                 <th scope="row">Hasil Survey</th>
@@ -160,6 +151,16 @@ echo $a - $b;
                 </td>
                 <?php } ?>
               </tr>
+              <tr>
+                <th scope="row">Feedback</th>
+                <?php if ($this->session->userdata('instansi') == 1):?>
+                <td>
+                  <input type="text" class="form-control tambahfeedback" >
+                  <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                   
+                </td>
+             <?php endif ?>
+              </tr>
               
             </tbody>
           </table>
@@ -172,21 +173,76 @@ echo $a - $b;
               <a href="<?php echo base_url($controller.'edit_data_pasien/'.$this->uri->segment(3).'/'.$this->uri->segment(4) )?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
             <?php endif ?>
           </div>
+
+          
+       
+     <!--      <div class="float-right mt-2">
+            <?php if ($this->session->userdata('instansi') == 1): ?>
+              <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal"
+          data-target="#feedback"><i class="ft-edit"></i>&nbsp;Tambahkan Feedback</button>
+
+          <div class="modal fade text-left" id="feedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel1">Tambahkan Feedback </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="form" action="<?= base_url(); ?>Dinkes/input_feedback/<?= $key['id_sjp'].'/'.$key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+             
+               <div class="form-group row">
+                <label class="col-lg-3 label-control" for="feedback_dinkes">Feedback</label>
+            <div class="col-lg-9">
+                <textarea class="ckeditor" id="ckedtor" name="feedback_dinkes"></textarea>
+
+            </div>
+             </div>
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn-sm btn btn-outline-primary submitfeedback"  onclick="return confirm('Apakah anda yakin akan memberikan feedback?')">Submit </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+            <?php endif ?>
+          </div> -->
+
         <div class="float-right mt-2">
           <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey']) ) {?>
           <a href="<?php echo base_url($controller.'siap_survey/'.$key['id_sjp'].'/'.$key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
           <?php } ?>
+
           <?php if ($this->session->userdata('instansi') == 4 && ($key['id_status_pengajuan'] == 6 || $key['id_status_pengajuan'] == 7)) {?>
           <a href="<?php echo base_url($controller.'permohonan_sjp')?>" class="btn btn-secondary btn-sm text-center"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
           <?php }?>
+
           <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) {?>
           <button type="button" class="btn btn-secondary btn-sm text-center submitnominal"> Submit Nominal</button>
           <?php }?>
+
+
+         <?php if ($this->session->userdata('instansi') == 1){?>
+        <button type="button" class="btn btn-dark btn-sm float-right submitfeedback"> Submit feedback</button>
+         <?php }?>
+    
+
+         
+
           <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 3) {?>
           <a href="<?php echo base_url();?>Dinkes/updatestatbayar?get=<?php echo $key['id_sjp']?>" class="btn btn-secondary btn-sm text-center updatestatbayar"> Update Status Bayar</a>
           <?php }?>
+          
+          
+
           <?php  if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4) {?>
-          <button type="button" class="btn btn-secondary btn-sm text-center proses_sjp" data-toggle="modal"
+          <button type="button" class="btn btn-dark btn-sm float-right proses_sjp" data-toggle="modal"
           data-target="#default"> Proses SJP</button>
 
         <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
@@ -201,10 +257,6 @@ echo $a - $b;
               </div>
               <form class="form" action="<?= base_url(); ?>Dinkes/uploadDokPersyaratan/<?= $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
-                  <!-- <center><img src="https://increasify.com.au/wp-content/uploads/2016/08/default-image.png" class="img-responsive img-center col-sm-6" alt="img" id="showimages"></center>
-                  <p class="text-center img-center mt-1">Surat Keterangan Miskin</p>
-                  
-                  <center> -->
                     <button class=" img-center btn btn-light" type="button">
                     <input type="file" name="file" id="inputimages">
                   </button>
@@ -224,14 +276,17 @@ echo $a - $b;
                   <button type="submit" class="btn-sm btn btn-outline-primary" onclick="return confirm('Apakah anda yakin? Pengajuan yang sudah disubmit akan langsung dikirim ke Kepala Seksi Yankesru untuk diminta persetujuan. Dan tidak dapat di ubah kembali.')">Submit </button>
                 </div>
               </div>
+
+
             </form>
+
 
 
           </div>
         </div>
       </div>
       <?php }elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5) {?>
-      <button type ="button" class="btn btn-secondary btn-sm text-center" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
+      <button type ="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
 
       <div class="modal fade text-left" id="setujuipengajuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
       aria-hidden="true">
@@ -267,8 +322,13 @@ echo $a - $b;
         </div>
       </div>
     </div>
+
+
+
+
+    
+    
     <?php }elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7))  {?>
-    <!-- <div class="btn  btn-secondary btn-sm" onclick="logCetak()"><i class="ft-printer"></i> Cetak SJP</div> -->
     <a class="btn  btn-secondary btn-sm" href="<?php echo base_url('Dinkes/CetakTest/'.$key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
     <?php } ?>
   </div>
@@ -721,6 +781,7 @@ ul {
 <script src="<?= base_url()?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url()?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
 <script type="text/javascript">
 
@@ -735,15 +796,7 @@ ul {
 	     	}
 	   	});
 	}
-  // $(document).on('click', '.tambahnominal', function(){
-  //   $(this).addClass('form-control');
-  // });
-  // $('.inputnominal').click(function(event) {
-  //   $(this).hide();
-  //   $('.submitnominal').show();
-  //   $('.tambahnominal').addClass('form-control');
-  //   $('.tambahnominal').attr('contenteditable', '');
-  // });
+
   $('.submitnominal').click(function(event) {
     $('.inputnominal').hide();
     // $('.tambahnominal').removeClass('form-control');
@@ -760,12 +813,23 @@ ul {
      }
    });
   });
-  // $(document).on('click', '.submitnominal', function(){
-  //   $('.tambahnominal').removeClass('form-control');
-  // });
-  // $(document).on('blur', '.tambahnominal', function(){
-  //   $(this).removeClass('form-control');
-  // });
+
+    $('.submitfeedback').click(function(event) {
+    $('.inputfeedback').hide();
+    var value = $('.tambahfeedback').val();
+    var id_sjp = $('.id_sjpvalfeedback').val();
+     //console.log(value);
+    $.ajax({
+      url : '<?= base_url(); ?>Dinkes/input_feedback',
+      method : "POST",
+      data : {feedback: value, id_sjp : id_sjp},
+      async : false,
+      success: function(data){
+       location.reload();  
+     }
+   });
+  });
+
   function readURL(input) {
    if (input.files && input.files[0]) {
      var reader = new FileReader();
@@ -844,14 +908,6 @@ function diagnosapenyakit() {
 });
 });
 }
-    //  $('.add').click(function() {
-    //       $('.kd_topik').each(function(index) {
-    //         //console.log(index)
-    //   $('.kd_topik').eq(index).change(function(){
-
-    // })
-    // })
-    //  })
 
 
     function getdiagnosa() {

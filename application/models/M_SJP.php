@@ -627,6 +627,12 @@ public function input_nominal_pembiayaan($data, $id_sjp)
   $this->db->update('sjp', $data);
   return ($this->db->affected_rows() > 0);
 }
+public function input_feedback($data, $id_sjp)
+{
+  $this->db->where('id_sjp', $id_sjp);
+  $this->db->update('sjp', $data);
+  return ($this->db->affected_rows() > 0);
+}
 
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////

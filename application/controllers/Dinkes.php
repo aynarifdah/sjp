@@ -186,10 +186,25 @@ public function proses_update_bayar(){
 
             $this->load->view('template/default_template', $data);
         }
+
+    public function input_feedback(){
+    $feedback_dinkes = $this->input->post('feedback');
+    $id_sjp = $this->input->post('id_sjp');
+    $datafeedback = array(
+        'feedback_dinkes' => $feedback_dinkes,
+    );
+
+    $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
+    echo json_encode($updatefeedback);
+       
+ }
+
+        
+
 public function input_pembiayaan()
         {
-            $datanominal = $this->input->post('nominal');
-            $id_sjp = $this->input->post('id_sjp');
+    $datanominal = $this->input->post('nominal');
+    $id_sjp = $this->input->post('id_sjp');
     $status = 3; // menjadi menunggu pembayaran
     $dataupdate = array(
         'nominal_pembiayaan' => $datanominal,
@@ -215,57 +230,7 @@ public function input_pembiayaan()
 
 }
 
-// public function Halaman_utama(){
-//     $this->load->view('Halaman_utama');
-// }
-// public function Dashboard(){
-//    $this->load->view('Halaman_dashboard');
-// }
-// public function Halaman_pengajuan(){
-//    $this->load->view('Halaman_pengajuan');
-// }
-// public function Halaman_detail_pengajuan(){
-//    $this->load->view('Halaman_detail_pengajuan');
-// }
-// public function Halaman_input_pasien(){
-//    $this->load->view('Halaman_input_pasien');
-// }
-// public function Halaman_input_pasien_dinsos(){
-//     $this->load->view('Halaman_input_pasien_dinsos');
-// }
-// public function Halaman_permohonan_baru(){
-//    $this->load->view('Halaman_permohonan_baru');
-// }
-// public function Halaman_survey(){
-//    $this->load->view('Halaman_survey');
-// }
-// public function Halaman_cetak_sjp(){
-//    $this->load->view('Halaman_cetak_sjp');
-// }
-// public function Halaman_sjp(){
-//    $this->load->view('Halaman_sjp');
-// }
-// public function Halaman_persetujuan_sjp(){
-//    $this->load->view('Halaman_persetujuan_sjp');
-// }
-// public function Halaman_detail_survey(){
-//    $this->load->view('Halaman_detail_survey');
-// }
-// public function Halaman_pengantar_puskesmas(){
-//  $this->load->view('Halaman_pengantar_puskesmas');
-// }
-// public function Halaman_gallery_dokumen_persyaratan(){
-//  $this->load->view('Halaman_gallery_dokumen_persyaratan');
-// }
-// public function Halaman_pengajuan_sjp(){
-//  $this->load->view('Halaman_pengajuan_sjp');
-// }
-// public function Halaman_siap_survey(){
-//     $this->load->view('Halaman_siap_survey');
-// }
-// public function Halaman_rekapitulasi_sjp(){
-//     $this->load->view('Halaman_rekapitulasi_sjp');
-// }
+
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 // MAHDI - (Maaf, biar gampang kebaca)

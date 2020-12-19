@@ -256,6 +256,7 @@ public function input_pasien(){
         $mulairawat      = $this->input->post('mulairawat'); 
         $akhirrawat      = $this->input->post('akhirrawat'); 
         $feedback      = $this->input->post('feedback');
+        $feedback_dinkes      = $this->input->post('feedback_dinkes');
        
 
         $datasjp       = array(
@@ -283,7 +284,7 @@ public function input_pasien(){
          'mulai_rawat'      => $mulairawat,
          'selesai_rawat'      => $akhirrawat,
          'feedback'        => $feedback,
-         
+         'feedback_dinkes'        => $feedback_dinkes,
                     // 'nama_rumah_sakit' => $rumahsakit,
      );  
         // var_dump($datasjp);                    
