@@ -751,7 +751,7 @@ public function approvesjp($idsjp, $id_pengajuan){
     );
     $this->db->where('id_pengajuan', $id_pengajuan);
     $this->db->update('permohonan_pengajuan', $datapengajuan);
-    redirect('Dinkes/pengajuan_sjp','refresh');
+    redirect('Dinkes/persetujuan_sjp_kayankesru','refresh');
 }
 
 public function getRs(){

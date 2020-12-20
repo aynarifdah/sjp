@@ -131,7 +131,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               <?php } ?>
               <tr>
                 <th scope="row">Nominal Pembiayaan</th>
-                <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) {?>
+                 <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) {?>
                 <td>
                   <input type="number" class="form-control tambahnominal" >
                   <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
@@ -152,8 +152,8 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
                 <?php } ?>
               </tr>
               <tr>
+                <?php if ($this->session->userdata('instansi') == 1 ):?>
                 <th scope="row">Feedback</th>
-                <?php if ($this->session->userdata('instansi') == 1):?>
                 <td>
                   <input type="text" class="form-control tambahfeedback" >
                   <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
@@ -350,15 +350,19 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
         </li>
          <li class="nav-item">
           <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6"
-          href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dokumen Bukti Inacbg</a>
+          href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Bukti Inacbg</a>
         </li>
         <li class="nav-item">
           <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5"
-          href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dokumen Persyaratan</a>
+          href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dok Persyaratan</a>
         </li>
         <li class="nav-item">
           <a class="nav-link tabdetail" id="baseIcon-tab3" data-toggle="tab" aria-controls="tabIcon3"
           href="#tabIcon3" aria-expanded="false"><i class="ft-activity"></i> Riwayat Pengajuan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link tabdetail" id="baseIcon-tab7" data-toggle="tab" aria-controls="tabIcon7"
+          href="#tabIcon7" aria-expanded="false"><i class="ft-activity"></i> Feedback Dinkes</a>
         </li>
       </ul>
       <div class="tab-content px-1 pt-1">
@@ -711,6 +715,20 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
 <!--/ PhotoSwipe -->
 </section>
 </div>
+
+        <div class="tab-pane paneldetail" id="tabIcon7" aria-labelledby="baseIcon-tab7">
+          <table class="table mb-0 ">
+            <tbody>
+              <tr>
+                <th scope="row" class="border-top-0">Feedback Dinkes</th>
+                <td class="border-top-0"><?php echo $key['feedback_dinkes']; ?></td>
+              </tr>
+           
+          </tbody>
+        </table>
+
+      </div>
+
 </div>      
 </div>
 </div>
