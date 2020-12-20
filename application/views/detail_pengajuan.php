@@ -126,7 +126,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) {?>
               <tr>
                 <th scope="row">Nominal Klaim</th>
-                <td><?= number_format($key['nominal_klaim']); ?></td>
+                <td><?= number_format((float)$key['nominal_klaim']); ?></td>
               </tr>
               <?php } ?>
               <tr>
