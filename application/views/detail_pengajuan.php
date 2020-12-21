@@ -138,7 +138,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
                    
                 </td>
                 <?php  }else{?>
-                <td><?= number_format($key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
+                <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
                   <?php if ($key['status_klaim'] == 1) {
                     echo '<div class="badge bg-blue-grey" style="font-size: 14px;">'.$key['nama_statusklaim'].'  </div>';
                   }elseif ($key['status_klaim'] == 2) {
@@ -504,8 +504,8 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               </td>
 
               <td><?php
-              if(isset($key)  &&  !empty($key)){
-                echo number_format($key['nominal_klaim']);
+                 if(isset($key)  &&  !empty($key)){
+                echo number_format((float)$key['nominal_klaim']);
             
               }
               
@@ -515,7 +515,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               ?>
                 
               </td>
-              <td><?= number_format($key['nominal_pembiayaan']); ?></td>
+              <td><?= number_format((float)$key['nominal_pembiayaan']); ?></td>
 
               <td><?php if ($key['id_status_pengajuan'] == 1) {
                      echo '<div class="badge bg-blue-grey" style="font-size: 14px;">'.$key['status_pengajuan'].' </div>';

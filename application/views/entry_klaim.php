@@ -44,8 +44,8 @@
             <th>Nomor SJP</th>
             <th>Diagnosa</th>
             <th>Nominal Pengajuan</th>
-            <th>Upload Bukti</th>
             <th>Catatan</th>
+            <th>Bukti Inacbg</th>
           </tr>
         </thead>
         <tbody>
@@ -64,8 +64,9 @@
                     <?php } }
                   } ?></td>
                   <td><input type="text" class="form-control" name="nominal_klaim[]" id="" placeholder="Nominal"></td>
-                 <td><input type="file" class="form-control" name="dokumen[]" placeholder=""></td>
-                  <td><input type="textarea" class="form-control" name="catatan_klaim[]" placeholder="Catatan"></td>
+                
+                  <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan"></td>
+                   <td><input type="file" class="form-control" name="dokumen[]" placeholder=""></td>
                 </tr>
                 <?php }
               } ?> 
