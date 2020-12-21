@@ -720,7 +720,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
           <table class="table mb-0 ">
             <tbody>
               <tr>
-                <th scope="row" class="border-top-0">Feedback Dinkes</th>
+                <th scope="row" class="border-top-0">Feedback Dinkes :</th>
                 <td class="border-top-0"><?php echo $key['feedback_dinkes']; ?></td>
               </tr>
            
