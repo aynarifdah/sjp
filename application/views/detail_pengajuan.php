@@ -994,7 +994,7 @@ function diagnosapenyakit() {
           var countbobot =  hasil.reduce(myFunc);
           $('.hasil').html(countbobot);
           $('.persyaratan').html(hasil.length);
-          if (countbobot >= 12) {
+          if (countbobot >= 11) {
             $('.iconhasil').addClass('ft-user-check text-success');
             $('.kethasil').addClass('text-success');
             $('.kethasil').html('LAYAK');
