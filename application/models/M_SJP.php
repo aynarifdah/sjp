@@ -1398,4 +1398,31 @@ public function cekstatus($nik){
     }
 
 
+  function delete_pengajuan($id_pengajuan){
+    $this->db->where('id_pengajuan', $id_pengajuan);
+    $this->db->delete('permohonan_pengajuan');
+  }
+
+  function delete_sjp($id_sjp){
+    $this->db->where('id_sjp', $id_sjp);
+    $this->db->delete('sjp');
+  }
+
+  function delete_attachment($id_pengajuan){
+    $this->db->where('id_pengajuan', $id_pengajuan);
+    $this->db->delete('attachment');
+  }
+
+  function delete_diagnosa($id_sjp){
+    $this->db->where('id_sjp', $id_sjp);
+    $this->db->delete('diagnosa');
+  }
+
+  function delete_survey($id_sjp){
+    $this->db->where('id_sjp', $id_sjp);
+    $this->db->delete('survey');
+  }
+
+
+
 }

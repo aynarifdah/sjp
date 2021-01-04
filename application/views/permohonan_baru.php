@@ -92,6 +92,7 @@ th {
               <th style="width: 30px;">Rumah <br>Sakit</th>
               <!-- <th>Diagnosa</th> -->
               <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+              <th style="width: 30px;">Survey</th>
               <th style="width: 30px;">Aksi</th>
             </tr>
           </thead>
@@ -246,7 +247,12 @@ th {
       return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
     }
 
-  }, className: "dt-head-center dt-body-right bodyclick" }
+  }, className: "dt-head-center dt-body-right bodyclick" },
+   {data: "id_sjp", "render": function ( data, type, row, meta ) {
+      return `<a href="<?php echo base_url('/Home/hapussjp/'); ?>`+row.id_sjp+`" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+
+
+    },className : "dt-head-center dt-body-right"},
   ],
   ajax: {
     url: ' <?php echo base_url("Home/getnewdatapermohonan");?>',

@@ -102,7 +102,7 @@ th {
               <th>Rumah <br>Sakit</th>
               <!-- <th>Diagnosa</th> -->
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-             <!--  <th>Aksi</th> -->
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -233,14 +233,11 @@ th {
       } 
 
     },className : "dt-head-center dt-body-right bodyclick statuspengajuan text-white"},
-  //   {data: "tanggal_survey", "render": function ( data, type, row, meta ) {
-  //    if (data == '' || data == null) {
-  //     return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/'+row.id_sjp+'/'+row.id_pengajuan+'"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
-  //   }else{
-  //     return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey </button>'
-  //   }
+ {data: "id_sjp", "render": function ( data, type, row, meta ) {
+      return `<a href="<?php echo base_url('/Rs/hapussjp/'); ?>`+row.id_sjp+`" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
 
-  // }, className: "dt-head-center dt-body-right bodyclick" }
+
+    },className : "dt-head-center dt-body-right"},
 
   ],
   ajax: {

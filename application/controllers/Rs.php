@@ -46,6 +46,14 @@ public function permohonan_sjp()
 
     $this->load->view('template/default_template', $data);
 }
+public function hapussjp($id_sjp) {
+  $this->M_SJP->delete_pengajuan($id_pengajuan);
+  $this->M_SJP->delete_sjp($id_sjp);
+  $this->M_SJP->delete_attachment($id_pengajuan);
+  $this->M_SJP->delete_diagnosa($id_sjp);
+  $this->M_SJP->delete_survey($id_sjp);
+  redirect('Rs/pengajuan_rs');
+}
 public function pengajuan_rs(){
     $data = array(
         'puskesmas'         => $this->M_data->getPuskesmas(),

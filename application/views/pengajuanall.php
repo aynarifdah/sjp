@@ -100,6 +100,7 @@ th {
               <th style="width: 30px;">Rumah <br>Sakit</th>
               <!-- <th>Diagnosa</th> -->
               <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+              
             </tr>
           </thead>
           <tbody>

@@ -1088,6 +1088,7 @@ public function pengajuan(){
     $this->load->view('template/default_template', $data);
 }
 
+
 public function getalldatapermohonan(){
     $id_instansi = $this->input->post("id_instansi");
     $id_join     = $this->input->post("id_join");
@@ -1112,6 +1113,15 @@ public function getalldatapermohonan(){
         'query' => $this->db->last_query(),
     ];
     echo json_encode($result);
+}
+
+public function hapussjp($id_sjp) {
+  $this->M_SJP->delete_pengajuan($id_pengajuan);
+  $this->M_SJP->delete_sjp($id_sjp);
+  $this->M_SJP->delete_attachment($id_pengajuan);
+  $this->M_SJP->delete_diagnosa($id_sjp);
+  $this->M_SJP->delete_survey($id_sjp);
+  redirect('Home/pengajuan');
 }
 
 public function permohonan_baru(){

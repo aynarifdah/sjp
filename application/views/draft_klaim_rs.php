@@ -103,12 +103,7 @@ th {
               <th style="width: 10px !important; color: #6B6F82!important;">Pasien</th>
               <th style="width: 30px; color: #6B6F82!important;">Pemohon</th>
               <th style="width: 30px;">Nomor<br> Surat</th>
-              <!-- <th>Lama Pengajuan</th> -->
-              <!-- <th>Puskesmas</th> -->
               <th style="width: 30px;">Tanggal <br>Pengajuan</th>
-              <!-- <th>Diagnosa</th> -->
-              <!-- <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Nominal <br>Pengajuan</th> -->
-              <!-- <th>Diagnosa  </th> -->
             </tr>
           </thead>
           <tbody>
