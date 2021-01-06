@@ -269,10 +269,10 @@
       <div class="form-group row">
         <label class="col-lg-3 label-control" for="notelp">Mulai/Akhir Rawat</label>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">                        
-          <input type="date" class="form-control" placeholder="Tanggal Mulai Rawat" name="mulairawat">
+          <input type="date" class="form-control" placeholder="Tanggal Mulai Rawat" name="mulairawat" required>
         </div>
         <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">                        
-          <input type="date" class="form-control" placeholder="Tanggal Akhir Rawat" name="akhirrawat">
+          <input type="date" class="form-control" placeholder="Tanggal Akhir Rawat" name="akhirrawat" required>
         </div>
 
       </div>
