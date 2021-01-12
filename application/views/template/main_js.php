@@ -4,7 +4,7 @@
 
   <!-- BEGIN MODERN JS-->
  <!--  <script src="<?php echo base_url()?>app-assets/js/core/app-menu.js" type="text/javascript"></script> -->
-  <script src="<?php echo base_url()?>app-assets/js/core/app.js" type="text/javascript"></script>
+  <!-- <script src="<?php echo base_url()?>app-assets/js/core/app.js" type="text/javascript"></script> -->
   <script src="<?php echo base_url()?>app-assets/js/scripts/customizer.js" type="text/javascript"></script>
   <!-- END MODERN JS-->
 
@@ -23,7 +23,7 @@
 
   <!-- BEGIN MODERN JS-->
   <!-- <script src="<?php echo base_url()?>app-assets/js/core/app-menu.js" type="text/javascript"></script> -->
-  <script src="<?php echo base_url()?>app-assets/js/core/app.js" type="text/javascript"></script>
+  <!-- <script src="<?php echo base_url()?>app-assets/js/core/app.js" type="text/javascript"></script> -->
   <script src="<?php echo base_url()?>app-assets/js/scripts/customizer.js" type="text/javascript"></script>
   <!-- END MODERN JS-->
 
