@@ -1309,44 +1309,45 @@ public function getPuskesmas($id=Null){
   // return $query;
 // }
 
-public function view_permohonanklaim_rs($mulai=Null,$akhir=Null,$rs=Null,$status=Null,$cari=Null,  $id_instansi= null, $id_join= null,$id_sjp= null){
-  $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
-  $this->db->from('permohonan_pengajuan pp');
-  $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
-  $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
-  $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
-  $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
-// echo $id_instansi;die;
-if ($id_instansi == 2){
-    $this->db->where('sjp.id_rumah_sakit', $id_join);
-}
+public function view_permohonanklaim_rs($mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null, $id_sjp)
+  {
+    $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
+    $this->db->from('permohonan_pengajuan pp');
+    $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
+    $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+    $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    // echo $id_instansi;die;
+    if ($id_instansi == 2) {
+      $this->db->where('sjp.id_rumah_sakit', $id_join);
+    }
 
-        // $this->db->where('pp.id_status_pengajuan =', 4);
-  if (!empty($id_sjp)){ 
-    $this->db->where_in('id_sjp', $id_sjp);
-  } 
+    // $this->db->where('pp.id_status_pengajuan =', 4);
+    if (!empty($id_sjp)) {
+      $this->db->where_in('id_sjp', $id_sjp);
+    }
 
-  if (!empty($mulai)) {
-    $this->db->where('pp.tanggal_pengajuan >=', $mulai);
-  }
-  if (!empty($akhir)) {
-    $this->db->where('pp.tanggal_pengajuan <=', $akhir);
-  }
-  if (!empty($rs)) {
-    $this->db->where('rs.id_rumah_sakit =', $rs);
-  }
-  if (!empty($status)) {
-    $this->db->where('sk.id_statusklaim =', $status);
-  }
-  if (!empty($cari)) {
-    $this->db->like('CONCAT(pp.nama_pemohon)', $cari);
-  }
+    if (!empty($mulai)) {
+      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
+    }
+    if (!empty($rs)) {
+      $this->db->where('rs.id_rumah_sakit =', $rs);
+    }
+    if (!empty($status)) {
+      $this->db->where('sk.id_statusklaim =', $status);
+    }
+    if (!empty($cari)) {
+      $this->db->like('CONCAT(pp.nama_pemohon)', $cari);
+    }
 
-  $this->db->where('id_status_pengajuan',6);
-  $this->db->where('tanggal_tagihan',null);
-  $query = $this->db->get()->result_array();
-  return $query;
-}
+    $this->db->where('id_status_pengajuan', 6);
+    $this->db->where('tanggal_tagihan', null);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
 
 public function editPermohonanPengajuan($id, $data){
   $this->db->set($data);
