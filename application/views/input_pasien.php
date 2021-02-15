@@ -336,8 +336,6 @@
               <!-- ////////////////////INPUTAN DATA PASIEN /////////////////////////-->
               <!-- ////////////////////INPUTAN DATA PASIEN /////////////////////////-->
 
-
-
             </form>
           </div>
         </div>
@@ -347,6 +345,10 @@
 </section>
 </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css">
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/icheck/icheck.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
@@ -360,6 +362,13 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
 
 
 <script type="text/javascript">
@@ -557,6 +566,15 @@
       },
     });
 
+
+
+  });
+  // TEST 04-02-2021
+
+  $(document).ready(function() {
+    // getJenisRawat();
+    // getEndedInap();
+    // getEndedJalan();
   });
 
   // TANGGAL LAHIR PASIEN
@@ -577,10 +595,45 @@
       format: 'DD-MM-YYYY'
     }
   });
-</script>
 
-<script>
-  $(document).ready(function() {
-    //$('.js-example-basic-multiple').select2({placeholder: "Pilih Diagnosa"});
+  $('#mulairawat').datepicker({
+    format: 'dd-mm-yyyy'
   });
+  // $('#akhirrawat').datepicker({
+  //   format: 'dd-mm-yyyy'
+  // });
+
+  $("select#jenisrawat").on('change', function() {
+    var selected = $(this).children("option:selected").val();
+    if (selected == 'Rawat Inap') {
+      $('#mulairawat').on("change", function() {
+
+        // var date2 = $('#mulairawat').datepicker('getDate', '+1d');
+        // $('#akhirrawat').datepicker('setDate', date2.getDate() + 1);
+
+        // $('#akhirrawat').daterangepicker({
+        //   singleDatePicker: true,
+        //   showDropdowns: true,
+        //   // startDate: moment().add(30, 'day'),
+        //   // minDate: moment(),
+        //   locale: {
+        //     format: 'DD-MM-YYYY'
+        //   }
+        // });
+        var akhirrawat = $('#akhirrawat');
+        var startDate = $(this).datepicker('getDate');
+        var minDate = $(this).datepicker('getDate');
+        startDate.setDate(startDate.getDate() + 30);
+        akhirrawat.datepicker('setDate', startDate);
+      });
+      $('#akhirrawat').datepicker({
+        format: 'dd-mm-yyyy'
+      });
+      // });
+    } else {
+
+    }
+  });
+
+  // TEST 04-02-2021
 </script>

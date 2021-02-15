@@ -192,6 +192,7 @@
     });
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
+      "processing": true,
       "paging": true,
       "ordering": true,
       "info": true,
@@ -200,7 +201,6 @@
         "targets": 2,
         "type": "date-eu"
       }],
-
       columns: [{
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
@@ -211,7 +211,7 @@
         },
         {
           data: "tanggal_pengajuan",
-          "render": function(data, type, row, meta) {
+          "render": function date(data, type, row, meta) {
             var date = new Date(data);
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
@@ -327,8 +327,6 @@
         return false;
       }
     });
-
-
 
 
 

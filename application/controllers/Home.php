@@ -156,6 +156,14 @@ class Home extends CI_Controller
         echo json_encode($data);
     }
 
+    // function isWeekend($date)
+    // {
+    //     $weekDay = date('w', strtotime($date));
+    //     var_dump($weekDay);
+    //     die;
+    //     return ($weekDay == 0 || $weekDay == 6);
+    // }
+
     public function permohonan_sjp()
     {
         // $jam = date('H');
@@ -200,7 +208,10 @@ class Home extends CI_Controller
         $Kd_diagnosa = $this->input->post('id');
         $diagnosa    = $this->M_SJP->diagnosa2($Kd_diagnosa);
         echo json_encode($diagnosa);
+        // var_dump($diagnosa);
+        // die;
     }
+
 
 
     public function getIdPuskesmas($puskesmas_id)
@@ -225,8 +236,8 @@ class Home extends CI_Controller
         $statushubungan  = $this->input->post('status_hubungan');
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
-        $datapermohonan           = array(
-            'nama_pemohon'          => $nama,
+        $datapermohonan  = array(
+            'nama_pemohon'  => $nama,
             'jenis_kelamin' => $jeniskelamin1,
             'alamat'        => $alamat1,
             'rt'            => $rt1,
@@ -240,7 +251,8 @@ class Home extends CI_Controller
             'jenis_izin'            => $jenisizin,
             //'feedback_dokumen'   => $feedback
         );
-        // var_dump($datapermohonan);     
+        // var_dump($datapermohonan['status_hubungan']);
+        // die;
         $this->db->insert('permohonan_pengajuan', $datapermohonan);
         $id_pengajuan = $this->db->insert_id();
         // $id_pengajuan1 = $this->M_SJP->id_pengajuan();
@@ -270,9 +282,13 @@ class Home extends CI_Controller
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
-        $feedback_dinkes      = $this->input->post('feedback_dinkes');
+        $feedback_dinkes  = $this->input->post('feedback_dinkes');
 
-
+        // test 02-05-2021
+        $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+        $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+        $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+        // test 02-05-2021
         $datasjp       = array(
             'id_pengajuan'     => $id_pengajuan,
             'id_puskesmas'     => $id_puskesmas,
@@ -296,14 +312,18 @@ class Home extends CI_Controller
             'jenis_sjp'         => $jenisjaminan,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
-            'selesai_rawat'      => $akhirrawat,
-            'feedback'        => $feedback,
-            'feedback_dinkes'        => $feedback_dinkes,
+            'selesai_rawat'    => $akhirrawat,
+            'feedback'         => $feedback,
+            'feedback_dinkes'  => $feedback_dinkes,
             // 'nama_rumah_sakit' => $rumahsakit,
         );
-        // var_dump($datasjp);                    
+        // var_dump($datasjp);
+        // die;
         $this->db->insert('sjp', $datasjp);
-        $id_sjp = $this->db->insert_id(); //$this->db->insert_id();
+        $id_sjp = $this->db->insert_id();
+        //$this->db->insert_id();
+        // var_dump($id_sjp);
+        // die;
 
         // $id_sjp1 = $this->M_SJP->id_sjp();
         // foreach ($id_sjp1 as $key => $value) {
@@ -311,7 +331,11 @@ class Home extends CI_Controller
         // }
 
         $kd_diagnosa = $this->input->post('repeater-group'); //echo $kd_diagnosa;die; 
-        // var_dump($kd_diagnosa);die;
+        // var_dump($kd_diagnosa[0]['kd_topik']);
+        // die;
+        // var_dump($kd_diagnosa['diagnosa']);
+        // die;
+
         $dataDiagnosa = array();
 
         foreach ($kd_diagnosa as $key) {
@@ -324,6 +348,8 @@ class Home extends CI_Controller
                 'id_sjp'      => $id_sjp,
                 'id_penyakit' => $penyakit
             );
+            // var_dump($dataDiagnosa);
+            // die;
         }
         $this->db->insert_batch('diagnosa', $dataDiagnosa);
         //helper_log("add", "Permohonan Dikirim" ,$id_pengajuan,  $jenisizin, $id_puskesmas); 
@@ -337,9 +363,11 @@ class Home extends CI_Controller
         // $this->load->library('upload',$config);
 
         $nama_persyaratan = $this->input->post('nama_persyaratan');
-        // var_dump($nama_persyaratan);die;
+        // var_dump($nama_persyaratan);
+        // die;
         $dokumen          = $this->input->post('dokumen');
-        //var_dump($_FILES['dokumen']);die;
+        // var_dump($_FILES['dokumen']);
+        // die;
         $persyaratan      = array();
         for ($i = 0; $i < count($nama_persyaratan); $i++) {
 
@@ -373,7 +401,8 @@ class Home extends CI_Controller
             // else{
             //     echo "gagal";die;
             // }
-            // var_dump($persyaratan);die;
+            // var_dump($persyaratan);
+            // die;
             //     if(!$this->upload->do_upload( 'dokumen')){
             //     $this->upload->display_errors();
             //     }else{
@@ -1141,7 +1170,7 @@ class Home extends CI_Controller
             'draw' => '',
             'recordsFiltered' => '',
             'recordsTotal' => '',
-            'query' => $this->db->last_query(),
+            // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
     }
@@ -1197,51 +1226,139 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function detail_pengajuan($idsjp, $id_pengajuan)
+    public function detail_pengajuan($idsjp, $id_instansi, $id_pengajuan)
     {
         if ($this->input->post("btnEditInfo") !== Null) {
             // Informasi Pemohon | Tabel permohonan pengajuan
-            $data_pemohon = [
-                'nama_pemohon'      => $this->input->post("nama_pemohon"),
-                'jenis_kelamin'     => $this->input->post("jenis_kelamin_pemohon"),
-                'telepon'           => $this->input->post("teleponpemohon"),
-                'whatsapp'          => $this->input->post("whatsappemohon"),
-                'email'             => $this->input->post("emailpemohon"),
-                'status_hubungan'   => $this->input->post("status_hubungan"),
-                'alamat'            => $this->input->post("alamatpemohon"),
-                'rt'                => $this->input->post("rtpemohon"),
-                'rw'                => $this->input->post("rwpemohon"),
+            $nama                  = $this->input->post('nama_pemohon');
+            $jenisKelaminPemohon   = $this->input->post('jenis_kelamin_pemohon');
+            $teleponpemohon        = $this->input->post('teleponpemohon');
+            $whatsappemohon        = $this->input->post('whatsappemohon');
+            $emailpemohon          = $this->input->post('emailpemohon');
+            $status_hubungan   = $this->input->post('status_hubungan');
+            $alamatPemohon         = $this->input->post('alamatpemohon');
+            $rtPemohon             = $this->input->post('rtpemohon');
+            $rwPemohon             = $this->input->post('rwpemohon');
+            $kecamatanPemohon      = $this->input->post('kd_kecamatanpemohon');
+            $kelurahanPemohon      = $this->input->post('kd_kelurahanpemohon');
 
-                'kd_kecamatan'      => $this->input->post("kd_kecamatanpemohon"),
-                'kd_kelurahan'      => $this->input->post("kd_kelurahanpemohon")
+            $data_pemohon = [
+                'nama_pemohon'      => $nama,
+                'jenis_kelamin'     => $jenisKelaminPemohon,
+                'telepon'           => $teleponpemohon,
+                'whatsapp'          => $whatsappemohon,
+                'email'             => $emailpemohon,
+                'status_hubungan'   => $status_hubungan,
+                'alamat'            => $alamatPemohon,
+                'rt'                => $rtPemohon,
+                'rw'                => $rwPemohon,
+                'kd_kecamatan'      => $kecamatanPemohon,
+                'kd_kelurahan'      => $kelurahanPemohon
             ];
+
+            // var_dump($data_pemohon);
+            // die;
 
             $id_pp = $this->input->post("id_pp");
             $this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon);
             // var_dump($this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon));
 
             // Informasi Pasien | Tabel sjp
+            $nikPasien          = $this->input->post('nikpasien');
+            $nama_pasien        = $this->input->post('nama_pasien');
+            $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
+            $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
+            $tanggalLahirPasien = $this->input->post("tanggal_lahir_pasien");
+            $pekerjaanPasien    = $this->input->post("pekerjaanpasien");
+            $golDarahPasien     = $this->input->post("golongan_darah_pasien");
+            $alamatPasien       = $this->input->post("alamatpasien");
+            $rtPasien           = $this->input->post("rtpasien");
+            $rwpasien           = $this->input->post("rwpasien");
+            $kecPasien          = $this->input->post("kd_kecamatanpasien");
+            $kelPasien          = $this->input->post("kd_kelurahanpasien");
+            $telPasien          = $this->input->post("teleponpasien");
+            $whatsapPasien      = $this->input->post("whatsappasien");
+            $emailPasien        = $this->input->post("emailpasien");
+            $namaRS             = $this->input->post("nama_rumah_sakit");
+            $jenisRawat         = $this->input->post("jenis_rawat");
+            $kelasRawat         = $this->input->post("kelas_rawat");
+            $mulaiRawatPasien   = $this->input->post("mulairawat");
+            $akhirRawatPasien   = $this->input->post("akhirrawat");
+            $feedback           = $this->input->post("feedback");
+
+            // test 05-02-2021
+            $tanggalLahirPasien = date_format(date_create($tanggalLahirPasien), "Y-m-d");
+            $mulaiRawatPasien = date_format(date_create($mulaiRawatPasien), "Y-m-d");
+            $akhirRawatPasien = date_format(date_create($akhirRawatPasien), "Y-m-d");
+            // test 05-02-2021
+
             $data_pasien = [
-                'nik'               => $this->input->post("nikpasien"),
-                'nama_pasien'       => $this->input->post("nama_pasien"),
-                'jenis_kelamin'     => $this->input->post("jenis_kelamin_pasien"),
-                'tempat_lahir'      => $this->input->post("tempat_lahir_pasien"),
-                'tanggal_lahir'     => $this->input->post("tanggal_lahir_pasien"),
-                'pekerjaan'         => $this->input->post("pekerjaanpasien"),
-                'golongan_darah'    => $this->input->post("golongan_darah_pasien"),
-                'whatsapp'          => $this->input->post("whatsappasien"),
-                'telepon'           => $this->input->post("teleponpasien"),
-                'email'             => $this->input->post("emailpasien"),
-                'alamat'            => $this->input->post("alamatpasien"),
-                'rt'                => $this->input->post("rtpasien"),
-                'rw'                => $this->input->post("rwpasien"),
-                'kd_kecamatan'      => $this->input->post("kd_kecamatanpasien"),
-                'kd_kelurahan'      =>  $this->input->post("kd_kelurahanpasien"),
-                'feedback'          => $this->input->post("feedback")
+                'nik'               => $nikPasien,
+                'nama_pasien'       => $nama_pasien,
+                'jenis_kelamin'     => $jenisKelaminPasien,
+                'tempat_lahir'      => $tempatLahirPasien,
+                'tanggal_lahir'     => $tanggalLahirPasien,
+                'pekerjaan'         => $pekerjaanPasien,
+                'golongan_darah'    => $golDarahPasien,
+                'whatsapp'          => $whatsapPasien,
+                'telepon'           => $telPasien,
+                'email'             => $emailPasien,
+                'id_rumah_sakit'    => $namaRS,
+                'jenis_rawat'       => $jenisRawat,
+                'kelas_rawat'       => $kelasRawat,
+                'mulai_rawat'       => $mulaiRawatPasien,
+                'selesai_rawat'     => $akhirRawatPasien,
+                'alamat'            => $alamatPasien,
+                'rt'                => $rtPasien,
+                'rw'                => $rwpasien,
+                'kd_kecamatan'      => $kecPasien,
+                'kd_kelurahan'      => $kelPasien,
+                'feedback'          => $feedback
             ];
+
+            // var_dump($data_pasien);
+            // die;
             $id_sjp = $this->input->post("id_sjp");
             $this->M_SJP->editSJP($id_sjp, $data_pasien);
-            // var_dump($this->M_SJP->editSJP($id_sjp, $data_pasien));die;
+            // var_dump($this->M_SJP->editSJP($id_sjp, $data_pasien));
+            // die;
+
+
+
+            // DIAGNOSA
+            // $kd_diagnosa = $this->input->post('repeater-group'); 
+            // $dataDiagnosa = array();
+
+            // foreach ($kd_diagnosa as $key) {
+            //     if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+            //         $penyakit = $key['diagnosalainnya'];
+            //     } else {
+            //         $penyakit = $key['diagnosa'];
+            //     }
+            //     $dataDiagnosa[] = array(
+            //         'id_sjp'      => $id_sjp,
+            //         'id_penyakit' => $penyakit
+            //     );
+            // }
+
+            // $diagnosaLama = $this->input->post("diagnosa");
+            // $diagnosaLainnya = $this->input->post("diagnosalainnya");
+
+            // var_dump($diagnosaLama);
+            // die;
+
+            // DIAGNOSA
+
+            // if($diagnosaLainnya != ) {
+            //     this->db->update(diagnosa baru)
+            // }
+
+            // if(daignosa baru != '') {
+            //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
+            // }
+
+
+
 
         }
 
@@ -1269,7 +1386,8 @@ class Home extends CI_Controller
         // Tanggal Menyetujui
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
-        $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join);
+        $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join, $id_pengajuan);
+
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         // echo($id_puskesmas);die;
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
@@ -1345,10 +1463,21 @@ class Home extends CI_Controller
             'instansi'   => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
             'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            // 'topik'      => $this->M_SJP->diagnosa(),
+            // 'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan
         ];
-        // var_dump($data["detail"]);die;
+
+        // var_dump($data['topik']);
+        // var_dump($data['dokumen']);
+        // die;
 
         $path = "";
         $data = array(

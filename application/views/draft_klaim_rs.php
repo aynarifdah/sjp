@@ -191,7 +191,7 @@
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-
+  <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
   <!-- <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable( {
@@ -222,10 +222,15 @@
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
       // "responsive": true,
+      "processing": true,
       "paging": true,
       "ordering": true,
       "info": true,
       "bFilter": false,
+      "columnDefs": [{
+        "targets": 4,
+        "type": "date-eu"
+      }],
       "drawCallback": function(settings) {
         //iCheck for checkbox and radio inputs
         $('.skin-polaris input').iCheck({
@@ -320,6 +325,9 @@
       pageLength: 10,
     });
 
+    dtable
+      .order([4, 'desc'])
+      .draw();
 
     $(".filter").on('change', function() {
       dtable.ajax.reload();
