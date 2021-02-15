@@ -867,7 +867,6 @@ class Dinkes extends CI_Controller
 
     public function CetakTest($id_sjp)
     {
-        $this->load->view('dinkes/cetak');
         // setlocale(LC_ALL, 'in_ID');
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         $diagpasien = $this->M_SJP->diagpasien($id_sjp);
@@ -911,6 +910,7 @@ class Dinkes extends CI_Controller
             src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
         }
         body {
+            font-family: Arial;
           margin-top:0px;
           margin-left:10px;
         }
@@ -974,21 +974,25 @@ class Dinkes extends CI_Controller
                   <td style="width: 5%">:</td>
                   <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
                 </tr>
+                <br/>
                 <tr>
                   <td style="width: 30%">Tanggal Lahir</td>
                   <td style="width: 5%">:</td>
                   <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
                 </tr>
+                <br/>
                 <tr>
                   <td style="width: 30%">Jenis Kelamin</td>
                   <td style="width: 5%">:</td>
                   <td>' . strtoupper($sjp[0]->jenis_kelamin) . '</td>
                 </tr>
+                <br/>
                 <tr>
                   <td style="width: 30%">Tgl. Mulai Rawat</td>
                   <td style="width: 5%">:</td>
                   <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
                 </tr>
+                <br/>
                 <tr>
                   <td style="width: 30%">Alamat</td>
                   <td style="width: 5%">:</td>

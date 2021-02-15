@@ -448,18 +448,22 @@ class Rs extends CI_Controller
         foreach ($idsjp as $key => $value) {
             $data_claims[$key] = $this->M_SJP->view_permohonanklaim_rs(null, null, Null, Null, Null, Null, Null, $value)[0];
         }
-        $datay = array(
-            'dataklaim' => $data_claims,
-            'penyakit'  => $this->M_SJP->diagpasien(),
-        );
+        if (empty($data_claims)) {
+            redirect('Rs/');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
 
-        $path = "";
-        $data = array(
-            "page"    => $this->load("entry klaim", $path),
-            "content" => $this->load->view('entry_klaim', $datay, true)
-        );
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('entry_klaim', $datay, true)
+            );
 
-        $this->load->view('template/default_template', $data);
+            $this->load->view('template/default_template', $data);
+        }
     }
     public function proses_entry_klaim()
     {
@@ -870,7 +874,6 @@ class Rs extends CI_Controller
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
         );
 
-        //var_dump($datay['dataklaim']);die;
         $path = "";
         $data = array(
             "page"    => $this->load("Draft klaim", $path),
