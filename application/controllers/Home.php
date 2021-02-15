@@ -1226,7 +1226,7 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function detail_pengajuan($idsjp, $id_instansi, $id_pengajuan)
+    public function detail_pengajuan($idsjp, $id_pengajuan)
     {
         if ($this->input->post("btnEditInfo") !== Null) {
             // Informasi Pemohon | Tabel permohonan pengajuan
