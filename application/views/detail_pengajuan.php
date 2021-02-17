@@ -841,7 +841,7 @@
      });
 
      $('.submitfeedback').click(function(event) {
-       $('.inputfeedback').hide();
+       //  $('.inputfeedback').hide();
        var value = $('.tambahfeedback').val();
        var id_sjp = $('.id_sjpvalfeedback').val();
        //console.log(value);

@@ -1226,7 +1226,7 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function detail_pengajuan($idsjp, $id_instansi, $id_pengajuan)
+    public function detail_pengajuan($idsjp, $id_pengajuan)
     {
         if ($this->input->post("btnEditInfo") !== Null) {
             // Informasi Pemohon | Tabel permohonan pengajuan
@@ -1235,7 +1235,7 @@ class Home extends CI_Controller
             $teleponpemohon        = $this->input->post('teleponpemohon');
             $whatsappemohon        = $this->input->post('whatsappemohon');
             $emailpemohon          = $this->input->post('emailpemohon');
-            $status_hubungan   = $this->input->post('status_hubungan');
+            $status_hubungan       = $this->input->post('status_hubungan');
             $alamatPemohon         = $this->input->post('alamatpemohon');
             $rtPemohon             = $this->input->post('rtpemohon');
             $rwPemohon             = $this->input->post('rwpemohon');
@@ -1358,7 +1358,11 @@ class Home extends CI_Controller
             // }
 
 
+            // PERSYARATAN
 
+
+
+            // PERSYARATAN
 
         }
 
@@ -1387,9 +1391,9 @@ class Home extends CI_Controller
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join, $id_pengajuan);
-
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
-        // echo($id_puskesmas);die;
+        // echo ($id_puskesmas);
+        // die;
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
 
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
@@ -1397,6 +1401,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
+
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);

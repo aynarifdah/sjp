@@ -8,6 +8,7 @@ class Dinkes extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('tanggal');
         $this->load->helper('url');
         $this->load->helper('text');
         $this->load->model('M_SJP');
@@ -877,7 +878,8 @@ class Dinkes extends CI_Controller
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
-
+        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
+        // die;
 
         $this->load->library('dompdf_gen');
         $option = new Options();
@@ -910,7 +912,8 @@ class Dinkes extends CI_Controller
             src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
         }
         body {
-            font-family: Arial;
+          font-family: Arial;
+          font-size: 12px;
           margin-top:0px;
           margin-left:10px;
         }
@@ -918,9 +921,9 @@ class Dinkes extends CI_Controller
         #kop {
           margin-bottom:30px;
         }
-        .a { display: inline-block; width: 70px; font-size:16px;}
-        .b { display: inline-block; width: 20px; font-size:16px;}
-        .c { display: inline-block; width: 400px; font-size:16px;}
+        .a { display: inline-block; width: 70px; font-size:12px;}
+        .b { display: inline-block; width: 20px; font-size:12px;}
+        .c { display: inline-block; width: 300px; font-size:12px;}
 
         table {
         border-collapse: collapse;
@@ -944,29 +947,89 @@ class Dinkes extends CI_Controller
         .left{
         float:left;
         }
+        table {
+            border-collapse:separate; 
+            border-spacing: 0 0.6em;
+          }
+
+        .a, .b, .c
+        {
+            font-size:12px;
+        }
+
+        .tanggal
+        {
+            margin-left: 490px;
+        }
+
+        .keterangan
+        {
+            position: relative;
+            width: 700px;
+            height: 70px;
+        }
+
+        .kiri
+        {
+            position: absolute;
+            width: 390px;
+            height: auto;
+        }
+        .kanan
+        {
+            position: absolute;
+            top: 5px;
+            left: 490px;
+            width: 200px;
+            height: 60px;
+        }
+
+        .breakword
+        {
+            overflow-wrap:break-word !important;
+            word-wrap:break-word;
+        }
+
+        #hal
+        {
+            margin-top: 12px;
+        }
+        .info
+        {
+            text-indent: 50px;
+        }
+
+
     
         </style>
       </head>
       <body>
         <img src=' . $img_kop . ' alt="" id="kop" width="100%">
-        <br>
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Depok, ' . date("d M Y", strtotime($sjp[0]->tanggal_surat)) . '<br>
+           
+        <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+        <br><br>
 
-
-         <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kepada :<br>
-
-         <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span>Yth. Direktur ' . $sjp[0]->nama_rumah_sakit . '<br>
-        <span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Di
- 
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Tempat<br>
-     
+        <div class="keterangan">
+            <div class="kiri">
+                <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+                <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+                <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+            </div>
+            
+            
+            <div class="kanan">
+                Kepada :<br>
+                <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+                Di Tempat
+            </div>
+        </div>
   
-      <br>
+      <br><br>
       <div class="row">
         <div class="col-lg-12">
 
           Dari hasil penelitian kami atas surat-surat dari :
+          <br>
             <table class="table table-borderless table-sm">
               <tbody>
                 <tr>
@@ -974,25 +1037,25 @@ class Dinkes extends CI_Controller
                   <td style="width: 5%">:</td>
                   <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
                 </tr>
-                <br/>
+                
                 <tr>
                   <td style="width: 30%">Tanggal Lahir</td>
                   <td style="width: 5%">:</td>
                   <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
                 </tr>
-                <br/>
+                
                 <tr>
                   <td style="width: 30%">Jenis Kelamin</td>
                   <td style="width: 5%">:</td>
                   <td>' . strtoupper($sjp[0]->jenis_kelamin) . '</td>
                 </tr>
-                <br/>
+                
                 <tr>
                   <td style="width: 30%">Tgl. Mulai Rawat</td>
                   <td style="width: 5%">:</td>
                   <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
                 </tr>
-                <br/>
+                
                 <tr>
                   <td style="width: 30%">Alamat</td>
                   <td style="width: 5%">:</td>
@@ -1002,6 +1065,7 @@ class Dinkes extends CI_Controller
             </table><br>
       
           Ternyata pasien tersebut memenuhi syarat :
+          <br>
            <table class="table table-borderless table-sm">
             <tbody>
               <tr>
@@ -1034,8 +1098,9 @@ class Dinkes extends CI_Controller
           </table>
         </div>
       </div>
-      
-      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      <div class="info">
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit<br> secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      </div>
         <img src=' . $ttd . ' alt="" id="kop" width="280" height="161" align="right">
 
       </body></html>';

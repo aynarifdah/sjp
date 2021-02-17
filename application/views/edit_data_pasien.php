@@ -626,57 +626,57 @@
   }
 
   // TEST
+
+  // TANGGAL LAHIR PASIEN
   $('#tanggallahirpasien').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
+    maxYear: parseInt(moment().format('YYYY'), 10),
     locale: {
       format: 'DD-MM-YYYY'
     }
   });
+  // TANGGAL LAHIR PASIEN
   $('.datepicker').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
-    // startDate: moment(date).add(1, 'days'),
-    // endDate: moment(date).add(2, 'days'),
+    minYear: 2000,
     locale: {
       format: 'DD-MM-YYYY'
     }
   });
 
+
   $("select#jenisrawat").change(function() {
     var selected = $(this).children("option:selected").val();
+    // console.log(selected);
     if (selected == 'Rawat Inap') {
-      getEndedInap();
+
+      $('#mulairawat').on("change", function() {
+        var mulairawat = $("#mulairawat").val().split("-");
+        var d = new Date(mulairawat[2], mulairawat[1] - 1, mulairawat[0]);
+        d.setDate(d.getDate() + 30);
+        var endDateStr = ("0" + d.getDate()).slice(-2) + '-' + (d.getMonth() + 1) + '-' + (d.getYear() + 1900);
+        console.log(endDateStr);
+        var akhirrawat = $('#akhirrawat').val(endDateStr);
+
+      });
+
     } else {
-      getEndedJalan();
+
+      $('#mulairawat').on("change", function() {
+        var mulairawat = $("#mulairawat").val().split("-");
+        var d = new Date(mulairawat[2], mulairawat[1] - 1, mulairawat[0]);
+        d.setDate(d.getDate() + 14);
+        var endDateStr = ("0" + d.getDate()).slice(-2) + '-' + (d.getMonth() + 1) + '-' + (d.getYear() + 1900);
+        console.log(endDateStr);
+        var akhirrawat = $('#akhirrawat').val(endDateStr);
+      });
+
     }
   });
 
 
-
-  function getEndedJalan() {
-    // $('#akhirrawat').daterangepicker({
-    //   singleDatePicker: true,
-    //   showDropdowns: true,
-    //   startDate: moment().add(14, 'day'),
-    //   minDate: moment(),
-    //   locale: {
-    //     format: 'DD-MM-YYYY'
-    //   }
-    // });
-  }
-
-  // function getEndedInap() {
-  //   $('#akhirrawat').daterangepicker({
-  //     singleDatePicker: true,
-  //     showDropdowns: true,
-  //     startDate: moment().add(30, 'day'),
-  //     minDate: moment(),
-  //     locale: {
-  //       format: 'DD-MM-YYYY'
-  //     }
-  //   });
-  // }
   // TEST
 
 

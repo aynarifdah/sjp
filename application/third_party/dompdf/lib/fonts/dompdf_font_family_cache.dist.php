@@ -94,9 +94,9 @@ return array(
     ),
     'arial' =>
     array(
-        'normal' => $distFontDir . '/arial',
-        'bold' => $distFontDir . '/arialbd',
-        'italic' => $distFontDir . '/ariali',
-        'bold_italic' => $distFontDir . '/arialbi'
+        'normal' => $distFontDir . '/Arial',
+        'bold' => $distFontDir . '/Arial',
+        'italic' => $distFontDir . '/Arial',
+        'bold_italic' => $distFontDir . '/Arial'
     )
 );
