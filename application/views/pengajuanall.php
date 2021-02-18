@@ -209,7 +209,7 @@
       "processing": true,
       // TEST 03-02-2021
       "paging": true,
-      "ordering": true,
+      // "ordering": true,
       "info": true,
       "bFilter": true,
       "columnDefs": [{
