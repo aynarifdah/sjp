@@ -314,10 +314,6 @@
       .order([2, 'desc'])
       .draw();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Rizal
     $(".filter").on('change', function() {
       dtable.ajax.reload();
     });
