@@ -214,7 +214,7 @@
       "bFilter": true,
       "columnDefs": [{
         "targets": 2,
-        "type": "date-eu"
+        "type": "date-euro"
       }],
       columns: [{
           data: "nama_pemohon",
