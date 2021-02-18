@@ -209,12 +209,12 @@
       "processing": true,
       // TEST 03-02-2021
       "paging": true,
-      // "ordering": true,
+      "ordering": false,
       "info": true,
       "bFilter": true,
       "columnDefs": [{
         "targets": 2,
-        "type": "date-euro"
+        "type": "date-eu"
       }],
       columns: [{
           data: "nama_pemohon",
