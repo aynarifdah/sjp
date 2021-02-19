@@ -184,6 +184,9 @@
   <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/datatable-basic.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
   <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+
+
+
   <script>
     // Polaris Checkbox & Radio
     $('.skin-polaris input').iCheck({
@@ -194,7 +197,7 @@
     var dtable = $("#datatable").DataTable({
       "processing": true,
       "paging": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "bFilter": false,
       "columnDefs": [{
@@ -442,7 +445,6 @@
     });
   </script>
 
-  <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 </body>
 

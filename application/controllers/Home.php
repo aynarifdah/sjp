@@ -156,13 +156,7 @@ class Home extends CI_Controller
         echo json_encode($data);
     }
 
-    // function isWeekend($date)
-    // {
-    //     $weekDay = date('w', strtotime($date));
-    //     var_dump($weekDay);
-    //     die;
-    //     return ($weekDay == 0 || $weekDay == 6);
-    // }
+
 
     public function permohonan_sjp()
     {
@@ -1235,7 +1229,7 @@ class Home extends CI_Controller
             $teleponpemohon        = $this->input->post('teleponpemohon');
             $whatsappemohon        = $this->input->post('whatsappemohon');
             $emailpemohon          = $this->input->post('emailpemohon');
-            $status_hubungan   = $this->input->post('status_hubungan');
+            $status_hubungan       = $this->input->post('status_hubungan');
             $alamatPemohon         = $this->input->post('alamatpemohon');
             $rtPemohon             = $this->input->post('rtpemohon');
             $rwPemohon             = $this->input->post('rwpemohon');
@@ -1286,6 +1280,7 @@ class Home extends CI_Controller
             $akhirRawatPasien   = $this->input->post("akhirrawat");
             $feedback           = $this->input->post("feedback");
 
+            $jenisizin       = 1;
             // test 05-02-2021
             $tanggalLahirPasien = date_format(date_create($tanggalLahirPasien), "Y-m-d");
             $mulaiRawatPasien = date_format(date_create($mulaiRawatPasien), "Y-m-d");
@@ -1326,7 +1321,7 @@ class Home extends CI_Controller
 
 
             // DIAGNOSA
-            // $kd_diagnosa = $this->input->post('repeater-group'); 
+            // $kd_diagnosa = $this->input->post('repeater-group');
             // $dataDiagnosa = array();
 
             // foreach ($kd_diagnosa as $key) {
@@ -1344,8 +1339,7 @@ class Home extends CI_Controller
             // $diagnosaLama = $this->input->post("diagnosa");
             // $diagnosaLainnya = $this->input->post("diagnosalainnya");
 
-            // var_dump($diagnosaLama);
-            // die;
+
 
             // DIAGNOSA
 
@@ -1359,7 +1353,53 @@ class Home extends CI_Controller
 
 
 
+            // ==========================PERSYARATAN=========================
 
+            $dokumen = $this->input->post('dokumen');
+            $id_persyaratan = $this->input->post('id_persyaratan');
+            $countfiles = count($id_persyaratan);
+            $data = [];
+            for ($i = 0; $i < $countfiles; $i++) {
+
+                if (!empty($_FILES['dokumen']['name'][$i])) {
+                    // Define new $_FILES array - $_FILES['file']
+                    $_FILES['file']['name'] = $_FILES['dokumen']['name'][$i];
+                    $_FILES['file']['type'] = $_FILES['dokumen']['type'][$i];
+                    $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+                    $_FILES['file']['error'] = $_FILES['dokumen']['error'][$i];
+                    $_FILES['file']['size'] = $_FILES['dokumen']['size'][$i];
+
+                    // Set preference
+                    $config['upload_path'] = 'uploads/dokumen/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                    $config['max_size'] = '5000'; // max_size in kb
+                    $config['file_name'] = $_FILES['dokumen']['name'][$i];
+
+                    //Load upload library
+                    $this->load->library('upload', $config);
+
+                    // File upload
+                    if ($this->upload->do_upload('file')) {
+                        $uploadData = $this->upload->data();
+                        $filename = $uploadData['file_name'];
+
+                        $data = [
+                            'attachment' => $filename,
+                        ];
+
+                        $this->db->where('id_pengajuan', $id_pengajuan);
+                        $this->db->where('id_persyaratan', $id_persyaratan[$i]);
+                        $this->db->update('attachment', $data);
+                    }
+                }
+            }
+
+
+
+            // ==========================PERSYARATAN=========================
+
+            // var_dump($data);
+            // die;
         }
 
         $level = $this->session->userdata('level');
@@ -1387,7 +1427,7 @@ class Home extends CI_Controller
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join, $id_pengajuan);
-
+        // print_r($data['datapermohonan']);
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         // echo($id_puskesmas);die;
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
@@ -1397,6 +1437,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
+
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
@@ -1464,9 +1505,10 @@ class Home extends CI_Controller
             'controller' => $this->instansi(),
             'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
             // test
-            // 'topik'      => $this->M_SJP->diagnosa(),
-            // 'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
-            'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
             'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
             'rumahsakit' => $this->M_SJP->rumahsakit(),
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
@@ -1476,7 +1518,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['dokumen']);
+        // var_dump($data['topik']);
         // die;
 
         $path = "";

@@ -621,6 +621,21 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
+
+  // TEST 17-02-2021
+  public function getForUpdateFile($id_pengajuan)
+  {
+    $this->db->select('attachment.attachment, persyaratan.id_persyaratan, persyaratan.nama_persyaratan');
+    $this->db->from('persyaratan');
+    $this->db->join('attachment', 'attachment.id_persyaratan = persyaratan.id_persyaratan', 'left');
+    $this->db->where('id_pengajuan ', $id_pengajuan);
+    // $this->db->where('id_jenis_izin', $id_jenis_izin);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  // TEST 17-02-2021
+
+
   public function getdokumenpersyaratan($id_pengajuan, $id_jenis_izin)
   {
     $this->db->select('*');
@@ -1147,6 +1162,7 @@ class M_SJP extends CI_Model
     $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
     $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
 
+
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
@@ -1170,6 +1186,9 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.email', $cari);
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
+    // TEST 18-02-2021
+    $this->db->order_by('pp.tanggal_pengajuan', 'desc');
+    // TEST 18-02-2021
     $query = $this->db->get()->result_array();
     return $query;
   }

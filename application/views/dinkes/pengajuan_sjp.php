@@ -183,9 +183,9 @@
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
 
-  <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+  <!-- <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script> -->
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
@@ -211,7 +211,7 @@
       // "responsive": true,
       "processing": true,
       "paging": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "bFilter": false,
       "columnDefs": [{
@@ -314,10 +314,6 @@
       .order([2, 'desc'])
       .draw();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Rizal
     $(".filter").on('change', function() {
       dtable.ajax.reload();
     });
