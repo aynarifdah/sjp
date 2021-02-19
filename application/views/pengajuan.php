@@ -194,7 +194,7 @@
     var dtable = $("#datatable").DataTable({
       "processing": true,
       "paging": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "bFilter": false,
       "columnDefs": [{

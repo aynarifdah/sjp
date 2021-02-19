@@ -50,7 +50,7 @@
           </div>
           <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD -->
         </div>
         <div class="row" style="padding-left: 15px; padding-right: 15px;">
    <!--  <?php if ($this->session->userdata('level')==1): ?>
@@ -72,7 +72,7 @@
 <<<<<<< HEAD
           <?php endif ?>  -->
           
-          <div class="col-lg-3 filter">
+  <!--         <div class="col-lg-3 filter">
             <select name="rs" id="rs" class="form-control">
               <option value="" selected>Semua Rumah Sakit</option>
               <?php if (!empty($rs)): ?>
@@ -97,7 +97,7 @@
               <input type="text" class="form-control" id="cari" placeholder="Cari Nama Pasien, Pemohon, Rumah sakit, Status Pengajuan">
               <div class="form-control-position">
                 <i class="ft-search"></i>
-=======
+======= -->
           <?php endif ?> -->
             <div class="col-lg-3 filter">
               <select name="rs" id="rs" class="form-control">
@@ -125,7 +125,7 @@
                 <div class="form-control-position">
                   <i class="ft-search"></i>
                 </div>
->>>>>>> origin/Rizal
+<!-- >>>>>>> origin/Rizal -->
               </div>
             </div>
           </div>
@@ -228,7 +228,7 @@
     var dtable = $("#datatable").DataTable({
       "processing": true,
       "paging": true,
-      "ordering": true,
+      "ordering": false,
       "info": true,
       "bFilter": false,
       "columnDefs": [{
