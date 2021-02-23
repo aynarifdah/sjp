@@ -170,22 +170,22 @@ class Home extends CI_Controller
                 </button></div>');
             redirect('Home/pengajuan');
         } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        $data = array(
+            'topik'      => $this->M_SJP->diagnosa(),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+        );
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+        $path = "";
+        $data = array(
+            "page" => $this->load("Input Pasien", $path),
+            "content" => $this->load->view('input_pasien', $data, true)
+        );
 
-            $this->load->view('template/default_template', $data);
+        $this->load->view('template/default_template', $data);
         }
     }
     public function getKelurahan()
@@ -1321,27 +1321,35 @@ class Home extends CI_Controller
 
 
             // DIAGNOSA
-            // $kd_diagnosa = $this->input->post('repeater-group');
-            // $dataDiagnosa = array();
+            $kd_diagnosa = $this->input->post('repeater-group');
+            $dataDiagnosa = array();
 
-            // foreach ($kd_diagnosa as $key) {
-            //     if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-            //         $penyakit = $key['diagnosalainnya'];
-            //     } else {
-            //         $penyakit = $key['diagnosa'];
-            //     }
-            //     $dataDiagnosa[] = array(
-            //         'id_sjp'      => $id_sjp,
-            //         'id_penyakit' => $penyakit
-            //     );
-            // }
+            // var_dump($kd_diagnosa);
+            // die;
+
+            foreach ($kd_diagnosa as $key) {
+                if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+                    $penyakit = $key['diagnosalainnya'];
+                } else {
+                    $penyakit = $key['diagnosa'];
+                }
+                $dataDiagnosa[] = array(
+                    'id_sjp'      => $id_sjp,
+                    'id_penyakit' => $penyakit
+                );
+            }
+
+            // var_dump($dataDiagnosa);
+            // die;
+
+            if (!empty($dataDiagnosa)) {
+                $this->db->set($dataDiagnosa);
+                $this->db->where('id_sjp', $idsjp);
+                $this->db->update('diagnosa');
+            }
 
             // $diagnosaLama = $this->input->post("diagnosa");
             // $diagnosaLainnya = $this->input->post("diagnosalainnya");
-
-
-
-            // DIAGNOSA
 
             // if($diagnosaLainnya != ) {
             //     this->db->update(diagnosa baru)
@@ -1351,13 +1359,16 @@ class Home extends CI_Controller
             //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
             // }
 
+            // DIAGNOSA
+
+
 
 
             // ==========================PERSYARATAN=========================
 
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count($id_persyaratan);
+            $countfiles = count(array($id_persyaratan));
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
@@ -1437,7 +1448,8 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-
+        // var_dump($data['penyakit']);
+        // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
@@ -1514,12 +1526,14 @@ class Home extends CI_Controller
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
             // test
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
-            'id_pengajuan' => $id_pengajuan
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['topik']);
+        // var_dump($data['testDiagnosa']);
         // die;
+
 
         $path = "";
         $data = array(

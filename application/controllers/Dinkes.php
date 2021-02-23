@@ -48,7 +48,7 @@ class Dinkes extends CI_Controller
             'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
             // test
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
-            // 'topik'      => $this->M_SJP->diagnosa(),
+            'topik'      => $this->M_SJP->diagnosa(),
             // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
             'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
             'rumahsakit' => $this->M_SJP->rumahsakit(),
@@ -57,7 +57,7 @@ class Dinkes extends CI_Controller
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan
         ];
-        // var_dump($data["getdokumenpersyaratan"]);
+        // var_dump($data["rumahsakit"]);
         // die;
 
         $path = "";
@@ -76,6 +76,7 @@ class Dinkes extends CI_Controller
         // TEST 19-02-2021
 
         if ($this->input->post("btnEditInfo") !== Null) {
+
             // Informasi Pemohon | Tabel permohonan pengajuan
             $nama                  = $this->input->post('nama_pemohon');
             $jenisKelaminPemohon   = $this->input->post('jenis_kelamin_pemohon');
@@ -210,7 +211,7 @@ class Dinkes extends CI_Controller
 
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count($id_persyaratan);
+            $countfiles = count(array($id_persyaratan));
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
@@ -258,7 +259,8 @@ class Dinkes extends CI_Controller
 
             // ==========================PERSYARATAN=========================
 
-
+            // var_dump($data);
+            // die;
         }
 
         // TEST 19-02-2021
@@ -293,14 +295,14 @@ class Dinkes extends CI_Controller
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         //echo $nik->nik;die;
-        // var_dump($data['penyakit']);
+        // var_dump($data['id_sjp']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
