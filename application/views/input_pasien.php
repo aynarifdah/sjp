@@ -24,10 +24,10 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pemohon" id="namapemohon" required1>
+                    <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pemohon" id="namapemohon" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required1>
+                    <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required>
                       <option value="">Pilih Jenis Kelamin</option>
                       <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
@@ -37,7 +37,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Telp" name="telepon_pemohon" id="telepon_pemohon" required1>
+                    <input type="text" class="form-control" placeholder="No Telp" name="telepon_pemohon" id="telepon_pemohon" required>
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_pemohon" id="Whatsapp_pemohon">
@@ -50,7 +50,7 @@
                   <label class="col-lg-3 label-control" for="namalengkap">Status Hubungan Dengan Pasien*</label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="status_hubungan" id="status_hubungan" class="form-control" required1>
+                    <select name="status_hubungan" id="status_hubungan" class="form-control" required>
                       <option value="">Pilih Status</option>
                       <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
@@ -63,13 +63,13 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw*</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required1>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Rt" name="rt_pemohon" id="rtpemohon" required1>
+                    <input type="text" class="form-control" placeholder="Rt" name="rt_pemohon" id="rtpemohon" required>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Rw" name="rw_pemohon" id="rwpemohon" required1>
+                    <input type="text" class="form-control" placeholder="Rw" name="rw_pemohon" id="rwpemohon" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -103,7 +103,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan*</label>
                   <div class="col-lg-3">
-                    <select name="jenisjaminan" class="form-control" required1>
+                    <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
                       <?php if (!empty($jenisjaminan)) {
                         foreach ($jenisjaminan as $key) { ?>
@@ -116,16 +116,16 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="nik">NIK*</label>
                   <div class="col-lg-3">
-                    <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required1>
+                    <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pasien" id="namapasien" required1>
+                    <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pasien" id="namapasien" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jenis_kelamin_pasien" id="jeniskelaminkpasien" class="form-control" required1>
+                    <select name="jenis_kelamin_pasien" id="jeniskelaminkpasien" class="form-control" required>
                       <option value="">Pilih Jenis Kelamin</option>
                       <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
@@ -135,10 +135,10 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="tempat">Tempat/ Tanggal Lahir*</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Tempat Lahir" name="tempat_lahir" id="tempatlahirpasien" required1>
+                    <input type="text" class="form-control" placeholder="Tempat Lahir" name="tempat_lahir" id="tempatlahirpasien" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Tanggal Lahir" name="tanggal_lahir" id="tanggallahirpasien" data-toggle="daterangepicker" data-filter-type="date-range" required1>
+                    <input type="text" class="form-control" placeholder="Tanggal Lahir" name="tanggal_lahir" id="tanggallahirpasien" data-toggle="daterangepicker" data-filter-type="date-range" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -159,13 +159,13 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pasien">Alamat/Rt/Rw*</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pasien" id="alamatpasien" required1>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pasien" id="alamatpasien" required>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Rt" name="rt_pasien" id="rtpasien" required1>
+                    <input type="text" class="form-control" placeholder="Rt" name="rt_pasien" id="rtpasien" required>
                   </div>
                   <div class="col-lg-1  " style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Rw" name="rw_pasien" id="rwpasien" required1>
+                    <input type="text" class="form-control" placeholder="Rw" name="rw_pasien" id="rwpasien" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -202,7 +202,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Sakit</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required1 style="width: 100%">
+                    <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required style="width: 100%">
                       <option value="">Pilih Rumah Sakit</option>
 
                       <?php if (!empty($rumahsakit)) {
@@ -215,7 +215,7 @@
                   </div>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required1>
+                    <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
                       <option value="">Pilih Jenis Rawat</option>
                       <option value="Rawat Inap">Rawat Inap</option>
                       <option value="Rawat Jalan">Rawat Jalan</option>
@@ -251,10 +251,10 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Mulai/Akhir Rawat</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control datepicker" id="mulairawat" placeholder="Tanggal Mulai Rawat" name="mulairawat" required1>
+                    <input type="text" class="form-control datepicker" id="mulairawat" placeholder="Tanggal Mulai Rawat" name="mulairawat" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control datepicker" placeholder="Tanggal Akhir Rawat" id="akhirrawat" name="akhirrawat" required1>
+                    <input type="text" class="form-control datepicker" placeholder="Tanggal Akhir Rawat" id="akhirrawat" name="akhirrawat" required>
                   </div>
 
                 </div>
@@ -311,8 +311,8 @@
                           <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
                           <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;">
                         <?php } else { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required1>
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required1>
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required>
                         <?php }
                         ?>
 
