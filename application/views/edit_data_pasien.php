@@ -41,10 +41,10 @@
                     <input type="text" class="form-control" placeholder="No Telp" name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>">
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappemohon" id="Whatsapp_pemohon" required value="<?= $detail[0]['wapemohon'] ?>">
+                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappemohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>">
                   </div>
                   <div class="col-lg-4">
-                    <input type="email" class="form-control" placeholder="Email" name="emailpemohon" id="emailpemohon" required value="<?= $detail[0]['emailpemohon'] ?>">
+                    <input type="email" class="form-control" placeholder="Email" name="emailpemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>">
                   </div>
                 </div>
                 <div class="form-group row" id="modalwal">
@@ -181,13 +181,13 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak</label>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Telp" name="teleponpasien" id="teleponpasien" required value="<?= $detail[0]['telepon'] ?>">
+                    <input type="text" class="form-control" placeholder="No Telp" name="teleponpasien" id="teleponpasien" value="<?= $detail[0]['telepon'] ?>">
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappasien" id="whatsapppasien" required value="<?= $detail[0]['whatsapp'] ?>">
+                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappasien" id="whatsapppasien"  value="<?= $detail[0]['whatsapp'] ?>">
                   </div>
                   <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
-                    <input type="email" class="form-control" placeholder="Email" name="emailpasien" id="emailpasien" required value="<?= $detail[0]['email'] ?>">
+                    <input type="email" class="form-control" placeholder="Email" name="emailpasien" id="emailpasien" value="<?= $detail[0]['email'] ?>">
                   </div>
                 </div>
 
