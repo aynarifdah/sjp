@@ -313,7 +313,7 @@
                           <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
                           <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
 
-                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" required>
+                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
 
                         <?php }
                         ?>
