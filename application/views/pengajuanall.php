@@ -186,7 +186,9 @@
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-  <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+  <!-- <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script> -->
+  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
+
   <!-- <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable( {

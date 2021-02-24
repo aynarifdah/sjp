@@ -337,6 +337,24 @@ class M_SJP extends CI_Model
     return $query->result_array();
   }
 
+  // TEST DIAGNOSA
+  public function testDiagnosa($id_sjp)
+  {
+    $this->db->distinct();
+    $this->db->select('d_penyakit.topik, diagnosa.id_diagnosa, diagnosa.id_penyakit, diagnosa.id_sjp');
+    $this->db->from('d_penyakit');
+    $this->db->join('diagnosa', 'diagnosa.id_penyakit = d_penyakit.namadiag', 'right');
+    $this->db->where('diagnosa.id_sjp', $id_sjp);
+
+    // $this->db->select('d.*, d_penyakit.topik, d_penyakit.namadiag');
+    // $this->db->from('diagnosa d');
+    // $this->db->join('d_penyakit', 'd.id_penyakit = d_penyakit.topik', 'left');
+    // $this->db->where('d.id_sjp', $id_sjp);
+
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  // TEST DIAGNOSA
 
   public function diagnosa()
   {
@@ -548,7 +566,7 @@ class M_SJP extends CI_Model
   }
 
 
-  public function riwayatsjpasien($nik)
+  public function riwayatsjpasien($id_sjp)
   {
     $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as emailpemohon, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan, nama_puskesmas, rs.nama_rumah_sakit as nama_rs');
     $this->db->from('permohonan_pengajuan pp');
@@ -556,7 +574,7 @@ class M_SJP extends CI_Model
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('puskesmas pus', 'sjp.id_puskesmas = pus.id_puskesmas', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
-    $this->db->where('sjp.nik = ', $nik);
+    $this->db->where('sjp.id_sjp = ', $id_sjp);
     $query = $this->db->get()->result_array();
     return $query;
   }
@@ -621,6 +639,21 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
+
+  // TEST 17-02-2021
+  public function getForUpdateFile($id_pengajuan)
+  {
+    $this->db->select('attachment.attachment, persyaratan.id_persyaratan, persyaratan.nama_persyaratan');
+    $this->db->from('persyaratan');
+    $this->db->join('attachment', 'attachment.id_persyaratan = persyaratan.id_persyaratan', 'left');
+    $this->db->where('id_pengajuan ', $id_pengajuan);
+    // $this->db->where('id_jenis_izin', $id_jenis_izin);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  // TEST 17-02-2021
+
+
   public function getdokumenpersyaratan($id_pengajuan, $id_jenis_izin)
   {
     $this->db->select('*');
@@ -1147,6 +1180,7 @@ class M_SJP extends CI_Model
     $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
     $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
 
+
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
@@ -1170,6 +1204,9 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.email', $cari);
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
+    // TEST 18-02-2021
+    $this->db->order_by('pp.tanggal_pengajuan', 'desc');
+    // TEST 18-02-2021
     $query = $this->db->get()->result_array();
     return $query;
   }

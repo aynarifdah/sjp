@@ -16,7 +16,7 @@
         </div>
         <div class="card-content collapse show">
           <div class="card-body">
-            <form action="<?= base_url($controller . 'detail_pengajuan/' . $detail[0]['id_sjp'] . '/' . $id_pengajuan); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform">
+            <form action="<?= base_url($controller . 'detail_pengajuan/' . $detail[0]['id_sjp'] . '/' . $id_pengajuan); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform" enctype="multipart/form-data">
               <input type="hidden" name="id_sjp" value="<?= $detail[0]['id_sjp'] ?>">
               <input type="hidden" name="id_pp" value="<?= $this->uri->segment(4) ?>">
               <!-- Step 1 -->
@@ -250,40 +250,41 @@
                 <!-- MULAI/AKHIR RAWAT -->
 
                 <!-- DIAGNOSA -->
-                <!-- <div class="form-group row">
+                <div class="form-group row">
                   <label class="col-lg-3 label-control" for="">Diagnosa</label>
                   <div class="col-lg-9  mb-2 contact-repeater">
                     <div data-repeater-list="repeater-group">
                       <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
                         <select class="js-example-basic-multiple kd_topik multiple" id="kd_topik" name="kd_topik" style="width: 100%; padding: 10px; ">
                           <option>Pilih Topik</option>
+
                           <?php if (!empty($topik)) {
                             foreach ($topik as $key) { ?>
-                              <option value="<?= $key['topik'] ?>" <?= $key['topik'] ? 'selected' : ''; ?>><?= $key['topik'] ?></option>
-                          <?php }
-                          } ?>
+                              <?php if ($key['topik'] != $testDiagnosa[0]['topik']) { ?>
+                                <option value="<?= $key['topik'] ?>"><?= $key['topik'] ?></option>
+                              <?php } else { ?>
+                                <option value="<?= $key['topik'] ?>" selected><?= $key['topik'] ?></option>
+                              <?php } ?>
+                            <?php } ?>
+                          <?php } ?>
+
                         </select>
                         <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa" name="diagnosa" style="width: 85%; ">
                           <option>Pilih Diagnosa</option>
-                          <?php if (!empty($diagnosa)) {
-                            foreach ($diagnosa as $key) { ?>
-                              <option value="<?= $key['nama_diag'] ?>" <?= $key['nama_diag'] ? 'selected' : ''; ?>><?= $key['nama_diag'] ?></option>
-                          <?php }
-                          } ?>
                         </select>
 
                         <span class="input-group-append" id="button-addon2">
                           <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
                         </span>
                         <br>
-                        <div class="row" style="width: 100%;"> -->
-                <!-- <div class="col-lg-12">
-                <div class="skin skin-polaris"><input type="checkbox" class="checkbox">Lainnya</div>
-              </div> -->
-                <!-- <div class="col-lg-12 diagnosalainnya mt-1">
+                        <!-- <div class="row" style="width: 100%;">
+                          <div class="col-lg-12">
+                            <div class="skin skin-polaris"><input type="checkbox" class="checkbox">Lainnya</div>
+                          </div>
+                          <div class="col-lg-12 diagnosalainnya mt-1">
                             <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya">
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
                     </div>
@@ -291,22 +292,29 @@
                       <i class="ft-plus"></i> Tambah
                     </a>
                   </div>
-                </div> -->
+                </div>
                 <!-- DIAGNOSA -->
 
                 <!-- DOKUMEN PERSYARATAN -->
+
                 <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Dokumen Persyaratan (berupa foto)</strong></h4>
-                <?php if (!empty($dokumen)) {
-                  foreach ($dokumen as $key) { ?>
+                <?php if (!empty($getForUpdateFile)) {
+                  foreach ($getForUpdateFile as $key) { ?>
                     <div class="form-group row" id="modalwal">
                       <label class="col-lg-3 label-control" for="modal"><?= $key['nama_persyaratan'] ?></label>
                       <div class="col-lg-9">
                         <?php if ($key["id_persyaratan"] == 6 || $key["id_persyaratan"] == 7 && 8 || $key["id_persyaratan"] == 10  && 8 || $key["id_persyaratan"] == 3) { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;">
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
+                          <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+
+                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+
                         <?php } else { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required>
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
+                          <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+
+                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" required>
+
                         <?php }
                         ?>
                       </div>
@@ -316,13 +324,13 @@
                 <?php }
                 } ?>
 
-
                 <!-- DOKUMEN PERSYARATAN -->
 
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="namalengkap">Feedback Dokumen</label>
-                  <div class="col-lg-5">
-                    <input type="text" class="form-control kontrakform" placeholder="Feedback" name="feedback" id="feedback" value="<?= $detail[0]['feedback'] ?>">
+                  <label class="col-lg-3 label-control" for="feedback">Feedback Dokumen</label>
+                  <div class="col-lg-9">
+                    <!-- <input type="text" class="form-control kontrakform" placeholder="Feedback" name="feedback" id="feedback" value="<?= $detail[0]['feedback'] ?>"> -->
+                    <textarea class="ckeditor" id="ckedtor" name="feedback"><?= $detail[0]['feedback'] ?></textarea>
                   </div>
                 </div>
 
@@ -447,7 +455,8 @@
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -547,8 +556,15 @@
       success: function(data) {
         var html = '<option>Pilih Diagnosa</option>';
         var i;
+        var diagnosa = '<?php if (!empty($testDiagnosa[0]['id_penyakit'])) {
+                          echo $testDiagnosa[0]['id_penyakit'];
+                        } ?>';
         for (i = 0; i < data.length; i++) {
-          html += '<option value = "' + data[i].namadiag + '">' + data[i].namadiag + '</option>';
+          if (data[i].namadiag == diagnosa) {
+            html += '<option selected value = "' + data[i].namadiag + '">' + data[i].namadiag + '</option>';
+          } else {
+            html += '<option value = "' + data[i].namadiag + '">' + data[i].namadiag + '</option>';
+          }
         }
         $('#kd_diagnosa').html(html);
 
