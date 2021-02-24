@@ -1323,10 +1323,6 @@ class Home extends CI_Controller
             // DIAGNOSA
             $kd_diagnosa = $this->input->post('repeater-group');
             $dataDiagnosa = array();
-
-            // var_dump($kd_diagnosa);
-            // die;
-
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
                     $penyakit = $key['diagnosalainnya'];
@@ -1339,13 +1335,10 @@ class Home extends CI_Controller
                 );
             }
 
-            // var_dump($dataDiagnosa);
-            // die;
-
             if (!empty($dataDiagnosa)) {
-                $this->db->set($dataDiagnosa);
+                // $this->db->set($dataDiagnosa[0]);
                 $this->db->where('id_sjp', $idsjp);
-                $this->db->update('diagnosa');
+                $this->db->update('diagnosa', $dataDiagnosa[0]);
             }
 
             // $diagnosaLama = $this->input->post("diagnosa");

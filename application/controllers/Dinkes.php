@@ -55,9 +55,10 @@ class Dinkes extends CI_Controller
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
             // test
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
-            'id_pengajuan' => $id_pengajuan
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
         ];
-        // var_dump($data["rumahsakit"]);
+        // var_dump($data["testDiagnosa"]);
         // die;
 
         $path = "";
@@ -175,35 +176,30 @@ class Dinkes extends CI_Controller
 
 
             // DIAGNOSA
-            // $kd_diagnosa = $this->input->post('repeater-group');
-            // $dataDiagnosa = array();
 
-            // foreach ($kd_diagnosa as $key) {
-            //     if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-            //         $penyakit = $key['diagnosalainnya'];
-            //     } else {
-            //         $penyakit = $key['diagnosa'];
-            //     }
-            //     $dataDiagnosa[] = array(
-            //         'id_sjp'      => $id_sjp,
-            //         'id_penyakit' => $penyakit
-            //     );
-            // }
+            $kd_diagnosa = $this->input->post('repeater-group');
+            $dataDiagnosa = array();
+            foreach ($kd_diagnosa as $key) {
+                if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+                    $penyakit = $key['diagnosalainnya'];
+                } else {
+                    $penyakit = $key['diagnosa'];
+                }
+                $dataDiagnosa[] = array(
+                    'id_sjp'      => $id_sjp,
+                    'id_penyakit' => $penyakit
+                );
+            }
 
-            // $diagnosaLama = $this->input->post("diagnosa");
-            // $diagnosaLainnya = $this->input->post("diagnosalainnya");
+            if (!empty($dataDiagnosa)) {
+                // $this->db->set($dataDiagnosa[0]);
+                $this->db->where('id_sjp', $idsjp);
+                $this->db->update('diagnosa', $dataDiagnosa[0]);
+            }
 
 
 
             // DIAGNOSA
-
-            // if($diagnosaLainnya != ) {
-            //     this->db->update(diagnosa baru)
-            // }
-
-            // if(daignosa baru != '') {
-            //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
-            // }
 
 
 
