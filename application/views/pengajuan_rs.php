@@ -68,7 +68,7 @@
                 <?php endif ?>
               </select>
             </div>
-<<<<<<< HEAD
+
           <?php endif ?>  -->
 
             <div class="col-lg-3 filter">
@@ -96,7 +96,6 @@
                 <input type="text" class="form-control" id="cari" placeholder="Cari Nama Pasien, Pemohon, Rumah sakit, Status Pengajuan">
                 <div class="form-control-position">
                   <i class="ft-search"></i>
-                  =======
                 <?php endif ?> -->
                 <div class="col-lg-3 filter">
                   <select name="rs" id="rs" class="form-control">
@@ -215,7 +214,9 @@
         <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
         <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/datatable-basic.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
-        <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+
+        <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
+        <!-- <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script> -->
         <script>
           // Polaris Checkbox & Radio
           $('.skin-polaris input').iCheck({

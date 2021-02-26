@@ -319,10 +319,8 @@
                         ?>
                       </div>
                     </div>
-
-
                 <?php }
-                } ?>
+                }  ?>
 
                 <!-- DOKUMEN PERSYARATAN -->
 

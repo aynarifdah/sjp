@@ -319,7 +319,12 @@ class Rs extends CI_Controller
             'controller' => $this->instansi(),
             'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
-            'id_pengajuan' => $id_pengajuan
+            'id_pengajuan' => $id_pengajuan,
+
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
         ];
         // var_dump($data["detail"]);die;
 
