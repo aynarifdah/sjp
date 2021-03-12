@@ -298,7 +298,7 @@ class Dinkes extends CI_Controller
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         //echo $nik->nik;die;
-        // var_dump($data['id_sjp']);
+        // var_dump($data['riwayatpengajuan']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
@@ -1063,11 +1063,13 @@ class Dinkes extends CI_Controller
     {
         // setlocale(LC_ALL, 'in_ID');
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
+        // var_dump($sjp);
+        // die;
         $diagpasien = $this->M_SJP->diagpasien($id_sjp);
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/tandatangan.PNG');
+        $ttd = base_url('assets/images/newttd.PNG');
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
@@ -1240,7 +1242,7 @@ class Dinkes extends CI_Controller
                 <tr>
                   <td style="width: 30%">Jenis Kelamin</td>
                   <td style="width: 5%">:</td>
-                  <td>' . strtoupper($sjp[0]->jenis_kelamin) . '</td>
+                  <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
                 </tr>
                 
                 <tr>
@@ -1294,7 +1296,7 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit<br> secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-        <img src=' . $ttd . ' alt="" id="kop" width="280" height="161" align="right">
+        <img src=' . $ttd . ' alt="" id="kop" width="230" height="175" align="right">
 
       </body></html>';
         return $html;

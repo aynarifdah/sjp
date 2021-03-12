@@ -28,6 +28,7 @@
 
   <div class="card">
     <?= $this->session->flashdata('message'); ?>
+    <?php unset($_SESSION['message']); ?>
     <div class="card-head">
       <div class="card-header">
         <div class="row">
@@ -297,9 +298,13 @@
         {
           data: "id_sjp",
           "render": function(data, type, row, meta) {
-            return `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
-
-
+            var hapus = `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+            if (row.id_status_pengajuan != 6) {
+              return hapus
+            } else {
+              // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
+              return '';
+            }
           },
           className: "dt-head-center dt-body-right"
         },
