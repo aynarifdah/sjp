@@ -1322,6 +1322,8 @@ class Home extends CI_Controller
 
             // DIAGNOSA
             $kd_diagnosa = $this->input->post('repeater-group');
+            // var_dump($kd_diagnosa[0]['diagnosalainnya']);
+            // die;
             $dataDiagnosa = array();
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
@@ -1334,6 +1336,9 @@ class Home extends CI_Controller
                     'id_penyakit' => $penyakit
                 );
             }
+
+            // var_dump($dataDiagnosa[0]['id_penyakit']);
+            // die;
 
             if (!empty($dataDiagnosa)) {
                 // $this->db->set($dataDiagnosa[0]);
@@ -1441,7 +1446,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['penyakit']);
+        // var_dump($data['datapermohonan']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
