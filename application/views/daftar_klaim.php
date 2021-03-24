@@ -117,7 +117,7 @@
                   <!-- <th>Diagnosa</th> -->
                   <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Nominal <br>Pengajuan</th>
                   <th>Status</th>
-                  <th>Aksi</th>
+                  <!-- <th>Aksi</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -298,15 +298,15 @@
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-black"
         },
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            return `<a href="<?php echo base_url('/Rs/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+        // {
+        //   data: "id_sjp",
+        //   "render": function(data, type, row, meta) {
+        //     return `<a href="<?php echo base_url('/Rs/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
 
 
-          },
-          className: "dt-head-center dt-body-right"
-        },
+        //   },
+        //   className: "dt-head-center dt-body-right"
+        // },
 
       ],
       ajax: {
