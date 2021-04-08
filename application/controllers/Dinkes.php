@@ -501,6 +501,8 @@ class Dinkes extends CI_Controller
             'controller'        => $this->instansi()
         ];
 
+        // var_dump($d['distribusi']);
+        // die;
         // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
         $data = array(
@@ -584,6 +586,8 @@ class Dinkes extends CI_Controller
             // 'query' => $this->db->last_query(),
             'data' => $datasjp
         ];
+        // var_dump($result);
+        // die;
         echo json_encode($result);
     }
 
@@ -1069,7 +1073,7 @@ class Dinkes extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/newttd.PNG');
+        $ttd = base_url('assets/images/newttd.png');
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
