@@ -31,7 +31,7 @@
                     <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required>
                       <option value="">Jenis Kelamin</option>
                       <option value="Perempuan" <?= ($detail[0]['jkpemohon'] == 'Perempuan') ? 'selected' : '' ?>>Perempuan</option>
-                      <option value="Laki-Laki" <?= ($detail[0]['jkpemohon'] == 'Laki-laki') ? 'selected' : '' ?>>Laki - Laki</option>
+                      <option value="Laki-Laki" <?= ($detail[0]['jkpemohon'] == 'Laki-Laki') ? 'selected' : '' ?>>Laki - Laki</option>
                     </select>
                   </div>
                 </div>

@@ -1322,7 +1322,7 @@ class Home extends CI_Controller
 
             // DIAGNOSA
             $kd_diagnosa = $this->input->post('repeater-group');
-            // var_dump($kd_diagnosa[0]['diagnosalainnya']);
+            // var_dump($kd_diagnosa);
             // die;
             $dataDiagnosa = array();
             $diagnosaLainnya = '';
