@@ -251,7 +251,7 @@
 
                 <!-- DIAGNOSA -->
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="">Diagnosa</label>
+                  <label class="col-lg-3 label-control">Diagnosa</label>
                   <div class="col-lg-9  mb-2 contact-repeater">
                     <div data-repeater-list="repeater-group">
                       <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
@@ -277,14 +277,14 @@
                           <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
                         </span>
                         <br>
-                        <!-- <div class="row" style="width: 100%;">
+                        <div class="row" style="width: 100%;">
                           <div class="col-lg-12">
-                            <div class="skin skin-polaris"><input type="checkbox" class="checkbox">Lainnya</div>
+                            <div class="skin skin-polaris"><input type="checkbox" class="checkbox" id="lainnya">Lainnya</div>
                           </div>
                           <div class="col-lg-12 diagnosalainnya mt-1">
                             <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya">
                           </div>
-                        </div> -->
+                        </div>
                       </div>
 
                     </div>
