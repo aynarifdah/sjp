@@ -555,7 +555,7 @@ class M_SJP extends CI_Model
 
   public function diagpasien($id_sjp = null)
   {
-    $this->db->select('id_sjp, id_penyakit as namadiag');
+    $this->db->select('id_sjp, id_penyakit as namadiag, penyakit');
 
     $this->db->from('diagnosa');
     if (!empty($id_sjp)) {

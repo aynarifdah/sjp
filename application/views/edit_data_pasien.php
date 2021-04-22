@@ -31,7 +31,7 @@
                     <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required>
                       <option value="">Jenis Kelamin</option>
                       <option value="Perempuan" <?= ($detail[0]['jkpemohon'] == 'Perempuan') ? 'selected' : '' ?>>Perempuan</option>
-                      <option value="Laki-Laki" <?= ($detail[0]['jkpemohon'] == 'Laki-laki') ? 'selected' : '' ?>>Laki - Laki</option>
+                      <option value="Laki-Laki" <?= ($detail[0]['jkpemohon'] == 'Laki-Laki') ? 'selected' : '' ?>>Laki - Laki</option>
                     </select>
                   </div>
                 </div>
@@ -278,11 +278,11 @@
                         </span>
                         <br>
                         <div class="row" style="width: 100%;">
-                          <div class="col-lg-12">
+                          <!-- <div class="col-lg-12">
                             <div class="skin skin-polaris"><input type="checkbox" class="checkbox" id="lainnya">Lainnya</div>
-                          </div>
+                          </div> -->
                           <div class="col-lg-12 diagnosalainnya mt-1">
-                            <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya">
+                            <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya" value="<?= $diagnosa[0]['penyakit']; ?>">
                           </div>
                         </div>
                       </div>

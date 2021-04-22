@@ -458,8 +458,12 @@
                                <?php if ($penyakit) {
                                   foreach ($penyakit as $keypenyakit) { ?>
 
-                                   <li>-<?php echo strtoupper($keypenyakit['namadiag']); ?></li>
-
+                                   <?php if (!empty($keypenyakit['namadiag'])) { ?>
+                                     <li>-<?php echo strtoupper($keypenyakit['namadiag']); ?></li>
+                                   <?php } ?>
+                                   <?php if (!empty($keypenyakit['penyakit'])) { ?>
+                                     <li>-<?php echo strtoupper($keypenyakit['penyakit']); ?></li>
+                                   <?php } ?>
                                <?php }
                                 } ?>
                              </ul>
