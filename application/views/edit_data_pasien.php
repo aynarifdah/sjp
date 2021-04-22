@@ -278,11 +278,11 @@
                         </span>
                         <br>
                         <div class="row" style="width: 100%;">
-                          <div class="col-lg-12">
+                          <!-- <div class="col-lg-12">
                             <div class="skin skin-polaris"><input type="checkbox" class="checkbox" id="lainnya">Lainnya</div>
-                          </div>
+                          </div> -->
                           <div class="col-lg-12 diagnosalainnya mt-1">
-                            <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya">
+                            <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya" value="<?= $diagnosa[0]['penyakit']; ?>">
                           </div>
                         </div>
                       </div>

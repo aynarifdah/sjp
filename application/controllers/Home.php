@@ -1325,19 +1325,22 @@ class Home extends CI_Controller
             // var_dump($kd_diagnosa[0]['diagnosalainnya']);
             // die;
             $dataDiagnosa = array();
+            $diagnosaLainnya = '';
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
                     $penyakit = $key['diagnosalainnya'];
                 } else {
                     $penyakit = $key['diagnosa'];
+                    $diagnosaLainnya = $key['diagnosalainnya'];
                 }
                 $dataDiagnosa[] = array(
                     'id_sjp'      => $id_sjp,
-                    'id_penyakit' => $penyakit
+                    'id_penyakit' => $penyakit,
+                    'penyakit' => $diagnosaLainnya
                 );
             }
 
-            // var_dump($dataDiagnosa[0]['id_penyakit']);
+            // var_dump($dataDiagnosa);
             // die;
 
             if (!empty($dataDiagnosa)) {
@@ -1446,7 +1449,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['datapermohonan']);
+        // var_dump($data['penyakit']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
@@ -1529,7 +1532,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['testDiagnosa']);
+        // var_dump($data['detail']);
         // die;
 
 
