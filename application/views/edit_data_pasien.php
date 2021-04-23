@@ -184,7 +184,7 @@
                     <input type="text" class="form-control" placeholder="No Telp" name="teleponpasien" id="teleponpasien" value="<?= $detail[0]['telepon'] ?>">
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappasien" id="whatsapppasien"  value="<?= $detail[0]['whatsapp'] ?>">
+                    <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappasien" id="whatsapppasien" value="<?= $detail[0]['whatsapp'] ?>">
                   </div>
                   <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
                     <input type="email" class="form-control" placeholder="Email" name="emailpasien" id="emailpasien" value="<?= $detail[0]['email'] ?>">
@@ -251,7 +251,7 @@
 
                 <!-- DIAGNOSA -->
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control">Diagnosa TEST</label>
+                  <label class="col-lg-3 label-control">Diagnosa TEST TEST TEST</label>
                   <div class="col-lg-9  mb-2 contact-repeater">
                     <div data-repeater-list="repeater-group">
                       <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
@@ -332,7 +332,7 @@
                   </div>
                 </div>
 
-               
+
                 <button type="submit" class="btn btn-primary btn-md" name="btnEditInfo" id="btnEditInfo" style="float: right;">
                   <i class="ft-check-square"></i> Update
                 </button>
