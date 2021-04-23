@@ -251,7 +251,7 @@
 
                 <!-- DIAGNOSA -->
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control">Diagnosa</label>
+                  <label class="col-lg-3 label-control">Diagnosa TEST</label>
                   <div class="col-lg-9  mb-2 contact-repeater">
                     <div data-repeater-list="repeater-group">
                       <div class="input-group mb-1 diagnosapenyakit" data-repeater-item="">
