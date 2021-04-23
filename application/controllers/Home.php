@@ -331,16 +331,19 @@ class Home extends CI_Controller
         // die;
 
         $dataDiagnosa = array();
-
+        $diagnosaLainnya = '';
+        $penyakit = '';
         foreach ($kd_diagnosa as $key) {
             if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-                $penyakit = $key['diagnosalainnya'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
             } else {
                 $penyakit = $key['diagnosa'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
             }
             $dataDiagnosa[] = array(
                 'id_sjp'      => $id_sjp,
-                'id_penyakit' => $penyakit
+                'id_penyakit' => $penyakit,
+                'penyakit' => $diagnosaLainnya
             );
             // var_dump($dataDiagnosa);
             // die;
