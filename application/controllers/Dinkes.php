@@ -56,9 +56,10 @@ class Dinkes extends CI_Controller
             // test
             'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan,
-            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp)
         ];
-        // var_dump($data["testDiagnosa"]);
+        // var_dump($data["diagnosa"]);
         // die;
 
         $path = "";
@@ -179,15 +180,18 @@ class Dinkes extends CI_Controller
 
             $kd_diagnosa = $this->input->post('repeater-group');
             $dataDiagnosa = array();
+            $diagnosaLainnya = '';
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
                     $penyakit = $key['diagnosalainnya'];
                 } else {
                     $penyakit = $key['diagnosa'];
+                    $diagnosaLainnya = $key['diagnosalainnya'];
                 }
                 $dataDiagnosa[] = array(
                     'id_sjp'      => $id_sjp,
-                    'id_penyakit' => $penyakit
+                    'id_penyakit' => $penyakit,
+                    'penyakit' => $diagnosaLainnya
                 );
             }
 
