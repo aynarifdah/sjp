@@ -1325,14 +1325,18 @@ class Home extends CI_Controller
             // var_dump($kd_diagnosa);
             // die;
             $dataDiagnosa = array();
+            $penyakit = '';
             $diagnosaLainnya = '';
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-                    $penyakit = $key['diagnosalainnya'];
+                    $diagnosaLainnya = $key['diagnosalainnya'];
                 } else {
                     $penyakit = $key['diagnosa'];
                     $diagnosaLainnya = $key['diagnosalainnya'];
                 }
+
+                // var_dump($penyakit);
+                // die;
                 $dataDiagnosa[] = array(
                     'id_sjp'      => $id_sjp,
                     'id_penyakit' => $penyakit,
@@ -1532,7 +1536,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['detail']);
+        // var_dump($data['diagnosa']);
         // die;
 
 
