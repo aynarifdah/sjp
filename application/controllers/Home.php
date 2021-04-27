@@ -1456,7 +1456,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['penyakit']);
+        // var_dump($data['getdokumenpersyaratan']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
