@@ -513,6 +513,7 @@
       success: function(data) {
         var json_data = JSON.parse(data);
         var api_data = json_data.content[0];
+        let jk = api_data.JENIS_KLMIN;
         if (api_data.hasOwnProperty('RESPONSE_CODE')) {
           alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
         } else {
@@ -525,7 +526,8 @@
           $('#rtpasien').val(api_data.NO_RT);
           $('#rwpasien').val(api_data.NO_RW);
           $("#" + api_data.AGAMA).attr('selected', true);
-          $("#jeniskelaminkpasien" + api_data.JENIS_KLMIN).attr('checked', true);
+          // $("#jeniskelaminkpasien" + api_data.JENIS_KLMIN).attr('checked', true);
+          $('#jeniskelaminkpasien').val(jk);
           $('#Kecamatan').remove();
           $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
           var kelurahan = '';

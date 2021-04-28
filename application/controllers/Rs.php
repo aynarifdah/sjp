@@ -205,8 +205,7 @@ class Rs extends CI_Controller
 
             // 'nama_rumah_sakit' => $rumahsakit,
         );
-        var_dump($datasjp);
-        die;
+
         $this->db->insert('sjp', $datasjp);
         $id_sjp = $this->db->insert_id(); //$this->db->insert_id();
 

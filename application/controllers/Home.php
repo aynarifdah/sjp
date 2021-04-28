@@ -1201,7 +1201,6 @@ class Home extends CI_Controller
     {
         $id_instansi = $this->input->post("id_instansi");
         $id_join     = $this->input->post("id_join");
-
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $rs         = $this->input->post("rs");
