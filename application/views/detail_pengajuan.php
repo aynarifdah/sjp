@@ -175,6 +175,18 @@
 
 
                  <!-- Tombol -->
+                 <?php foreach ($riwayatpengajuan as $rp) : ?>
+                   <?php if ($this->uri->segment(1) == 'Dinkes' && $rp['id_status_pengajuan'] == 6 || $rp['id_status_pengajuan'] == 7) : ?>
+                     <div class="float-right mt-2">
+                       <select id="sp" name="status_pengajuan" class="form-control" required="" data-pengajuan="<?= $this->uri->segment(4); ?>">
+                         <option value="">Pilih</option>
+                         <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
+                         <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
+                       </select>
+                     </div>
+                   <?php endif ?>
+                 <?php endforeach; ?>
+
                  <div class="float-right mt-2">
                    <?php if ($this->session->userdata('instansi') == 3 || 2) : ?>
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
@@ -1038,10 +1050,11 @@
          }
        });
      }
-     // $('#simpanpengajuan').click(function() {
-     //   var tes = $('.sjpform').serialize();
-     //   console.log(decodeURIComponent(tes));
-     // })
+     $(document).on("change", "#sp", function() {
+       var id_pengajuan = $(this).attr('data-pengajuan');
+       var id_status_pengajuan = $(this).val();
+       window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
+     });
    </script>
 
 

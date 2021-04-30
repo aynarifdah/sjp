@@ -74,7 +74,6 @@ class Dinkes extends CI_Controller
 
     public function detail_pengajuan($idsjp, $id_pengajuan)
     {
-
         // TEST 19-02-2021
 
         if ($this->input->post("btnEditInfo") !== Null) {
@@ -301,7 +300,7 @@ class Dinkes extends CI_Controller
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
-        //echo $nik->nik;die;
+
         // var_dump($data['riwayatpengajuan']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
@@ -1049,6 +1048,21 @@ class Dinkes extends CI_Controller
         $this->db->where('id_pengajuan', $id_pengajuan);
         $this->db->update('permohonan_pengajuan', $datapengajuan);
         redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
+    }
+
+    public function updateStatusPengajuanDinkes($id_pengajuan, $id_status_pengajuan)
+    {
+        $data = [
+            'id_status_pengajuan' => $id_status_pengajuan
+        ];
+
+        $where = [
+            'id_pengajuan' => $id_pengajuan
+        ];
+
+        $this->db->where($where);
+        $this->db->update('permohonan_pengajuan', $data);
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function getRs()
