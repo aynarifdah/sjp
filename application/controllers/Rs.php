@@ -882,6 +882,15 @@ class Rs extends CI_Controller
         echo json_encode($result);
     }
 
+    public function download_dokumen()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("edit data pasien", $path),
+            "content" => $this->load->view('download_dokumen', false, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
 
     public function index($id_status_klaim = Null)
     {

@@ -31,7 +31,7 @@
         </li>
       </ul>
     </li>
-    <li class=" nav-item"><a href="#"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
+    <li class=" nav-item"><a href="<?php echo base_url('Dinkes/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
     </li>
     <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/UserManagement'); ?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>

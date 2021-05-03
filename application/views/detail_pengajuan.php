@@ -176,14 +176,16 @@
 
                  <!-- Tombol -->
                  <?php foreach ($riwayatpengajuan as $rp) : ?>
-                   <?php if ($this->uri->segment(1) == 'Dinkes' && $rp['id_status_pengajuan'] == 6 || $rp['id_status_pengajuan'] == 7) : ?>
-                     <div class="float-right mt-2">
-                       <select id="sp" name="status_pengajuan" class="form-control" required="" data-pengajuan="<?= $this->uri->segment(4); ?>">
-                         <option value="">Pilih</option>
-                         <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
-                         <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
-                       </select>
-                     </div>
+                   <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
+                     <?php if ($rp['id_status_pengajuan'] == 6 || $rp['id_status_pengajuan'] == 7) : ?>
+                       <div class="float-right mt-2 ml-1">
+                         <select id="sp" name="status_pengajuan" class="form-control-sm" data-pengajuan="<?= $this->uri->segment(4); ?>">
+                           <option value="" disabled>Pilih</option>
+                           <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
+                           <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
+                         </select>
+                       </div>
+                     <?php endif ?>
                    <?php endif ?>
                  <?php endforeach; ?>
 
@@ -195,560 +197,524 @@
 
 
 
-                 <!--      <div class="float-right mt-2">
-            <?php if ($this->session->userdata('instansi') == 1) : ?>
-              <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal"
-          data-target="#feedback"><i class="ft-edit"></i>&nbsp;Tambahkan Feedback</button>
-
-          <div class="modal fade text-left" id="feedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-      aria-hidden="true">
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel1">Tambahkan Feedback </h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form class="form" action="<?= base_url(); ?>Dinkes/input_feedback/<?= $key['id_sjp'] . '/' . $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
-            <div class="modal-body">
-             
-               <div class="form-group row">
-                <label class="col-lg-3 label-control" for="feedback_dinkes">Feedback</label>
-            <div class="col-lg-9">
-                <textarea class="ckeditor" id="ckedtor" name="feedback_dinkes"></textarea>
-
-            </div>
-             </div>
-              <br>
-              <div class="modal-footer">
-                <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn-sm btn btn-outline-primary submitfeedback"  onclick="return confirm('Apakah anda yakin akan memberikan feedback?')">Submit </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-            <?php endif ?>
-          </div> -->
-
-                 <div class="float-right mt-2">
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey'])) { ?>
                      <a href="<?php echo base_url($controller . 'siap_survey/' . $key['id_sjp'] . '/' . $key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
                    <?php } ?>
-
+                 </div>
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 4 && ($key['id_status_pengajuan'] == 6 || $key['id_status_pengajuan'] == 7)) { ?>
                      <a href="<?php echo base_url($controller . 'permohonan_sjp') ?>" class="btn btn-secondary btn-sm text-center"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
                    <?php } ?>
-
+                 </div>
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
                      <button type="button" class="btn btn-secondary btn-sm text-center submitnominal"> Submit Nominal</button>
                    <?php } ?>
-
-
+                 </div>
+                 <div class="float-right mt-2">
                    <?php if ($this->session->userdata('instansi') == 1) { ?>
                      <button type="button" class="btn btn-dark btn-sm float-right submitfeedback"> Submit feedback</button>
                    <?php } ?>
+                 </div>
 
 
-
-
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 3) { ?>
                      <a href="<?php echo base_url(); ?>Dinkes/updatestatbayar?get=<?php echo $key['id_sjp'] ?>" class="btn btn-secondary btn-sm text-center updatestatbayar"> Update Status Bayar</a>
                    <?php } ?>
+                 </div>
 
-
-
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4) { ?>
                      <button type="button" class="btn btn-dark btn-sm float-right proses_sjp" data-toggle="modal" data-target="#default"> Proses SJP</button>
-
-                     <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                       <div class="modal-dialog" role="document">
-                         <div class="modal-content">
-                           <div class="modal-header">
-                             <h4 class="modal-title" id="myModalLabel1">Upload dokumen Persyaratan</h4>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                             </button>
-                           </div>
-                           <form class="form" action="<?= base_url(); ?>Dinkes/uploadDokPersyaratan/<?= $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
-                             <div class="modal-body">
-                               <button class=" img-center btn btn-light" type="button">
-                                 <input type="file" name="file" id="inputimages">
-                               </button>
-                               </center>
-                               <br>
-                               <div class="form-group">
-                                 <label for="">Status Pengajuan</label>
-                                 <select name="status_pengajuan" class="form-control" required="">
-
-                                   <option value="">Status Pengajuan</option>
-                                   <option value="6">Ajukan Ke Yankesru</option>
-                                   <option value="7">Tolak Pengajuan</option>
-                                 </select>
-                               </div>
-                               <div class="modal-footer">
-                                 <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
-                                 <button type="submit" class="btn-sm btn btn-outline-primary" onclick="return confirm('Apakah anda yakin? Pengajuan yang sudah disubmit akan langsung dikirim ke Kepala Seksi Yankesru untuk diminta persetujuan. Dan tidak dapat di ubah kembali.')">Submit </button>
-                               </div>
-                             </div>
-
-
-                           </form>
-
-
-
-                         </div>
-                       </div>
-                     </div>
-                   <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5) { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
-
-                     <div class="modal fade text-left" id="setujuipengajuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                       <div class="modal-dialog" role="document">
-                         <div class="modal-content">
-                           <div class="modal-header">
-                             <h4 class="modal-title" id="myModalLabel1">Formulir Persetujuan </h4>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                             </button>
-                           </div>
-                           <form class="form" action="<?= base_url(); ?>Dinkes/approvesjp/<?= $key['id_sjp'] . '/' . $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
-                             <div class="modal-body">
-                               <div class="form-group">
-                                 <label for="">Tanggal Persetujuan</label>
-                                 <input type="date" class="form-control" name="tgl_persetujuan" required="">
-                               </div>
-                               <div class="form-group">
-                                 <label for="">Status Pengajuan</label>
-                                 <select name="status_pengajuan" class="form-control" required="">
-                                   <option value="">Status Pengajuan</option>
-                                   <option value="6">Disetujui</option>
-                                   <option value="7">Ditolak</option>
-                                 </select>
-                               </div>
-                               <br>
-                               <div class="modal-footer">
-                                 <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
-                                 <button type="submit" class="btn-sm btn btn-outline-primary" onclick="return confirm('Apakah anda yakin akan menyetujui pengajuan ini?. Pengajuan yang sudah disubmit tidak dapat diubah kembali')">Submit </button>
-                               </div>
-                             </div>
-                           </form>
-                         </div>
-                       </div>
-                     </div>
-
-
-
-
-
-
-                   <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                     <a class="btn  btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
-                   <?php } ?>
                  </div>
-               </div>
-               <div class="col-lg-12 mt-2 ml-1" style="padding: 0px;">
-                 <ul class="nav nav-tabs">
-                   <li class="nav-item">
-                     <a class="nav-link active tabpenyewa" id="baseIcon-tab1" data-toggle="tab" aria-controls="tabIcon1" href="#tabIcon1" aria-expanded="true"><i class="ft-user"></i> Profil Pasien</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab2" data-toggle="tab" aria-controls="tabIcon2" href="#tabIcon2" aria-expanded="false"><i class="ft-clipboard"></i> Diagnosa</a>
-                   </li>
-
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab4" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon4" aria-expanded="false"><i class="ft-clipboard"></i> Hasil Survey</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Bukti Inacbg</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5" href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dok Persyaratan</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab3" data-toggle="tab" aria-controls="tabIcon3" href="#tabIcon3" aria-expanded="false"><i class="ft-activity"></i> Riwayat Pengajuan</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link tabdetail" id="baseIcon-tab7" data-toggle="tab" aria-controls="tabIcon7" href="#tabIcon7" aria-expanded="false"><i class="ft-activity"></i> Feedback Dinkes</a>
-                   </li>
-                 </ul>
-                 <div class="tab-content px-1 pt-1">
-                   <div role="tabpanel" class="tab-pane active panelpenyewa" id="tabIcon1" aria-expanded="true" aria-labelledby="baseIcon-tab1">
-                     <table class="table" style="width: 100%;">
-                       <div class="row">
-                         <h5>informasi pasien</h5>
+                 <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                       <div class="modal-header">
+                         <h4 class="modal-title" id="myModalLabel1">Upload dokumen Persyaratan</h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
                        </div>
-                       <tbody>
-                         <tr>
-                           <th scope="row" class="border-top-0">NIK</th>
-                           <td class="border-top-0"><?php echo $key['nik']; ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row" class="border-top-0">Nama Pasien</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['nama_pasien']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Tempat/ Tanggal Lahir</th>
-                           <td><?php echo strtoupper($key['tempat_lahir']); ?>, <?php echo strtoupper(date_format(date_create($key['tanggal_lahir']), 'd-m-Y')); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Alamat</th>
-                           <td><?php echo strtoupper($key['alamat']); ?>, KEC. <?php echo strtoupper($key['kd_kecamatan']); ?>, KEL. <?php echo strtoupper($key['kd_kelurahan']); ?>, RT/RW : <?php echo strtoupper($key['rt']); ?>/<?php echo strtoupper($key['rw']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Email</th>
-                           <td><?php echo strtoupper($key['email']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Golongan Darah</th>
-                           <td><?php echo strtoupper($key['golongan_darah']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Pekerjaan</th>
-                           <td><?php echo strtoupper($key['pekerjaan']); ?></td>
-                         </tr>
-                       </tbody>
-                     </table>
+                       <form class="form" action="<?= base_url(); ?>Dinkes/uploadDokPersyaratan/<?= $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
+                         <div class="modal-body">
+                           <button class=" img-center btn btn-light" type="button">
+                             <input type="file" name="file" id="inputimages">
+                           </button>
+                           </center>
+                           <br>
+                           <div class="form-group">
+                             <label for="">Status Pengajuan</label>
+                             <select name="status_pengajuan" class="form-control" required="">
 
-                     <table class="table" style="width: 100%;">
-                       <div class="row">
-                         <h5>informasi pemohon</h5>
-                       </div>
-                       <tbody>
-                         <tr>
-                           <th scope="row" class="border-top-0">Nama Pemohon</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['nama_pemohon']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row" class="border-top-0">Alamat</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['alamatpemohon']); ?>, KEC. <?php echo strtoupper($key['kecpemohon']); ?>, KEL. <?php echo strtoupper($key['kelpemohon']); ?>, RT/RW : <?php echo strtoupper($key['rtpemohon']); ?>/<?php echo strtoupper($key['rwpemohon']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Email</th>
-                           <td><?php echo strtoupper($key['emailpemohon']); ?></td>
-                         </tr>
-                       </tbody>
-                     </table>
+                               <option value="">Status Pengajuan</option>
+                               <option value="6">Ajukan Ke Yankesru</option>
+                               <option value="7">Tolak Pengajuan</option>
+                             </select>
+                           </div>
+                           <div class="modal-footer">
+                             <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
+                             <button type="submit" class="btn-sm btn btn-outline-primary" onclick="return confirm('Apakah anda yakin? Pengajuan yang sudah disubmit akan langsung dikirim ke Kepala Seksi Yankesru untuk diminta persetujuan. Dan tidak dapat di ubah kembali.')">Submit </button>
+                           </div>
+                         </div>
+
+
+                       </form>
 
 
 
-
+                     </div>
                    </div>
-                   <div class="tab-pane paneldetail" id="tabIcon2" aria-labelledby="baseIcon-tab2">
-                     <table class="table mb-0 ">
-                       <tbody>
-                         <tr>
-                           <th scope="row" class="border-top-0">Jenis Jaminan</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['nama_jenis']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row" class="border-top-0">Puskesmas</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['nama_puskesmas']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Rumah Sakit</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Mulai/Selesai Rawat</th>
-                           <td class="border-top-0"><?php echo strtoupper(date_format(date_create($key['mulai_rawat']), 'd-m-Y')); ?> <b>s/d</b> <?php echo strtoupper(date_format(date_create($key['selesai_rawat']), 'd-m-Y')); ?></td>
-                         </tr>
-                         <tr>
-                           <th scope="row" class="border-top-0">Jenis Rawat</th>
-                           <td class="border-top-0"><?php echo strtoupper($key['jenis_rawat']); ?></td>
-                         </tr>
-                         <!--  <tr>
+                 </div>
+               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5) { ?>
+                 <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
+
+                 <div class="modal fade text-left" id="setujuipengajuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                       <div class="modal-header">
+                         <h4 class="modal-title" id="myModalLabel1">Formulir Persetujuan </h4>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                       </div>
+                       <form class="form" action="<?= base_url(); ?>Dinkes/approvesjp/<?= $key['id_sjp'] . '/' . $key['id_pengajuan']; ?>" method="POST" enctype="multipart/form-data">
+                         <div class="modal-body">
+                           <div class="form-group">
+                             <label for="">Tanggal Persetujuan</label>
+                             <input type="date" class="form-control" name="tgl_persetujuan" required="">
+                           </div>
+                           <div class="form-group">
+                             <label for="">Status Pengajuan</label>
+                             <select name="status_pengajuan" class="form-control" required="">
+                               <option value="">Status Pengajuan</option>
+                               <option value="6">Disetujui</option>
+                               <option value="7">Ditolak</option>
+                             </select>
+                           </div>
+                           <br>
+                           <div class="modal-footer">
+                             <button type="button" class="btn-sm btn grey btn-outline-secondary" data-dismiss="modal">Batal</button>
+                             <button type="submit" class="btn-sm btn btn-outline-primary" onclick="return confirm('Apakah anda yakin akan menyetujui pengajuan ini?. Pengajuan yang sudah disubmit tidak dapat diubah kembali')">Submit </button>
+                           </div>
+                         </div>
+                       </form>
+                     </div>
+                   </div>
+                 </div>
+
+
+
+
+
+
+               <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+               <?php } ?>
+               </div>
+             </div>
+             <div class="col-lg-12 mt-2 ml-1" style="padding: 0px;">
+               <ul class="nav nav-tabs">
+                 <li class="nav-item">
+                   <a class="nav-link active tabpenyewa" id="baseIcon-tab1" data-toggle="tab" aria-controls="tabIcon1" href="#tabIcon1" aria-expanded="true"><i class="ft-user"></i> Profil Pasien</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab2" data-toggle="tab" aria-controls="tabIcon2" href="#tabIcon2" aria-expanded="false"><i class="ft-clipboard"></i> Diagnosa</a>
+                 </li>
+
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab4" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon4" aria-expanded="false"><i class="ft-clipboard"></i> Hasil Survey</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Bukti Inacbg</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5" href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dok Persyaratan</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab3" data-toggle="tab" aria-controls="tabIcon3" href="#tabIcon3" aria-expanded="false"><i class="ft-activity"></i> Riwayat Pengajuan</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link tabdetail" id="baseIcon-tab7" data-toggle="tab" aria-controls="tabIcon7" href="#tabIcon7" aria-expanded="false"><i class="ft-activity"></i> Feedback Dinkes</a>
+                 </li>
+               </ul>
+               <div class="tab-content px-1 pt-1">
+                 <div role="tabpanel" class="tab-pane active panelpenyewa" id="tabIcon1" aria-expanded="true" aria-labelledby="baseIcon-tab1">
+                   <table class="table" style="width: 100%;">
+                     <div class="row">
+                       <h5>informasi pasien</h5>
+                     </div>
+                     <tbody>
+                       <tr>
+                         <th scope="row" class="border-top-0">NIK</th>
+                         <td class="border-top-0"><?php echo $key['nik']; ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Nama Pasien</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['nama_pasien']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Tempat/ Tanggal Lahir</th>
+                         <td><?php echo strtoupper($key['tempat_lahir']); ?>, <?php echo strtoupper(date_format(date_create($key['tanggal_lahir']), 'd-m-Y')); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Alamat</th>
+                         <td><?php echo strtoupper($key['alamat']); ?>, KEC. <?php echo strtoupper($key['kd_kecamatan']); ?>, KEL. <?php echo strtoupper($key['kd_kelurahan']); ?>, RT/RW : <?php echo strtoupper($key['rt']); ?>/<?php echo strtoupper($key['rw']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Email</th>
+                         <td><?php echo strtoupper($key['email']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Golongan Darah</th>
+                         <td><?php echo strtoupper($key['golongan_darah']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Pekerjaan</th>
+                         <td><?php echo strtoupper($key['pekerjaan']); ?></td>
+                       </tr>
+                     </tbody>
+                   </table>
+
+                   <table class="table" style="width: 100%;">
+                     <div class="row">
+                       <h5>informasi pemohon</h5>
+                     </div>
+                     <tbody>
+                       <tr>
+                         <th scope="row" class="border-top-0">Nama Pemohon</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['nama_pemohon']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Alamat</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['alamatpemohon']); ?>, KEC. <?php echo strtoupper($key['kecpemohon']); ?>, KEL. <?php echo strtoupper($key['kelpemohon']); ?>, RT/RW : <?php echo strtoupper($key['rtpemohon']); ?>/<?php echo strtoupper($key['rwpemohon']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Email</th>
+                         <td><?php echo strtoupper($key['emailpemohon']); ?></td>
+                       </tr>
+                     </tbody>
+                   </table>
+
+
+
+
+                 </div>
+                 <div class="tab-pane paneldetail" id="tabIcon2" aria-labelledby="baseIcon-tab2">
+                   <table class="table mb-0 ">
+                     <tbody>
+                       <tr>
+                         <th scope="row" class="border-top-0">Jenis Jaminan</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['nama_jenis']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Puskesmas</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['nama_puskesmas']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Rumah Sakit</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Mulai/Selesai Rawat</th>
+                         <td class="border-top-0"><?php echo strtoupper(date_format(date_create($key['mulai_rawat']), 'd-m-Y')); ?> <b>s/d</b> <?php echo strtoupper(date_format(date_create($key['selesai_rawat']), 'd-m-Y')); ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Jenis Rawat</th>
+                         <td class="border-top-0"><?php echo strtoupper($key['jenis_rawat']); ?></td>
+                       </tr>
+                       <!--  <tr>
                 <th scope="row" class="border-top-0">Kelas Rawat</th>
                 <td class="border-top-0"><?php echo strtoupper($key['nama_kelas']); ?></td>
               </tr> -->
-                         <tr>
-                           <th scope="row">Diagnosa</th>
-                           <td>
-                             <ul>
-                               <?php if ($penyakit) {
-                                  foreach ($penyakit as $keypenyakit) { ?>
+                       <tr>
+                         <th scope="row">Diagnosa</th>
+                         <td>
+                           <ul>
+                             <?php if ($penyakit) {
+                                foreach ($penyakit as $keypenyakit) { ?>
 
-                                   <?php if (!empty($keypenyakit['namadiag'])) { ?>
-                                     <li>-<?php echo strtoupper($keypenyakit['namadiag']); ?></li>
-                                   <?php } ?>
-                                   <?php if (!empty($keypenyakit['penyakit'])) { ?>
-                                     <li>-<?php echo strtoupper($keypenyakit['penyakit']); ?></li>
-                                   <?php } ?>
-                               <?php }
-                                } ?>
-                             </ul>
-                           </td>
-                         </tr>
+                                 <?php if (!empty($keypenyakit['namadiag'])) { ?>
+                                   <li>-<?php echo strtoupper($keypenyakit['namadiag']); ?></li>
+                                 <?php } ?>
+                                 <?php if (!empty($keypenyakit['penyakit'])) { ?>
+                                   <li>-<?php echo strtoupper($keypenyakit['penyakit']); ?></li>
+                                 <?php } ?>
+                             <?php }
+                              } ?>
+                           </ul>
+                         </td>
+                       </tr>
 
+                     </tbody>
+                   </table>
+
+                 </div>
+                 <div class="tab-pane paneldetail" id="tabIcon3" aria-labelledby="baseIcon-tab3">
+                   <div class="table-responsive">
+                     <table class="table table-bordered">
+                       <thead>
+                         <th>Tanggal Pengajuan</th>
+                         <th>Puskesmas</th>
+                         <th>Rumah Sakit</th>
+                         <th>Diagnosa</th>
+                         <th>Nominal Klaim</th>
+                         <th>Nominal pembiayaan</th>
+                         <th>Status Pengajuan</th>
+                       </thead>
+                       <tbody>
+                         <?php if (!empty($riwayatpengajuan)) {
+                            foreach ($riwayatpengajuan as $key) { ?>
+                             <tr>
+                               <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
+                               <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
+                               <td><?php echo strtoupper($key['nama_rs']); ?></td>
+
+                               <td>
+                                 <ul>
+                                   <?php if ($penyakit) {
+                                      foreach ($penyakit as $keypenyakit) { ?>
+
+                                       <li>- <?php echo $keypenyakit['namadiag']; ?></li>
+
+                                   <?php }
+                                    } ?>
+                                 </ul>
+                               </td>
+
+                               <td><?php
+                                    if (isset($key)  &&  !empty($key)) {
+                                      echo number_format((float)$key['nominal_klaim']);
+                                    } else {
+                                      echo  "0";
+                                    }
+                                    ?>
+
+                               </td>
+                               <td><?= number_format((float)$key['nominal_pembiayaan']); ?></td>
+
+                               <td><?php if ($key['id_status_pengajuan'] == 1) {
+                                      echo '<div class="badge bg-blue-grey" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } elseif ($key['id_status_pengajuan'] == 2) {
+                                      echo '<div class="badge bg-info" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } elseif ($key['id_status_pengajuan'] == 3) {
+                                      echo '<div class="badge bg-primary" style="font-size: 14px;">' . $key['status_pengajuan'] . ' <i class="ft-x"></i></div>';
+                                    } elseif ($key['id_status_pengajuan'] == 4) {
+                                      echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } elseif ($key['id_status_pengajuan'] == 5) {
+                                      echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } elseif ($key['id_status_pengajuan'] == 6) {
+                                      echo '<div class="badge bg-success bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } elseif ($key['id_status_pengajuan'] == 7) {
+                                      echo '<div class="badge bg-danger bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                                    } ?></td>
+                             </tr>
+                         <?php }
+                          } ?>
                        </tbody>
                      </table>
-
+                     <!-- <button type="button" class="btn btn-primary btn-sm float-right mt-1"><i class="ft-printer"></i>&nbsp;Cetak</button> -->
                    </div>
-                   <div class="tab-pane paneldetail" id="tabIcon3" aria-labelledby="baseIcon-tab3">
-                     <div class="table-responsive">
-                       <table class="table table-bordered">
-                         <thead>
-                           <th>Tanggal Pengajuan</th>
-                           <th>Puskesmas</th>
-                           <th>Rumah Sakit</th>
-                           <th>Diagnosa</th>
-                           <th>Nominal Klaim</th>
-                           <th>Nominal pembiayaan</th>
-                           <th>Status Pengajuan</th>
-                         </thead>
-                         <tbody>
-                           <?php if (!empty($riwayatpengajuan)) {
-                              foreach ($riwayatpengajuan as $key) { ?>
-                               <tr>
-                                 <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
-                                 <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
-                                 <td><?php echo strtoupper($key['nama_rs']); ?></td>
-
-                                 <td>
-                                   <ul>
-                                     <?php if ($penyakit) {
-                                        foreach ($penyakit as $keypenyakit) { ?>
-
-                                         <li>- <?php echo $keypenyakit['namadiag']; ?></li>
-
-                                     <?php }
-                                      } ?>
-                                   </ul>
-                                 </td>
-
-                                 <td><?php
-                                      if (isset($key)  &&  !empty($key)) {
-                                        echo number_format((float)$key['nominal_klaim']);
-                                      } else {
-                                        echo  "0";
-                                      }
-                                      ?>
-
-                                 </td>
-                                 <td><?= number_format((float)$key['nominal_pembiayaan']); ?></td>
-
-                                 <td><?php if ($key['id_status_pengajuan'] == 1) {
-                                        echo '<div class="badge bg-blue-grey" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } elseif ($key['id_status_pengajuan'] == 2) {
-                                        echo '<div class="badge bg-info" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } elseif ($key['id_status_pengajuan'] == 3) {
-                                        echo '<div class="badge bg-primary" style="font-size: 14px;">' . $key['status_pengajuan'] . ' <i class="ft-x"></i></div>';
-                                      } elseif ($key['id_status_pengajuan'] == 4) {
-                                        echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } elseif ($key['id_status_pengajuan'] == 5) {
-                                        echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } elseif ($key['id_status_pengajuan'] == 6) {
-                                        echo '<div class="badge bg-success bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } elseif ($key['id_status_pengajuan'] == 7) {
-                                        echo '<div class="badge bg-danger bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
-                                      } ?></td>
-                               </tr>
-                           <?php }
-                            } ?>
-                         </tbody>
-                       </table>
-                       <!-- <button type="button" class="btn btn-primary btn-sm float-right mt-1"><i class="ft-printer"></i>&nbsp;Cetak</button> -->
-                     </div>
+                 </div>
+                 <div class="tab-pane paneldetail" id="tabIcon4" aria-labelledby="baseIcon-tab4">
+                   <div class="note">
+                     <p> <strong>Catatan:</strong> <span class="catatan"><?php echo $key['keterangan_survey']; ?></span></p>
                    </div>
-                   <div class="tab-pane paneldetail" id="tabIcon4" aria-labelledby="baseIcon-tab4">
-                     <div class="note">
-                       <p> <strong>Catatan:</strong> <span class="catatan"><?php echo $key['keterangan_survey']; ?></span></p>
-                     </div>
-                     <div class="table-responsive">
-                       <table class="table table-striped">
-                         <thead>
-                           <tr>
-                             <th>No</th>
-                             <th>Variabel</th>
-                             <th>Isi</th>
-                           </tr>
-                         </thead>
-                         <tbody>
-                           <?php if (!empty($kethasilsurvey)) {
-                              $no = 1;
-                              foreach ($kethasilsurvey as $hs) { ?>
-                               <tr>
-                                 <td><?php echo $no++; ?></td>
-                                 <td><?php echo $hs['ceklist_survey']; ?></td>
-                                 <td><?php echo $hs['keterangan']; ?></td>
-                               </tr>
-                           <?php }
-                            } ?>
-                         </tbody>
-                       </table>
-                       </table>
-                       <!--  <td><a href="<?php echo base_url('Cetak/cetak_survey_sjp/'); ?><?php echo $id_sjp; ?>"><button type="button" class="btn mr-1 mb-1 btn-primary btn-sm"  style="float: right;">Cetak</button></td></a> -->
-                     </div>
+                   <div class="table-responsive">
+                     <table class="table table-striped">
+                       <thead>
+                         <tr>
+                           <th>No</th>
+                           <th>Variabel</th>
+                           <th>Isi</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <?php if (!empty($kethasilsurvey)) {
+                            $no = 1;
+                            foreach ($kethasilsurvey as $hs) { ?>
+                             <tr>
+                               <td><?php echo $no++; ?></td>
+                               <td><?php echo $hs['ceklist_survey']; ?></td>
+                               <td><?php echo $hs['keterangan']; ?></td>
+                             </tr>
+                         <?php }
+                          } ?>
+                       </tbody>
+                     </table>
+                     </table>
+                     <!--  <td><a href="<?php echo base_url('Cetak/cetak_survey_sjp/'); ?><?php echo $id_sjp; ?>"><button type="button" class="btn mr-1 mb-1 btn-primary btn-sm"  style="float: right;">Cetak</button></td></a> -->
                    </div>
-                   <div class="tab-pane paneldetail" id="tabIcon6" aria-labelledby="baseIcon-tab6">
+                 </div>
+                 <div class="tab-pane paneldetail" id="tabIcon6" aria-labelledby="baseIcon-tab6">
 
-                     <section id="image-gallery" class="card">
-                       <div class="card-content">
-                         <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                           <div class="row">
+                   <section id="image-gallery" class="card">
+                     <div class="card-content">
+                       <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                         <div class="row">
 
 
-                             <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                               <!-- <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" itemprop="contentUrl" data-size="480x360">
+                           <figure class="col-lg-3 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                             <!-- <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" itemprop="contentUrl" data-size="480x360">
             <img class="img-thumbnail img-fluid"src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-size="480x360" widht="100" height="200"
             itemprop="thumbnail" alt="Image description"/>
           </a> -->
-                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
-                             </figure>
-                           </div>
-
-
+                             <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                               <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
+                           </figure>
                          </div>
-                         <!--/ Image grid -->
-                         <!-- Root element of PhotoSwipe. Must have class pswp. -->
-                         <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-                           <!-- Background of PhotoSwipe. 
+
+
+                       </div>
+                       <!--/ Image grid -->
+                       <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                       <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                         <!-- Background of PhotoSwipe. 
      It's a separate element as animating opacity is faster than rgba(). -->
-                           <div class="pswp__bg"></div>
-                           <!-- Slides wrapper with overflow:hidden. -->
-                           <div class="pswp__scroll-wrap">
-                             <!-- Container that holds slides. PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
-                             <div class="pswp__container">
-                               <div class="pswp__item"></div>
-                               <div class="pswp__item"></div>
-                               <div class="pswp__item"></div>
-                             </div>
-                             <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-                             <div class="pswp__ui pswp__ui--hidden">
-                               <div class="pswp__top-bar">
-                                 <!--  Controls are self-explanatory. Order can be changed. -->
-                                 <div class="pswp__counter"></div>
-                                 <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                                 <button class="pswp__button pswp__button--share" title="Share"></button>
-                                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                                 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                                 <!-- element will get class pswp__preloader-active when preloader is running -->
-                                 <div class="pswp__preloader">
-                                   <div class="pswp__preloader__icn">
-                                     <div class="pswp__preloader__cut">
-                                       <div class="pswp__preloader__donut"></div>
-                                     </div>
+                         <div class="pswp__bg"></div>
+                         <!-- Slides wrapper with overflow:hidden. -->
+                         <div class="pswp__scroll-wrap">
+                           <!-- Container that holds slides. PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
+                           <div class="pswp__container">
+                             <div class="pswp__item"></div>
+                             <div class="pswp__item"></div>
+                             <div class="pswp__item"></div>
+                           </div>
+                           <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                           <div class="pswp__ui pswp__ui--hidden">
+                             <div class="pswp__top-bar">
+                               <!--  Controls are self-explanatory. Order can be changed. -->
+                               <div class="pswp__counter"></div>
+                               <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                               <button class="pswp__button pswp__button--share" title="Share"></button>
+                               <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                               <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                               <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                               <!-- element will get class pswp__preloader-active when preloader is running -->
+                               <div class="pswp__preloader">
+                                 <div class="pswp__preloader__icn">
+                                   <div class="pswp__preloader__cut">
+                                     <div class="pswp__preloader__donut"></div>
                                    </div>
                                  </div>
                                </div>
-                               <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                                 <div class="pswp__share-tooltip"></div>
-                               </div>
-                               <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                               </button>
-                               <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                               </button>
-                               <div class="pswp__caption">
-                                 <div class="pswp__caption__center"></div>
-                               </div>
+                             </div>
+                             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                               <div class="pswp__share-tooltip"></div>
+                             </div>
+                             <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                             </button>
+                             <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                             </button>
+                             <div class="pswp__caption">
+                               <div class="pswp__caption__center"></div>
                              </div>
                            </div>
                          </div>
                        </div>
-                       <!--/ PhotoSwipe -->
-                     </section>
-                   </div>
-                   <div class="tab-pane paneldetail" id="tabIcon5" aria-labelledby="baseIcon-tab5">
-                     <div class="note">
-                       <p> <strong>Catatan Dokumen:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
                      </div>
-                     <section id="image-gallery" class="card">
-                       <div class="card-content">
-                         <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                           <div class="row">
+                     <!--/ PhotoSwipe -->
+                   </section>
+                 </div>
+                 <div class="tab-pane paneldetail" id="tabIcon5" aria-labelledby="baseIcon-tab5">
+                   <div class="note">
+                     <p> <strong>Catatan Dokumen:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
+                   </div>
+                   <section id="image-gallery" class="card">
+                     <div class="card-content">
+                       <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                         <div class="row">
 
-                             <?php if (!empty($getdokumenpersyaratan)) {
-                                foreach ($getdokumenpersyaratan as $att) { ?>
+                           <?php if (!empty($getdokumenpersyaratan)) {
+                              foreach ($getdokumenpersyaratan as $att) { ?>
 
-                                 <figure class="col-lg-6 col-md-6 col-12">
-                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
-                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
-                                 </figure>
+                               <figure class="col-lg-6 col-md-6 col-12">
+                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
+                               </figure>
 
 
 
-                             <?php }
-                              } ?>
-
-                           </div>
-
+                           <?php }
+                            } ?>
 
                          </div>
-                         <!--/ Image grid -->
-                         <!-- Root element of PhotoSwipe. Must have class pswp. -->
-                         <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-                           <!-- Background of PhotoSwipe. 
+
+
+                       </div>
+                       <!--/ Image grid -->
+                       <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                       <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                         <!-- Background of PhotoSwipe. 
      It's a separate element as animating opacity is faster than rgba(). -->
-                           <div class="pswp__bg"></div>
-                           <!-- Slides wrapper with overflow:hidden. -->
-                           <div class="pswp__scroll-wrap">
-                             <!-- Container that holds slides. PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
-                             <div class="pswp__container">
-                               <div class="pswp__item"></div>
-                               <div class="pswp__item"></div>
-                               <div class="pswp__item"></div>
-                             </div>
-                             <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-                             <div class="pswp__ui pswp__ui--hidden">
-                               <div class="pswp__top-bar">
-                                 <!--  Controls are self-explanatory. Order can be changed. -->
-                                 <div class="pswp__counter"></div>
-                                 <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                                 <button class="pswp__button pswp__button--share" title="Share"></button>
-                                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                                 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                                 <!-- element will get class pswp__preloader-active when preloader is running -->
-                                 <div class="pswp__preloader">
-                                   <div class="pswp__preloader__icn">
-                                     <div class="pswp__preloader__cut">
-                                       <div class="pswp__preloader__donut"></div>
-                                     </div>
+                         <div class="pswp__bg"></div>
+                         <!-- Slides wrapper with overflow:hidden. -->
+                         <div class="pswp__scroll-wrap">
+                           <!-- Container that holds slides. PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
+                           <div class="pswp__container">
+                             <div class="pswp__item"></div>
+                             <div class="pswp__item"></div>
+                             <div class="pswp__item"></div>
+                           </div>
+                           <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                           <div class="pswp__ui pswp__ui--hidden">
+                             <div class="pswp__top-bar">
+                               <!--  Controls are self-explanatory. Order can be changed. -->
+                               <div class="pswp__counter"></div>
+                               <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                               <button class="pswp__button pswp__button--share" title="Share"></button>
+                               <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                               <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                               <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                               <!-- element will get class pswp__preloader-active when preloader is running -->
+                               <div class="pswp__preloader">
+                                 <div class="pswp__preloader__icn">
+                                   <div class="pswp__preloader__cut">
+                                     <div class="pswp__preloader__donut"></div>
                                    </div>
                                  </div>
                                </div>
-                               <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                                 <div class="pswp__share-tooltip"></div>
-                               </div>
-                               <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                               </button>
-                               <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                               </button>
-                               <div class="pswp__caption">
-                                 <div class="pswp__caption__center"></div>
-                               </div>
+                             </div>
+                             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                               <div class="pswp__share-tooltip"></div>
+                             </div>
+                             <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                             </button>
+                             <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                             </button>
+                             <div class="pswp__caption">
+                               <div class="pswp__caption__center"></div>
                              </div>
                            </div>
                          </div>
                        </div>
-                       <!--/ PhotoSwipe -->
-                     </section>
-                   </div>
+                     </div>
+                     <!--/ PhotoSwipe -->
+                   </section>
+                 </div>
 
-                   <div class="tab-pane paneldetail" id="tabIcon7" aria-labelledby="baseIcon-tab7">
-                     <table class="table mb-0 ">
-                       <tbody>
-                         <tr>
-                           <th scope="row" class="border-top-0">Feedback Dinkes :</th>
-                           <td class="border-top-0"><?= $key['feedback_dinkes']; ?></td>
-                         </tr>
+                 <div class="tab-pane paneldetail" id="tabIcon7" aria-labelledby="baseIcon-tab7">
+                   <table class="table mb-0 ">
+                     <tbody>
+                       <tr>
+                         <th scope="row" class="border-top-0">Feedback Dinkes :</th>
+                         <td class="border-top-0"><?= $key['feedback_dinkes']; ?></td>
+                       </tr>
 
-                       </tbody>
-                     </table>
-
-                   </div>
+                     </tbody>
+                   </table>
 
                  </div>
+
                </div>
              </div>
-         <?php }
-          } ?>
        </div>
+   <?php }
+          } ?>
      </div>
+   </div>
    </div>
    </div>
    </div>
@@ -809,6 +775,7 @@
    </div>
 
    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous"></script>
    <script src="<?= base_url() ?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
    <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
    <script src="<?= base_url() ?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>

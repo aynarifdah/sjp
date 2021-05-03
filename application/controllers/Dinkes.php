@@ -943,6 +943,16 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
+    public function download_dokumen()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("edit data pasien", $path),
+            "content" => $this->load->view('download_dokumen', false, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
     private function instansi()
     {
         $id_instansi    = $this->session->userdata('instansi');

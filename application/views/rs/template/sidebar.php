@@ -8,7 +8,7 @@
 
       <li class=" nav-item"><a href="<?php echo base_url('Rs/daftar_klaim'); ?>"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List Pengajuan Klaim</span></a>
       </li>
-      <li class=" nav-item"><a href="#"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
+      <li class=" nav-item"><a href="<?php echo base_url('Rs/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
       </li>
 
       <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi') == 2) : ?>
