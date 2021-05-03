@@ -1532,8 +1532,8 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-         var_dump($data['diagnosa']);
-         die;
+         // var_dump($data['diagnosa']);
+         // die;
 
 
         $path = "";
