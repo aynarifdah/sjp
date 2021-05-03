@@ -971,7 +971,7 @@ class Rs extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/newttd.PNG');
+        $ttd = base_url('assets/images/newttd.png');
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');

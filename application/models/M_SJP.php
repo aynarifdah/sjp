@@ -480,7 +480,7 @@ class M_SJP extends CI_Model
     if ($id_instansi == 2) {
       $this->db->where('sjp.id_rumah_sakit', $id_join);
     }
-    // $this->db->limit(1);
+    $this->db->limit(1);
     $this->db->where('sjp.id_sjp', $idsjp);
     $query = $this->db->get()->result_array();
     return $query;
