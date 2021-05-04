@@ -362,6 +362,7 @@ class Home extends CI_Controller
         $dokumen          = $this->input->post('dokumen');
         // var_dump($_FILES['dokumen']);
         // die;
+        $pasien = $this->input->post('nama_pasien');
         $persyaratan      = array();
         for ($i = 0; $i < count($nama_persyaratan); $i++) {
 
@@ -370,10 +371,15 @@ class Home extends CI_Controller
             $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
             $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
             $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+            $name_file = $_FILES['file']['name'];
+            $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+            $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
+            $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
             // File upload configuration
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['file_name'] = $new_name_image;
 
             // Load and initialize upload library
 
