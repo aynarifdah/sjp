@@ -217,7 +217,7 @@ class Home extends CI_Controller
     public function input_pasien()
     {
         $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
-        $nama            = $this->input->post('nama_pemohon');
+        $nama_pemohon            = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
         $alamat1         = $this->input->post('alamat_pemohon');
         $rt1             = $this->input->post('rt_pemohon');
@@ -231,7 +231,7 @@ class Home extends CI_Controller
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
-            'nama_pemohon'  => $nama,
+            'nama_pemohon'  => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
             'alamat'        => $alamat1,
             'rt'            => $rt1,
@@ -255,7 +255,7 @@ class Home extends CI_Controller
         // }
 
         $nik           = $this->input->post('nik');
-        $nama          = $this->input->post('nama_pasien');
+        $nama_pasien   = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
         $tempatlahir   = $this->input->post('tempat_lahir');
         $tanggallahir  = $this->input->post('tanggal_lahir');
@@ -288,7 +288,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
-            'nama_pasien'      => $nama,
+            'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
             'tanggal_lahir'    => $tanggallahir,
@@ -365,6 +365,7 @@ class Home extends CI_Controller
         $dokumen          = $this->input->post('dokumen');
         // var_dump($_FILES['dokumen']);
         // die;
+        $pasien = $this->input->post('nama_pasien');
         $persyaratan      = array();
         for ($i = 0; $i < count($nama_persyaratan); $i++) {
 
@@ -373,9 +374,18 @@ class Home extends CI_Controller
             $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
             $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
             $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+
+            $name_file = $_FILES['file']['name'];
+            $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+            $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
+            $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+            // var_dump($new_name_image);
+            // die;
             // File upload configuration
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
+            $config['file_name'] = $new_name_image;
+            // $config['encrypt_name'] = TRUE;
             $config['allowed_types'] = 'jpg|jpeg|png|gif';
 
             // Load and initialize upload library
@@ -1553,11 +1563,28 @@ class Home extends CI_Controller
 
     public function download_dokumen()
     {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
         $path = "";
         $data = array(
-            "page"    => $this->load("edit data pasien", $path),
-            "content" => $this->load->view('download_dokumen', false, true)
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
         );
         $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
     }
 }

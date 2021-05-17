@@ -19,7 +19,8 @@
          </div>
          <div class="card-content">
            <div class="card-body">
-             <?= $this->session->flashdata('pesan') ?>
+             <?= $this->session->flashdata('pesan');
+              unset($_SESSION['pesan']); ?>
              <form class="form-horizontal form-simple" method="POST" action="<?php echo base_url('Auth/proses_login'); ?>" novalidate>
                <fieldset class="form-group position-relative has-icon-left mb-1">
                  <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" class="form-control" required>

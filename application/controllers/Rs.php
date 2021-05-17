@@ -505,6 +505,7 @@ class Rs extends CI_Controller
                 'nominal_klaim'   => $nominalklaim[$index],
                 'catatan_klaim'   => $catatanklaim[$index],
                 'status_klaim'    => 2,
+                'status_edit'     => 1
             ));
             $index++;
         }
@@ -555,6 +556,56 @@ class Rs extends CI_Controller
 
 
         redirect('Rs/daftar_klaim', 'refresh');
+    }
+
+    public function edit_claim()
+    {
+        $idsjp = $this->input->post('result');
+        $tanggal_tagihan = $this->input->post('tanggal_tagihan');
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = $this->input->post('nominal_klaim');
+        $catatan_klaim = $this->input->post('catatan_klaim');
+        $claimData = array();
+        $index = 0;
+        if (!empty($idsjp)) {
+            foreach ($idsjp as $key) {
+                array_push($claimData, array(
+                    'id_sjp'      => $key,
+                    'nomor_tagihan'   => $nomor_tagihan,
+                    'tanggal_tagihan' => $tanggal_tagihan,
+                    'nominal_klaim'   => $nominal_klaim[$index],
+                    'catatan_klaim'   => $catatan_klaim[$index],
+                    'status_klaim'    => null,
+                    'status_edit'    => 0,
+                ));
+                $index++;
+            }
+            $this->db->update_batch('sjp', $claimData, 'id_sjp');
+        }
+        // $dataImage      = array();
+        // for ($i = 0; $i < count($idsjp); $i++) {
+        //     $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
+        //     $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+        //     $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+        //     $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
+        //     $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+        //     $uploadPath = 'uploads/dokumen/';
+        //     $config['upload_path'] = $uploadPath;
+        //     $config['allowed_types'] = 'jpg|jpeg|png|gif';
+
+        //     $this->load->library('upload', $config);
+        //     $this->upload->initialize($config);
+        //     if ($this->upload->do_upload('file')) {
+
+        //         $fileData      = $this->upload->data();
+
+        //         $dataImage[] = array(
+        //             'namafile' => $fileData['file_name'],
+        //             'id_sjp'   => $idsjp[$i],
+        //         );
+        //         $this->db->update('sjp', $dataImage, 'id_sjp');
+        //     }
+        // }
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -882,15 +933,7 @@ class Rs extends CI_Controller
         echo json_encode($result);
     }
 
-    public function download_dokumen()
-    {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("edit data pasien", $path),
-            "content" => $this->load->view('download_dokumen', false, true)
-        );
-        $this->load->view('template/default_template', $data);
-    }
+
 
     public function index($id_status_klaim = Null)
     {
@@ -967,6 +1010,33 @@ class Rs extends CI_Controller
         echo json_encode($result);
     }
 
+
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
 
 
     public function CetakTest($id_sjp)

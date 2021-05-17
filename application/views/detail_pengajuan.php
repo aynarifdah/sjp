@@ -189,7 +189,7 @@
                    <?php endif ?>
                  <?php endforeach; ?>
 
-                 <div class="float-right mt-2">
+                 <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 3 || 2) : ?>
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
                    <?php endif ?>
@@ -197,37 +197,37 @@
 
 
 
-                 <div class="float-right mt-2 ml-1">
+                 <div class="float-right mt-2">
                    <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey'])) { ?>
                      <a href="<?php echo base_url($controller . 'siap_survey/' . $key['id_sjp'] . '/' . $key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
                    <?php } ?>
-                 </div>
-                 <div class="float-right mt-2 ml-1">
+                   <!-- </div>
+                 <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 4 && ($key['id_status_pengajuan'] == 6 || $key['id_status_pengajuan'] == 7)) { ?>
-                     <a href="<?php echo base_url($controller . 'permohonan_sjp') ?>" class="btn btn-secondary btn-sm text-center"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
+                     <a href="<?php echo base_url($controller . 'permohonan_sjp') ?>" class="btn btn-secondary btn-sm text-center ml-1"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
                    <?php } ?>
-                 </div>
-                 <div class="float-right mt-2 ml-1">
+                   <!-- </div>
+                 <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
-                     <button type="button" class="btn btn-secondary btn-sm text-center submitnominal"> Submit Nominal</button>
+                     <button type="button" class="btn btn-secondary btn-sm text-center submitnominal ml-1"> Submit Nominal</button>
                    <?php } ?>
-                 </div>
-                 <div class="float-right mt-2">
+                   <!-- </div>
+                 <div class="float-right mt-2"> -->
                    <?php if ($this->session->userdata('instansi') == 1) { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right submitfeedback"> Submit feedback</button>
+                     <button type="button" class="btn btn-dark btn-sm float-right submitfeedback ml-1"> Submit feedback</button>
                    <?php } ?>
-                 </div>
+                   <!-- </div>
 
 
-                 <div class="float-right mt-2 ml-1">
+                 <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 3) { ?>
-                     <a href="<?php echo base_url(); ?>Dinkes/updatestatbayar?get=<?php echo $key['id_sjp'] ?>" class="btn btn-secondary btn-sm text-center updatestatbayar"> Update Status Bayar</a>
+                     <a href="<?php echo base_url(); ?>Dinkes/updatestatbayar?get=<?php echo $key['id_sjp'] ?>" class="btn btn-secondary btn-sm text-center updatestatbayar ml-1"> Update Status Bayar</a>
                    <?php } ?>
-                 </div>
+                   <!-- </div> -->
 
-                 <div class="float-right mt-2 ml-1">
+                   <!-- <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4) { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right proses_sjp" data-toggle="modal" data-target="#default"> Proses SJP</button>
+                     <button type="button" class="btn btn-dark btn-sm float-right proses_sjp ml-1" data-toggle="modal" data-target="#default"> Proses SJP</button>
                  </div>
                  <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                    <div class="modal-dialog" role="document">

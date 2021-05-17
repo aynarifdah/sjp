@@ -176,7 +176,7 @@
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
-                          <option value="<?= $key['kecamatan'] ?>"><?= $key['kecamatan'] ?></option>
+                          <option value="<?= strtoupper($key['kecamatan']); ?>"><?= strtoupper($key['kecamatan']); ?></option>
                       <?php }
                       } ?>
                     </select>
@@ -500,7 +500,7 @@
         var html = '<option>Pilih Kelurahan</option>';
         var i;
         for (i = 0; i < data.length; i++) {
-          html += '<option value = "' + data[i].kelurahan + '">' + data[i].kelurahan + '</option>';
+          html += '<option value = "' + data[i].kelurahan.toUpperCase() + '">' + data[i].kelurahan.toUpperCase() + '</option>';
         }
         $('#kd_kelurahanpasien').html(html);
 
@@ -526,6 +526,9 @@
         var json_data = JSON.parse(data);
         var api_data = json_data.content[0];
         let jk = api_data.JENIS_KLMIN;
+        let kecPasien = api_data.KEC_NAME;
+        let kelPasien = api_data.KEL_NAME;
+        console.log(kelPasien);
         if (api_data.hasOwnProperty('RESPONSE_CODE')) {
           alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
         } else {
@@ -538,25 +541,27 @@
           $('#rtpasien').val(api_data.NO_RT);
           $('#rwpasien').val(api_data.NO_RW);
           $("#" + api_data.AGAMA).attr('selected', true);
-          // $("#jeniskelaminkpasien" + api_data.JENIS_KLMIN).attr('selected', true);
+
           $('#jeniskelaminkpasien').val(jk);
-          $('#Kecamatan').remove();
-          $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
-          var kelurahan = '';
-          kelurahan += '<div class="form-group row kecamatan_value">';
-          kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
-          kelurahan += '<div class="col-sm-9">';
-          kelurahan += '<div class="input-group mb-2">';
-          kelurahan += '<div class="input-group-prepend">';
-          kelurahan += '<div class="input-group-text">';
-          kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          $('#kecamatan_value').append(kelurahan);
+          $('#kd_kecamatanpasien').val(kecPasien).trigger('change');
+          $('#kd_kelurahanpasien').val(kelPasien).trigger('change');
+          // $('#Kecamatan').remove();
+          // $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
+          // var kelurahan = '';
+          // kelurahan += '<div class="form-group row kecamatan_value">';
+          // kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
+          // kelurahan += '<div class="col-sm-9">';
+          // kelurahan += '<div class="input-group mb-2">';
+          // kelurahan += '<div class="input-group-prepend">';
+          // kelurahan += '<div class="input-group-text">';
+          // kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
+          // kelurahan += '</div>';
+          // kelurahan += '</div>';
+          // kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
+          // kelurahan += '</div>';
+          // kelurahan += '</div>';
+          // kelurahan += '</div>';
+          // $('#kecamatan_value').append(kelurahan);
         }
         // console.log(api_data);
       },

@@ -46,26 +46,25 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
-                                    <th scope="col">Nama Dokumen</th>
-                                    <th scope="col">Aksi</th>
+                                    <th class="text-center" scope="col">Nama Dokumen</th>
+                                    <th class="text-center" scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Data Test 1</td>
-                                    <td><button class="btn btn-info"><i class="ft-download"> Download</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Data Test 2</td>
-                                    <td><button class="btn btn-info"><i class="ft-download"> Download</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Data Test 3</td>
-                                    <td><button class="btn btn-info"><i class="ft-download"> Download</button></td>
-                                </tr>
+                                <?php if (!empty($files)) : ?>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($files as $f) : ?>
+                                        <tr>
+                                            <th scope="row"><?= $i++ . '.'; ?></th>
+                                            <td class="text-center"><?= $f['title']; ?></td>
+                                            <td class="text-center"><a href="<?php echo base_url($controller . 'download/' . $f['id']) ?>" class="btn btn-info"><i class="ft-download"> Download</a></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="3" class="text-center">Dokumen Tidak Ditemukan</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

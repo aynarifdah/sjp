@@ -943,15 +943,7 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
-    public function download_dokumen()
-    {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("edit data pasien", $path),
-            "content" => $this->load->view('download_dokumen', false, true)
-        );
-        $this->load->view('template/default_template', $data);
-    }
+
 
     private function instansi()
     {
@@ -1089,6 +1081,32 @@ class Dinkes extends CI_Controller
         echo json_encode($pus);
     }
 
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
 
 
     public function CetakTest($id_sjp)
