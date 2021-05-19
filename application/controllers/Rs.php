@@ -343,7 +343,7 @@ class Rs extends CI_Controller
         $id_instansi = $this->session->userdata("id_instansi");
         $id_join     = $this->session->userdata('id_join');
 
-        $id_jenissjp = 3;
+        $id_jenissjp = 0;
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
