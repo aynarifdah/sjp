@@ -1108,6 +1108,12 @@ class Dinkes extends CI_Controller
         }
     }
 
+    public function download_file_pdf()
+    {
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download($file, NULL);
+    }
 
     public function CetakTest($id_sjp)
     {

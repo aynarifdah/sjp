@@ -9,6 +9,7 @@ class Rs extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->helper('form');
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->model('M_data');
@@ -255,7 +256,7 @@ class Rs extends CI_Controller
             // File upload configuration
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
 
             // Load and initialize upload library
 
@@ -342,7 +343,7 @@ class Rs extends CI_Controller
         $id_instansi = $this->session->userdata("id_instansi");
         $id_join     = $this->session->userdata('id_join');
 
-        $id_jenissjp = 3;
+        $id_jenissjp = 0;
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
@@ -479,6 +480,9 @@ class Rs extends CI_Controller
                 'penyakit'  => $this->M_SJP->diagpasien(),
             );
 
+            // var_dump($datay['dataklaim']);
+            // die;
+
             $path = "";
             $data = array(
                 "page"    => $this->load("entry klaim", $path),
@@ -560,52 +564,64 @@ class Rs extends CI_Controller
 
     public function edit_claim()
     {
-        $idsjp = $this->input->post('result');
+        // var_dump($this->input->post());
+        // die;
+        $idsjp = explode(",", $this->input->post('result'));
         $tanggal_tagihan = $this->input->post('tanggal_tagihan');
         $nomor_tagihan = $this->input->post('nomor_tagihan');
-        $nominal_klaim = $this->input->post('nominal_klaim');
-        $catatan_klaim = $this->input->post('catatan_klaim');
+        $nominal_klaim = explode(",", $this->input->post('nominal_klaim'));
+        $catatan_klaim = explode(",", $this->input->post('catatan_klaim'));
         $claimData = array();
         $index = 0;
-        if (!empty($idsjp)) {
-            foreach ($idsjp as $key) {
-                array_push($claimData, array(
-                    'id_sjp'      => $key,
-                    'nomor_tagihan'   => $nomor_tagihan,
-                    'tanggal_tagihan' => $tanggal_tagihan,
-                    'nominal_klaim'   => $nominal_klaim[$index],
-                    'catatan_klaim'   => $catatan_klaim[$index],
-                    'status_klaim'    => null,
-                    'status_edit'    => 0,
-                ));
-                $index++;
-            }
-            $this->db->update_batch('sjp', $claimData, 'id_sjp');
+        // var_dump($idsjp);
+        // die;
+        foreach ($idsjp as $key) {
+            array_push($claimData, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomor_tagihan,
+                'tanggal_tagihan' => $tanggal_tagihan,
+                'nominal_klaim'   => $nominal_klaim[$index],
+                'catatan_klaim'   => $catatan_klaim[$index],
+                'status_klaim'    => null,
+                'status_edit'    => 0,
+            ));
+            $index++;
         }
-        // $dataImage      = array();
-        // for ($i = 0; $i < count($idsjp); $i++) {
-        //     $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
-        //     $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
-        //     $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
-        //     $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
-        //     $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
-        //     $uploadPath = 'uploads/dokumen/';
-        //     $config['upload_path'] = $uploadPath;
-        //     $config['allowed_types'] = 'jpg|jpeg|png|gif';
 
-        //     $this->load->library('upload', $config);
-        //     $this->upload->initialize($config);
-        //     if ($this->upload->do_upload('file')) {
+        $this->db->update_batch('sjp', $claimData, 'id_sjp');
 
-        //         $fileData      = $this->upload->data();
+        $dataImage      = array();
+        for ($i = 0; $i < 1; $i++) {
+            $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+            $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+            $_FILES['file']['error']    = $_FILES['files']['error'][$i];
+            $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+            $uploadPath = 'uploads/dokumen/';
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['encrypt_name'] = TRUE;
 
-        //         $dataImage[] = array(
-        //             'namafile' => $fileData['file_name'],
-        //             'id_sjp'   => $idsjp[$i],
-        //         );
-        //         $this->db->update('sjp', $dataImage, 'id_sjp');
-        //     }
-        // }
+            // print_r($_FILES['file']['name']);
+            // die;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('file')) {
+
+                $fileData      = $this->upload->data();
+
+                // $dataImage = [
+                //     'namafile' => $fileData['file_name'],
+                //     'id_sjp'   => $idsjp[$i]
+                // ];
+                // $this->db->update('sjp', $dataImage, 'id_sjp');
+
+                $this->db->set('namafile', $fileData['file_name']);
+                $this->db->where('id_sjp', $idsjp[$i]);
+                $this->db->update('sjp');
+            }
+        }
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1038,6 +1054,12 @@ class Rs extends CI_Controller
         }
     }
 
+    public function download_file_pdf()
+    {
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download($file, NULL);
+    }
 
     public function CetakTest($id_sjp)
     {

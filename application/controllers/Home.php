@@ -160,33 +160,33 @@ class Home extends CI_Controller
 
     public function permohonan_sjp()
     {
-        $jam = date('H');
-        $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Home/pengajuan');
-        } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        // $jam = date('H');
+        // $hari = date('l');
+        // if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        //             Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+        //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //             <span aria-hidden="true">&times;</span>
+        //         </button></div>');
+        //     redirect('Home/pengajuan');
+        // } else {
+        $data = array(
+            'topik'      => $this->M_SJP->diagnosa(),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+        );
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+        $path = "";
+        $data = array(
+            "page" => $this->load("Input Pasien", $path),
+            "content" => $this->load->view('input_pasien', $data, true)
+        );
 
-            $this->load->view('template/default_template', $data);
-        }
+        $this->load->view('template/default_template', $data);
+        // }
     }
     public function getKelurahan()
     {
@@ -386,7 +386,7 @@ class Home extends CI_Controller
             $config['upload_path'] = $uploadPath;
             $config['file_name'] = $new_name_image;
             // $config['encrypt_name'] = TRUE;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
 
             // Load and initialize upload library
 
@@ -1586,5 +1586,12 @@ class Home extends CI_Controller
             //download file from directory
             force_download($file, NULL);
         }
+    }
+
+    public function download_file_pdf()
+    {
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download($file, NULL);
     }
 }

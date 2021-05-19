@@ -73,6 +73,9 @@
 
                     <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
+                    <?php if (!empty($dataklaim)) : ?>
+                      <input type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
+                    <?php endif; ?>
                   </tr>
               <?php }
               } ?>
@@ -128,9 +131,42 @@
       return $(this).val();
     }).get();
 
-    var file_data = $('#dokumen').prop('files')[0];
+    // var file_data = $('#dokumen').prop('files')[0];
+    // var file_data = $("input[id='dokumen']").map(function() {
+    //   return $(this).prop('files')[0];
+    // }).get();
+
+    // var arr = [];
+    // $.each(file_data, function(key, v) {
+    //   var test = $(this)[0];
+    //   var name = test['name'];
+    //   var size = test['size'];
+    //   arr.push();
+    // });
+    // console.log(arr);
+
+
+    var files = $('#dokumen')[0].files;
+    var error = '';
     var form_data = new FormData();
-    form_data.append('file', file_data);
+    console.log(files);
+
+    for (var count = 0; count < files.length; count++) {
+      var name = files[count].name;
+      var extension = name.split('.').pop().toLowerCase();
+      if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        error += "Invalid " + count + " Image File"
+      } else {
+        form_data.append("files[]", files[count]);
+      }
+    }
+
+    // form_data.append('doc', files);
+    form_data.append('result', result);
+    form_data.append('tanggal_tagihan', tanggal_tagihan);
+    form_data.append('nomor_tagihan', nomor_tagihan);
+    form_data.append('nominal_klaim', nominal_klaim);
+    form_data.append('catatan_klaim', catatan_klaim);
 
     if (tanggal_tagihan == '') {
       alert("Anda Belum Mengisi Tanggal Tagihan")
@@ -147,21 +183,14 @@
     } else {
       $.ajax({
         url: '<?= base_url() ?>Rs/edit_claim',
-        type: 'POST',
-        data: {
-          result: result,
-          tanggal_tagihan: tanggal_tagihan,
-          nomor_tagihan: nomor_tagihan,
-          nominal_klaim: nominal_klaim,
-          catatan_klaim: catatan_klaim,
-          // dokumen: form_data
-        },
-        // cache: false,
-        // contentType: false,
-        // processData: false,
+        type: 'post',
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
         // dataType: 'json',
         success: function() {
-          location.reload(true);
+          // location.reload(true);
         }
       });
     }

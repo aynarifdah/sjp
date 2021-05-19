@@ -628,12 +628,23 @@
                          <div class="row">
 
                            <?php if (!empty($getdokumenpersyaratan)) {
+                              $i = 1;
                               foreach ($getdokumenpersyaratan as $att) { ?>
 
-                               <figure class="col-lg-6 col-md-6 col-12">
-                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
-                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
-                               </figure>
+                               <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
+                                $ext = $path_parts['extension'];
+                                if ($ext == "pdf") :
+                                ?>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
+                                 </div>
+                               <?php else : ?>
+                                 <figure class="col-lg-6 col-md-6 col-12">
+                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
+                                 </figure>
+                               <?php endif; ?>
 
 
 
@@ -737,6 +748,10 @@
      ul {
        list-style-type: circle !important;
      }
+
+     .pdfButton:hover {
+       cursor: pointer;
+     }
    </style>
 
    <div class="modal  fade text-left " id="riwayatProses" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -785,6 +800,27 @@
    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
    <script type="text/javascript">
+     function getNamePdf(e) {
+       var file_name = $('#' + e).find('p').html();
+       $.ajax({
+         url: '<?= base_url($controller); ?>download_file_pdf',
+         method: "POST",
+         data: {
+           pdfName: file_name
+         },
+         success: function() {
+
+         }
+       });
+
+     }
+
+
+
+     //  $('.pdfButton').on('click', function() {
+     //    alert(id);
+     //  })
+
      function logCetak() {
        $.ajax({
          url: '<?= base_url($controller); ?>logCetak',
