@@ -38,7 +38,7 @@
         <?php } ?>
 
         <div class="table-responsive">
-          <table id="datatable" class="table table-bordered" style="width: 100%;">
+          <table id="datatable" class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
               <tr>
                 <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
@@ -48,6 +48,8 @@
                 <th>Nominal Pengajuan</th>
                 <th>Catatan</th>
                 <th>Bukti Inacbg</th>
+                <th>Resume Medis</th>
+                <th>Hasil USG</th>
               </tr>
             </thead>
             <tbody>
@@ -72,9 +74,11 @@
                     <td><input type="text" class="form-control" name="nominal_klaim[]" id="nominal_klaim" placeholder="Nominal" value="<?= $key['nominal_klaim']; ?>" required></td>
 
                     <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen1" required /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen2" required /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen3" required /></td>
                     <?php if (!empty($dataklaim)) : ?>
-                      <input type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
+                      <input id="dokumen_hidden" type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
                     <?php endif; ?>
                   </tr>
               <?php }
@@ -116,7 +120,10 @@
 </html>
 <script type="text/javascript">
   // function saveClaim() {
-
+  // $(document).ready(function() {
+  //   var halo = $('#dokumen_hidden').val();
+  //   alert(halo);
+  // });
   $('#editklaim').on('click', function() {
 
     var url = window.location.href.split('/');
@@ -131,22 +138,15 @@
       return $(this).val();
     }).get();
 
-    // var file_data = $('#dokumen').prop('files')[0];
-    // var file_data = $("input[id='dokumen']").map(function() {
-    //   return $(this).prop('files')[0];
-    // }).get();
-
-    // var arr = [];
-    // $.each(file_data, function(key, v) {
-    //   var test = $(this)[0];
-    //   var name = test['name'];
-    //   var size = test['size'];
-    //   arr.push();
-    // });
-    // console.log(arr);
 
 
-    var files = $('#dokumen')[0].files;
+    var files = $('#dokumen1')[0].files;
+
+    var dok1 = $('#dokumen1').val();
+    var dok2 = $('#dokumen2').val();
+    var dok3 = $('#dokumen3').val();
+
+
     var error = '';
     var form_data = new FormData();
     console.log(files);
@@ -179,6 +179,9 @@
       return false
     } else if (catatan_klaim == '') {
       alert("Anda Belum Mengisi Catatan")
+      return false
+    } else if (dok1 == '' || dok2 == '' || dok3 == '') {
+      alert("Anda Belum Mengupload File")
       return false
     } else {
       $.ajax({

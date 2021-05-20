@@ -515,47 +515,57 @@ class Rs extends CI_Controller
         }
         $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
 
-        // $nama_persyaratan = $this->input->post('nama_persyaratan'); 
-        // var_dump($dataklaim);
-        $dokumen          = $this->input->post('dokumen');
-        //var_dump($_FILES['dokumen']);die;
+
+        $dok = count($_FILES['dokumen']['name']);
         $persyaratan      = array();
         for ($i = 0; $i < count($id_sjp); $i++) {
+            //  0 sama 1
 
-            $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
-            $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
-            $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
-            $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
-            $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
-            // File upload configuration
-            $uploadPath = 'uploads/dokumen/';
-            $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            for ($j = 0; $j < $dok; $j++) {
 
-            // Load and initialize upload library
+                $_FILES['file']['name']     = $_FILES['dokumen']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['dokumen']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['dokumen']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['dokumen']['size'][$j];
+                // File upload configuration
+                $uploadPath = 'uploads/dokumen/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                $config['encrypt_name'] = TRUE;
 
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            //var_dump($this->upload->initialize($config));die;
-            if ($this->upload->do_upload('file')) {
-                // Uploaded file data
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                //var_dump($this->upload->initialize($config));die;
+                if ($this->upload->do_upload('file')) {
+                    // Uploaded file data
 
-                $fileData      = $this->upload->data();
-                $persyaratan[] = array(
-                    'namafile' => $fileData['file_name'],
-                    'id_sjp'   => $id_sjp[$i],
-                );
+                    $fileData      = $this->upload->data();
+
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+
+                    if ($j == $file1) {
+                        $persyaratan[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file2) {
+                        $persyaratan[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file3) {
+                        $persyaratan[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    }
+                }
                 $this->db->update_batch('sjp', $persyaratan, 'id_sjp');
             }
-            // else{
-            //     echo "gagal";die;
-            // }
-            //   var_dump($persyaratan);die;
-            //     if(!$this->upload->do_upload( 'dokumen')){
-            //     $this->upload->display_errors();
-            //     }else{
-            //     echo "Berhasil diupload";
-            //     };die;
         }
 
 
@@ -599,7 +609,7 @@ class Rs extends CI_Controller
             $_FILES['file']['size']     = $_FILES['files']['size'][$i];
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
             $config['encrypt_name'] = TRUE;
 
             // print_r($_FILES['file']['name']);
