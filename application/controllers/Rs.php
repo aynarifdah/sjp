@@ -9,6 +9,7 @@ class Rs extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('url');
+        $this->load->helper('form');
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->model('M_data');
@@ -205,8 +206,7 @@ class Rs extends CI_Controller
 
             // 'nama_rumah_sakit' => $rumahsakit,
         );
-        var_dump($datasjp);
-        die;
+
         $this->db->insert('sjp', $datasjp);
         $id_sjp = $this->db->insert_id(); //$this->db->insert_id();
 
@@ -256,7 +256,7 @@ class Rs extends CI_Controller
             // File upload configuration
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
 
             // Load and initialize upload library
 
@@ -480,6 +480,9 @@ class Rs extends CI_Controller
                 'penyakit'  => $this->M_SJP->diagpasien(),
             );
 
+            // var_dump($datay['dataklaim']);
+            // die;
+
             $path = "";
             $data = array(
                 "page"    => $this->load("entry klaim", $path),
@@ -506,6 +509,7 @@ class Rs extends CI_Controller
                 'nominal_klaim'   => $nominalklaim[$index],
                 'catatan_klaim'   => $catatanklaim[$index],
                 'status_klaim'    => 2,
+                'status_edit'     => 1
             ));
             $index++;
         }
@@ -556,6 +560,68 @@ class Rs extends CI_Controller
 
 
         redirect('Rs/daftar_klaim', 'refresh');
+    }
+
+    public function edit_claim()
+    {
+        // var_dump($this->input->post());
+        // die;
+        $idsjp = explode(",", $this->input->post('result'));
+        $tanggal_tagihan = $this->input->post('tanggal_tagihan');
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = explode(",", $this->input->post('nominal_klaim'));
+        $catatan_klaim = explode(",", $this->input->post('catatan_klaim'));
+        $claimData = array();
+        $index = 0;
+        // var_dump($idsjp);
+        // die;
+        foreach ($idsjp as $key) {
+            array_push($claimData, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomor_tagihan,
+                'tanggal_tagihan' => $tanggal_tagihan,
+                'nominal_klaim'   => $nominal_klaim[$index],
+                'catatan_klaim'   => $catatan_klaim[$index],
+                'status_klaim'    => null,
+                'status_edit'    => 0,
+            ));
+            $index++;
+        }
+
+        $this->db->update_batch('sjp', $claimData, 'id_sjp');
+
+        $dataImage      = array();
+        for ($i = 0; $i < 1; $i++) {
+            $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+            $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+            $_FILES['file']['error']    = $_FILES['files']['error'][$i];
+            $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+            $uploadPath = 'uploads/dokumen/';
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['encrypt_name'] = TRUE;
+
+            // print_r($_FILES['file']['name']);
+            // die;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('file')) {
+
+                $fileData      = $this->upload->data();
+
+                // $dataImage = [
+                //     'namafile' => $fileData['file_name'],
+                //     'id_sjp'   => $idsjp[$i]
+                // ];
+                // $this->db->update('sjp', $dataImage, 'id_sjp');
+
+                $this->db->set('namafile', $fileData['file_name']);
+                $this->db->where('id_sjp', $idsjp[$i]);
+                $this->db->update('sjp');
+            }
+        }
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -884,6 +950,7 @@ class Rs extends CI_Controller
     }
 
 
+
     public function index($id_status_klaim = Null)
     {
         $id_rumah_sakit = 1;
@@ -960,6 +1027,39 @@ class Rs extends CI_Controller
     }
 
 
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
+
+    public function download_file_pdf()
+    {
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download($file, NULL);
+    }
 
     public function CetakTest($id_sjp)
     {

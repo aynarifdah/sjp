@@ -74,7 +74,6 @@ class Dinkes extends CI_Controller
 
     public function detail_pengajuan($idsjp, $id_pengajuan)
     {
-
         // TEST 19-02-2021
 
         if ($this->input->post("btnEditInfo") !== Null) {
@@ -301,7 +300,7 @@ class Dinkes extends CI_Controller
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
-        //echo $nik->nik;die;
+
         // var_dump($data['riwayatpengajuan']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
@@ -944,6 +943,8 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
+
+
     private function instansi()
     {
         $id_instansi    = $this->session->userdata('instansi');
@@ -1051,6 +1052,21 @@ class Dinkes extends CI_Controller
         redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
     }
 
+    public function updateStatusPengajuanDinkes($id_pengajuan, $id_status_pengajuan)
+    {
+        $data = [
+            'id_status_pengajuan' => $id_status_pengajuan
+        ];
+
+        $where = [
+            'id_pengajuan' => $id_pengajuan
+        ];
+
+        $this->db->where($where);
+        $this->db->update('permohonan_pengajuan', $data);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
     public function getRs()
     {
         $id = $this->input->post('id');
@@ -1065,7 +1081,39 @@ class Dinkes extends CI_Controller
         echo json_encode($pus);
     }
 
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
 
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
+
+    public function download_file_pdf()
+    {
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download($file, NULL);
+    }
 
     public function CetakTest($id_sjp)
     {

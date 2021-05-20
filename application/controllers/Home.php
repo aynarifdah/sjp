@@ -170,22 +170,22 @@ class Home extends CI_Controller
                 </button></div>');
             redirect('Home/pengajuan');
         } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        $data = array(
+            'topik'      => $this->M_SJP->diagnosa(),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+        );
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+        $path = "";
+        $data = array(
+            "page" => $this->load("Input Pasien", $path),
+            "content" => $this->load->view('input_pasien', $data, true)
+        );
 
-            $this->load->view('template/default_template', $data);
+        $this->load->view('template/default_template', $data);
         }
     }
     public function getKelurahan()
@@ -217,7 +217,7 @@ class Home extends CI_Controller
     public function input_pasien()
     {
         $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
-        $nama            = $this->input->post('nama_pemohon');
+        $nama_pemohon            = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
         $alamat1         = $this->input->post('alamat_pemohon');
         $rt1             = $this->input->post('rt_pemohon');
@@ -231,7 +231,7 @@ class Home extends CI_Controller
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
-            'nama_pemohon'  => $nama,
+            'nama_pemohon'  => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
             'alamat'        => $alamat1,
             'rt'            => $rt1,
@@ -255,7 +255,7 @@ class Home extends CI_Controller
         // }
 
         $nik           = $this->input->post('nik');
-        $nama          = $this->input->post('nama_pasien');
+        $nama_pasien   = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
         $tempatlahir   = $this->input->post('tempat_lahir');
         $tanggallahir  = $this->input->post('tanggal_lahir');
@@ -288,7 +288,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
-            'nama_pasien'      => $nama,
+            'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
             'tanggal_lahir'    => $tanggallahir,
@@ -331,16 +331,19 @@ class Home extends CI_Controller
         // die;
 
         $dataDiagnosa = array();
-
+        $diagnosaLainnya = '';
+        $penyakit = '';
         foreach ($kd_diagnosa as $key) {
             if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-                $penyakit = $key['diagnosalainnya'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
             } else {
                 $penyakit = $key['diagnosa'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
             }
             $dataDiagnosa[] = array(
                 'id_sjp'      => $id_sjp,
-                'id_penyakit' => $penyakit
+                'id_penyakit' => $penyakit,
+                'penyakit' => $diagnosaLainnya
             );
             // var_dump($dataDiagnosa);
             // die;
@@ -371,15 +374,19 @@ class Home extends CI_Controller
             $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
             $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
             $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+
             $name_file = $_FILES['file']['name'];
             $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
             $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
             $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+            // var_dump($new_name_image);
+            // die;
             // File upload configuration
             $uploadPath = 'uploads/dokumen/';
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';
             $config['file_name'] = $new_name_image;
+            // $config['encrypt_name'] = TRUE;
+            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
 
             // Load and initialize upload library
 
@@ -1204,7 +1211,6 @@ class Home extends CI_Controller
     {
         $id_instansi = $this->input->post("id_instansi");
         $id_join     = $this->input->post("id_join");
-
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $rs         = $this->input->post("rs");
@@ -1331,14 +1337,18 @@ class Home extends CI_Controller
             // var_dump($kd_diagnosa);
             // die;
             $dataDiagnosa = array();
+            $penyakit = '';
             $diagnosaLainnya = '';
             foreach ($kd_diagnosa as $key) {
                 if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-                    $penyakit = $key['diagnosalainnya'];
+                    $diagnosaLainnya = $key['diagnosalainnya'];
                 } else {
                     $penyakit = $key['diagnosa'];
                     $diagnosaLainnya = $key['diagnosalainnya'];
                 }
+
+                // var_dump($penyakit);
+                // die;
                 $dataDiagnosa[] = array(
                     'id_sjp'      => $id_sjp,
                     'id_penyakit' => $penyakit,
@@ -1455,7 +1465,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['penyakit']);
+        // var_dump($data['getdokumenpersyaratan']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
@@ -1538,8 +1548,8 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-         // var_dump($data['diagnosa']);
-         // die;
+        // var_dump($data['diagnosa']);
+        // die;
 
 
         $path = "";
@@ -1549,5 +1559,40 @@ class Home extends CI_Controller
         );
 
         $this->load->view('template/default_template', $data);
+    }
+
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function download($id)
+    {
+        if (!empty($id)) {
+            $this->load->helper('download');
+            $fileInfo = $this->M_SJP->getFiles($id);
+            //file path
+            $file = 'uploads/files/' . $fileInfo['file_name'];
+            //download file from directory
+            force_download($file, NULL);
+        }
+    }
+
+    public function download_file_pdf()
+    {
+        $this->load->helper('download');
+        $pdfName = $this->input->post('pdfName');
+        $file = 'uploads/dokumen/' . $pdfName;
+        force_download(FCPATH.$file, NULL);
     }
 }

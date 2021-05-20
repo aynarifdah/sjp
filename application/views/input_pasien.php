@@ -176,7 +176,7 @@
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
-                          <option value="<?= strtoupper($key['kecamatan']) ?>"><?= strtoupper($key['kecamatan']) ?></option>
+                          <option value="<?= strtoupper($key['kecamatan']); ?>"><?= strtoupper($key['kecamatan']); ?></option>
                       <?php }
                       } ?>
                     </select>
@@ -343,8 +343,8 @@
     </div>
   </div>
 </section>
-</div>
-</div>
+<!-- </div>
+</div> -->
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
@@ -528,6 +528,7 @@
         let jk = api_data.JENIS_KLMIN;
         let kecPasien = api_data.KEC_NAME;
         let kelPasien = api_data.KEL_NAME;
+        console.log(kelPasien);
         if (api_data.hasOwnProperty('RESPONSE_CODE')) {
           alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
         } else {
@@ -540,6 +541,7 @@
           $('#rtpasien').val(api_data.NO_RT);
           $('#rwpasien').val(api_data.NO_RW);
           $("#" + api_data.AGAMA).attr('selected', true);
+
           $('#jeniskelaminkpasien').val(jk);
           $('#kd_kecamatanpasien').val(kecPasien).trigger('change');
           $('#kd_kelurahanpasien').val(kelPasien).trigger('change');
@@ -561,7 +563,7 @@
           // kelurahan += '</div>';
           // $('#kecamatan_value').append(kelurahan);
         }
-        console.log(api_data);
+        // console.log(api_data);
       },
     });
 

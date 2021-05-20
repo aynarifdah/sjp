@@ -61,7 +61,7 @@
               </select>
             </div>
             <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+              <select name="rs" id="rs" class="select2 form-control">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
+
 <head>
   <title>Halaman utama</title>
 </head>
@@ -18,82 +19,183 @@
   </div>
   <div class="card-content collapse show">
     <div class="card-body">
-      
-      <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
-       <div class="form-group row mt-2">
-        <label class="col-lg-3 label-control" for="">Tanggal Tagihan</label>
-        <div class="col-lg-3">
-          <input type="date" class="form-control datepicker" placeholder="Tanggal Tagihan"
-          name="tanggal_tagihan" id="" required>
-        </div>
-      </div>
-      <div class="form-group row mt-2">
-        <label class="col-lg-3 label-control" for="nik">Nomor Tagihan</label>
-        <div class="col-lg-3">
-          <input type="text" class="form-control" placeholder="Nomor Tagihan"
-          name="nomor_tagihan" id="" required>
-        </div>
-      </div>
+      <?php if (!empty($dataklaim)) {
+        foreach ($dataklaim as $key) { ?>
+          <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
+            <div class="form-group row mt-2">
+              <label class="col-lg-3 label-control" for="">Tanggal Tagihan</label>
+              <div class="col-lg-3">
+                <input type="date" class="form-control datepicker" placeholder="Tanggal Tagihan" name="tanggal_tagihan" id="tanggal_tagihan" required value="<?= $key['tanggal_tagihan']; ?>">
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label class="col-lg-3 label-control" for="nik">Nomor Tagihan</label>
+              <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="Nomor Tagihan" name="nomor_tagihan" id="nomor_tagihan" value="<?= $key['nomor_tagihan']; ?>" required>
+              </div>
+            </div>
+          <?php } ?>
+        <?php } ?>
 
-      <div class="table-responsive">
-      <table id="datatable" class="table table-bordered" style="width: 100%;">
-        <thead>
-          <tr>
-            <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-            <th>Nama</th>
-            <th>Nomor SJP</th>
-            <th>Diagnosa</th>
-            <th>Nominal Pengajuan</th>
-            <th>Catatan</th>
-            <th>Bukti Inacbg</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (!empty($dataklaim)) {
-            foreach ($dataklaim as $key) {?> 
-            <tr>
-              <td><!-- <a href="<?php echo base_url('Rs/detail_pengajuan/'.$key['id_sjp']);?>"> -->
-                <?php echo $key['nama_pasien']; ?></a>  <input type="hidden" name="id_sjp[]" value="<?php echo $key['id_sjp']?>"></td>
-                <td><?php echo $key['nomor_surat']; ?></td>
-                <td><?php if (!empty($penyakit)) {
-                  foreach ($penyakit as $keypenyakit) { 
-                    if ($key['id_sjp'] == $keypenyakit['id_sjp']) {?>
-                    
-                    <li>- <?php echo $keypenyakit['namadiag']; ?></li>
-                    
-                    <?php } }
-                  } ?></td>
-                  <td><input type="text" class="form-control" name="nominal_klaim[]" id="" placeholder="Nominal"></td>
-                
-                  <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan"></td>
-                   <td><input type="file" class="form-control" name="dokumen[]" placeholder=""></td>
-                </tr>
-                <?php }
-              } ?> 
-              
+        <div class="table-responsive">
+          <table id="datatable" class="table table-bordered" style="width: 100%;">
+            <thead>
+              <tr>
+                <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                <th>Nama</th>
+                <th>Nomor SJP</th>
+                <th>Diagnosa</th>
+                <th>Nominal Pengajuan</th>
+                <th>Catatan</th>
+                <th>Bukti Inacbg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (!empty($dataklaim)) {
+                foreach ($dataklaim as $key) { ?>
+                  <tr>
+                    <td>
+                      <!-- <a href="<?php echo base_url('Rs/detail_pengajuan/' . $key['id_sjp']); ?>"> -->
+                      <?php echo $key['nama_pasien']; ?></a> <input type="hidden" name="id_sjp[]" value="<?php echo $key['id_sjp'] ?>">
+                    </td>
+                    <td><?php echo $key['nomor_surat']; ?></td>
+                    <td><?php if (!empty($penyakit)) {
+                          foreach ($penyakit as $keypenyakit) {
+                            if ($key['id_sjp'] == $keypenyakit['id_sjp']) { ?>
+
+                            <li>- <?php echo $keypenyakit['namadiag']; ?></li>
+
+                      <?php }
+                          }
+                        } ?>
+                    </td>
+                    <td><input type="text" class="form-control" name="nominal_klaim[]" id="nominal_klaim" placeholder="Nominal" value="<?= $key['nominal_klaim']; ?>" required></td>
+
+                    <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
+                    <?php if (!empty($dataklaim)) : ?>
+                      <input type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
+                    <?php endif; ?>
+                  </tr>
+              <?php }
+              } ?>
+
             </tbody>
           </table>
-          </div>
-          
-         <!--  <button type="button" style="float: right;  margin-left: 5px;" class="btn btn-danger btn-sm" id=""></i>Batal</button>&nbsp;&nbsp;&nbsp;
-          <button type="button" style="float: right; margin-left: 5px;" class="btn btn-warning btn-sm" id=""></i>Simpan Sebagai Draft</button>&nbsp;&nbsp;&nbsp; -->
-          <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm" id="simpanklaim"></i>Ajukan Klaim</button></a>
         </div>
-      </form>
+
+        <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm"></i>Ajukan Klaim</button></a>
     </div>
+    </form>
+    <button id="editklaim" style="float: right; margin: 10px;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button>
   </div>
 </div>
-<script src="<?= base_url()?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
-<script src="<?= base_url()?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?= base_url()?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
-<script src="<?= base_url()?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
-<script src="<?= base_url()?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
+
+
+<style>
+  .card {
+    position: relative;
+  }
+
+  #editklaim {
+    position: absolute;
+    bottom: 0;
+    right: 130px;
+  }
+</style>
+
+<script src="<?= base_url() ?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+<script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 </body>
+
 </html>
 <script type="text/javascript">
-   $("#inputimages").change(function () {
-   readURL(this);
- });
+  // function saveClaim() {
+
+  $('#editklaim').on('click', function() {
+
+    var url = window.location.href.split('/');
+    var parameter_one = url[url.length - 1].split('=');
+    var result = parameter_one[1].split('%2C');
+    var tanggal_tagihan = $('#tanggal_tagihan').val();
+    var nomor_tagihan = $("#nomor_tagihan").val();
+    var nominal_klaim = $("input[id='nominal_klaim']").map(function() {
+      return $(this).val();
+    }).get();
+    var catatan_klaim = $("input[id='catatan_klaim']").map(function() {
+      return $(this).val();
+    }).get();
+
+    // var file_data = $('#dokumen').prop('files')[0];
+    // var file_data = $("input[id='dokumen']").map(function() {
+    //   return $(this).prop('files')[0];
+    // }).get();
+
+    // var arr = [];
+    // $.each(file_data, function(key, v) {
+    //   var test = $(this)[0];
+    //   var name = test['name'];
+    //   var size = test['size'];
+    //   arr.push();
+    // });
+    // console.log(arr);
+
+
+    var files = $('#dokumen')[0].files;
+    var error = '';
+    var form_data = new FormData();
+    console.log(files);
+
+    for (var count = 0; count < files.length; count++) {
+      var name = files[count].name;
+      var extension = name.split('.').pop().toLowerCase();
+      if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+        error += "Invalid " + count + " Image File"
+      } else {
+        form_data.append("files[]", files[count]);
+      }
+    }
+
+    // form_data.append('doc', files);
+    form_data.append('result', result);
+    form_data.append('tanggal_tagihan', tanggal_tagihan);
+    form_data.append('nomor_tagihan', nomor_tagihan);
+    form_data.append('nominal_klaim', nominal_klaim);
+    form_data.append('catatan_klaim', catatan_klaim);
+
+    if (tanggal_tagihan == '') {
+      alert("Anda Belum Mengisi Tanggal Tagihan")
+      return false
+    } else if (nomor_tagihan == '') {
+      alert("Anda Belum Mengisi Nomor Tagihan")
+      return false
+    } else if (nominal_klaim == '') {
+      alert("Anda Belum Mengisi Nominal Pengajuan")
+      return false
+    } else if (catatan_klaim == '') {
+      alert("Anda Belum Mengisi Catatan")
+      return false
+    } else {
+      $.ajax({
+        url: '<?= base_url() ?>Rs/edit_claim',
+        type: 'post',
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        // dataType: 'json',
+        success: function() {
+          // location.reload(true);
+        }
+      });
+    }
+
+
+  })
+  // }
 </script>
