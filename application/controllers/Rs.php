@@ -437,7 +437,7 @@ class Rs extends CI_Controller
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp); //$nik->nik
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik); //$nik->nik
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
