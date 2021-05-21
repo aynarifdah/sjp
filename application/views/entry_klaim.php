@@ -75,8 +75,8 @@
 
                     <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen1" required /></td>
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen2" required /></td>
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen3" required /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen2"  /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen3"  /></td>
                     <?php if (!empty($dataklaim)) : ?>
                       <input id="dokumen_hidden" type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
                     <?php endif; ?>
