@@ -36,7 +36,10 @@
             </div>
           <?php } ?>
         <?php } ?>
-
+        <div id='loader' style='display: none; width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;'>
+          <img src='<?= base_url('assets/images/') ?>spinner.gif' width='100%' height='auto'><br>
+          <p>Mohon Tunggu...</p>
+        </div>
         <div class="table-responsive">
           <table id="datatable" class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
@@ -74,10 +77,10 @@
                     <td><input type="text" class="form-control" name="nominal_klaim[]" id="nominal_klaim" placeholder="Nominal" value="<?= $key['nominal_klaim']; ?>" required></td>
 
                     <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen1" required /></td>
+                    <td><input type="file" class="form-control dok1" name="dokumen[]" id="dokumen" required /></td>
 
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen2"  /></td>
-                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen3"  /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
 
                     <?php if (!empty($dataklaim)) : ?>
                       <input id="dokumen_hidden" type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
@@ -143,15 +146,15 @@
 
 
 
-    var files = $('#dokumen1')[0].files;
+    var files = $('#dokumen')[0].files;
 
-    var dok1 = $('#dokumen1').val();
+    var dok1 = $('#dok1').val();
 
 
 
     var error = '';
     var form_data = new FormData();
-    console.log(files);
+    // console.log(files);
 
     for (var count = 0; count < files.length; count++) {
       var name = files[count].name;
@@ -194,8 +197,14 @@
         contentType: false,
         processData: false,
         // dataType: 'json',
+        beforeSend: function() {
+          $("#loader").show();
+        },
         success: function() {
-          // location.reload(true);
+
+        },
+        complete: function(data) {
+          $("#loader").hide();
         }
       });
     }

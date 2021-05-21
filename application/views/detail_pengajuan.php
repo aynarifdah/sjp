@@ -558,13 +558,9 @@
                            <?php
 
                             $i = 1;
-                            $pathNamaFile = pathinfo(base_url('uploads/dokumen/') . $key['namafile']);
-                            $pathFileResume = pathinfo(base_url('uploads/dokumen/') . $key['file_resume']);
-                            $pathOtherFiles = pathinfo(base_url('uploads/dokumen/') . $key['other_files']);
-
-                            $extensions_nama_file = $pathNamaFile['extension'];
-                            $extensions_file_resume = $pathFileResume['extension'];
-                            $extensions_other_files = $pathOtherFiles['extension'];
+                            $extensions_nama_file = pathinfo(base_url('uploads/dokumen/') . $key['namafile'], PATHINFO_EXTENSION);
+                            $extensions_file_resume = pathinfo(base_url('uploads/dokumen/') . $key['file_resume'], PATHINFO_EXTENSION);
+                            $extensions_other_files = pathinfo(base_url('uploads/dokumen/') . $key['other_files'], PATHINFO_EXTENSION);
 
 
                             ?>
