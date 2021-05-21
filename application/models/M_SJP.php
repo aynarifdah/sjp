@@ -1237,6 +1237,7 @@ class M_SJP extends CI_Model
     }
     // $this->db->where('tanggal_tagihan !=', null);
     $this->db->where('status_edit', 1);
+    $this->db->order_by('sjp.tanggal_tagihan', 'desc');
 
     $query = $this->db->get()->result_array();
     return $query;

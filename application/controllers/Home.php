@@ -170,22 +170,22 @@ class Home extends CI_Controller
                 </button></div>');
             redirect('Home/pengajuan');
         } else {
-        $data = array(
-            'topik'      => $this->M_SJP->diagnosa(),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-            'rumahsakit' => $this->M_SJP->rumahsakit(),
-            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-        );
+            $data = array(
+                'topik'      => $this->M_SJP->diagnosa(),
+                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                'rumahsakit' => $this->M_SJP->rumahsakit(),
+                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+            );
 
-        $path = "";
-        $data = array(
-            "page" => $this->load("Input Pasien", $path),
-            "content" => $this->load->view('input_pasien', $data, true)
-        );
+            $path = "";
+            $data = array(
+                "page" => $this->load("Input Pasien", $path),
+                "content" => $this->load->view('input_pasien', $data, true)
+            );
 
-        $this->load->view('template/default_template', $data);
+            $this->load->view('template/default_template', $data);
         }
     }
     public function getKelurahan()
@@ -1588,11 +1588,9 @@ class Home extends CI_Controller
         }
     }
 
-    public function download_file_pdf()
+ public function download_file_pdf($file_name)
     {
-        $this->load->helper('download');
-        $pdfName = $this->input->post('pdfName');
-        $file = 'uploads/dokumen/' . $pdfName;
-        force_download(FCPATH.$file, NULL);
+        $file = 'uploads/dokumen/' . $file_name;
+        force_download($file, NULL);
     }
 }
