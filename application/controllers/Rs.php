@@ -1064,10 +1064,9 @@ class Rs extends CI_Controller
         }
     }
 
-    public function download_file_pdf()
+    public function download_file_pdf($file_name)
     {
-        $pdfName = $this->input->post('pdfName');
-        $file = 'uploads/dokumen/' . $pdfName;
+        $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
     }
 
