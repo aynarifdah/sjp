@@ -446,8 +446,8 @@ class Rs extends CI_Controller
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
 
-        var_dump($data['riwayatpengajuan']);
-        die;
+        // var_dump($data['riwayatpengajuan']);
+        // die;
     }
     public function gethasilsurvey()
     {
@@ -1074,7 +1074,7 @@ class Rs extends CI_Controller
     }
 
 
-   public function download_file_pdf($file_name)
+    public function download_file_pdf($file_name)
 
     {
         $file = 'uploads/dokumen/' . $file_name;
