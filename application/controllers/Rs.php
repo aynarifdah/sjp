@@ -611,34 +611,51 @@ class Rs extends CI_Controller
 
         $dataImage      = array();
         for ($i = 0; $i < 1; $i++) {
-            $_FILES['file']['name']     = $_FILES['files']['name'][$i];
-            $_FILES['file']['type']     = $_FILES['files']['type'][$i];
-            $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-            $_FILES['file']['error']    = $_FILES['files']['error'][$i];
-            $_FILES['file']['size']     = $_FILES['files']['size'][$i];
-            $uploadPath = 'uploads/dokumen/';
-            $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-            $config['encrypt_name'] = TRUE;
 
-            // print_r($_FILES['file']['name']);
-            // die;
+            for ($j = 0; $j < 3; $j++) {
 
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            if ($this->upload->do_upload('file')) {
+                $_FILES['file']['name']     = $_FILES['files']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['files']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['files']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['files']['size'][$j];
+                $uploadPath = 'uploads/dokumen/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                $config['encrypt_name'] = TRUE;
 
-                $fileData      = $this->upload->data();
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('file')) {
 
-                // $dataImage = [
-                //     'namafile' => $fileData['file_name'],
-                //     'id_sjp'   => $idsjp[$i]
-                // ];
-                // $this->db->update('sjp', $dataImage, 'id_sjp');
+                    $fileData      = $this->upload->data();
 
-                $this->db->set('namafile', $fileData['file_name']);
-                $this->db->where('id_sjp', $idsjp[$i]);
-                $this->db->update('sjp');
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+                    // $this->db->set('namafile', $fileData['file_name']);
+                    // $this->db->where('id_sjp', $idsjp[$i]);
+                    // $this->db->update('sjp');
+
+                    // $this->db->update('sjp', $dataImage, 'id_sjp');
+                    if ($j == $file1) {
+                        $dataImage[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file2) {
+                        $dataImage[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file3) {
+                        $dataImage[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    }
+                }
+                $this->db->update_batch('sjp', $dataImage, 'id_sjp');
             }
         }
     }
