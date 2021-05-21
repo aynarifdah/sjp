@@ -1465,7 +1465,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['getdokumenpersyaratan']);
+        // var_dump($data['riwayatpengajuan']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
@@ -1589,7 +1589,7 @@ class Home extends CI_Controller
     }
 
 
- public function download_file_pdf($file_name)
+    public function download_file_pdf($file_name)
     {
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
