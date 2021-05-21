@@ -1588,7 +1588,8 @@ class Home extends CI_Controller
         }
     }
 
-    public function download_file_pdf($file_name)
+
+ public function download_file_pdf($file_name)
     {
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);

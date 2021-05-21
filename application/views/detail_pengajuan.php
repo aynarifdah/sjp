@@ -845,15 +845,22 @@
      function getNamePdf(e) {
        var file_name = $('#' + e).find('p').html();
        window.location.href = '<?= base_url($controller); ?>download_file_pdf/' + file_name;
-       //  $.ajax({
-       //    url: '<?= base_url($controller); ?>download_file_pdf',
-       //    method: "POST",
-       //    data: {
-       //      pdfName: file_name
-       //    },
-       //    cache: false,
-       //    success: function() {}
-       //  });
+
+       //  alert(file_name);
+       // $.ajax({
+       //   url: '<?= base_url($controller); ?>download_file_pdf',
+       //   method: "POST",
+       //   data: {
+       //     pdfName: file_name
+       //   },
+
+         
+       //   success: function() {
+
+       //   }
+
+       // });
+
      }
 
 
