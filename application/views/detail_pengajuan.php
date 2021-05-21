@@ -554,51 +554,57 @@
                      <div class="card-content">
                        <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                          <div class="row">
-                           <?php if (!empty($key['namafile']) || !empty($key['file_resume']) && !empty($key['other_files'])) : ?>
-                             <?php
 
-                              $i = 1;
-                              $pathNamaFile = pathinfo(base_url('uploads/dokumen/') . $key['namafile']);
-                              $pathFileResume = pathinfo(base_url('uploads/dokumen/') . $key['file_resume']);
-                              $pathOtherFiles = pathinfo(base_url('uploads/dokumen/') . $key['other_files']);
+                           <?php
 
-                              $extensions_nama_file = $pathNamaFile['extension'];
-                              $extensions_file_resume = $pathFileResume['extension'];
-                              $extensions_other_files = $pathOtherFiles['extension'];
+                            $i = 1;
+                            $pathNamaFile = pathinfo(base_url('uploads/dokumen/') . $key['namafile']);
+                            $pathFileResume = pathinfo(base_url('uploads/dokumen/') . $key['file_resume']);
+                            $pathOtherFiles = pathinfo(base_url('uploads/dokumen/') . $key['other_files']);
 
-                              if ($extensions_nama_file == "pdf" || $extensions_file_resume == "pdf" || $extensions_other_files == "pdf") :
-                              ?>
-                               <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                 <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                 <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['namafile'] ?></p>
-                               </div>
+                            $extensions_nama_file = $pathNamaFile['extension'];
+                            $extensions_file_resume = $pathFileResume['extension'];
+                            $extensions_other_files = $pathOtherFiles['extension'];
 
-                               <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                 <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                 <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['file_resume'] ?></p>
-                               </div>
 
-                               <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                 <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                 <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['other_files'] ?></p>
-                               </div>
-                             <?php else : ?>
-                               <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
-                               </figure>
-
-                               <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" alt="" /></a>
-                               </figure>
-
-                               <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" alt="" /></a>
-                               </figure>
-                             <?php endif; ?>
+                            ?>
+                           <?php if ($extensions_nama_file == "pdf") : ?>
+                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['namafile'] ?></p>
+                             </div>
                            <?php endif; ?>
+                           <?php if ($extensions_file_resume == "pdf") : ?>
+                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['file_resume'] ?></p>
+                             </div>
+                           <?php endif; ?>
+                           <?php if ($extensions_other_files == "pdf") : ?>
+                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['other_files'] ?></p>
+                             </div>
+                           <?php endif; ?>
+                           <?php if ($extensions_nama_file !== "pdf") : ?>
+                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
+                             </figure>
+                           <?php endif; ?>
+                           <?php if ($extensions_file_resume !== "pdf") : ?>
+                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" alt="" /></a>
+                             </figure>
+                           <?php endif; ?>
+                           <?php if ($extensions_other_files !== "pdf") : ?>
+                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" alt="" /></a>
+                             </figure>
+                           <?php endif; ?>
+
 
                          </div>
 
@@ -837,9 +843,9 @@
    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
    <script type="text/javascript">
      function getNamePdf(e) {
-       //  alert(e);
        var file_name = $('#' + e).find('p').html();
        window.location.href = '<?= base_url($controller); ?>download_file_pdf/' + file_name;
+
        //  alert(file_name);
        // $.ajax({
        //   url: '<?= base_url($controller); ?>download_file_pdf',
@@ -854,6 +860,7 @@
        //   }
 
        // });
+
      }
 
 

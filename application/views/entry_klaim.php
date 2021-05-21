@@ -143,8 +143,7 @@
     var files = $('#dokumen1')[0].files;
 
     var dok1 = $('#dokumen1').val();
-    var dok2 = $('#dokumen2').val();
-    var dok3 = $('#dokumen3').val();
+
 
 
     var error = '';
@@ -154,7 +153,7 @@
     for (var count = 0; count < files.length; count++) {
       var name = files[count].name;
       var extension = name.split('.').pop().toLowerCase();
-      if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+      if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'pdf']) == -1) {
         error += "Invalid " + count + " Image File"
       } else {
         form_data.append("files[]", files[count]);
@@ -180,8 +179,8 @@
     } else if (catatan_klaim == '') {
       alert("Anda Belum Mengisi Catatan")
       return false
-    } else if (dok1 == '' || dok2 == '' || dok3 == '') {
-      alert("Anda Belum Mengupload File")
+    } else if (dok1 == '') {
+      alert("Anda Belum Mengupload File Inacbg")
       return false
     } else {
       $.ajax({
