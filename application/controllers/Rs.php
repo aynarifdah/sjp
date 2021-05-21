@@ -519,20 +519,29 @@ class Rs extends CI_Controller
         $dok = count($_FILES['dokumen']['name']);
         $persyaratan      = array();
         for ($i = 0; $i < count($id_sjp); $i++) {
-            //  0 sama 1
 
             for ($j = 0; $j < $dok; $j++) {
+
+                $getInfoPasien = $this->db->get_where('sjp', ['id_sjp' => $id_sjp[$i]])->row_array();
+                $nik = $getInfoPasien['nik'];
+                $nama_pasien = strtolower(preg_replace('/\s+/', '', $getInfoPasien['nama_pasien']));
 
                 $_FILES['file']['name']     = $_FILES['dokumen']['name'][$j];
                 $_FILES['file']['type']     = $_FILES['dokumen']['type'][$j];
                 $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
                 $_FILES['file']['error']    = $_FILES['dokumen']['error'][$j];
                 $_FILES['file']['size']     = $_FILES['dokumen']['size'][$j];
+
+                $name_file = $_FILES['file']['name'];
+                $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+                $new_name_image = $nik . '_' . $nama_pasien . '_' . $file_name_pieces;
+
                 // File upload configuration
                 $uploadPath = 'uploads/dokumen/';
+                $config['file_name'] = $new_name_image;
                 $config['upload_path'] = $uploadPath;
                 $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-                $config['encrypt_name'] = TRUE;
+                // $config['encrypt_name'] = TRUE;
 
                 // Load and initialize upload library
                 $this->load->library('upload', $config);
