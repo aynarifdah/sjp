@@ -1548,7 +1548,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['diagnosa']);
+        // var_dump($data['getForUpdateFile']);
         // die;
 
 

@@ -303,17 +303,36 @@
                     <div class="form-group row" id="modalwal">
                       <label class="col-lg-3 label-control" for="modal"><?= $key['nama_persyaratan'] ?></label>
                       <div class="col-lg-9">
+                        <?php $extensions = pathinfo(base_url('uploads/dokumen/') . $key['attachment'], PATHINFO_EXTENSION); ?>
                         <?php if ($key["id_persyaratan"] == 6 || $key["id_persyaratan"] == 7 && 8 || $key["id_persyaratan"] == 10  && 8 || $key["id_persyaratan"] == 3) { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
-                          <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+                          <?php if ($extensions == "pdf") : ?>
+                            <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
+                            <img id="old" name="old" class="old" src="<?php echo base_url() ?>assets/images/pdf.png" width="100" height="auto">
+                            <small class="text-sm"><?= $key['attachment']; ?></small>
+                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php endif; ?>
 
-                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php if ($extensions !== "pdf") : ?>
+                            <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
+                            <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+
+                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php endif; ?>
 
                         <?php } else { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
-                          <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+                          <?php if ($extensions == "pdf") : ?>
+                            <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
+                            <img id="old" name="old" class="old" src="<?php echo base_url() ?>assets/images/pdf.png" width="100" height="auto">
+                            <small class="text-sm"><?= $key['attachment']; ?></small>
+                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php endif; ?>
 
-                          <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php if ($extensions !== "pdf") : ?>
+                            <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
+                            <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
+
+                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                          <?php endif; ?>
 
                         <?php }
                         ?>
