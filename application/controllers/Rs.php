@@ -437,7 +437,8 @@ class Rs extends CI_Controller
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik); //$nik->nik
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp); //$nik->nik
+        $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
@@ -1108,7 +1109,7 @@ class Rs extends CI_Controller
         $dataKlaim = [
             'id_sjp' => $idsjp,
             'id_pengajuan' => $id_pengajuan,
-            'riwayatpengajuan' => $this->M_SJP->riwayatsjpasien($nik->nik)
+            'riwayatpengajuan' => $this->M_SJP->riwayatsjpasien($idsjp),
         ];
         // var_dump($dataKlaim['riwayatpengajuan']);
         // die;

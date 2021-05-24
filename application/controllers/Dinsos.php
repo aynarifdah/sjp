@@ -174,7 +174,8 @@ class Dinsos extends CI_Controller
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp_anjungan($idsjp);
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
+        $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);

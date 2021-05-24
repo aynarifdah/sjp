@@ -49,8 +49,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['namafile']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['namafile'] ?>">
                                                         </div>
                                                     </div>
@@ -62,8 +63,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['file_resume']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['file_resume'] ?>">
                                                         </div>
                                                     </div>
@@ -75,8 +77,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['other_files']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['other_files'] ?>">
                                                         </div>
                                                     </div>
@@ -90,8 +93,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['namafile'] ?>" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['namafile']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['namafile'] ?>">
                                                         </div>
                                                     </div>
@@ -103,8 +107,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['file_resume'] ?>" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['file_resume']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['file_resume'] ?>">
                                                         </div>
                                                     </div>
@@ -116,8 +121,9 @@
                                                                 <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['other_files'] ?>" alt="" />
                                                             </figure>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-9 col-12">
-                                                            <input class="form-control mt-2" type="file" name="dokumen[]" id="dokumen">
+                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
+                                                            <p class="mb-0"><?= $val['other_files']; ?></p>
+                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
                                                             <input type="hidden" name="dokumen_hidden[]" value="<?= $val['other_files'] ?>">
                                                         </div>
                                                     </div>
@@ -158,265 +164,3 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-
-
-<script type="text/javascript">
-    $('.skin-polaris input').iCheck({
-        checkboxClass: 'icheckbox_polaris',
-        increaseArea: '-10%'
-    });
-    // Multiple Select Placeholder
-    function diagnosa2() {
-        $('.kd_diagnosa').select2({
-            placeholder: "Pilih penyakit",
-        });
-    }
-    $(".select2").select2();
-    $(document).ready(function() {
-        //getkelurahan();
-        diagnosapenyakit();
-        diagnosa2();
-        // $('.diagnosalainnya').hide();
-    });
-    $('#kd_kecamatanpemohon').change(function() {
-        getkelurahan();
-    })
-
-    function getkelurahan() {
-        var data = $('#kd_kecamatanpemohon').val();
-        $.ajax({
-            url: "<?= base_url(); ?>/Home/getKelurahan",
-            method: "POST",
-            data: {
-                id: data
-            },
-            async: false,
-            dataType: 'json',
-            success: function(data) {
-                var html = '<option>Pilih Kelurahan</option>';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                    html += '<option value = "' + data[i].kelurahan + '">' + data[i].kelurahan + '</option>';
-                }
-                $('#kd_kelurahanpemohon').html(html);
-
-            }
-        });
-    }
-    // $('.checkbox').on('ifChecked', function (event) {
-    //   $('.diagnosalainnya').show();
-    // });
-
-    // $('.checkbox').on('ifUnchecked', function (event) {
-    //   $('.diagnosalainnya').hide();
-    // });
-    $('.add').click(function(argument) {
-        diagnosapenyakit();
-        diagnosa2();
-        $('.skin-polaris input').iCheck({
-            checkboxClass: 'icheckbox_polaris',
-            increaseArea: '-10%'
-        });
-    });
-
-    function diagnosapenyakit() {
-        $('.diagnosapenyakit').each(function(index) {
-            $('.kd_topik').select2({
-                placeholder: "Pilih Topik"
-            }).eq(index).on('select2:select', function(evt) {
-                var data = $(this).val();
-                $.ajax({
-                    url: "<?= base_url(); ?>/Home/getDiagnosa",
-                    method: "POST",
-                    data: {
-                        id: data
-                    },
-                    async: false,
-                    dataType: 'json',
-                    success: function(data) {
-                        var html = '<option>Pilih Diagnosa</option>';
-                        var i;
-                        for (i = 0; i < data.length; i++) {
-                            html += '<option value = "' + data[i].namadiag + '">' + data[i].namadiag + '</option>';
-                        }
-                        $('.kd_diagnosa').eq(index).html(html);
-
-                    }
-                });
-            });
-        });
-    }
-    //  $('.add').click(function() {
-    //       $('.kd_topik').each(function(index) {
-    //         //console.log(index)
-    //   $('.kd_topik').eq(index).change(function(){
-
-    // })
-    // })
-    //  })
-
-
-    function getdiagnosa() {
-        var data = $('#kd_topik').val();
-        $.ajax({
-            url: "<?= base_url(); ?>/Home/getDiagnosa",
-            method: "POST",
-            data: {
-                id: data
-            },
-            async: false,
-            dataType: 'json',
-            success: function(data) {
-                var html = '<option>Pilih Diagnosa</option>';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                    html += '<option value = "' + data[i].namadiag + '">' + data[i].namadiag + '</option>';
-                }
-                $('#kd_diagnosa').html(html);
-
-            }
-        });
-    }
-    $('#kd_kecamatanpasien').change(function() {
-        getkelurahanpasien();
-    })
-
-    function getkelurahanpasien() {
-        var data = $('#kd_kecamatanpasien').val();
-        $.ajax({
-            url: "<?= base_url(); ?>/Home/getKelurahan",
-            method: "POST",
-            data: {
-                id: data
-            },
-            async: false,
-            dataType: 'json',
-            success: function(data) {
-                var html = '<option>Pilih Kelurahan</option>';
-                var i;
-                for (i = 0; i < data.length; i++) {
-                    html += '<option value = "' + data[i].kelurahan.toUpperCase() + '">' + data[i].kelurahan.toUpperCase() + '</option>';
-                }
-                $('#kd_kelurahanpasien').html(html);
-
-            }
-        });
-    }
-    // $('#simpanpengajuan').click(function() {
-    //   var tes = $('.sjpform').serialize();
-    //   console.log(decodeURIComponent(tes));
-    // })
-    $('#nik').change(function() {
-        var nik = $(this).val();
-        $.ajax({
-            url: "getDataByNIK/" + nik,
-            type: 'GET',
-            beforeSend: function() {
-                $('#loader_form').show();
-            },
-            complete: function() {
-                $('#loader_form').hide();
-            },
-            success: function(data) {
-                var json_data = JSON.parse(data);
-                var api_data = json_data.content[0];
-                let jk = api_data.JENIS_KLMIN;
-                let kecPasien = api_data.KEC_NAME;
-                let kelPasien = api_data.KEL_NAME;
-                console.log(kelPasien);
-                if (api_data.hasOwnProperty('RESPONSE_CODE')) {
-                    alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
-                } else {
-                    $('#namapasien').val(api_data.NAMA_LGKP);
-                    // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
-                    $('#tanggallahirpasien').val(api_data.TGL_LHR);
-                    $('#tempatlahirpasien').val(api_data.TMPT_LHR);
-                    $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
-                    $('#alamatpasien').val(api_data.ALAMAT);
-                    $('#rtpasien').val(api_data.NO_RT);
-                    $('#rwpasien').val(api_data.NO_RW);
-                    $("#" + api_data.AGAMA).attr('selected', true);
-
-                    $('#jeniskelaminkpasien').val(jk);
-                    $('#kd_kecamatanpasien').val(kecPasien).trigger('change');
-                    $('#kd_kelurahanpasien').val(kelPasien).trigger('change');
-                    // $('#Kecamatan').remove();
-                    // $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
-                    // var kelurahan = '';
-                    // kelurahan += '<div class="form-group row kecamatan_value">';
-                    // kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
-                    // kelurahan += '<div class="col-sm-9">';
-                    // kelurahan += '<div class="input-group mb-2">';
-                    // kelurahan += '<div class="input-group-prepend">';
-                    // kelurahan += '<div class="input-group-text">';
-                    // kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
-                    // kelurahan += '</div>';
-                    // kelurahan += '</div>';
-                    // kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
-                    // kelurahan += '</div>';
-                    // kelurahan += '</div>';
-                    // kelurahan += '</div>';
-                    // $('#kecamatan_value').append(kelurahan);
-                }
-                // console.log(api_data);
-            },
-        });
-
-
-
-    });
-    // TEST 04-02-2021
-
-
-    // TANGGAL LAHIR PASIEN
-    $('#tanggallahirpasien').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        maxYear: parseInt(moment().format('YYYY'), 10),
-        locale: {
-            format: 'DD-MM-YYYY'
-        }
-    });
-    // TANGGAL LAHIR PASIEN
-    $('.datepicker').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 2000,
-        locale: {
-            format: 'DD-MM-YYYY'
-        }
-    });
-
-
-    $("select#jenisrawat").change(function() {
-        var selected = $(this).children("option:selected").val();
-        // console.log(selected);
-        if (selected == 'Rawat Inap') {
-
-            $('#mulairawat').on("change", function() {
-                var mulairawat = $("#mulairawat").val().split("-");
-                var d = new Date(mulairawat[2], mulairawat[1] - 1, mulairawat[0]);
-                d.setDate(d.getDate() + 30);
-                var endDateStr = ("0" + d.getDate()).slice(-2) + '-' + (d.getMonth() + 1) + '-' + (d.getYear() + 1900);
-                console.log(endDateStr);
-                var akhirrawat = $('#akhirrawat').val(endDateStr);
-
-            });
-
-        } else {
-
-            $('#mulairawat').on("change", function() {
-                var mulairawat = $("#mulairawat").val().split("-");
-                var d = new Date(mulairawat[2], mulairawat[1] - 1, mulairawat[0]);
-                d.setDate(d.getDate() + 14);
-                var endDateStr = ("0" + d.getDate()).slice(-2) + '-' + (d.getMonth() + 1) + '-' + (d.getYear() + 1900);
-                console.log(endDateStr);
-                var akhirrawat = $('#akhirrawat').val(endDateStr);
-            });
-
-        }
-    });
-
-    // TEST 04-02-2021
-</script>

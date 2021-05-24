@@ -465,8 +465,8 @@
                          <th>Status Pengajuan</th>
                        </thead>
                        <tbody>
-                         <?php if (!empty($riwayatpengajuan)) {
-                            foreach ($riwayatpengajuan as $key) { ?>
+                         <?php if (!empty($datapasien)) {
+                            foreach ($datapasien as $key) { ?>
                              <tr>
                                <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
                                <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
