@@ -50,9 +50,9 @@
                 <th>Diagnosa</th>
                 <th>Nominal Pengajuan</th>
                 <th>Catatan</th>
-                <th>Bukti Inacbg</th>
+                <th>Bukti INA CBG</th>
                 <th>Resume Medis</th>
-                <th>Hasil USG</th>
+                <th>Dokumen tambahan</th>
               </tr>
             </thead>
             <tbody>
@@ -96,7 +96,7 @@
         <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm"></i>Ajukan Klaim</button></a>
     </div>
     </form>
-    <button id="editklaim" style="float: right; margin: 10px;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button>
+    <!-- <button id="editklaim" style="float: right; margin: 10px;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button> -->
   </div>
 </div>
 
