@@ -118,6 +118,7 @@
       </div>
     </div>
   </div>
+</div>
   <style>
     .action-menu {
       width: 200px !important;
