@@ -1461,7 +1461,8 @@ class Home extends CI_Controller
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
 
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik);
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
+        $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
@@ -1548,7 +1549,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['diagnosa']);
+        // var_dump($data['getForUpdateFile']);
         // die;
 
 

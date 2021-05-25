@@ -117,7 +117,7 @@
                   <!-- <th>Diagnosa</th> -->
                   <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Nominal <br>Pengajuan</th>
                   <th>Status</th>
-                  <!-- <th>Aksi</th> -->
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -295,15 +295,20 @@
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-black"
         },
-        // {
-        //   data: "id_sjp",
-        //   "render": function(data, type, row, meta) {
-        //     return `<a href="<?php echo base_url('/Rs/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+        {
+          data: "id_sjp",
+          "render": function(data, type, row, meta) {
+            var edit = `<a href="<?php echo base_url(); ?>Rs/Edit_klaim_pengajuan/` + row.id_sjp + `/` + row.id_pengajuan + `"" id="edit" class="btn btn-warning btn-sm" i><i class="ft-edit"></i></a>`;
+            if (row.id_statusklaim == 2) {
+              return edit
+            } else {
+              // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
+              return '';
+            }
 
-
-        //   },
-        //   className: "dt-head-center dt-body-right"
-        // },
+          },
+          className: "dt-head-center dt-body-right"
+        },
 
       ],
       ajax: {

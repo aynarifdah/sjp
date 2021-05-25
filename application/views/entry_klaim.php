@@ -147,17 +147,20 @@
 
 
     var files = $('#dokumen')[0].files;
+    // var files = $('#dokumen').prop('files')[0];
 
-    // var dok1 = $('.dok1').val();
+
+    // var dok1 = $('#dok1').val();
 
 
 
     var error = '';
     var form_data = new FormData();
-    // console.log(files);
+    console.log(files);
 
     for (var count = 0; count < files.length; count++) {
       var name = files[count].name;
+      console.log(files[count]);
       var extension = name.split('.').pop().toLowerCase();
       if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'pdf']) == -1) {
         error += "Invalid " + count + " Image File"
@@ -189,24 +192,26 @@
     //   alert("Anda Belum Mengupload File Inacbg")
     //   return false
     // } else {
-      $.ajax({
-        url: '<?= base_url() ?>Rs/edit_claim',
-        type: 'post',
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        // dataType: 'json',
-        beforeSend: function() {
-          $("#loader").show();
-        },
-        success: function() {
 
-        },
-        complete: function(data) {
-          $("#loader").hide();
-        }
-      });
+    $.ajax({
+      url: '<?= base_url() ?>Rs/edit_claim',
+      type: 'post',
+      data: form_data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      // dataType: 'json',
+      beforeSend: function() {
+        $("#loader").show();
+      },
+      success: function() {
+
+      },
+      complete: function(data) {
+        $("#loader").hide();
+      }
+    });
+
     // }
 
 

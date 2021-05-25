@@ -437,7 +437,8 @@ class Rs extends CI_Controller
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($nik->nik); //$nik->nik
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp); //$nik->nik
+        $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
@@ -1096,6 +1097,89 @@ class Rs extends CI_Controller
     {
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
+    }
+
+    public function Edit_klaim_pengajuan($idsjp, $id_pengajuan)
+    {
+        $this->db->select('nik');
+        $this->db->from('sjp');
+        $this->db->where('id_sjp', $idsjp);
+        $nik = $this->db->get()->row();
+        $path = "";
+        $dataKlaim = [
+            'id_sjp' => $idsjp,
+            'id_pengajuan' => $id_pengajuan,
+            'riwayatpengajuan' => $this->M_SJP->riwayatsjpasien($idsjp),
+        ];
+        // var_dump($dataKlaim['riwayatpengajuan']);
+        // die;
+        $data = array(
+            "page" => $this->load("Edit Klaim Pengajuan", $path),
+            "content" => $this->load->view('edit_klaim_pengajuan', $dataKlaim, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function proses_edit_klaim_pengajuan($id_sjp, $id_pengajuan)
+    {
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = $this->input->post('nominal_klaim');
+        $data = [
+            'nomor_tagihan' => $nomor_tagihan,
+            'nominal_klaim' => $nominal_klaim
+        ];
+        $this->M_SJP->editSJP($id_sjp, $data);
+
+        $dokumen = $this->input->post('dokumen_hidden');
+        $countfiles = count($dokumen);
+        $dataFiles = [];
+        for ($i = 0; $i < $countfiles; $i++) {
+            for ($j = 0; $j < 3; $j++) {
+                if (!empty($_FILES['dokumen']['name'][$j])) {
+                    $_FILES['file']['name'] = $_FILES['dokumen']['name'][$j];
+                    $_FILES['file']['type'] = $_FILES['dokumen']['type'][$j];
+                    $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                    $_FILES['file']['error'] = $_FILES['dokumen']['error'][$j];
+                    $_FILES['file']['size'] = $_FILES['dokumen']['size'][$j];
+
+                    // Set preference
+                    $config['upload_path'] = 'uploads/dokumen/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                    $config['max_size'] = '5000'; // max_size in kb
+                    $config['file_name'] = $_FILES['dokumen']['name'][$j];
+
+                    //Load upload library
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+
+                    // File upload
+                    if ($this->upload->do_upload('file')) {
+
+                        $filename      = $this->upload->data();
+                        if ($j == 0) {
+                            $dataFiles[] = array(
+                                'namafile' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 1) {
+                            $dataFiles[] = array(
+                                'file_resume' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 2) {
+                            $dataFiles[] = array(
+                                'other_files' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        }
+                        $this->db->update_batch('sjp', $dataFiles, 'id_sjp');
+                    }
+                }
+            }
+        }
+
+        redirect('Rs/daftar_klaim');
     }
 
     public function CetakTest($id_sjp)
