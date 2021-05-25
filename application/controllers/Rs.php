@@ -32,14 +32,14 @@ class Rs extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Rs/pengajuan_rs');
-        } else {
+        // if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        //             Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+        //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //             <span aria-hidden="true">&times;</span>
+        //         </button></div>');
+        //     redirect('Rs/pengajuan_rs');
+        // } else {
             $data = array(
                 'topik'      => $this->M_SJP->diagnosa(),
                 'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
@@ -58,7 +58,7 @@ class Rs extends CI_Controller
             );
 
             $this->load->view('template/default_template', $data);
-        }
+        // }
     }
     public function hapussjp($id_sjp)
     {

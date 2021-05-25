@@ -45,14 +45,14 @@
             <thead>
               <tr>
                 <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                <th>Nama</th>
+                <th>Nama Pasien</th>
                 <th>Nomor SJP</th>
                 <th>Diagnosa</th>
                 <th>Nominal Pengajuan</th>
-                <th>Catatan</th>
-                <th>Bukti Inacbg</th>
-                <th>Resume Medis</th>
-                <th>Hasil USG</th>
+                <th>Dokumen INA CBG</th>
+                <th>Dokumen Resume Medis</th>
+                <th>Dokumen tambahan</th>
+                <th>Catatan Pengajuan Klaim</th>
               </tr>
             </thead>
             <tbody>
@@ -75,19 +75,17 @@
                         } ?>
                     </td>
                     <td><input type="text" class="form-control" name="nominal_klaim[]" id="nominal_klaim" placeholder="Nominal" value="<?= $key['nominal_klaim']; ?>" required></td>
-
-                    <td><input type="text" class="form-control" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>" required></td>
                     <td><input type="file" class="form-control dok1" name="dokumen[]" id="dokumen" required /></td>
-
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
-
+                    <td><textarea type="text" class="form-control" cols="20" rows="3" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>"></textarea> </td>
                     <?php if (!empty($dataklaim)) : ?>
                       <input id="dokumen_hidden" type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
                     <?php endif; ?>
                   </tr>
               <?php }
               } ?>
+
 
             </tbody>
           </table>
@@ -96,7 +94,9 @@
         <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm"></i>Ajukan Klaim</button></a>
     </div>
     </form>
-    <button id="editklaim" style="float: right; margin: 10px; display:none;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button>
+
+    <button id="editklaim" style="float: right; margin: 10px; display: none;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button>
+
   </div>
 </div>
 
@@ -120,6 +120,7 @@
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
+
 </body>
 
 </html>
@@ -147,6 +148,7 @@
 
     var files = $('#dokumen')[0].files;
     // var files = $('#dokumen').prop('files')[0];
+
 
     // var dok1 = $('#dok1').val();
 
@@ -190,6 +192,7 @@
     //   alert("Anda Belum Mengupload File Inacbg")
     //   return false
     // } else {
+
     $.ajax({
       url: '<?= base_url() ?>Rs/edit_claim',
       type: 'post',
@@ -208,6 +211,7 @@
         $("#loader").hide();
       }
     });
+
     // }
 
 
