@@ -94,7 +94,9 @@
         <button type="submit" style="float: right; margin: 10px;" class="btn btn-primary btn-sm"></i>Ajukan Klaim</button></a>
     </div>
     </form>
+
     <button id="editklaim" style="float: right; margin: 10px; display: none;" class="btn btn-success btn-sm"><i class="ft-save"></i> Simpan</button>
+
   </div>
 </div>
 
