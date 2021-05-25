@@ -148,7 +148,7 @@
 
     var files = $('#dokumen')[0].files;
 
-    var dok1 = $('#dok1').val();
+    // var dok1 = $('.dok1').val();
 
 
 
@@ -173,22 +173,22 @@
     form_data.append('nominal_klaim', nominal_klaim);
     form_data.append('catatan_klaim', catatan_klaim);
 
-    if (tanggal_tagihan == '') {
-      alert("Anda Belum Mengisi Tanggal Tagihan")
-      return false
-    } else if (nomor_tagihan == '') {
-      alert("Anda Belum Mengisi Nomor Tagihan")
-      return false
-    } else if (nominal_klaim == '') {
-      alert("Anda Belum Mengisi Nominal Pengajuan")
-      return false
-    } else if (catatan_klaim == '') {
-      alert("Anda Belum Mengisi Catatan")
-      return false
-    } else if (dok1 == '') {
-      alert("Anda Belum Mengupload File Inacbg")
-      return false
-    } else {
+    // if (tanggal_tagihan == '') {
+    //   alert("Anda Belum Mengisi Tanggal Tagihan")
+    //   return false
+    // } else if (nomor_tagihan == '') {
+    //   alert("Anda Belum Mengisi Nomor Tagihan")
+    //   return false
+    // } else if (nominal_klaim == '') {
+    //   alert("Anda Belum Mengisi Nominal Pengajuan")
+    //   return false
+    // } else if (catatan_klaim == '') {
+    //   alert("Anda Belum Mengisi Catatan")
+    //   return false
+    // } else if (dok1 == '') {
+    //   alert("Anda Belum Mengupload File Inacbg")
+    //   return false
+    // } else {
       $.ajax({
         url: '<?= base_url() ?>Rs/edit_claim',
         type: 'post',
@@ -207,7 +207,7 @@
           $("#loader").hide();
         }
       });
-    }
+    // }
 
 
   })
