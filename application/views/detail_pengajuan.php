@@ -179,7 +179,7 @@
                    <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
                      <?php if ($rp['id_status_pengajuan'] == 6 || $rp['id_status_pengajuan'] == 7) : ?>
                        <div class="float-right mt-2 ml-1">
-                         <select id="sp" name="status_pengajuan" class="form-control-sm" data-pengajuan="<?= $this->uri->segment(4); ?>">
+                         <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
                            <option value="" disabled>Pilih</option>
                            <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>

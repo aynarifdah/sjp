@@ -76,6 +76,7 @@
                 <?php endif ?>
               </select>
             </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="col-lg-3 filter">
               <select name="status" id="status" class="form-control">
                 <option value="" selected>Semua Status</option>
