@@ -7,7 +7,7 @@ application/logs/*
 !application/logs/index.html
 
 !application/*/.htaccess
-application/uploads/dokumen/*
+uploads/dokumen/*
 
 composer.lock
 
