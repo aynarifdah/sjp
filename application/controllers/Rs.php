@@ -40,24 +40,24 @@ class Rs extends CI_Controller
         //         </button></div>');
         //     redirect('Rs/pengajuan_rs');
         // } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-                'puskesmas'  => $this->M_data->getPuskesmas(),
-            );
+        $data = array(
+            'topik'      => $this->M_SJP->diagnosa(),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+            'puskesmas'  => $this->M_data->getPuskesmas(),
+        );
 
-            // var_dump($data['rumahsakit']);
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien_rs', $data, true)
-            );
+        // var_dump($data['rumahsakit']);
+        $path = "";
+        $data = array(
+            "page" => $this->load("Input Pasien", $path),
+            "content" => $this->load->view('input_pasien_rs', $data, true)
+        );
 
-            $this->load->view('template/default_template', $data);
+        $this->load->view('template/default_template', $data);
         // }
     }
     public function hapussjp($id_sjp)
@@ -447,7 +447,7 @@ class Rs extends CI_Controller
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
 
-        // var_dump($data['riwayatpengajuan']);
+        // var_dump($data['datapasien']);
         // die;
     }
     public function gethasilsurvey()

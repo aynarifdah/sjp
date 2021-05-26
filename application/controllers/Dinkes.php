@@ -302,7 +302,7 @@ class Dinkes extends CI_Controller
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
 
-        // var_dump($this->session->userdata('instansi'));
+        // var_dump($data['datapasien']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
