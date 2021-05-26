@@ -1236,8 +1236,8 @@ class M_SJP extends CI_Model
     if (!empty($cari)) {
       $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
     }
-    // $this->db->where('tanggal_tagihan !=', null);
-    $this->db->where('status_edit', 1);
+    $this->db->where('status_klaim !=', null);
+    // $this->db->where('status_edit', 1);
     $this->db->order_by('sjp.tanggal_tagihan', 'desc');
 
     $query = $this->db->get()->result_array();
@@ -1421,7 +1421,8 @@ class M_SJP extends CI_Model
 
     $this->db->where('id_status_pengajuan', 6);
     // $this->db->where('tanggal_tagihan', null);
-    $this->db->where('status_edit', 0);
+    $this->db->where('status_klaim', null);
+    // $this->db->where('status_edit', 0);
     $query = $this->db->get()->result_array();
     return $query;
   }
