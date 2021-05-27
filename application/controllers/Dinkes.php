@@ -224,7 +224,7 @@ class Dinkes extends CI_Controller
 
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
-                    $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
                     $config['max_size'] = '5000'; // max_size in kb
                     $config['file_name'] = $_FILES['dokumen']['name'][$i];
 
