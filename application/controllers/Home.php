@@ -1382,10 +1382,9 @@ class Home extends CI_Controller
 
 
             // ==========================PERSYARATAN=========================
-
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count(array($id_persyaratan));
+            $countfiles = count($id_persyaratan);
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
@@ -1397,11 +1396,19 @@ class Home extends CI_Controller
                     $_FILES['file']['error'] = $_FILES['dokumen']['error'][$i];
                     $_FILES['file']['size'] = $_FILES['dokumen']['size'][$i];
 
+                    $name_file = $_FILES['file']['name'];
+                    $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+                    $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $nama_pasien));
+                    $new_name_image = time() . '_' . $nikPasien . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+
+
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif';
                     $config['max_size'] = '5000'; // max_size in kb
-                    $config['file_name'] = $_FILES['dokumen']['name'][$i];
+                    // $config['file_name'] = $_FILES['dokumen']['name'][$i];
+                    $config['file_name'] = $new_name_image;
+
 
                     //Load upload library
                     $this->load->library('upload', $config);
