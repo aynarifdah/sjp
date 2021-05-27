@@ -667,20 +667,20 @@
                               $i = 1;
                               foreach ($getdokumenpersyaratan as $att) { ?>
 
-                               <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
-                                $ext = $path_parts['extension'];
-                                if ($ext == "pdf") :
-                                ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
-                                 </div>
-                               <?php else : ?>
-                                 <figure class="col-lg-6 col-md-6 col-12">
-                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
-                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
-                                 </figure>
-                               <?php endif; ?>
+                               <!-- <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
+                                    $ext = $path_parts['extension'];
+                                    if ($ext == "pdf") :
+                                    ?> -->
+                               <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                 <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                 <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
+                               </div>
+                               <!-- <?php else : ?> -->
+                               <figure class="col-lg-6 col-md-6 col-12">
+                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
+                               </figure>
+                               <!-- <?php endif; ?> -->
 
 
 
