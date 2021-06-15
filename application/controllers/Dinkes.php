@@ -296,13 +296,14 @@ class Dinkes extends CI_Controller
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
         $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
         $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
+        $data['feedback'] = $this->M_SJP->feedback_dinkes($idsjp);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
 
-        // var_dump($data['getdokumenpersyaratan']);
+        // var_dump($data['feedback']);
         // die;
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);

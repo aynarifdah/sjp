@@ -747,7 +747,7 @@
                      <tbody>
                        <tr>
                          <th scope="row" class="border-top-0">Feedback Dinkes :</th>
-                         <td class="border-top-0"><?= $key['feedback_dinkes']; ?></td>
+                         <td class="border-top-0"><?= $feedback['feedback_dinkes'] ?></td>
                        </tr>
 
                      </tbody>

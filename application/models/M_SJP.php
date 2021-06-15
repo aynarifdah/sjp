@@ -1539,4 +1539,13 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
+
+  public function feedback_dinkes($id_sjp)
+  {
+    $this->db->select('feedback_dinkes');
+    $this->db->from('sjp');
+    $this->db->where('id_sjp = ', $id_sjp);
+    $query = $this->db->get()->row_array();
+    return $query;
+  }
 }
