@@ -360,6 +360,10 @@
                          <td><?php echo strtoupper($key['tempat_lahir']); ?>, <?php echo strtoupper(date_format(date_create($key['tanggal_lahir']), 'd-m-Y')); ?></td>
                        </tr>
                        <tr>
+                         <th scope="row">Domisili</th>
+                         <td><?php echo strtoupper($key['domisili']); ?></td>
+                       </tr>
+                       <tr>
                          <th scope="row">Alamat</th>
                          <td><?php echo strtoupper($key['alamat']); ?>, KEC. <?php echo strtoupper($key['kd_kecamatan']); ?>, KEL. <?php echo strtoupper($key['kd_kelurahan']); ?>, RT/RW : <?php echo strtoupper($key['rt']); ?>/<?php echo strtoupper($key['rw']); ?></td>
                        </tr>

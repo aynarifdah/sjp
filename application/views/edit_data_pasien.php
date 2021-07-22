@@ -107,6 +107,16 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label class="col-lg-3 label-control" for="domisili">Domisili</label>
+                  <div class="col-lg-3">
+                    <select name="domisili" id="domisili" name="domisili" class="form-control" required>
+                      <option value="">Pilih Domisili</option>
+                      <option value="Depok" <?= $detail[0]['domisili'] == "Depok" ? 'selected' : '' ?>>Depok</option>
+                      <option value="Luar Depok" <?= $detail[0]['domisili'] == "Luar Depok" ? 'selected' : '' ?>>Luar Depok</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pasien" id="namapasien" required value="<?= $detail[0]['nama_pasien'] ?>">

@@ -169,6 +169,10 @@
         padding-bottom: 5px;
       }
     }
+
+    div.dataTables_wrapper div.dataTables_filter label {
+      display: none;
+    }
   </style>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/icheck/icheck.css">

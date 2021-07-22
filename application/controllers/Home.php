@@ -273,6 +273,7 @@ class Home extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
@@ -304,6 +305,7 @@ class Home extends CI_Controller
             'email'            => $email,
             'jenis_rawat'      => $jenisrawat,
             'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'    => $akhirrawat,
@@ -1271,6 +1273,7 @@ class Home extends CI_Controller
 
             // Informasi Pasien | Tabel sjp
             $nikPasien          = $this->input->post('nikpasien');
+            $domisili          = $this->input->post('domisili');
             $nama_pasien        = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
             $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
@@ -1301,6 +1304,7 @@ class Home extends CI_Controller
 
             $data_pasien = [
                 'nik'               => $nikPasien,
+                'domisili'          => $domisili,
                 'nama_pasien'       => $nama_pasien,
                 'jenis_kelamin'     => $jenisKelaminPasien,
                 'tempat_lahir'      => $tempatLahirPasien,
@@ -1384,7 +1388,7 @@ class Home extends CI_Controller
             // ==========================PERSYARATAN=========================
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count($id_persyaratan);
+            $countfiles = count(array($id_persyaratan));
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
