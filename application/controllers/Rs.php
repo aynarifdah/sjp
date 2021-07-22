@@ -170,6 +170,7 @@ class Rs extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
@@ -199,6 +200,7 @@ class Rs extends CI_Controller
             'email'            => $email,
             'jenis_rawat'      => $jenisrawat,
             'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'      => $akhirrawat,
