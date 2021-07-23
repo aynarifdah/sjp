@@ -97,7 +97,7 @@
 
           <div class="row mt-2">
             <div class="col-lg-3 offset-lg-9">
-              <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-excel"></i> Excel</a>
+              <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div>
           </div>
 

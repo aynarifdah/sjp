@@ -95,7 +95,7 @@
             </div>
             <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
-                <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-excel"></i> Excel</a>
+                <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
               </div>
             </div>
           </div>
