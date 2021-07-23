@@ -93,6 +93,11 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-3 filter">
+              <div class="position-relative has-icon-left">
+                <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-excel"></i> Excel</a>
+              </div>
+            </div>
           </div>
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">

@@ -90,6 +90,12 @@
             </div>
           </div>
 
+          <div class="row mt-2">
+            <div class="col-lg-3 offset-lg-9">
+              <a href="<?php echo base_url('Exportexcel/data_semua_pengajuan') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-excel"></i> Excel</a>
+            </div>
+          </div>
+
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">
               <table id="datatable" class="table table-bordered" style="width: 100%;">

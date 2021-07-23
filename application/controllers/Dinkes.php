@@ -671,6 +671,7 @@ class Dinkes extends CI_Controller
 
     public function pengajuan_klaim($id_status_klaim = null)
     {
+        // $product_id = $this->uri->segment(3);
         $datax = array(
             'status_klaim'      => $id_status_klaim,
             'rs'                => $this->M_data->getRS(),
