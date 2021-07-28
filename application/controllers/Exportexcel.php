@@ -83,4 +83,35 @@ class Exportexcel extends CI_Controller
 
     // Dinkes
 
+
+    // Puskesmas
+
+    public function pkm_pengajuan()
+    {
+        $data = array(
+            'title' => 'pengajuan',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(3)
+        );
+        $this->load->view('exportexcel/excel_pkm_pengajuan', $data);
+    }
+
+    public function pkm_pengajuan_baru()
+    {
+        $data = array(
+            'title' => 'pengajuan_baru',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(2)
+        );
+        $this->load->view('exportexcel/excel_pkm_pengajuan_baru', $data);
+    }
+
+    public function pkm_persetujuan_sjp()
+    {
+        $data = array(
+            'title' => 'persetujuan_sjp',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(6)
+        );
+        $this->load->view('exportexcel/excel_pkm_persetujuan_sjp', $data);
+    }
+
+    // Puskesmas
 }

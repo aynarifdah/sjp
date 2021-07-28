@@ -82,6 +82,9 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-3">
+              <a href="<?php echo base_url('Exportexcel/pkm_pengajuan_baru') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+            </div>
           </div>
           <section id="configuration">
             <table id="datatable" class="table table-bordered">

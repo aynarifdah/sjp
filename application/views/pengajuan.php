@@ -76,7 +76,7 @@
                 <?php endif ?>
               </select>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
             <div class="col-lg-3 filter">
               <select name="status" id="status" class="form-control">
                 <option value="" selected>Semua Status</option>
@@ -94,6 +94,9 @@
                   <i class="ft-search"></i>
                 </div>
               </div>
+            </div>
+            <div class="col-lg-3">
+              <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div>
           </div>
           <section id="configuration" style="padding-top: 10px;">

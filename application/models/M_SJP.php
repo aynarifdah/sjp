@@ -1255,7 +1255,9 @@ class M_SJP extends CI_Model
 
     // var_dump($id_join);die;
 
-
+    if ($id_jenissjp) {
+      $this->db->where('pp.id_status_pengajuan =', $id_jenissjp);
+    }
     if ($id_instansi == 3) {
       $this->db->where('sjp.id_puskesmas =', $id_join);
     }
