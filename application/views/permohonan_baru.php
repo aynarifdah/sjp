@@ -27,6 +27,8 @@
   </style>
 
   <div class="card">
+    <?= $this->session->flashdata('pesan'); ?>
+    <?php unset($_SESSION['pesan']); ?>
     <div class="card-head">
       <div class="card-header">
         <div class="row">

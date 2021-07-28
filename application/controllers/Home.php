@@ -686,17 +686,28 @@ class Home extends CI_Controller
     }
     public function siap_survey($id_sjp, $id_pengajuan)
     {
-        $path = "";
-        $data['page']         = $this->load("Siap Survey", $path);
-        $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-        $data['survey']       = $this->M_SJP->variabel_survey();
-        $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-        $data['id_sjp']       = $id_sjp;
-        $data['id_pengajuan'] = $id_pengajuan;
-        $data['content']      = $this->load->view('siap_survey', $data, true, false);
-        // var_dump($data['opsi']);die;
+        $jam = date('H');
+        $hari = date('l');
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect($_SERVER['HTTP_REFERER'], 'refresh');
+        } else {
+            $path = "";
+            $data['page']         = $this->load("Siap Survey", $path);
+            $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
+            $data['survey']       = $this->M_SJP->variabel_survey();
+            $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
+            $data['id_sjp']       = $id_sjp;
+            $data['id_pengajuan'] = $id_pengajuan;
+            $data['content']      = $this->load->view('siap_survey', $data, true, false);
+            // var_dump($data['opsi']);die;
 
-        $this->load->view('template/default_template', $data);
+            $this->load->view('template/default_template', $data);
+        }
     }
 
     public function proses_survey($id_sjp, $id_pengajuan)
