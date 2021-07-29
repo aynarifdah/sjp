@@ -1,4 +1,3 @@
-
 <head>
   <title>Halaman pengajuan SJP</title>
 </head>
@@ -45,6 +44,9 @@
                 <button type="button" id="entryklaim" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Entry Klaim</button>
                 <!-- <a href="<?php echo base_url('Rs/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Tambah Pengajuan</button></a> -->
 
+              </div>
+              <div class="element mb-1 p-r-15">
+                <a href="<?php echo base_url('Rs/export_excel_rs_list_klaim') ?>" class="btn btn-sm btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
               </div>
             </div>
           </div>
@@ -118,7 +120,7 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
   <style>
     .action-menu {
       width: 200px !important;
@@ -192,7 +194,7 @@
 
   <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/fixedHeader.bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/responsive.bootstrap.min.css">
- 
+
   <script>
     $('#entryklaim').click(function(event) {
       // console.log($(".check:checked").val());
@@ -397,4 +399,3 @@
   </script>
 
   </script>
-

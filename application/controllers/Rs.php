@@ -1044,6 +1044,45 @@ class Rs extends CI_Controller
         echo json_encode($result);
     }
 
+    // Excel
+    public function export_excel_rs_list_klaim()
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'data_sjp_yang_belum_diajukan_klaim',
+            'dataexcel' => $this->M_SJP->view_permohonanklaim_rs(null, null, null, null, null,  $id_instansi, $id_join, null)
+        );
+        $this->load->view('exportexcel/excel_rs_list_klaim', $data);
+    }
+
+    public function excel_semua_pengajuan()
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'Data Semua Pengajuan',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(0, null, null, null, null, $id_join, $id_instansi)
+        );
+        // var_dump($data['dataexcel']);
+        // die;
+        $this->load->view('exportexcel/excel_rs_semua_pengajuan', $data);
+    }
+
+    public function data_pengajuan_klaim()
+    {
+        $rs     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'Data Pengajuan Klaim',
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(null, null, null, $rs, null, null)
+        );
+        $this->load->view('exportexcel/excel_rs_pengajuan_klaim', $data);
+    }
+
+
+
+    // Excel
+
     public function getListSJP()
     {
         if ($this->input->post() !== Null) {

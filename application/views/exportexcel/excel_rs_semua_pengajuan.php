@@ -11,7 +11,7 @@ header("Expires: 0");
 ?>
 
 <table id="datatable" class="table table-bordered" style="cursor:pointer;" border="1">
-    <h4>Data Pengajuan Baru</h4>
+    <h4>Data Semua Pengajuan</h4>
     <thead>
         <tr>
             <th>No.</th>
@@ -20,7 +20,6 @@ header("Expires: 0");
             <th>Tanggal Pengajuan</th>
             <th>Rumah Sakit</th>
             <th>Status Pengajuan</th>
-            <th>Survey</th>
         </tr>
     </thead>
     <tbody>
@@ -34,16 +33,6 @@ header("Expires: 0");
                     <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
                     <td><?php echo $key['status_pengajuan']; ?></td>
-
-                    <td>
-                        <?php
-                        if ($key['tanggal_survey'] == '' || $key['tanggal_survey'] == null) {
-                            echo "Survey Tempat Tinggal";
-                        } else {
-                            echo "Sudah Survey";
-                        }
-                        ?>
-                    </td>
                 </tr>
         <?php $no++;
             }

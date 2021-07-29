@@ -11,16 +11,15 @@ header("Expires: 0");
 ?>
 
 <table id="datatable" class="table table-bordered" style="cursor:pointer;" border="1">
-    <h4>Data Sudah Lakukan Pembayaran Klaim</h4>
+    <h4>Data Pengajuan SJP Baru</h4>
     <thead>
         <tr>
             <th>No.</th>
-            <th>Nama</th>
-            <th>Nomor SJP</th>
+            <th>Pemohon</th>
+            <th>Pasien</th>
+            <th>Tanggal Pengajuan</th>
             <th>Rumah Sakit</th>
-            <th>Tanggal Tagihan</th>
-            <th>Nominal Pengajuan</th>
-            <th>Status</th>
+            <th>Status Pengajuan</th>
         </tr>
     </thead>
     <tbody>
@@ -29,12 +28,11 @@ header("Expires: 0");
             foreach ($dataexcel as $key) { ?>
                 <tr>
                     <td><?php echo $no; ?>.</td>
+                    <td><?php echo $key['nama_pemohon']; ?></td>
                     <td><?php echo $key['nama_pasien']; ?></td>
-                    <td><?php echo $key['nomor_surat']; ?></td>
+                    <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
-                    <td><?php echo date_format(date_create($key['tanggal_tagihan']), "d-m-Y"); ?></td>
-                    <td><?php echo $key['nominal_klaim']; ?></td>
-                    <td><?php echo $key['nama_statusklaim']; ?></td>
+                    <td><?php echo $key['status_pengajuan']; ?></td>
                 </tr>
         <?php $no++;
             }

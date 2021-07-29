@@ -1283,4 +1283,36 @@ class Dinsos extends CI_Controller
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Excel
+    public function excel_data_semua_pengajuan()
+    {
+        $data = array(
+            'title' => 'Data Semua Pengajuan',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3)
+        );
+        $this->load->view('exportexcel/excel_dinsos_semuaPengajuan', $data);
+    }
+
+
+    public function excel_pengajuan_baru()
+    {
+        $data = array(
+            'title' => 'Data Pengajuan SJP Baru',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3, null, null, 4, null)
+        );
+        $this->load->view('exportexcel/excel_dinsos_pengajuanBaru', $data);
+    }
+
+
+    public function excel_data_persetujuan()
+    {
+        $data = array(
+            'title' => 'Data Persetujuan SJP',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3, null, null, 6, null)
+        );
+        $this->load->view('exportexcel/excel_dinsos_persetujuan', $data);
+    }
+    // Excel
+
 }
