@@ -1477,8 +1477,6 @@ class Home extends CI_Controller
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join, $id_pengajuan);
-        // var_dump($data['datapermohonan'][0]['feedback_dinkes']);
-        // die;
         // print_r($data['datapermohonan']);
         $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
         // echo($id_puskesmas);die;
