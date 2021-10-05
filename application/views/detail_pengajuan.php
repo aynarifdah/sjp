@@ -475,7 +475,7 @@
                          <?php if (!empty($datapasien)) {
                             foreach ($datapasien as $key) { ?>
                              <tr>
-                              <td><?php echo strtoupper($key['nama_pasien']); ?></td>
+                               <td><?php echo strtoupper($key['nama_pasien']); ?></td>
                                <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
                                <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
                                <td><?php echo strtoupper($key['nama_rs']); ?></td>
