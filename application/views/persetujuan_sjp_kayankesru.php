@@ -43,7 +43,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
-<a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
+                <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
 
               </div>
             </div>
@@ -97,7 +97,7 @@
             </div>
           </div>
 
-         <!--  <div class="row mt-2">
+          <!--  <div class="row mt-2">
             <div class="col-lg-3 offset-lg-9">
               <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div>
@@ -317,7 +317,7 @@
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
           d.rs = $("#rs").val();
-          d.status = 5;
+          d.status = 6;
           d.cari = $("#cari").val();
           // console.log(d);
         }
