@@ -462,6 +462,7 @@
                    <div class="table-responsive">
                      <table class="table table-bordered">
                        <thead>
+                         <th>Nama Pasien</th>
                          <th>Tanggal Pengajuan</th>
                          <th>Puskesmas</th>
                          <th>Rumah Sakit</th>
@@ -474,6 +475,7 @@
                          <?php if (!empty($datapasien)) {
                             foreach ($datapasien as $key) { ?>
                              <tr>
+                              <td><?php echo strtoupper($key['nama_pasien']); ?></td>
                                <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
                                <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
                                <td><?php echo strtoupper($key['nama_rs']); ?></td>

@@ -78,7 +78,7 @@
 </style>
 <section id="minimal-statistics-bg">
   <div class="row">
-    <div class="col-lg-4 col-12  col-sm-6">
+    <!-- <div class="col-lg-4 col-12  col-sm-6">
       <div class="card pull-up" style="border-radius: 10px;">
         <div class="card-content">
           <div class="card-body bg-warning" style="border-radius: 10px; padding: 30px; background-color: #FFB22B !important;">
@@ -86,7 +86,7 @@
               <div class="media-body text-left">
                 <h2 class="white" id="anggaran_tahun" style="font-weight: bold;">Rp. <?php echo number_format($anggaran_tahun); ?></h2>
                 <h4 class="text-white">Anggaran Tahun Ini</h4>
-                <!--      <h5 class="warning">50%</h5> -->
+                
               </div>
               <div>
                 <i class="la la-money font-large-2 float-right text-white"></i>
@@ -102,7 +102,24 @@
               <div class="media-body text-left">
                 <h2 class="white" id="sisa_anggaran" style="font-weight: bold;">Rp. <?php echo number_format($sisa_anggaran); ?></h2>
                 <h4 class="text-white">Sisa Anggaran Tahun Ini</h4>
-                <!--  <h5 class="white">50%</h5> -->
+               
+              </div>
+              <div>
+                <i class="la la-money font-large-2 float-right text-white"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-lg-4 col-12">
+      <div class="card pull-up" style="border-radius: 10px;">
+        <div class="card-content">
+          <div class="card-body bg-success" style="border-radius: 10px; padding: 30px;">
+            <div class="media d-flex">
+              <div class="media-body text-left">
+                <h2 class="white" id="nominal_pembiayaan" style="font-weight: bold;">Rp. <?php echo number_format($nominal_pembiayaan); ?></h2>
+                <h4 class="text-white">Total Nominal Pembiayaan</h4>
               </div>
               <div>
                 <i class="la la-money font-large-2 float-right text-white"></i>
@@ -112,23 +129,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-12">
-      <div class="card pull-up" style="border-radius: 10px;">
-        <div class="card-content">
-          <div class="card-body bg-success" style="border-radius: 10px; padding: 30px;">
-            <div class="media d-flex">
-              <div class="media-body text-left">
-                <h2 class="white" id="nominal_pembiayaan" style="font-weight: bold;">Rp. <?php echo number_format($nominal_pembiayaan); ?></h2>
-                <h4 class="text-white">Total Nominal Pembiayaan</h4>
-                <!-- <h5 class="white">50%</h5> -->
-              </div>
-              <div>
-                <i class="la la-money font-large-2 float-right text-white"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+       <div class="col-lg-4 col-12">
       <div class="card pull-up" style="border-radius: 10px;">
         <div class="card-content">
           <div class="card-body bg-danger" style="border-radius: 10px; padding: 30px;">
@@ -136,7 +137,6 @@
               <div class="media-body text-left">
                 <h2 class="white" id="total_pasien" style="font-weight: bold;"><?php echo number_format($total_pasien); ?></h2>
                 <h4 class="text-white">Total Pasien</h4>
-                <!-- <h5 class="text-white">50%</h5> -->
               </div>
               <div>
                 <i class="la la-user font-large-2 float-right text-white"></i>
@@ -169,7 +169,7 @@
       </div>
     </div>
   </div>
-</section>
+</sectio>
 
 <div class="row">
   <div class="col-xl-8 col-12 col-sm-6">

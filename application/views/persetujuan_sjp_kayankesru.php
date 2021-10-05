@@ -43,8 +43,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
-
-                <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
+<a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
 
               </div>
             </div>
@@ -95,12 +94,12 @@
             </div>
           </div>
 
-          <div class="row mt-2">
+         <!--  <div class="row mt-2">
             <div class="col-lg-3 offset-lg-9">
               <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div>
           </div>
-
+ -->
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">
               <table id="datatable" class="table table-bordered" style="width: 100%;">
