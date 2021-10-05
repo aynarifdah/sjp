@@ -101,7 +101,7 @@
               <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
               <fieldset class="mt-2">
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan*</label>
+                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/Domisili*</label>
                   <div class="col-lg-3">
                     <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
@@ -112,10 +112,9 @@
                       } ?>
                     </select>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="domisili">Domisili*</label>
+                
+              
+               
                   <div class="col-lg-3">
                     <select name="domisili" class="form-control" required>
                       <option value="">Pilih Domisili</option>
@@ -133,6 +132,7 @@
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
+                  
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pasien" id="namapasien" required>
                   </div>
