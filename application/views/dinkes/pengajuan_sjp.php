@@ -44,7 +44,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
+                 <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
 
               </div>
             </div>
@@ -86,6 +86,9 @@
               </div>
             <?php endif ?>
             <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+            <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
                 <div class="form-control-position">
@@ -93,11 +96,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 filter">
+           <!--  <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
               </div>
-            </div>
+            </div> -->
           </div>
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">

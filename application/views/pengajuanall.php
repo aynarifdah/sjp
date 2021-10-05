@@ -61,9 +61,9 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
+            <div class="col-lg-2 filter">
               <select name="rs" id="rs" class="select2 form-control">
-                <option value="" selected>Semua Rumah Sakit</option>
+                <option value="" selected>Semua RS</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
                     <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
@@ -71,7 +71,8 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
+
+            <div class="col-lg-2 filter">
               <select name="status" id="status" class="form-control">
                 <option value="" selected>Semua Status</option>
                 <?php if (!empty($statuspengajuan)) : ?>
@@ -81,6 +82,10 @@
                 <?php endif ?>
               </select>
             </div>
+             <div class="col-lg-2 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+             
             <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
