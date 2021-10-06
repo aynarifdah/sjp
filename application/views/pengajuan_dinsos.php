@@ -56,9 +56,9 @@
           <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
           </div>
-          <div class="row" style="padding-left: 15px; padding-right: 15px;">
-            <div class="col-lg-3 filter">
-              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
+          <div class="row" style="padding-left: 15px; padding-right: 15px; margin:15px 0 ">
+            <div class="col-lg-2 filter">
+              <select name="puskesmas" id="puskesmas" class="form-control select2" style="width: 100%">
                 <option value="" selected>Semua Puskesmas</option>
                 <?php if (!empty($puskesmas)) : ?>
                   <?php foreach ($puskesmas as $puskes) : ?>
@@ -67,8 +67,8 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+            <div class="col-lg-2 filter">
+              <select name="rs" id="rs" class="form-control select2">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
@@ -77,8 +77,8 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
-              <select name="status" id="status" class="form-control">
+            <div class="col-lg-2 filter">
+              <select name="status" id="status" class="form-control select2">
                 <option value="" selected>Semua Status</option>
                 <?php if (!empty($statuspengajuan)) : ?>
                   <?php foreach ($statuspengajuan as $sp) : ?>
@@ -89,6 +89,9 @@
                   <?php endforeach ?>
                 <?php endif ?>
               </select>
+            </div>
+            <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
             </div>
             <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
@@ -127,6 +130,10 @@
     .action-menu {
       width: 200px !important;
       height: auto;
+    }
+
+    #mulai {
+      height: 40px;
     }
 
     /*#datatable_length{
@@ -195,6 +202,7 @@
     });
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
+      'searching': false,
       "paging": true,
       "ordering": true,
       "info": true,
@@ -286,6 +294,7 @@
         method: 'POST',
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();
           d.cari = $("#cari").val();

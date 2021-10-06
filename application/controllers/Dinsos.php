@@ -1261,10 +1261,11 @@ class Dinsos extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp, $puskesmas, $rs, $status, $cari);
+            $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp, $puskesmas, $rs, $status, $cari, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp);
         }

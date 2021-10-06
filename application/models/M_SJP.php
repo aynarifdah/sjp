@@ -1305,7 +1305,7 @@ class M_SJP extends CI_Model
   }
 
 
-  public function view_permohonansjp_dinsos($id_jenissjp, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null)
+  public function view_permohonansjp_dinsos($id_jenissjp, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1317,6 +1317,9 @@ class M_SJP extends CI_Model
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
+    }
+    if (!empty($mulai)) {
+      $this->db->like('pp.tanggal_pengajuan', $mulai);
     }
     if (!empty($rs)) {
       $this->db->where('rs.id_rumah_sakit =', $rs);
