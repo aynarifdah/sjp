@@ -205,9 +205,7 @@
                    <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 4 && ($key['id_status_pengajuan'] == 6 || $key['id_status_pengajuan'] == 7)) { ?>
-                     <a href="<?php echo base_url($controller . 'permohonan_sjp') ?>" class="btn btn-secondary btn-sm text-center ml-1"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
-                   <?php } ?>
+
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>

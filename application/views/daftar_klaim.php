@@ -103,7 +103,7 @@
               </div>
             </div>
             <div class="col-lg-3 mt-2">
-              <a href="<?php echo base_url('Rs/data_pengajuan_klaim') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+              <a href="<?php echo base_url('Rs/data_pengajuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div>
           </div>
           <section id="configuration" style="padding: 10px;">

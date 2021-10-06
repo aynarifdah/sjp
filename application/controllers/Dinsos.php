@@ -195,12 +195,38 @@ class Dinsos extends CI_Controller
         $data = $this->M_SJP->gethasilsurvey($id_sjp, $id_puskesmas);
         echo json_encode($data);
     }
-    public function editpasien()
+    public function edit_data_pasien($idsjp, $id_pengajuan)
     {
+
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
         $path = "";
         $data = array(
             "page"    => $this->load("Edit pasien", $path),
-            "content" => $this->load->view('edit_pasien', false, true)
+            "content" => $this->load->view('edit_data_pasien', $data, true)
         );
 
         $this->load->view('template/default_template', $data);
