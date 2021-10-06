@@ -1406,7 +1406,8 @@ class M_SJP extends CI_Model
     }
 
     if (!empty($mulai)) {
-      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+      // $this->db->like('pp.tanggal_pengajuan', $mulai);
+      $this->db->where('pp.tanggal_pengajuan', $mulai);
     }
     if (!empty($akhir)) {
       $this->db->where('pp.tanggal_pengajuan <=', $akhir);

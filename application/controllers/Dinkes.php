@@ -696,6 +696,7 @@ class Dinkes extends CI_Controller
             $cari            = $this->input->post("cari");
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $cari);
         } else {
+            $id_status_klaim = $this->input->post('status_klaim');
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
         }
 
