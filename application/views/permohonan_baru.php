@@ -70,7 +70,7 @@
             </div>
           <?php endif ?> -->
             <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+              <select name="rs" id="rs" class="form-control select2">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
@@ -90,7 +90,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
           <section id="configuration">
             <table id="datatable" class="table table-bordered">
@@ -323,6 +323,7 @@
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 2;
           d.cari = $("#cari").val();

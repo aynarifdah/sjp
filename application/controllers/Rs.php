@@ -1273,7 +1273,7 @@ class Rs extends CI_Controller
         }
         body {
           font-family: Arial;
-          font-size: 12px;
+          font-size: 14px;
           margin-top:0px;
           margin-left:10px;
         }
@@ -1281,9 +1281,9 @@ class Rs extends CI_Controller
         #kop {
           margin-bottom:30px;
         }
-        .a { display: inline-block; width: 70px; font-size:12px;}
-        .b { display: inline-block; width: 20px; font-size:12px;}
-        .c { display: inline-block; width: 300px; font-size:12px;}
+        .a { display: inline-block; width: 70px; font-size:14px;}
+        .b { display: inline-block; width: 20px; font-size:14px;}
+        .c { display: inline-block; width: 300px; font-size:14px;}
 
         table {
         border-collapse: collapse;
@@ -1296,7 +1296,7 @@ class Rs extends CI_Controller
 
         .content {
             font-family: Arial !important;
-            font-size: 12px;
+            font-size: 14px;
             text-align:justify;
             margin-left: 100px;
             margin-right: 30px;
@@ -1314,7 +1314,7 @@ class Rs extends CI_Controller
 
         .a, .b, .c
         {
-            font-size:12px;
+            font-size:14px;
         }
 
         .tanggal
@@ -1352,7 +1352,7 @@ class Rs extends CI_Controller
 
         #hal
         {
-            margin-top: 12px;
+            margin-top: 14px;
         }
         .info
         {
@@ -1421,6 +1421,11 @@ class Rs extends CI_Controller
                   <td style="width: 5%">:</td>
                   <td>' . $sjp[0]->alamatpasien . '</td>
                 </tr>
+                <tr>
+                  <td style="width: 30%">Domisili</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->domisili . '</td>
+                </tr>
               </tbody>
             </table><br>
       
@@ -1450,16 +1455,21 @@ class Rs extends CI_Controller
                 <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . date_format(date_create($sjp[0]->selesai_rawat), "d-m-Y") . '</td>
               </tr>
               <tr>
+                <td  style="width: 30%">Lain-lain</td>
+                <td style="width: 5%">:</td>
+                <td></td>
+              </tr>
+              <tr>
                 <td  style="width: 30%">Jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . $sjp[0]->nama_jenis . '</td>
+                <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="info">
-      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit<br> secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
         <img src=' . $ttd . ' alt="" id="kop" width="230" height="175" align="right">
 

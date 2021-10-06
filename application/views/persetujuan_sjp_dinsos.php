@@ -76,6 +76,9 @@
               </select>
             </div>
             <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+            <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
                 <div class="form-control-position">
@@ -169,6 +172,7 @@
   <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
   <script>
     // Polaris Checkbox & Radio
@@ -181,7 +185,11 @@
       "paging": true,
       "ordering": true,
       "info": true,
-      "bFilter": false,
+      "bFilter": true,
+      "columnDefs": [{
+        "targets": 2,
+        "type": "date-eu"
+      }],
       columns: [{
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
@@ -278,6 +286,9 @@
       pageLength: 10,
     });
 
+    dtable
+      .order([2, 'desc'])
+      .draw();
 
     $(".filter").on('change', function() {
       dtable.ajax.reload();

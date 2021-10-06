@@ -41,18 +41,17 @@
       <div class="table-responsive">
         <div class="row">
           <div class="col-lg-12">
-            <div class="element mb-0 p-r-15">
-              
-            <?php if ($this->uri->segment(3) == '') : ?>
-              <a href="<?php echo base_url('Exportexcel/pengajuan_klaim') ?>" class="btn btn-primary btn-sm" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-            <?php elseif ($this->uri->segment(3) == 2) : ?>
-              <a href="<?php echo base_url('Exportexcel/persetujuan_klaim') ?>" class="btn btn-primary btn-sm" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-            <?php elseif ($this->uri->segment(3) == 3) : ?>
-              <a href="<?php echo base_url('Exportexcel/pembayaran_klaim') ?>" class="btn btn-primary btn-sm" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-            <?php elseif ($this->uri->segment(3) == 4) : ?>
-              <a href="<?php echo base_url('Exportexcel/sudah_bayar_klaim') ?>" class="btn btn-primary btn-sm" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-            <?php endif; ?>
-         
+            <div class="element mb-1 p-r-15">
+              <?php if ($this->uri->segment(3) == '') : ?>
+                <a href="<?php echo base_url('Exportexcel/pengajuan_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
+              <?php elseif ($this->uri->segment(3) == 2) : ?>
+                <a href="<?php echo base_url('Exportexcel/persetujuan_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
+              <?php elseif ($this->uri->segment(3) == 3) : ?>
+                <a href="<?php echo base_url('Exportexcel/pembayaran_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
+              <?php elseif ($this->uri->segment(3) == 4) : ?>
+                <a href="<?php echo base_url('Exportexcel/sudah_bayar_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
+              <?php endif; ?>
+
 
               <?php if ($status_klaim == 3) { ?>
                 <button type="button" class="btn btn-secondary btn-sm" id="updatestatbayar"><i class="ft-credit-card"></i>&nbsp; Update Status Bayar</button>
@@ -108,7 +107,7 @@
           </div>
         </div>
 
-     <!--    <div class="row mt-2">
+        <!--    <div class="row mt-2">
           <div class="col-lg-3 offset-lg-9">
             <?php if ($this->uri->segment(3) == '') : ?>
               <a href="<?php echo base_url('Exportexcel/pengajuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Excel</a>

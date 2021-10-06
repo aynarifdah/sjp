@@ -26,7 +26,7 @@ class Exportexcel extends CI_Controller
     {
         $data = array(
             'title' => 'pengajuan_sjp_baru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas()
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 4, Null)
         );
         $this->load->view('exportexcel/pengajuan_sjp_baru', $data);
     }
@@ -34,7 +34,7 @@ class Exportexcel extends CI_Controller
     {
         $data = array(
             'title' => 'persetujuan_sjp_kayankesru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas()
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 6, Null)
         );
         $this->load->view('exportexcel/excel_persetujuan_sjp_kayankesru', $data);
     }
@@ -86,29 +86,48 @@ class Exportexcel extends CI_Controller
 
     // Puskesmas
 
+    public function load_variable()
+    {
+        $auth_data = $this->session->userdata();
+        $id_puskesmas = $auth_data['id_join'];
+        $id_join = $auth_data['id_join'];
+        $id_instansi = $auth_data['instansi'];
+        return [
+            'id_puskesmas' => $id_puskesmas,
+            'id_join' => $id_join,
+            'id_instansi' => $id_instansi
+        ];
+    }
+
     public function pkm_pengajuan()
     {
+        $var = $this->load_variable();
+
         $data = array(
             'title' => 'pengajuan',
-            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(3)
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(null, $var['id_puskesmas'], null, null, null, $var['id_join'], $var['id_instansi'])
         );
         $this->load->view('exportexcel/excel_pkm_pengajuan', $data);
     }
 
     public function pkm_pengajuan_baru()
     {
+        $var = $this->load_variable();
+
         $data = array(
             'title' => 'pengajuan_baru',
-            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(2)
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(2, $var['id_puskesmas'], null, null, null, $var['id_join'], $var['id_instansi'])
         );
         $this->load->view('exportexcel/excel_pkm_pengajuan_baru', $data);
     }
 
     public function pkm_persetujuan_sjp()
     {
+        $var = $this->load_variable();
+
         $data = array(
             'title' => 'persetujuan_sjp',
-            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(6)
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(6, $var['id_puskesmas'], null, null, null, $var['id_join'], $var['id_instansi'])
         );
         $this->load->view('exportexcel/excel_pkm_persetujuan_sjp', $data);
     }

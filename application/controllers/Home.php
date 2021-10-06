@@ -1177,10 +1177,11 @@ class Home extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1226,10 +1227,11 @@ class Home extends CI_Controller
         $id_join     = $this->input->post("id_join");
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join);
+            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(2, Null, Null, 2);
         }
