@@ -99,7 +99,7 @@
                 </div>
               </div>
             </div>
-           <!--  <div class="col-lg-3">
+            <!--  <div class="col-lg-3">
               <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div> -->
           </div>
@@ -326,6 +326,7 @@
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
 
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();
           d.cari = $("#cari").val();
