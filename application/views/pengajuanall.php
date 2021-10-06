@@ -82,10 +82,10 @@
                 <?php endif ?>
               </select>
             </div>
-             <div class="col-lg-2 filter">
+            <div class="col-lg-2 filter">
               <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
             </div>
-             
+
             <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
@@ -236,9 +236,7 @@
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
       // "responsive": true,
-      // TEST 03-02-2021
       "processing": true,
-      // TEST 03-02-2021
       "paging": true,
       "ordering": false,
       "info": true,

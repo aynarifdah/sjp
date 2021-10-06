@@ -27,6 +27,8 @@
   </style>
 
   <div class="card">
+    <?= $this->session->flashdata('message'); ?>
+    <?php unset($_SESSION['message']); ?>
     <div class="card-head">
       <div class="card-header">
         <div class="row">
@@ -183,6 +185,7 @@
   <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
   <script>
     // Polaris Checkbox & Radio
@@ -195,7 +198,11 @@
       "paging": true,
       "ordering": true,
       "info": true,
-      "bFilter": false,
+      "bFilter": true,
+      "columnDefs": [{
+        "targets": 2,
+        "type": "date-eu"
+      }],
       columns: [{
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
@@ -292,6 +299,9 @@
       pageLength: 10,
     });
 
+    dtable
+      .order([2, 'desc'])
+      .draw();
 
     $(".filter").on('change', function() {
       dtable.ajax.reload();
