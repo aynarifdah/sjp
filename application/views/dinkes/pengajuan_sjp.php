@@ -44,7 +44,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                 <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
+                <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
 
               </div>
             </div>
@@ -96,7 +96,7 @@
                 </div>
               </div>
             </div>
-           <!--  <div class="col-lg-3 filter">
+            <!--  <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
               </div>
@@ -305,6 +305,7 @@
         method: 'POST',
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 4;
           d.cari = $("#cari").val();

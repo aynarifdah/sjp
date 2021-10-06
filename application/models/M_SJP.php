@@ -1174,7 +1174,7 @@ class M_SJP extends CI_Model
 
 
 
-  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null)
+  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('sjp.*, pp.nama_pemohon, sp.status_pengajuan, pp.status_read, pp.id_status_pengajuan, pp.id_pengajuan, pp.tanggal_pengajuan, rs.nama_rumah_sakit as nm_rs, ps.nama_puskesmas, js.nama_jenis');
     $this->db->from('sjp');
@@ -1188,6 +1188,9 @@ class M_SJP extends CI_Model
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
+    }
+    if (!empty($mulai)) {
+      $this->db->like('pp.tanggal_pengajuan', $mulai);
     }
     if (!empty($rumahsakit)) {
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
