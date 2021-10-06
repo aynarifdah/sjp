@@ -574,10 +574,11 @@ class Dinkes extends CI_Controller
     {
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari);
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai);
         } else {
             $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
         }
