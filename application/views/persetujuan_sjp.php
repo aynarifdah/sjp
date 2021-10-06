@@ -46,7 +46,7 @@
                 <div class="element mb-1 p-r-15">
 
                 <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
-                <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
+                <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
 
               </div>
               </div>
