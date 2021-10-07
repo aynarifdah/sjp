@@ -45,10 +45,12 @@
               <div class="element mb-1 p-r-15">
                 <div class="element mb-1 p-r-15">
 
-                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
-                <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
 
-              </div>
+                  <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                  <a href="<?php echo base_url('Exportexcel/pkm_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
+
+
+                </div>
               </div>
             </div>
           </div>
@@ -69,7 +71,7 @@
             </div>
           <?php endif ?> -->
             <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+              <select name="rs" id="rs" class="form-control select2">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
@@ -89,7 +91,7 @@
                 </div>
               </div>
             </div>
-           <!--  <div class="col-lg-3">
+            <!--  <div class="col-lg-3">
               <a href="<?php echo base_url('Exportexcel/pkm_persetujuan_sjp') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
             </div> -->
           </div>
@@ -283,6 +285,7 @@
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 6;
           d.cari = $("#cari").val();

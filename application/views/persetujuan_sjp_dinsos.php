@@ -116,6 +116,10 @@
       height: auto;
     }
 
+    #mulai {
+      height: 40px;
+    }
+
     /*#datatable_length{
   display: none;
 }*/
@@ -273,6 +277,7 @@
         method: 'POST',
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 6;
           d.cari = $("#cari").val();

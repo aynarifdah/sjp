@@ -1523,10 +1523,11 @@ class Home extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi);
+            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(6, Null, Null, 6);
         }
