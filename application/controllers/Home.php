@@ -162,7 +162,7 @@ class Home extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 23 || $jam < 8) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                     Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
