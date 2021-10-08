@@ -1347,7 +1347,7 @@ class Dinkes extends CI_Controller
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . date_format(date_create($sjp[0]->selesai_rawat), "d-m-Y") . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>
@@ -1366,7 +1366,7 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-        <img src=' . $ttd . ' alt="" id="kop" width="230" height="175" align="right">
+        <img src=' . $ttd . ' alt="" id="kop" width="285" height="230" align="right">
 
       </body></html>';
         return $html;
