@@ -318,7 +318,7 @@
           d.puskesmas = $("#puskesmas").val();
           d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
-          d.status = 6;
+          d.status = 5;
           d.cari = $("#cari").val();
           // console.log(d);
         }
