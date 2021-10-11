@@ -195,12 +195,38 @@ class Dinsos extends CI_Controller
         $data = $this->M_SJP->gethasilsurvey($id_sjp, $id_puskesmas);
         echo json_encode($data);
     }
-    public function editpasien()
+    public function edit_data_pasien($idsjp, $id_pengajuan)
     {
+
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
         $path = "";
         $data = array(
             "page"    => $this->load("Edit pasien", $path),
-            "content" => $this->load->view('edit_pasien', false, true)
+            "content" => $this->load->view('edit_data_pasien', $data, true)
         );
 
         $this->load->view('template/default_template', $data);
@@ -208,24 +234,35 @@ class Dinsos extends CI_Controller
 
     public function permohonan_sjp_dinsos()
     {
-        $data = array(
-            'topik'      => $this->M_SJP->diagnosa(),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-            'rumahsakit' => $this->M_SJP->rumahsakit(),
-            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-        );
+        $jam = date('H');
+        $hari = date('l');
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect('Dinsos/pengajuan_dinsos');
+        } else {
+            $data = array(
+                'topik'      => $this->M_SJP->diagnosa(),
+                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                'rumahsakit' => $this->M_SJP->rumahsakit(),
+                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+            );
 
-        // var_dump($data['rumahsakit']);
-        $path = "";
-        $data = array(
-            "page" => $this->load("Input Pasien", $path),
-            "content" => $this->load->view('input_pasien_dinsos', $data, true)
-        );
+            // var_dump($data['rumahsakit']);
+            $path = "";
+            $data = array(
+                "page" => $this->load("Input Pasien", $path),
+                "content" => $this->load->view('input_pasien_dinsos', $data, true)
+            );
 
-        $this->load->view('template/default_template', $data);
-        //$this->load->view('input_pasien_dinsos', false);
+            $this->load->view('template/default_template', $data);
+            //$this->load->view('input_pasien_dinsos', false);
+        }
     }
     public function getKelurahan()
     {
@@ -337,6 +374,7 @@ class Dinsos extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili      = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
@@ -362,6 +400,7 @@ class Dinsos extends CI_Controller
             'email'            => $email,
             'jenis_rawat'      => $jenisrawat,
             'jenis_sjp'         => $jenisjaminan,
+            'domisili'         => $domisili,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'      => $akhirrawat,
@@ -1222,10 +1261,11 @@ class Dinsos extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp, $puskesmas, $rs, $status, $cari);
+            $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp, $puskesmas, $rs, $status, $cari, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_dinsos($id_jenissjp);
         }
@@ -1281,4 +1321,53 @@ class Dinsos extends CI_Controller
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Excel
+    public function excel_data_semua_pengajuan()
+    {
+        $data = array(
+            'title' => 'Data Semua Pengajuan',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3)
+        );
+        $this->load->view('exportexcel/excel_dinsos_semuaPengajuan', $data);
+    }
+
+
+    public function excel_pengajuan_baru()
+    {
+        $data = array(
+            'title' => 'Data Pengajuan SJP Baru',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3, null, null, 4, null)
+        );
+        $this->load->view('exportexcel/excel_dinsos_pengajuanBaru', $data);
+    }
+
+
+    public function excel_data_persetujuan()
+    {
+        $data = array(
+            'title' => 'Data Persetujuan SJP',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_dinsos(3, null, null, 6, null)
+        );
+        $this->load->view('exportexcel/excel_dinsos_persetujuan', $data);
+    }
+    // Excel
+
+    // Download dokumen
+    public function download_dokumen()
+    {
+        $data = [
+            'controller' => $this->instansi(),
+            'files' => $this->M_SJP->getFiles()
+        ];
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Download Dokumen", $path),
+            "content" => $this->load->view('download_dokumen', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+    // Download dokumen
+
 }

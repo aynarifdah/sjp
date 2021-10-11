@@ -43,28 +43,14 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
-                <!-- <button type="button" class="btn btn-info btn-sm" id="advancedfilterbtn"><i class="ft-filter"></i>&nbsp; Filter</button> -->
-                <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
-                <!--   <span class="dropdown">
-                <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right btn-sm"><i class="ft-plus"></i> Tambah</button>
-                <span aria-labelledby="btnSearchDrop1" class="dropdown-menu mt-1 dropdown-menu-right">
-                  <a class="dropdown-item tambahkontrak" id="Baru" value="Tambah Kontrak"><i class="ft-file-plus"></i> Kontrak Baru</a>
-                  <a class="dropdown-item tambahkontrak" id="Perpanjangan" value="Perpanjangan Kontrak"><i class="ft-file-text"></i> Perpanjangan</a>
-                </span>
-              </span> -->
-                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
-                <!-- <span class="dropdown"><button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary btn-sm dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i> Aksi</button>
-                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right action-menu">
-                  <a href="<?php echo base_url('Home/permohonan_sjp'); ?>" class="dropdown-item tambahkontrak" id="Baru" value="Tambah Kontrak"><i class="ft-file-plus"></i> Tambah Pengajuan</a>
-                  <a href="#" class="dropdown-item tambahkontrak" id="Perpanjangan" value="Perpanjangan Kontrak"><i class="ft-file-text"></i> Perpanjangan</a>
-                  <a href="#" class="dropdown-item" id="bayar"><i class="icon-credit-card"></i> Bayar</a>
-                  <a href="#" class="dropdown-item" id="btlkontrak"><i class="icon-close"></i> Pembatalan Kontrak</a>
-                  <a href="#" class="dropdown-item tambahkontrak" value="Perubahan Data" id="ubahdata"><i class="ft-edit-2"></i> Perubahan Data</a>
-                  <a href="#" class="dropdown-item cetakpedagang"><i class="ft-printer"></i> Kartu Pedagang</a>
-                  <a href="#" class="dropdown-item cetakkontrak"><i class="ft-printer"></i> Daftar Kontrak</a>
-                </span>
-              </span> -->
+                <div class="element mb-1 p-r-15">
+
+
+                  <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                  <a href="<?php echo base_url('Exportexcel/pkm_persetujuan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
+
+
+                </div>
               </div>
             </div>
           </div>
@@ -85,7 +71,7 @@
             </div>
           <?php endif ?> -->
             <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+              <select name="rs" id="rs" class="form-control select2">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
@@ -95,6 +81,9 @@
               </select>
             </div>
             <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+            <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
                 <div class="form-control-position">
@@ -102,6 +91,9 @@
                 </div>
               </div>
             </div>
+            <!--  <div class="col-lg-3">
+              <a href="<?php echo base_url('Exportexcel/pkm_persetujuan_sjp') ?>" class="btn btn-success" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+            </div> -->
           </div>
           <section id="configuration">
             <table id="datatable" class="table table-bordered" style="cursor:pointer">
@@ -293,6 +285,7 @@
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 6;
           d.cari = $("#cari").val();

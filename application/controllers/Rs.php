@@ -32,33 +32,33 @@ class Rs extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        // if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
-        //     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        //             Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-        //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //             <span aria-hidden="true">&times;</span>
-        //         </button></div>');
-        //     redirect('Rs/pengajuan_rs');
-        // } else {
-        $data = array(
-            'topik'      => $this->M_SJP->diagnosa(),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-            'rumahsakit' => $this->M_SJP->rumahsakit(),
-            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            'puskesmas'  => $this->M_data->getPuskesmas(),
-        );
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect('Rs/pengajuan_rs');
+        } else {
+            $data = array(
+                'topik'      => $this->M_SJP->diagnosa(),
+                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                'rumahsakit' => $this->M_SJP->rumahsakit(),
+                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                'puskesmas'  => $this->M_data->getPuskesmas(),
+            );
 
-        // var_dump($data['rumahsakit']);
-        $path = "";
-        $data = array(
-            "page" => $this->load("Input Pasien", $path),
-            "content" => $this->load->view('input_pasien_rs', $data, true)
-        );
+            // var_dump($data['rumahsakit']);
+            $path = "";
+            $data = array(
+                "page" => $this->load("Input Pasien", $path),
+                "content" => $this->load->view('input_pasien_rs', $data, true)
+            );
 
-        $this->load->view('template/default_template', $data);
-        // }
+            $this->load->view('template/default_template', $data);
+        }
     }
     public function hapussjp($id_sjp)
     {
@@ -170,6 +170,7 @@ class Rs extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
@@ -199,6 +200,7 @@ class Rs extends CI_Controller
             'email'            => $email,
             'jenis_rawat'      => $jenisrawat,
             'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'      => $akhirrawat,
@@ -327,6 +329,7 @@ class Rs extends CI_Controller
             'topik'      => $this->M_SJP->diagnosa(),
             'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
         ];
         // var_dump($data["detail"]);die;
 
@@ -347,10 +350,11 @@ class Rs extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rumahsakit");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi);
+            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -493,7 +497,7 @@ class Rs extends CI_Controller
             $this->load->view('template/default_template', $data);
         }
     }
-    public function proses_entry_klaim()
+public function proses_entry_klaim()
     {
         $id_sjp = $this->input->post('id_sjp');
         $tanggaltagihan = $this->input->post('tanggal_tagihan');
@@ -535,7 +539,7 @@ class Rs extends CI_Controller
 
                 $name_file = $_FILES['file']['name'];
                 $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
-                $new_name_image = $nik . '_' . $nama_pasien . '_' . $file_name_pieces;
+                $new_name_image = $nik . '' . $nama_pasien . '' . $file_name_pieces;
 
                 // File upload configuration
                 $uploadPath = 'uploads/dokumen/';
@@ -556,6 +560,7 @@ class Rs extends CI_Controller
                     $file1 = 3 * $i + 0;
                     $file2 = 3 * $i + 0 + 1;
                     $file3 = 3 * $i + 0 + 2;
+                    $file4 = 3 * $i + 0 + 3;
 
                     if ($j == $file1) {
                         $persyaratan[] = array(
@@ -570,6 +575,11 @@ class Rs extends CI_Controller
                     } elseif ($j == $file3) {
                         $persyaratan[] = array(
                             'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file4) {
+                        $persyaratan[] = array(
+                            'ket_pasien' => $fileData['file_name'],
                             'id_sjp'   => $id_sjp[$i],
                         );
                     }
@@ -1041,6 +1051,45 @@ class Rs extends CI_Controller
         echo json_encode($result);
     }
 
+    // Excel
+    public function export_excel_rs_list_klaim()
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'data_sjp_yang_belum_diajukan_klaim',
+            'dataexcel' => $this->M_SJP->view_permohonanklaim_rs(null, null, null, null, null,  $id_instansi, $id_join, null)
+        );
+        $this->load->view('exportexcel/excel_rs_list_klaim', $data);
+    }
+
+    public function excel_semua_pengajuan()
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'Data Semua Pengajuan',
+            'dataexcel' => $this->M_SJP->view_permohonansjp_pus(0, null, null, null, null, $id_join, $id_instansi)
+        );
+        // var_dump($data['dataexcel']);
+        // die;
+        $this->load->view('exportexcel/excel_rs_semua_pengajuan', $data);
+    }
+
+    public function data_pengajuan_klaim()
+    {
+        $rs     = $this->session->userdata("id_join");
+        $data = array(
+            'title' => 'Data Pengajuan Klaim',
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(null, null, null, $rs, null, null)
+        );
+        $this->load->view('exportexcel/excel_rs_pengajuan_klaim', $data);
+    }
+
+
+
+    // Excel
+
     public function getListSJP()
     {
         if ($this->input->post() !== Null) {
@@ -1231,7 +1280,7 @@ class Rs extends CI_Controller
         }
         body {
           font-family: Arial;
-          font-size: 12px;
+          font-size: 14px;
           margin-top:0px;
           margin-left:10px;
         }
@@ -1239,9 +1288,9 @@ class Rs extends CI_Controller
         #kop {
           margin-bottom:30px;
         }
-        .a { display: inline-block; width: 70px; font-size:12px;}
-        .b { display: inline-block; width: 20px; font-size:12px;}
-        .c { display: inline-block; width: 300px; font-size:12px;}
+        .a { display: inline-block; width: 70px; font-size:14px;}
+        .b { display: inline-block; width: 20px; font-size:14px;}
+        .c { display: inline-block; width: 300px; font-size:14px;}
 
         table {
         border-collapse: collapse;
@@ -1254,7 +1303,7 @@ class Rs extends CI_Controller
 
         .content {
             font-family: Arial !important;
-            font-size: 12px;
+            font-size: 14px;
             text-align:justify;
             margin-left: 100px;
             margin-right: 30px;
@@ -1272,7 +1321,7 @@ class Rs extends CI_Controller
 
         .a, .b, .c
         {
-            font-size:12px;
+            font-size:14px;
         }
 
         .tanggal
@@ -1310,7 +1359,7 @@ class Rs extends CI_Controller
 
         #hal
         {
-            margin-top: 12px;
+            margin-top: 14px;
         }
         .info
         {
@@ -1379,6 +1428,11 @@ class Rs extends CI_Controller
                   <td style="width: 5%">:</td>
                   <td>' . $sjp[0]->alamatpasien . '</td>
                 </tr>
+                <tr>
+                  <td style="width: 30%">Domisili</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->domisili . '</td>
+                </tr>
               </tbody>
             </table><br>
       
@@ -1408,16 +1462,21 @@ class Rs extends CI_Controller
                 <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . date_format(date_create($sjp[0]->selesai_rawat), "d-m-Y") . '</td>
               </tr>
               <tr>
+                <td  style="width: 30%">Lain-lain</td>
+                <td style="width: 5%">:</td>
+                <td></td>
+              </tr>
+              <tr>
                 <td  style="width: 30%">Jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . $sjp[0]->nama_jenis . '</td>
+                <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="info">
-      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh Rumah Sakit<br> secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
         <img src=' . $ttd . ' alt="" id="kop" width="230" height="175" align="right">
 

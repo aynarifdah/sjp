@@ -35,99 +35,38 @@
                                                     </div>
                                                 </div>
                                                 <!-- Dokumen-dokumen -->
-                                                <?php
-
-                                                $extensions_nama_file = pathinfo(base_url('uploads/dokumen/') . $val['namafile'], PATHINFO_EXTENSION);
-                                                $extensions_file_resume = pathinfo(base_url('uploads/dokumen/') . $val['file_resume'], PATHINFO_EXTENSION);
-                                                $extensions_other_files = pathinfo(base_url('uploads/dokumen/') . $val['other_files'], PATHINFO_EXTENSION);
-
-                                                ?>
-                                                <?php if ($extensions_nama_file == "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['namafile']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['namafile'] ?>">
-                                                        </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 label-control" for="nominal_klaim">Dokumen INA CBG</label>
+                                                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                                                        <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['namafile'] ?>" class="btn btn-warning btn-sm" target="_blank"><i class="ft-eye" aria-hidden="true"></i> Lihat File</a>
+                                                        <input class="form-control" type="file" name="dokumen[]" id="dokumen">
+                                                        <input type="hidden" name="dokumen_hidden[]" value="<?= $val['namafile'] ?>">
                                                     </div>
-                                                <?php endif; ?>
-                                                <?php if ($extensions_file_resume == "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['file_resume']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['file_resume'] ?>">
-                                                        </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 label-control" for="nominal_klaim">Dokumen Resume Medis</label>
+                                                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                                                        <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['file_resume'] ?>" class="btn btn-warning btn-sm" target="_blank"><i class="ft-eye" aria-hidden="true"></i> Lihat File</a>
+                                                        <input class="form-control" type="file" name="dokumen[]" id="dokumen">
+                                                        <input type="hidden" name="dokumen_hidden[]" value="<?= $val['file_resume'] ?>">
                                                     </div>
-                                                <?php endif; ?>
-                                                <?php if ($extensions_other_files == "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['other_files']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['other_files'] ?>">
-                                                        </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 label-control" for="nominal_klaim">Dokumen Tambahan</label>
+                                                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                                                        <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['other_files'] ?>" class="btn btn-warning btn-sm" target="_blank"><i class="ft-eye" aria-hidden="true"></i> Lihat File</a>
+                                                        <input class="form-control" type="file" name="dokumen[]" id="dokumen">
+                                                        <input type="hidden" name="dokumen_hidden[]" value="<?= $val['other_files'] ?>">
                                                     </div>
-                                                <?php endif; ?>
-
-
-                                                <?php if ($extensions_nama_file !== "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['namafile'] ?>" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['namafile']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['namafile'] ?>">
-                                                        </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 label-control" for="nominal_klaim">Lembar Keterangan Pasien</label>
+                                                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                                                        <a href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['ket_pasien'] ?>" class="btn btn-warning btn-sm" target="_blank"><i class="ft-eye" aria-hidden="true"></i> Lihat File</a>
+                                                        <input class="form-control" type="file" name="dokumen[]" id="dokumen">
+                                                        <input type="hidden" name="dokumen_hidden[]" value="<?= $val['ket_pasien'] ?>">
                                                     </div>
-                                                <?php endif; ?>
-                                                <?php if ($extensions_file_resume !== "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['file_resume'] ?>" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['file_resume']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['file_resume'] ?>">
-                                                        </div>
-                                                    </div>
-                                                <?php endif; ?>
-                                                <?php if ($extensions_other_files !== "pdf") : ?>
-                                                    <div class="form-group row">
-                                                        <div class="col-lg-3 col-md-3 col-12">
-                                                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                                                <img class="mx-auto d-block example-image" style="width: 50%; height: auto;" src="<?php echo base_url('uploads/dokumen/') . $val['other_files'] ?>" alt="" />
-                                                            </figure>
-                                                        </div>
-                                                        <div class="col-lg-6 col-md-9 col-12 mt-1">
-                                                            <p class="mb-0"><?= $val['other_files']; ?></p>
-                                                            <input class="form-control" type="file" name="dokumen[]" id="dokumen">
-                                                            <input type="hidden" name="dokumen_hidden[]" value="<?= $val['other_files'] ?>">
-                                                        </div>
-                                                    </div>
-                                                <?php endif; ?>
+                                                </div>
                                             </fieldset>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
