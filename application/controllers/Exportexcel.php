@@ -34,7 +34,7 @@ class Exportexcel extends CI_Controller
     {
         $data = array(
             'title' => 'persetujuan_sjp_kayankesru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 6, Null)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 5, Null)
         );
         $this->load->view('exportexcel/excel_persetujuan_sjp_kayankesru', $data);
     }

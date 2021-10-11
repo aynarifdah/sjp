@@ -497,7 +497,7 @@ class Rs extends CI_Controller
             $this->load->view('template/default_template', $data);
         }
     }
-    public function proses_entry_klaim()
+public function proses_entry_klaim()
     {
         $id_sjp = $this->input->post('id_sjp');
         $tanggaltagihan = $this->input->post('tanggal_tagihan');
@@ -539,7 +539,7 @@ class Rs extends CI_Controller
 
                 $name_file = $_FILES['file']['name'];
                 $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
-                $new_name_image = $nik . '_' . $nama_pasien . '_' . $file_name_pieces;
+                $new_name_image = $nik . '' . $nama_pasien . '' . $file_name_pieces;
 
                 // File upload configuration
                 $uploadPath = 'uploads/dokumen/';
@@ -560,6 +560,7 @@ class Rs extends CI_Controller
                     $file1 = 3 * $i + 0;
                     $file2 = 3 * $i + 0 + 1;
                     $file3 = 3 * $i + 0 + 2;
+                    $file4 = 3 * $i + 0 + 3;
 
                     if ($j == $file1) {
                         $persyaratan[] = array(
@@ -574,6 +575,11 @@ class Rs extends CI_Controller
                     } elseif ($j == $file3) {
                         $persyaratan[] = array(
                             'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file4) {
+                        $persyaratan[] = array(
+                            'ket_pasien' => $fileData['file_name'],
                             'id_sjp'   => $id_sjp[$i],
                         );
                     }
