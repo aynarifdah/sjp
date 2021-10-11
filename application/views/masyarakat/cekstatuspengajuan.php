@@ -2,8 +2,8 @@
 <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
       <div class="main_title">
-        <h2>Silahkan isi <strong>Data Pasien</strong> dibawah</h2>
-        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
+        <h2>Silahkan Cek <strong>Status Pengajuan Pasien</strong> dibawah ini</h2>
+        <!-- <p>Sistem Pendaftaran Online SJP Kota Depok.</p> -->
       </div>
 
       <div class="card" style="padding: 20px;">
@@ -21,7 +21,7 @@
                  
                 </div>
 
-    <button type="submit" class="btn btn-primary btn-md" name="button" style="float: right;">Kirim</button>
+    <button type="submit" class="btn btn-primary btn-md" name="button" style="float: right;">Cari</button>
   </form>
 
    <div class="table-responsive">
@@ -37,7 +37,7 @@
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Tanggal<br> Pengajuan</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Rumah <br>Sakit</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Aksi</th>
+              <!-- <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Aksi</th> -->
             </tr>
           </thead>
           <tbody>
@@ -51,7 +51,7 @@
 </div>
 
 <!-- Home -->
-    <p class="text-center"><a href="" class="btn_1 medium">Sebelumnya</a></p>
+    <p class="text-center"><a href="<?php echo site_url('Masyarakat/index') ?>" class="btn_1 medium">Sebelumnya</a></p>
     
 </main>
 
@@ -113,8 +113,8 @@ function loaddata(nik){
       });
     },
     columns: [
-    {data: "nama_pemohon", className : "text-info dt-head-center dt-body-right bodyclick"},
-    {data: "nama_pasien", className : "text-info dt-head-center dt-body-right bodyclick"},
+    {data: "nama_pemohon", className : "dt-head-center dt-body-right bodyclick"},
+    {data: "nama_pasien", className : "dt-head-center dt-body-right bodyclick"},
     {data: "tanggal_pengajuan", "render": function ( data, type, row, meta ) {
       var date = new Date(data);
       var year = date.getFullYear();
@@ -164,11 +164,11 @@ function loaddata(nik){
       } 
 
     },className : "dt-head-center dt-body-right bodyclick statuspengajuan text-white"},
-      {data: "id_sjp", "render": function ( data, type, row, meta ) {
-      return "<button type='button' class='btn btn-dark btn-sm mr-1 update' data-id='"
-      +data+"' data-idpengajuan='"+row.id_pengajuan+"' >Update</button><button type='button' class='btn btn-dark btn-circle btn-sm detail' data-id='"
-      +data+"' data-idpengajuan='"+row.id_pengajuan+"'>Detail</button> <button type='button' class='btn btn-dark btn-circle btn-sm'>Cetak</button>"
-    },className : "dt-head-center dt-body-right" },
+    //   {data: "id_sjp", "render": function ( data, type, row, meta ) {
+    //   return "<button type='button' class='btn btn-dark btn-sm mr-1 update' data-id='"
+    //   +data+"' data-idpengajuan='"+row.id_pengajuan+"' >Update</button><button type='button' class='btn btn-dark btn-circle btn-sm detail' data-id='"
+    //   +data+"' data-idpengajuan='"+row.id_pengajuan+"'>Detail</button> <button type='button' class='btn btn-dark btn-circle btn-sm'>Cetak</button>"
+    // },className : "dt-head-center dt-body-right" },
 
   ],
   ajax: {

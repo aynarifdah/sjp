@@ -162,7 +162,7 @@ class Home extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                     Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -273,6 +273,7 @@ class Home extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
         $feedback      = $this->input->post('feedback');
@@ -304,6 +305,7 @@ class Home extends CI_Controller
             'email'            => $email,
             'jenis_rawat'      => $jenisrawat,
             'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
             'kelas_rawat'      => $kelas_rawat,
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'    => $akhirrawat,
@@ -684,17 +686,28 @@ class Home extends CI_Controller
     }
     public function siap_survey($id_sjp, $id_pengajuan)
     {
-        $path = "";
-        $data['page']         = $this->load("Siap Survey", $path);
-        $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-        $data['survey']       = $this->M_SJP->variabel_survey();
-        $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-        $data['id_sjp']       = $id_sjp;
-        $data['id_pengajuan'] = $id_pengajuan;
-        $data['content']      = $this->load->view('siap_survey', $data, true, false);
-        // var_dump($data['opsi']);die;
+        $jam = date('H');
+        $hari = date('l');
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect($_SERVER['HTTP_REFERER'], 'refresh');
+        } else {
+            $path = "";
+            $data['page']         = $this->load("Siap Survey", $path);
+            $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
+            $data['survey']       = $this->M_SJP->variabel_survey();
+            $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
+            $data['id_sjp']       = $id_sjp;
+            $data['id_pengajuan'] = $id_pengajuan;
+            $data['content']      = $this->load->view('siap_survey', $data, true, false);
+            // var_dump($data['opsi']);die;
 
-        $this->load->view('template/default_template', $data);
+            $this->load->view('template/default_template', $data);
+        }
     }
 
     public function proses_survey($id_sjp, $id_pengajuan)
@@ -1164,10 +1177,11 @@ class Home extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1213,10 +1227,11 @@ class Home extends CI_Controller
         $id_join     = $this->input->post("id_join");
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join);
+            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(2, Null, Null, 2);
         }
@@ -1271,6 +1286,7 @@ class Home extends CI_Controller
 
             // Informasi Pasien | Tabel sjp
             $nikPasien          = $this->input->post('nikpasien');
+            $domisili          = $this->input->post('domisili');
             $nama_pasien        = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
             $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
@@ -1301,6 +1317,7 @@ class Home extends CI_Controller
 
             $data_pasien = [
                 'nik'               => $nikPasien,
+                'domisili'          => $domisili,
                 'nama_pasien'       => $nama_pasien,
                 'jenis_kelamin'     => $jenisKelaminPasien,
                 'tempat_lahir'      => $tempatLahirPasien,
@@ -1384,7 +1401,7 @@ class Home extends CI_Controller
             // ==========================PERSYARATAN=========================
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count($id_persyaratan);
+            $countfiles = count(array($id_persyaratan));
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
@@ -1473,7 +1490,7 @@ class Home extends CI_Controller
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
-        // var_dump($data['riwayatpengajuan']);
+        // var_dump($data['penyakit']);
         // die;
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
@@ -1506,10 +1523,11 @@ class Home extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi);
+            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(6, Null, Null, 6);
         }
@@ -1556,7 +1574,7 @@ class Home extends CI_Controller
         ];
 
         // var_dump($data['topik']);
-        // var_dump($data['getForUpdateFile']);
+        // var_dump($data['diagnosa']);
         // die;
 
 

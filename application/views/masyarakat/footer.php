@@ -5,7 +5,7 @@
 				<div class="col-md-8 col-12">
 					<ul id="additional_links">
 						<li style="font-size: 13px;"><a href="#0">Dinas Kesehatan Kota Depok</a></li>
-						<li style="font-size: 13px;"><a href="#0">Pnedaftaran Online Puskesmas</a></li>
+						<li style="font-size: 13px;"><a href="#0">Sistem Jaminan Pelayanan (SJP) Online</a></li>
 					</ul>
 				</div>
 				<div class="col-md-4 col-12">

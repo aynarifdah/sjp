@@ -114,6 +114,16 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label class="col-lg-3 label-control" for="domisili">Domisili*</label>
+                  <div class="col-lg-3">
+                    <select name="domisili" class="form-control" required>
+                      <option value="">Pilih Domisili</option>
+                      <option value="Depok">Depok</option>
+                      <option value="Luar Depok">Luar Depok</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-lg-3 label-control" for="nik">NIK*</label>
                   <div class="col-lg-3">
                     <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>

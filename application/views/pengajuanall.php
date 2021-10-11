@@ -43,6 +43,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
+                <a href="<?php echo base_url('Exportexcel/data_semua_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
               </div>
             </div>
           </div>
@@ -60,9 +61,9 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
+            <div class="col-lg-2 filter">
               <select name="rs" id="rs" class="select2 form-control">
-                <option value="" selected>Semua Rumah Sakit</option>
+                <option value="" selected>Semua RS</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
                     <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
@@ -70,7 +71,8 @@
                 <?php endif ?>
               </select>
             </div>
-            <div class="col-lg-3 filter">
+
+            <div class="col-lg-2 filter">
               <select name="status" id="status" class="form-control">
                 <option value="" selected>Semua Status</option>
                 <?php if (!empty($statuspengajuan)) : ?>
@@ -80,6 +82,10 @@
                 <?php endif ?>
               </select>
             </div>
+            <div class="col-lg-2 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+
             <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
@@ -90,6 +96,12 @@
             </div>
           </div>
 
+          <!-- <div class="row mt-2">
+            <div class="col-lg-3 offset-lg-9">
+              <a href="<?php echo base_url('Exportexcel/data_semua_pengajuan') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+            </div>
+          </div>
+ -->
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">
               <table id="datatable" class="table table-bordered" style="width: 100%;">
@@ -169,6 +181,10 @@
         padding-bottom: 5px;
       }
     }
+
+    div.dataTables_wrapper div.dataTables_filter label {
+      display: none;
+    }
   </style>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/icheck/icheck.css">
@@ -220,9 +236,7 @@
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
       // "responsive": true,
-      // TEST 03-02-2021
       "processing": true,
-      // TEST 03-02-2021
       "paging": true,
       "ordering": false,
       "info": true,
@@ -307,6 +321,7 @@
         url: ' <?php echo base_url("Dinkes/getalldatapermohonan"); ?>',
         method: 'POST',
         "data": function(d) {
+          d.mulai = $("#mulai").val();
           d.puskesmas = $("#puskesmas").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();

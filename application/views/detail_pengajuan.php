@@ -6,6 +6,8 @@
  </head>
 
  <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+   <?= $this->session->flashdata('pesan'); ?>
+   <?php unset($_SESSION['pesan']); ?>
    <div class="card">
      <div class="card-header">
        <h4 class="card-title">Detail Pengajuan</h4>
@@ -203,9 +205,7 @@
                    <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 4 && ($key['id_status_pengajuan'] == 6 || $key['id_status_pengajuan'] == 7)) { ?>
-                     <a href="<?php echo base_url($controller . 'permohonan_sjp') ?>" class="btn btn-secondary btn-sm text-center ml-1"><i class="ft-credit-card"></i>&nbsp;Tambah Pengajuan</a>
-                   <?php } ?>
+
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
@@ -360,6 +360,10 @@
                          <td><?php echo strtoupper($key['tempat_lahir']); ?>, <?php echo strtoupper(date_format(date_create($key['tanggal_lahir']), 'd-m-Y')); ?></td>
                        </tr>
                        <tr>
+                         <th scope="row">Domisili</th>
+                         <td><?php echo strtoupper($key['domisili']); ?></td>
+                       </tr>
+                       <tr>
                          <th scope="row">Alamat</th>
                          <td><?php echo strtoupper($key['alamat']); ?>, KEC. <?php echo strtoupper($key['kd_kecamatan']); ?>, KEL. <?php echo strtoupper($key['kd_kelurahan']); ?>, RT/RW : <?php echo strtoupper($key['rt']); ?>/<?php echo strtoupper($key['rw']); ?></td>
                        </tr>
@@ -456,6 +460,7 @@
                    <div class="table-responsive">
                      <table class="table table-bordered">
                        <thead>
+                         <th>Nama Pasien</th>
                          <th>Tanggal Pengajuan</th>
                          <th>Puskesmas</th>
                          <th>Rumah Sakit</th>
@@ -468,6 +473,7 @@
                          <?php if (!empty($datapasien)) {
                             foreach ($datapasien as $key) { ?>
                              <tr>
+                               <td><?php echo strtoupper($key['nama_pasien']); ?></td>
                                <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y") ?></td>
                                <td><?php echo strtoupper($key['nama_puskesmas']); ?></td>
                                <td><?php echo strtoupper($key['nama_rs']); ?></td>
@@ -747,7 +753,7 @@
                      <tbody>
                        <tr>
                          <th scope="row" class="border-top-0">Feedback Dinkes :</th>
-                         <td class="border-top-0"><?= $key['feedback_dinkes']; ?></td>
+                         <td class="border-top-0"><?= $key['feedback_dinkes'] ?></td>
                        </tr>
 
                      </tbody>

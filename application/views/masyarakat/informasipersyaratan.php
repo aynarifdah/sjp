@@ -4,7 +4,7 @@
 
       <div class="main_title">
         <h2>Perhatikan <strong>Dokumen Persyaratan</strong> dibawah Ini</h2>
-        <p>Sistem Pendaftaran Online SJP Kota Depok.</p>
+        <p>Sistem Jaminan Pelayanan (SJP) Online</p>
       </div>
 
       <div class="col-lg-12 col-12" style="margin-top: 20px;">
@@ -26,7 +26,7 @@
     </div>
 
     <!-- Home -->
-    <p class="text-center"><a href="" class="btn_1 medium">Sebelumnya</a></p>
+    <p class="text-center"><a href="<?php echo site_url('Masyarakat/index') ?>" class="btn_1 medium">Sebelumnya</a></p>
 
   </div>
 </main>

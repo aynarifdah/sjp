@@ -102,6 +102,9 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-3 mt-2">
+              <a href="<?php echo base_url('Rs/data_pengajuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+            </div>
           </div>
           <section id="configuration" style="padding: 10px;">
             <table id="datatable" class="table table-bordered" style="width: 100%;">
