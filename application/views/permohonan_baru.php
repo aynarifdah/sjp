@@ -27,6 +27,8 @@
   </style>
 
   <div class="card">
+    <?= $this->session->flashdata('pesan'); ?>
+    <?php unset($_SESSION['pesan']); ?>
     <div class="card-head">
       <div class="card-header">
         <div class="row">
@@ -43,9 +45,13 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
-                <!-- <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Export ke Excel</button> -->
-                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+
+                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+
+                <a href="<?php echo base_url('Exportexcel/pkm_pengajuan_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
+
               </div>
+
             </div>
           </div>
           <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
@@ -65,7 +71,7 @@
             </div>
           <?php endif ?> -->
             <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="form-control">
+              <select name="rs" id="rs" class="form-control select2">
                 <option value="" selected>Semua Rumah Sakit</option>
                 <?php if (!empty($rs)) : ?>
                   <?php foreach ($rs as $rsu) : ?>
@@ -75,6 +81,9 @@
               </select>
             </div>
             <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+            <div class="col-lg-3 filter">
               <div class="position-relative has-icon-left">
                 <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
                 <div class="form-control-position">
@@ -82,6 +91,7 @@
                 </div>
               </div>
             </div>
+
           </div>
           <section id="configuration">
             <table id="datatable" class="table table-bordered">
@@ -314,6 +324,7 @@
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
+          d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = 2;
           d.cari = $("#cari").val();

@@ -7,7 +7,7 @@
     <meta name="pendaftaranport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keterangan" content="Pendaftaran Online I SJP Kota Depok">
     <meta name="pembuat" content="Smart City Indonesia">
-    <title>Pendaftaran Online I SJP Kota Depok</title>
+    <title>Sistem Jaminan Pelayanan (SJP) Online</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="<?php echo base_url('assets-pendaftaran/img/favicon.png')?>" type="image/x-icon">
@@ -33,4 +33,29 @@
     <script src="<?php echo base_url('assets-pendaftaran/js/modernizr.js');?>"></script>
 
   </head>
-  <body>
+
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
+data-open="click" data-menu="vertical-menu" data-col="2-columns">
+  <!-- fixed-top-->
+  <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow"  style="background-color: white !important;">
+    <div class="navbar-wrapper">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+
+          <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle" href="#"></a></li>
+          <li class="nav-item">
+            <a class="navbar-brand" style="padding: 0px !important;">
+              <a href="<?php echo site_url('Masyarakat/index') ?>"><img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: -20px;"></a>
+            </a>
+          </li>
+
+         
+        </ul>
+      </div>
+     
+    </div>
+  </div>
+  </nav>
+
+</body>
+  
