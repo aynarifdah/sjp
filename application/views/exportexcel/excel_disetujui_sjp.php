@@ -11,7 +11,7 @@ header("Expires: 0");
 ?>
 
 <table id="datatable" class="table table-bordered" style="cursor:pointer;" border="1">
-    <h4>Data Persetujuan SJP</h4>
+    <h4>Data Disetujui SJP Baru</h4>
     <thead>
         <tr>
             <th>No.</th>

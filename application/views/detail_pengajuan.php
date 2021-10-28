@@ -94,9 +94,9 @@
                                 } else {
                                   $date2 = date_create($key['tanggal_selesai']);
                                 }
-                                $diff = date_diff($date1, $date2);
+                                // $diff = date_diff($now, $tgl);
 
-                                echo $diff->format("%a Hari")
+                                echo round(abs(strtotime($now) - strtotime($tgl))/86400).' Hari ';
                                 ?>
                              </div>
                            </td>
