@@ -1196,9 +1196,9 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function hapussjp($id_sjp)
+    public function hapussjp($id_sjp, $id_pengajuan)
     {
-        // $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
         $this->M_SJP->delete_sjp($id_sjp);
         // $this->M_SJP->delete_attachment($id_pengajuan);
         $this->M_SJP->delete_diagnosa($id_sjp);

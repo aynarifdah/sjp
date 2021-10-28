@@ -37,17 +37,17 @@ header("Expires: 0");
                     <td><?php echo $key['nm_rs']; ?></td>
                     <td>
                         <?php
-                            $now = date("Y-m-d");
-                            $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
-                            $date1 = date_create($tgl);
-                            if ($key['tanggal_selesai'] == null) {
-                              $date2 = date_create($now);
-                            } else {
-                              $date2 = date_create($key['tanggal_selesai']);
-                            }
-                            $diff = date_diff($date1, $date2);
+                        $now = date("Y-m-d");
+                        $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
+                        $date1 = date_create($tgl);
+                        if ($key['tanggal_selesai'] == null) {
+                          $date2 = date_create($now);
+                        } else {
+                          $date2 = date_create($key['tanggal_selesai']);
+                        }
+                        // $diff = date_diff($now, $tgl);
 
-                            echo $diff->format("%a Hari")
+                        echo round(abs(strtotime($now) - strtotime($tgl))/86400).' Hari ';
                         ?>
                     </td>
                     <td><?php echo $key['status_pengajuan']; ?></td>

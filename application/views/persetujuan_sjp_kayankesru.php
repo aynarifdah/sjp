@@ -115,6 +115,7 @@
                     <!-- <th>Lama Pengajuan</th> -->
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Hari</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
                   </tr>
@@ -272,6 +273,16 @@
         },
         {
           data: "nm_rs",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "tanggal_pengajuan",
+          "render": function(data, type, row, meta) {
+            var today = new Date().toISOString().slice(0,10);
+            const diffInMs   = new Date(today) - new Date(data)
+            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+            return Math.round(diffInDays)+' Hari ';
+          },
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
