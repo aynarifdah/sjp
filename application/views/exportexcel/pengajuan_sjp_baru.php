@@ -15,7 +15,7 @@ header("Expires: 0");
     <thead>
         <tr>
             <th>No.</th>
-            <th>Pemohon</th>
+            <th>NIK</th>
             <th>Pasien</th>
             <th>Tanggal Pengajuan</th>
             <th>Jenis Jaminan</th>
@@ -30,7 +30,7 @@ header("Expires: 0");
             foreach ($dataexcel as $key) { ?>
                 <tr>
                     <td><?php echo $no; ?>.</td>
-                    <td><?php echo $key['nama_pemohon']; ?></td>
+                    <td style="mso-number-format:\@;"><?php echo $key['nik']; ?></td>
                     <td><?php echo $key['nama_pasien']; ?></td>
                     <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nama_jenis']; ?></td>
