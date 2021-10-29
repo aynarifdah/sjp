@@ -20,6 +20,7 @@ header("Expires: 0");
             <th>Tanggal Pengajuan</th>
             <th>Rumah Sakit</th>
             <th>Hari</th>
+            <th>Domisili</th>
             <th>Status Pengajuan</th>
         </tr>
     </thead>
@@ -47,6 +48,17 @@ header("Expires: 0");
 
                         echo round(abs(strtotime($now) - strtotime($tgl))/86400).' Hari ';
                         ?>
+                    </td>
+                    <td>
+                        <?php 
+                        if ($key['kd_kecamatan'] == 'Bojongsari' || $key['kd_kecamatan'] == 'Beji' || $key['kd_kecamatan'] == 'Cimanggis' || $key['kd_kecamatan'] == 'Cinere' || $key['kd_kecamatan'] == 'Cipayung' || $key['kd_kecamatan'] == 'Limo' || $key['kd_kecamatan'] == 'Pancoran Mas' || $key['kd_kecamatan'] == 'Sawangan' || $key['kd_kecamatan'] == 'Sukmajaya' || $key['kd_kecamatan'] == 'Tapos' || $key['kd_kecamatan'] == 'Cilodong' || 
+                            
+                            $key['kd_kecamatan'] == 'BOJONGSARI' || $key['kd_kecamatan'] == 'BEJI' || $key['kd_kecamatan'] == 'CIMANGGIS' || $key['kd_kecamatan'] == 'CINERE' || $key['kd_kecamatan'] == 'CIPAYUNG' || $key['kd_kecamatan'] == 'LIMO' || $key['kd_kecamatan'] == 'PANCORAN MAS' || $key['kd_kecamatan'] == 'SAWANGAN' || $key['kd_kecamatan'] == 'SUKMAJAYA' || $key['kd_kecamatan'] == 'TAPOS' || $key['kd_kecamatan'] == 'CILODONG') {
+                                echo 'Depok';
+                            }else{
+                                echo 'Non Depok';
+                            }
+                         ?>
                     </td>
                     <td><?php echo $key['status_pengajuan']; ?></td>
                 </tr>

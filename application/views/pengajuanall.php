@@ -115,6 +115,7 @@
                     <!-- <th>Puskesmas</th> -->
                     <th style="width: 30px;">Rumah <br>Sakit</th>
                     <th style="width: 30px; color: #6B6F82!important;">Hari</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
 
@@ -289,6 +290,19 @@
             return Math.round(diffInDays)+' Hari ';
           },
           className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "kd_kecamatan",
+          className: "dt-head-center dt-body-right bodyclick",
+          "render": function(data, type, row, meta) {
+            if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' || 
+              data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
+              domisili = '<p>Depok</p>'
+            }else{
+              domisili = '<p>Non Depok</p>'
+            }
+            return domisili;
+          }
         },
         {
           data: "id_status_pengajuan",
