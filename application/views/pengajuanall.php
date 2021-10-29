@@ -285,7 +285,7 @@
           data: "tanggal_pengajuan",
           "render": function(data, type, row, meta) {
             var today = new Date().toISOString().slice(0,10);
-            const diffInMs   = new Date(today) - new Date(data)
+            const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
             const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
             return Math.round(diffInDays)+' Hari ';
           },

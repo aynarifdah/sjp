@@ -86,7 +86,7 @@
                            <td class="border-top-0"><?php echo date_format(date_create($key['tanggal_surat']), "d-m-Y"); ?>
                              <div class="badge bg-secondary bg-darken-1" style="font-size: 14px;">
                                <?php
-                                $now = date("Y-m-d");
+                                $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d");
                                 $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
                                 $date1 = date_create($tgl);
                                 if ($key['tanggal_selesai'] == null) {

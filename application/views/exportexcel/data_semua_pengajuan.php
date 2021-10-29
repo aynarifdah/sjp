@@ -36,7 +36,7 @@ header("Expires: 0");
                     <td><?php echo $key['nm_rs']; ?></td>
                     <td>
                         <?php
-                        $now = date("Y-m-d");
+                        $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d");
                         $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
                         $date1 = date_create($tgl);
                         if ($key['tanggal_selesai'] == null) {
