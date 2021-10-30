@@ -257,19 +257,13 @@
           data: "tanggal_pengajuan",
           "render": function(data, type, row, meta) {
             var today = new Date().toISOString().slice(0,10);
-<<<<<<< HEAD
-            const diffInMs   = new Date(today) - new Date(data)
-=======
             const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
->>>>>>> origin/shintia
             const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
             return Math.round(diffInDays)+' Hari ';
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
-<<<<<<< HEAD
-=======
           data: "kd_kecamatan",
           className: "dt-head-center dt-body-right bodyclick",
           "render": function(data, type, row, meta) {
@@ -283,7 +277,6 @@
           }
         },
         {
->>>>>>> origin/shintia
           data: "id_status_pengajuan",
           "render": function(data, type, row, meta) {
             if (data == 1) {
