@@ -10,7 +10,7 @@
       </li>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/persetujuan_sjp_kayankesru'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Persetujuan SJP</span></a>
       </li>
-      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/disetujui_sjp'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Disetujui SJP</span></a>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/disetujui_sjp'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Disetujui</span></a>
       </li>
 
       <li class=" nav-item"><a href="#"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.page_headers.main">Proses Klaim</span></a>

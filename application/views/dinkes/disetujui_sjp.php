@@ -102,7 +102,9 @@
                     <!-- <th>Lama Pengajuan</th> -->
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
-                    <th>Hari</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Hari</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
+
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
                   </tr>
                 </thead>
@@ -255,13 +257,33 @@
           data: "tanggal_pengajuan",
           "render": function(data, type, row, meta) {
             var today = new Date().toISOString().slice(0,10);
+<<<<<<< HEAD
             const diffInMs   = new Date(today) - new Date(data)
+=======
+            const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
+>>>>>>> origin/shintia
             const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
             return Math.round(diffInDays)+' Hari ';
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+<<<<<<< HEAD
+=======
+          data: "kd_kecamatan",
+          className: "dt-head-center dt-body-right bodyclick",
+          "render": function(data, type, row, meta) {
+            if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' || 
+              data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
+              domisili = '<p>Depok</p>'
+            }else{
+              domisili = '<p>Non Depok</p>'
+            }
+            return domisili;
+          }
+        },
+        {
+>>>>>>> origin/shintia
           data: "id_status_pengajuan",
           "render": function(data, type, row, meta) {
             if (data == 1) {
