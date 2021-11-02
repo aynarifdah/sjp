@@ -86,18 +86,23 @@
                            <td class="border-top-0"><?php echo date_format(date_create($key['tanggal_surat']), "d-m-Y"); ?>
                              <div class="badge bg-secondary bg-darken-1" style="font-size: 14px;">
                                <?php
-                                $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d");
-                                $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
+                                $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d h:i:s");
+                                $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d h:i:s");
                                 $date1 = date_create($tgl);
                                 if ($key['tanggal_selesai'] == null) {
-                                  $date2 = date_create($now);
+                                $date2 = date_create($now);
                                 } else {
-                                  $date2 = date_create($key['tanggal_selesai']);
+                                $date2 = date_create($key['tanggal_selesai']);
                                 }
                                 // $diff = date_diff($now, $tgl);
 
-                                echo round(abs(strtotime($now) - strtotime($tgl))/86400).' Hari ';
+                                $stro1 = strtotime($now);
+
+                                $stro2 = strtotime($tgl);
+
+                                echo $jam = round(($stro1 - $stro2)/(60 * 60));
                                 ?>
+                                Jam
                              </div>
                            </td>
                          </tr>
@@ -284,7 +289,7 @@
                          <div class="modal-body">
                            <div class="form-group">
                              <label for="">Tanggal Persetujuan</label>
-                             <input type="date" class="form-control" name="tgl_persetujuan" required="">
+                             <input type="datetime-local" class="form-control" name="tgl_persetujuan" required="">
                            </div>
                            <div class="form-group">
                              <label for="">Status Pengajuan</label>

@@ -102,7 +102,7 @@
                     <!-- <th>Lama Pengajuan</th> -->
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Hari</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Jam</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
@@ -258,8 +258,8 @@
           "render": function(data, type, row, meta) {
             var today = new Date().toISOString().slice(0,10);
             const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
-            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-            return Math.round(diffInDays)+' Hari ';
+            const diffInDays = diffInMs / (1000 * 60 * 60);
+            return Math.round(diffInDays)+' Jam ';
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
