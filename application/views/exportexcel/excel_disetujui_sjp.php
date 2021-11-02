@@ -20,7 +20,7 @@ header("Expires: 0");
             <th>Tanggal Pengajuan</th>
             <th>Jenis Jaminan</th>
             <th>Rumah Sakit</th>
-            <th>Hari</th>
+            <th>Jam</th>
             <th>Domisili</th>
             <th>Status Pengajuan</th>
         </tr>
