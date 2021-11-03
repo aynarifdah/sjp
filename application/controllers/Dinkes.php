@@ -1233,7 +1233,12 @@ class Dinkes extends CI_Controller
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
         $error = curl_error($ch);
+
         curl_close($ch);
+         if($error != ""){
+        	var_dump($error);
+        	die();
+        }
         unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
         header("Content-Type: application/pdf");
