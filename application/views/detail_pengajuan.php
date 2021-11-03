@@ -63,7 +63,7 @@
                               echo '<div class="badge bg-danger bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
                             } ?>
 
-                           <?php
+                      <?php
                             $now = date("Y-m-d");
                             $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
                             $date1 = date_create($tgl);

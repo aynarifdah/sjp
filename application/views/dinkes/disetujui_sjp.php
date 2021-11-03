@@ -96,7 +96,7 @@
                 <thead>
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                    <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
+                    <!-- <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th> -->
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <!-- <th>Lama Pengajuan</th> -->
@@ -217,10 +217,7 @@
         "targets": 2,
         "type": "date-eu"
       }],
-      columns: [{
-          data: "nama_pemohon",
-          className: "text-info dt-head-center dt-body-right bodyclick"
-        },
+      columns: [
         {
           data: "nama_pasien",
           className: "text-info dt-head-center dt-body-right bodyclick"
