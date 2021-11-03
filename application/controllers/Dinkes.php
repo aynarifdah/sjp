@@ -1169,7 +1169,7 @@ class Dinkes extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/newttd.png');
+        $ttd = base_url('assets/images/ettd.jpeg');
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
@@ -1187,8 +1187,57 @@ class Dinkes extends CI_Controller
         $this->dompdf->load_html($html);
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
-        //  $this->dompdf->stream("CetakTest_$t.pdf");
+
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+        $time = date('His');
+        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        file_put_contents($location, $output);
+
+		
+
+
+        $username = 'esign';
+        $password = 'qwerty';
+        $url = "103.113.30.81/api/sign/pdf";
+        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+
+        
+
+        $headers = array("Content-Type:multipart/form-data");
+        $postfields = array(
+        	'file' => curl_file_create($file,'application/pdf'),
+        	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+        	'nik' => '0803202100007062',
+        	'passphrase' => '!Bsre1234*',
+        	'page' => '1',
+        	'tampilan' => 'visible',
+        	'image' => 'true',
+        	'linkQR' => 'https://google.com',
+        	'xAxis' => '800',
+        	'yAxis' => '100',
+        	'width' => '300',
+        	'height' => '250'
+        	);
+        $ch = curl_init();
+        $options = array(
+        	CURLOPT_URL => $url,
+        	CURLOPT_USERPWD => $username . ":" . $password,
+        	// CURLOPT_HEADER => true,
+        	CURLOPT_POST => 1,
+        	CURLOPT_HTTPHEADER => $headers,
+        	CURLOPT_POSTFIELDS => $postfields,
+        	CURLOPT_RETURNTRANSFER => true
+        ); 
+        curl_setopt_array($ch, $options);
+        $resp = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        header("Content-Type: application/pdf");
+		echo $resp;
+        
     }
 
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
@@ -1406,7 +1455,6 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-        <img src=' . $ttd . ' alt="" id="kop" width="285" height="230" align="right">
 
       </body></html>';
         return $html;
