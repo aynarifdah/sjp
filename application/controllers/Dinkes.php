@@ -1169,7 +1169,8 @@ class Dinkes extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/ettd.jpeg');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
