@@ -20,7 +20,7 @@ header("Expires: 0");
             <th>Tanggal Pengajuan</th>
             <th>Jenis Jaminan</th>
             <th>Rumah Sakit</th>
-            <th>Hari</th>
+            <th>Jam</th>
             <th>Domisili</th>
             <th>Status Pengajuan</th>
         </tr>
@@ -38,18 +38,23 @@ header("Expires: 0");
                     <td><?php echo $key['nm_rs']; ?></td>
                     <td>
                         <?php
-                            $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d");
-                            $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
-                            $date1 = date_create($tgl);
-                            if ($key['tanggal_selesai'] == null) {
-                              $date2 = date_create($now);
-                            } else {
-                              $date2 = date_create($key['tanggal_selesai']);
-                            }
-                            // $diff = date_diff($now, $tgl);
+                        $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d h:i:s");
+                        $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d h:i:s");
+                        $date1 = date_create($tgl);
+                        if ($key['tanggal_selesai'] == null) {
+                        $date2 = date_create($now);
+                        } else {
+                        $date2 = date_create($key['tanggal_selesai']);
+                        }
+                        // $diff = date_diff($now, $tgl);
 
-                            echo round(abs(strtotime($now) - strtotime($tgl))/86400).' Hari ';
+                        $stro1 = strtotime($now);
+
+                        $stro2 = strtotime($tgl);
+
+                        echo $jam = round(($stro1 - $stro2)/(60 * 60));
                         ?>
+                        Jam
                     </td>
                     <td>
                         <?php 

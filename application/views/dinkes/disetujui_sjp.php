@@ -96,13 +96,13 @@
                 <thead>
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                    <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
+                    <!-- <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th> -->
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <!-- <th>Lama Pengajuan</th> -->
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Hari</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Jam</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
 
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
@@ -217,10 +217,7 @@
         "targets": 2,
         "type": "date-eu"
       }],
-      columns: [{
-          data: "nama_pemohon",
-          className: "text-info dt-head-center dt-body-right bodyclick"
-        },
+      columns: [
         {
           data: "nama_pasien",
           className: "text-info dt-head-center dt-body-right bodyclick"
@@ -258,8 +255,8 @@
           "render": function(data, type, row, meta) {
             var today = new Date().toISOString().slice(0,10);
             const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
-            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-            return Math.round(diffInDays)+' Hari ';
+            const diffInDays = diffInMs / (1000 * 60 * 60);
+            return Math.round(diffInDays)+' Jam ';
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
