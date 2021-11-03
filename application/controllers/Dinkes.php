@@ -1169,7 +1169,8 @@ class Dinkes extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/ettd.jpeg');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
@@ -1232,7 +1233,12 @@ class Dinkes extends CI_Controller
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
         $error = curl_error($ch);
+
         curl_close($ch);
+         if($error != ""){
+        	var_dump($error);
+        	die();
+        }
         unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
         header("Content-Type: application/pdf");
@@ -1341,6 +1347,11 @@ class Dinkes extends CI_Controller
         .info
         {
             text-indent: 50px;
+        }
+        .footer
+        {
+        	font-style: italic;
+        	text-align: center;
         }
 
 
@@ -1454,6 +1465,16 @@ class Dinkes extends CI_Controller
       </div>
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br><br><br><br><br><br><br><br>
+      <div class="footer" style="margin-bottom:0">
+      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
       </div>
 
       </body></html>';
