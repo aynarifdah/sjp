@@ -306,7 +306,8 @@
         {
           data: "id_sjp",
           "render": function(data, type, row, meta) {
-            var hapus = `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+            var pengajuan = row.id_pengajuan;
+            var hapus = `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
             if (row.id_status_pengajuan != 6) {
               return hapus
             } else {

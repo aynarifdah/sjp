@@ -41,7 +41,7 @@
           <p>Mohon Tunggu...</p>
         </div>
         <div class="table-responsive">
-          <table id="datatable" class="table table-bordered table-responsive" style="width: 100%;">
+        <table id="datatable" class="table table-bordered table-responsive" style="width: 100%;">
             <thead>
               <tr>
                 <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
@@ -52,6 +52,7 @@
                 <th>Dokumen INA CBG</th>
                 <th>Dokumen Resume Medis</th>
                 <th>Dokumen tambahan</th>
+                <th>Lembar Keterangan Pasien</th>
                 <th>Catatan Pengajuan Klaim</th>
               </tr>
             </thead>
@@ -73,9 +74,19 @@
                       <?php }
                           }
                         } ?>
+                        <?php if (!empty($penyakit)) {
+                          foreach ($penyakit as $keypenyakit) {
+                            if ($key['id_sjp'] == $keypenyakit['id_sjp']) { ?>
+
+                            <li>- <?php echo $keypenyakit['penyakit']; ?></li>
+
+                      <?php }
+                          }
+                        } ?>
                     </td>
                     <td><input type="text" class="form-control" name="nominal_klaim[]" id="nominal_klaim" placeholder="Nominal" value="<?= $key['nominal_klaim']; ?>" required></td>
                     <td><input type="file" class="form-control dok1" name="dokumen[]" id="dokumen" required /></td>
+                    <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
                     <td><input type="file" class="form-control" name="dokumen[]" id="dokumen" /></td>
                     <td><textarea type="text" class="form-control" cols="20" rows="3" name="catatan_klaim[]" placeholder="Catatan" id="catatan_klaim" value="<?= $key['catatan_klaim']; ?>"></textarea> </td>

@@ -34,10 +34,20 @@ class Exportexcel extends CI_Controller
     {
         $data = array(
             'title' => 'persetujuan_sjp_kayankesru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 6, Null)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 5, Null)
         );
         $this->load->view('exportexcel/excel_persetujuan_sjp_kayankesru', $data);
     }
+
+    public function disetujui_sjp()
+    {
+        $data = array(
+            'title' => 'disetujui_sjp',
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 6, Null)
+        );
+        $this->load->view('exportexcel/excel_disetujui_sjp', $data);
+    }
+
     public function pengajuan_klaim()
     {
         $data = array(

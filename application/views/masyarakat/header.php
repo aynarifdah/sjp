@@ -45,7 +45,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle" href="#"></a></li>
           <li class="nav-item">
             <a class="navbar-brand" style="padding: 0px !important;">
-              <a href="<?php echo site_url('Masyarakat/index') ?>"><img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: 10px;"></a>
+              <a href="<?php echo site_url('Masyarakat/index') ?>"><img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: -20px;"></a>
             </a>
           </li>
 

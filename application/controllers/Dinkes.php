@@ -670,6 +670,46 @@ class Dinkes extends CI_Controller
         echo json_encode($result);
     }
 
+    public function disetujui_sjp()
+    {
+        // $id_status_pengajuan = 3;
+        $path = "";
+        $datax = array(
+            'datapermohonan' => $this->M_SJP->select_disetujui_sjp(),
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+        );
+        $data = array(
+            "page"    => $this->load("Pengajuan SJP", $path),
+            "content" => $this->load->view('dinkes/disetujui_sjp', $datax, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getdisetujuisjpdinas()
+    {
+        if ($this->input->post() !== Null) {
+            $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
+            $rs         = $this->input->post("rs");
+            $status     = $this->input->post("status");
+            $cari       = $this->input->post("cari");
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+        } else {
+            $data       = $this->M_SJP->getpersetujuansjpdinas();
+        }
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
     public function pengajuan_klaim($id_status_klaim = null)
     {
         // $product_id = $this->uri->segment(3);
@@ -1129,7 +1169,7 @@ class Dinkes extends CI_Controller
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/newttd.png');
+        $ttd = base_url('assets/images/ettd.jpeg');
 
         // print_r($idtest);
         // $this->load->view('dinkes/cetak');
@@ -1147,8 +1187,57 @@ class Dinkes extends CI_Controller
         $this->dompdf->load_html($html);
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
-        //  $this->dompdf->stream("CetakTest_$t.pdf");
+
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+        $time = date('His');
+        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        file_put_contents($location, $output);
+
+		
+
+
+        $username = 'esign';
+        $password = 'qwerty';
+        $url = "103.113.30.81/api/sign/pdf";
+        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+
+        
+
+        $headers = array("Content-Type:multipart/form-data");
+        $postfields = array(
+        	'file' => curl_file_create($file,'application/pdf'),
+        	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+        	'nik' => '0803202100007062',
+        	'passphrase' => '!Bsre1234*',
+        	'page' => '1',
+        	'tampilan' => 'visible',
+        	'image' => 'true',
+        	'linkQR' => 'https://google.com',
+        	'xAxis' => '800',
+        	'yAxis' => '100',
+        	'width' => '300',
+        	'height' => '250'
+        	);
+        $ch = curl_init();
+        $options = array(
+        	CURLOPT_URL => $url,
+        	CURLOPT_USERPWD => $username . ":" . $password,
+        	// CURLOPT_HEADER => true,
+        	CURLOPT_POST => 1,
+        	CURLOPT_HTTPHEADER => $headers,
+        	CURLOPT_POSTFIELDS => $postfields,
+        	CURLOPT_RETURNTRANSFER => true
+        ); 
+        curl_setopt_array($ch, $options);
+        $resp = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        header("Content-Type: application/pdf");
+		echo $resp;
+        
     }
 
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
@@ -1366,7 +1455,6 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-        <img src=' . $ttd . ' alt="" id="kop" width="285" height="230" align="right">
 
       </body></html>';
         return $html;
