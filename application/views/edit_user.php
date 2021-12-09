@@ -57,7 +57,7 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                <?php if ($this->session->userdata('level') == 1 && ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 3 )): ?>
+                <?php if ($this->session->userdata('level') == 1 && ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 3 ) || $this->session->userdata('instansi') == 6 ): ?>
                   <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1): ?>
                     <label class="col-lg-2 label-control" for="level">Instansi*</label>
                     <div class="col-lg-3">
@@ -75,7 +75,7 @@
                     <input type="hidden" name="instansi" value="<?= $this->session->userdata('instansi') ?>">
                   <?php endif ?>
                     <div class="col-lg-3" id="id_join">
-                      <?php if ($user[0]["id_instansi"] == 2 || $user[0]["id_instansi"] == 3): ?>
+                      <?php if ($user[0]["id_instansi"] == 2 || $user[0]["id_instansi"] == 3 || $user[0]["id_instansi"] == 6 ): ?>
                         <select class="select2 form-control block kecamatan" id="idJoin" name="id_join" style="width: 100%" required>
                            <option value="">Pilih Domisili</option>
                            <?php if (!empty($nama_join)): ?>
@@ -146,6 +146,12 @@
       url     = "<?= base_url($controller);?>getPuskesmas";
       namaI   = "puskesmas";
       optionV = '<option value="" selected>Pilih Puskesmas</option>';
+    }else if(instansi == 6){
+      // Pusekesmas
+      change  = true;
+      url     = "<?= base_url($controller);?>getLurah";
+      namaI   = "kelurahan";
+      optionV = '<option value="" selected>Pilih Kelurahan</option>';
     } else {
       change  = false;
     }
