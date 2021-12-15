@@ -115,7 +115,7 @@
                   <th style="width: 30px;">Rumah <br>Sakit</th>
                   <!-- <th>Diagnosa</th> -->
                   <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                  <!-- <th style="width: 30px;">Aksi</th> -->
+                  <th style="width: 30px;">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -278,6 +278,20 @@
 
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+        },
+        {
+          data: "id_sjp",
+          "render": function(data, type, row, meta) {
+            var pengajuan = row.id_pengajuan;
+            var hapus = `<a href="<?php echo base_url('/Dinsos/hapussjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+            if (row.id_status_pengajuan != 6) {
+              return hapus
+            } else {
+              // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
+              return '';
+            }
+          },
+          className: "dt-head-center dt-body-right"
         },
         //   {data: "tanggal_survey", "render": function ( data, type, row, meta ) {
         //    if (data == '' || data == null) {
