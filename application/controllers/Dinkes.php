@@ -1210,7 +1210,7 @@ class Dinkes extends CI_Controller
         	'file' => curl_file_create($file,'application/pdf'),
         	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
         	'nik' => '0803202100007062',
-        	'passphrase' => '!Bsre1234*',
+        	'passphrase' => '!Bsre1221*',
         	'page' => '1',
         	'tampilan' => 'visible',
         	'image' => 'true',

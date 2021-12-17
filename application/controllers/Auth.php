@@ -49,9 +49,15 @@ class Auth extends CI_Controller
 	}
 
 	public function proses_login()
-	{
-		$username 	= $this->input->post('username');
-		$password 	= $this->input->post('password');
+	{	
+		if ($this->session->userdata('login_data')) {
+			$session_data = $this->session->userdata('login_data');
+			$username = $session_data['username'];
+			$password = $session_data['password'];
+		} else {
+			$username 	= $this->input->post('username');
+			$password 	= $this->input->post('password');
+		}
 		$user 		= $this->M_login->readBy($username);
 		// var_dump($user);die;
 		//  echo  $this->encryption->encrypt($password);die; 
