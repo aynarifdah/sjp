@@ -95,11 +95,33 @@ $query_builder = TRUE;
 // 	'save_queries' => TRUE
 // );
 
+// $db['default'] = array(
+// 	'dsn'	=> '',
+//     'hostname' => 'localhost',
+// 	'username' => 'root',
+// 	'password' => '',
+// 	'database' => 'sjp',
+// 	'dbdriver' => 'mysqli',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );
+
 $db['default'] = array(
 	'dsn'	=> '',
-    'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'hostname' => '18.136.123.139',
+	'username' => 'scdev',
+	'password' => 'p1n4ng9A',
 	'database' => 'sjp',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
