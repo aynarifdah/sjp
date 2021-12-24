@@ -133,7 +133,7 @@ function loaddata(nik){
       return datenow;
     }, className: "dt-head-center dt-body-right bodyclick" },
     {data: "nm_rs", className : "dt-head-center dt-body-right bodyclick"},
-    {data: "feedback", className : "dt-head-center dt-body-right bodyclick"},
+    {data: "feedback_dinkes", className : "dt-head-center dt-body-right bodyclick"},
     {data: "id_status_pengajuan", "render": function ( data, type, row, meta ) {
       if (data == 1) {
         //$('.statuspengajuan').addClass('bg-info');
