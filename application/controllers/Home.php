@@ -1102,6 +1102,9 @@ class Home extends CI_Controller
             case 4:
                 $controller = "Dinsos/";
                 break;
+            case 6:
+                $controller = "Home/";
+                break;
             default:
                 $controller = "Auth/";
         }

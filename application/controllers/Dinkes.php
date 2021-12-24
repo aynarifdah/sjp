@@ -975,6 +975,8 @@ class Dinkes extends CI_Controller
             $data["nama_join"] = $this->M_SJP->getRs();
         } else if ($instansi == 3) {
             $data["nama_join"] = $this->M_SJP->getPuskesmas();
+        }else if ($instansi == 6) {
+            $data["nama_join"] = $this->M_SJP->getKelurahan();
         }
 
         // var_dump($data[0]);die;
@@ -1124,6 +1126,13 @@ class Dinkes extends CI_Controller
         $id  = $this->input->post('id');
         $pus = $this->M_SJP->getPuskesmas();
         echo json_encode($pus);
+    }
+
+    public function getLurah()
+    {
+        $id  = $this->input->post('id');
+        $kel = $this->M_SJP->getKelurahan();
+        echo json_encode($kel);
     }
 
     public function download_dokumen()

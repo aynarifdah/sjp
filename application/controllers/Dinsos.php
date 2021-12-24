@@ -264,6 +264,27 @@ class Dinsos extends CI_Controller
             //$this->load->view('input_pasien_dinsos', false);
         }
     }
+
+    public function hapussjp($id_sjp, $id_pengajuan)
+    {
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        redirect('Dinsos/pengajuan_dinsos');
+    }
+
+    public function hapus_permohonan_baru($id_sjp, $id_pengajuan)
+    {
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        redirect('Dinsos/permohonan_baru_dinsos');
+    }
+
     public function getKelurahan()
     {
 

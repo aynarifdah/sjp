@@ -147,6 +147,12 @@
       url     = "<?= base_url($controller);?>getPuskesmas";
       namaI   = "puskesmas";
       optionV = '<option value="" selected>Pilih Puskesmas</option>';
+    }else if(instansi == 6){
+      // Kelurahan
+      change  = true;
+      url     = "<?= base_url($controller);?>getLurah";
+      namaI   = "kelurahan";
+      optionV = '<option value="" selected>Pilih Kelurahan</option>';
     } else {
       change  = false;
     }

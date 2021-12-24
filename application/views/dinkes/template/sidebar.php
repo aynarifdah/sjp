@@ -1,7 +1,7 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
   <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/index'); ?>"><i class="la la-dashboard"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/index'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
       </li>
 
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuanall'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Semua Pengajuan</span></a>
@@ -26,13 +26,13 @@
       </li>
     </ul>
     </li>
-   <!--  <li class=" nav-item"><a href="#"><i class="ft-printer"></i><span class="menu-title" data-i18n="nav.page_headers.main">Laporan Rekapitulasi</span></a>
+    <li class=" nav-item"><a href="#"><i class="ft-printer"></i><span class="menu-title" data-i18n="nav.page_headers.main">Laporan Rekapitulasi</span></a>
       <ul class="menu-content">
 
         <li><a href="<?php echo base_url('Dinkes/daftar_pembiayaan'); ?>" class="menu-item">Rekapitulasi Pembiayaan</a>
         </li>
       </ul>
-    </li> -->
+    </li>
     <li class=" nav-item"><a href="<?php echo base_url('Dinkes/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
     </li>
     <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
