@@ -33,6 +33,9 @@ function auth_menu(){
 		    case 4:
 		        $controller = "Dinsos";
 		        break;
+		    case 6:
+		        $controller = "Kelurahan";
+		        break;
 		    default:
 		        $controller = "Auth";
 		}		

@@ -32,6 +32,13 @@
     <!-- Modernizr -->
     <script src="<?php echo base_url('assets-pendaftaran/js/modernizr.js');?>"></script>
 
+    <style type="text/css">
+      @media (max-width: 600px) {
+         img{
+          margin-top: -20px !important;
+          } 
+        }
+    </style>
   </head>
 
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
@@ -44,8 +51,8 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle" href="#"></a></li>
           <li class="nav-item">
-            <a class="navbar-brand" style="padding: 0px !important;">
-              <a href="<?php echo site_url('Masyarakat/index') ?>"><img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 95%; height: auto; margin-top: -20px;"></a>
+            <a class="navbar-brand">
+              <a href="<?php echo site_url('Masyarakat/index') ?>"><img src="<?php echo base_url("assets/images/logo sjp.png");?>" style="width: 90%;"></a>
             </a>
           </li>
 
