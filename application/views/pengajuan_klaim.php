@@ -128,6 +128,7 @@
                 <th>
                   <div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div>
                 </th>
+                <th>No</th>
                 <th style="color: #6B6F82 !important;">Nama</th>
                 <th>Nomor SJP</th>
                 <th>Rumah Sakit</th>
@@ -285,6 +286,13 @@
           return '<div class="skin skin-polaris"><input type="checkbox" id="input-21" class="check" value="' + data + '"></div>';
         },
         className: "dt-head-center dt-body-right"
+      },
+      {
+          data: "no",
+          className: " dt-head-center dt-body-center bodyclick",
+          render: function(data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+          }
       },
       {
         data: "nama_pasien",
