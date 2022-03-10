@@ -108,6 +108,7 @@
               <thead>
                 <tr>
                   <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                  <th style="color: #6B6F82;">No</th>
                   <th style="color: #6B6F82!important;">Pemohon</th>
                   <th style="color: #6B6F82!important;">Pasien</th>
                   <th>Tanggal<br> Pengajuan</th>
@@ -224,6 +225,12 @@
         "type": "date-eu"
       }],
       columns: [{
+            data: "no",
+            className: " dt-head-center dt-body-center bodyclick",
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },{
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
