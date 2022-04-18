@@ -1682,4 +1682,31 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->row_array();
     return $query;
   }
+
+  public function parameter_waktu_pengajuan()
+  {
+    $this->db->select('*');
+    $this->db->from('jam_pengajuan');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+  public function detail_waktu_pengajuan($id)
+  {
+    $this->db->select('*');
+    $this->db->from('jam_pengajuan');
+    $this->db->where('id', $id);
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+        foreach ($query->result_array() as $row) {
+            $data[]=$row;
+        }
+        $query->free_result();
+    } else {
+        $data=null;
+    }
+    return $data;
+  }
+
 }

@@ -22,6 +22,8 @@
               5. SKTM (Surat Keterangan Tidak Mampu)</p>
             <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
               6. Surat Keterangan Lahir (JAMPERSAL)</p>
+              <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
+              7. Bukti pengurusan KIS dari Dinas Sosial (bagi peserta jkn tunggak bayar)</p>
           </a>
     </div>
 

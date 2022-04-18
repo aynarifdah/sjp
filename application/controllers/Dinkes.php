@@ -1494,4 +1494,52 @@ class Dinkes extends CI_Controller
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function Waktu_pengajuan()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Pengajuan", $path),
+            "content" => $this->load->view('Dinkes/waktu_pengajuan', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_pengajuan()
+    {
+        $data       = $this->M_SJP->parameter_waktu_pengajuan();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_pengajuan($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu", $path),
+            "content" => $this->load->view('edit_waktu_pengajuan', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_buka' =>  $this->input->post('waktu_buka'),
+            'waktu_tutup' =>  $this->input->post('waktu_tutup')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_pengajuan', $data);
+        redirect('Dinkes/Waktu_pengajuan', 'refresh');
+    }
 }

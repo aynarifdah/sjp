@@ -107,6 +107,12 @@ class M_data extends CI_Model {
 // MAHDI - (Maaf, biar gampang kebaca)
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+	public function getJamPengajuan(){
+	  	$this->db->select('*');
+	  	$this->db->from('jam_pengajuan');
+	  	return $this->db->get()->result_array();
+	}
 }
 
 /* End of file M_data.php */
