@@ -38,7 +38,7 @@
     <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/UserManagement'); ?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>
       </li>
-      <li class=" nav-item"><a href="#"><i class="ft-parameter"></i><span class="menu-title" data-i18n="nav.page_headers.main">Parameter</span></a>
+      <li class=" nav-item"><a href="#"><i class="ft-settings"></i><span class="menu-title" data-i18n="nav.page_headers.main">Parameter</span></a>
       <ul class="menu-content">
 
         <li><a href="<?php echo base_url('Dinkes/Waktu_pengajuan'); ?>" class="menu-item">Waktu Pengajuan</a>

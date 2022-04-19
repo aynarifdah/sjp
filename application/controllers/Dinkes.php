@@ -1542,4 +1542,48 @@ class Dinkes extends CI_Controller
         $this->db->update('jam_pengajuan', $data);
         redirect('Dinkes/Waktu_pengajuan', 'refresh');
     }
+
+    public function hapussjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuanall');
+    }
+
+    public function hapus_pengajuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuan_sjp');
+    }
+
+    public function hapus_persetujuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Persetujuan SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/persetujuan_sjp_kayankesru');
+    }
+
+    public function hapus_disetujui_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Disetujui SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/disetujui_sjp');
+    }
 }
