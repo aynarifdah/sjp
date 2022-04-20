@@ -113,6 +113,12 @@ class M_data extends CI_Model {
 	  	$this->db->from('jam_pengajuan');
 	  	return $this->db->get()->result_array();
 	}
+
+	public function getJamSurvey(){
+	  	$this->db->select('*');
+	  	$this->db->from('jam_survey');
+	  	return $this->db->get()->result_array();
+	}
 }
 
 /* End of file M_data.php */

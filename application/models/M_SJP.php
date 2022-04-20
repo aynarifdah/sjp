@@ -1709,4 +1709,30 @@ class M_SJP extends CI_Model
     return $data;
   }
 
+  public function parameter_waktu_survey()
+  {
+    $this->db->select('*');
+    $this->db->from('jam_survey');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+  public function detail_waktu_survey($id)
+  {
+    $this->db->select('*');
+    $this->db->from('jam_survey');
+    $this->db->where('id', $id);
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+        foreach ($query->result_array() as $row) {
+            $data[]=$row;
+        }
+        $query->free_result();
+    } else {
+        $data=null;
+    }
+    return $data;
+  }
+
 }
