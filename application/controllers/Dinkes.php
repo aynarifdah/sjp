@@ -1499,7 +1499,7 @@ class Dinkes extends CI_Controller
         $path = "";
         $data = array(
             "page"    => $this->load("Waktu Pengajuan", $path),
-            "content" => $this->load->view('Dinkes/waktu_pengajuan', false, true)
+            "content" => $this->load->view('Dinkes/waktu_pengaju', false, true)
         );
 
         $this->load->view('template/default_template', $data);
