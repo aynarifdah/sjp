@@ -23,13 +23,13 @@
                 <!-- <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4> -->
                 <fieldset class="mt-2">
                   <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="waktu_buka">Waktu Buka</label>
+                    <label class="col-lg-3 label-control" for="waktu_buka">Waktu Survey</label>
                     <div class="col-lg-3">
                       <input type="time" class="form-control" placeholder="Waktu Buka" name="waktu_survey" id="waktu_buka" required value="<?= $key['waktu_survey'] ?>">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="waktu_tutup">Waktu Tutup</label>
+                    <label class="col-lg-3 label-control" for="waktu_tutup">Selesai Survey</label>
                     <div class="col-lg-3">
                       <input type="time" class="form-control" placeholder="Waktu Tutup" name="selesai_survey" id="waktu_tutup" required value="<?= $key['selesai_survey'] ?>">
                     </div>
