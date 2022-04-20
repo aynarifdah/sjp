@@ -1592,7 +1592,7 @@ class Dinkes extends CI_Controller
         $path = "";
         $data = array(
             "page"    => $this->load("Waktu Survey", $path),
-            "content" => $this->load->view('dinkes/Waktu_survey', false, true)
+            "content" => $this->load->view('dinkes/waktu_survey', false, true)
         );
 
         $this->load->view('template/default_template', $data);
