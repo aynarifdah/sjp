@@ -1586,4 +1586,53 @@ class Dinkes extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Disetujui SJP BERHASIL dihapus!</div>');
         redirect('Dinkes/disetujui_sjp');
     }
+
+    public function Waktu_survey()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Survey", $path),
+            "content" => $this->load->view('dinkes/Waktu_survey', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_survey()
+    {
+        $data       = $this->M_SJP->parameter_waktu_survey();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu_survey($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_survey($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu Survey", $path),
+            "content" => $this->load->view('edit_waktu_survey', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu_survey()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_survey' =>  $this->input->post('waktu_survey'),
+            'selesai_survey' =>  $this->input->post('selesai_survey')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_survey', $data);
+        redirect('Dinkes/Waktu_survey', 'refresh');
+    }
 }

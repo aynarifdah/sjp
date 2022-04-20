@@ -43,6 +43,9 @@
 
         <li><a href="<?php echo base_url('Dinkes/Waktu_pengajuan'); ?>" class="menu-item">Waktu Pengajuan</a>
         </li>
+
+        <li><a href="<?php echo base_url('Dinkes/Waktu_survey'); ?>" class="menu-item">Waktu Survey</a>
+        </li>
       </ul>
     </li>
     <?php endif ?>
