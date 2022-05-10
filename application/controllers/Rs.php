@@ -1459,7 +1459,7 @@ public function proses_entry_klaim()
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . date_format(date_create($sjp[0]->selesai_rawat), "d-m-Y") . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . 'Selesai perawatan' . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>

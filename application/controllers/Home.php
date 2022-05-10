@@ -232,6 +232,7 @@ class Home extends CI_Controller
         $whatsapp1       = $this->input->post('whatsapp_pemohon');
         $email1          = $this->input->post('email_pemohon');
         $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
@@ -247,6 +248,7 @@ class Home extends CI_Controller
             'email'         => $email1,
             'status_hubungan'       => $statushubungan,
             'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
             //'feedback_dokumen'   => $feedback
         );
         // var_dump($datapermohonan['status_hubungan']);
