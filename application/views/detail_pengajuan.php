@@ -165,16 +165,21 @@
                            </td>
                          <?php } ?>
                        </tr>
+                       <?php if ($this->session->userdata('instansi') == 1) : ?>
                        <tr>
-                         <?php if ($this->session->userdata('instansi') == 1) : ?>
-                           <th scope="row">Feedback</th>
-                           <td>
-                             <input type="text" class="form-control tambahfeedback">
-                             <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
-
-                           </td>
-                         <?php endif ?>
+                         <th scope="row">Feedback untuk Puskesmas</th>
+                         <td>
+                           <input type="text" class="form-control tambahfeedback">
+                           <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                         </td>
                        </tr>
+                       <tr>
+                         <th scope="row">Feedback untuk Rumah Sakit</th>
+                           <td>
+                             <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
+                           </td>
+                       </tr>
+                       <?php endif ?>
 
                      </tbody>
                    </table>
@@ -199,6 +204,26 @@
                  <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 3 || 2) : ?>
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
+                   <?php endif ?>
+                   <?php if ($this->session->userdata('instansi') == 6) : ?>
+                    <?php 
+
+                    $status_berkas = [];
+                    foreach ($getdokumenpersyaratan as $psy) {
+
+        
+                      array_push($status_berkas, $psy['attachment']);
+
+                    }
+
+                     ?>
+
+                        <?php if (in_array(null, $status_berkas)) {?>
+                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
+                        <?php }else{ ?>
+                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-primary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
+                        <?php } ?>
+
                    <?php endif ?>
                  </div>
 
@@ -316,7 +341,8 @@
 
 
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                 <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a> -->
+                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
                <?php } ?>
                </div>
              </div>
@@ -757,8 +783,12 @@
                    <table class="table mb-0 ">
                      <tbody>
                        <tr>
-                         <th scope="row" class="border-top-0">Feedback Dinkes :</th>
+                         <th scope="row" class="border-top-0">Feedback Dinkes untuk Puskesmas:</th>
                          <td class="border-top-0"><?= $key['feedback_dinkes'] ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Feedback Dinkes untuk Rumah Sakit:</th>
+                         <td class="border-top-0"><?= $key['feedback_dinkes_untuk_rumahsakit'] ?></td>
                        </tr>
 
                      </tbody>
@@ -835,6 +865,36 @@
        </div>
      </div>
    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modalcetaksjp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle"><strong>Form Passphrase</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('Dinkes/FormPassphrase')?>" method="POST">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>">
+              <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan']?>">
+              <label>Passphrase :</label>
+              <input type="text" class="form-control" name="passphrase" autocomplete="off">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous"></script>
@@ -916,13 +976,15 @@
        //  $('.inputfeedback').hide();
        var value = $('.tambahfeedback').val();
        var id_sjp = $('.id_sjpvalfeedback').val();
+       var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
        //console.log(value);
        $.ajax({
          url: '<?= base_url(); ?>Dinkes/input_feedback',
          method: "POST",
          data: {
            feedback: value,
-           id_sjp: id_sjp
+           id_sjp: id_sjp,
+           feedback_rs: value_rs,
          },
          async: false,
          success: function(data) {
