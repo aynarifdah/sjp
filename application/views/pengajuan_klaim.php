@@ -132,6 +132,7 @@
                 <th style="color: #6B6F82 !important;">Nama</th>
                 <th>Nomor SJP</th>
                 <th>Rumah Sakit</th>
+                <th>Jenis Rawat</th>
                 <th>Tanggal <br>Tagihan</th>
                 <th>Nominal <br>Pengajuan</th>
                 <th>Status</th>
@@ -304,6 +305,10 @@
       },
       {
         data: "nm_rs",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "jenis_rawat",
         className: "dt-head-center dt-body-right bodyclick"
       },
       {

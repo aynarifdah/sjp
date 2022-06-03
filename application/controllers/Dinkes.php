@@ -434,10 +434,12 @@ class Dinkes extends CI_Controller
     public function input_feedback()
     {
         $feedback_dinkes = $this->input->post('feedback');
+        $feedback_rs = $this->input->post('feedback_rs');
         $id_sjp = $this->input->post('id_sjp');
         $datafeedback = array(
             'feedback_dinkes' => $feedback_dinkes,
-        );
+            'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
+        );  
 
         $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
         // var_dump($updatefeedback);
@@ -1166,6 +1168,20 @@ class Dinkes extends CI_Controller
     {
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
+    }
+
+    public function FormPassphrase()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $id_pengajuan = $this->input->post('id_pengajuan');
+        $passphrase = $this->input->post('passphrase');
+
+        if ($passphrase == '!Bsre1221*') {
+            $this->CetakTest($id_sjp);
+        }else{
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $id_pengajuan);
+        }
     }
 
     public function CetakTest($id_sjp)
