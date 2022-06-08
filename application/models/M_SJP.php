@@ -1278,7 +1278,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function getdatapengajuanklaim($id_status_klaim = null, $mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null)
+  public function getdatapengajuanklaim($id_status_klaim = null, $mulai = Null, $akhir = Null, $rs = Null, $status = Null, $jenis_rawat = null, $cari = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*');
     $this->db->from('sjp');
@@ -1298,6 +1298,9 @@ class M_SJP extends CI_Model
     }
     if (!empty($status)) {
       $this->db->where('sk.id_statusklaim =', $status);
+    }
+    if (!empty($jenis_rawat)) {
+      $this->db->where('sjp.jenis_rawat =', $jenis_rawat);
     }
     if (!empty($cari)) {
       $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
@@ -1736,6 +1739,27 @@ class M_SJP extends CI_Model
         $data=null;
     }
     return $data;
+  }
+
+  public function getnominal_pembiayaan($id_sjp)
+  {
+    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*, , pp.tanggal_pengajuan');
+    $this->db->from('sjp');
+    $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
+    $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+
+     // $this->db->where('pp.id_status_pengajuan =', 4);
+    if (!empty($id_sjp)) {
+      $this->db->where_in('id_sjp', $id_sjp);
+    }
+
+    $this->db->where('status_klaim !=', null);
+    // $this->db->where('status_edit', 1);
+    $this->db->order_by('sjp.tanggal_tagihan', 'desc');
+
+    $query = $this->db->get()->result_array();
+    return $query;
   }
 
 }

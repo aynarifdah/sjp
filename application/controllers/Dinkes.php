@@ -737,8 +737,9 @@ class Dinkes extends CI_Controller
             $akhir           = $this->input->post("akhir");
             $rs              = $this->input->post("rs");
             $status          = $this->input->post("status");
+            $jenis_rawat     = $this->input->post("jenis_rawat");
             $cari            = $this->input->post("cari");
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $cari);
+            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
         } else {
             $id_status_klaim = $this->input->post('status_klaim');
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
@@ -1650,5 +1651,43 @@ class Dinkes extends CI_Controller
         $this->db->where('id', $id);
         $this->db->update('jam_survey', $data);
         redirect('Dinkes/Waktu_survey', 'refresh');
+    }
+
+    public function nominal_pembiayaan()
+    {
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
+
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->getnominal_pembiayaan($value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Dinkes/pengajuan_klaim');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('nominal_pembiayaan', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
     }
 }
