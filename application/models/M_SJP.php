@@ -1743,11 +1743,12 @@ class M_SJP extends CI_Model
 
   public function getnominal_pembiayaan($id_sjp)
   {
-    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*, , pp.tanggal_pengajuan');
+    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*, , pp.tanggal_pengajuan, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('sjp');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
     $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
     $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+    $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left'); 
 
      // $this->db->where('pp.id_status_pengajuan =', 4);
     if (!empty($id_sjp)) {

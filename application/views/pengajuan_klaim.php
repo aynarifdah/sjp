@@ -30,6 +30,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-lg-12">
+          <?= $this->session->flashdata('message'); ?>
           <h4 class="card-title">Data Pengajuan Klaim</h4>
         </div>
       </div>

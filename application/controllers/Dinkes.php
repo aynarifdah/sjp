@@ -1690,4 +1690,30 @@ class Dinkes extends CI_Controller
             $this->load->view('template/default_template', $data);
         }
     }
+
+    public function proses_input_pembiayaan()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $nominalklaim   = $this->input->post('nominal');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        if ($nominalklaim == null) {
+            redirect('Dinkes/pengajuan_klaim','refresh');
+        }else{
+            foreach ($id_sjp as $key) { 
+                array_push($dataklaim, array(
+                    'id_sjp'      => $key,
+                    'nominal_pembiayaan'   => $nominalklaim[$index],
+                    'status_klaim'    => 3,
+                    'tanggal_persetujuan_klaim' => date("Y-m-d")
+                ));
+                $index++;
+            }
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Input Nominal Pembiayaan berhasil!</div>');
+
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+        redirect('Dinkes/pengajuan_klaim','refresh');
+    }
 }

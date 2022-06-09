@@ -21,11 +21,29 @@
     <div class="card-body">
       <?php if (!empty($dataklaim)) {
         foreach ($dataklaim as $key) { ?>
-          <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
+          <form action="<?php echo base_url('Dinkes/proses_input_pembiayaan'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
             <div class="form-group row mt-2">
               <label class="col-lg-3 label-control" for="">Nominal Pembiayaan</label>
-              <div class="col-lg-3">
-                <input type="number" class="form-control tambahnominal" required>
+              <div class="col-lg-6">
+                <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
+                   <td>
+                     <input type="number" class="form-control tambahnominal" name="nominal[]" required>
+                     <input type="hidden" class="id_sjpval" name="id_sjp[]" value="<?= $key['id_sjp']; ?>">
+
+                   </td>
+                 <?php  } else { ?>
+                   <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
+                     <?php if ($key['status_klaim'] == 1) {
+                        echo '<div class="badge bg-blue-grey" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } elseif ($key['status_klaim'] == 2) {
+                        echo '<div class="badge bg-info" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } elseif ($key['status_klaim'] == 3) {
+                        echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['nama_statusklaim'] . '<i class="ft-alert-triangle"></i></div>';
+                      } else {
+                        echo '<div class="badge bg-success" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } ?>
+                   </td>
+                 <?php } ?>
               </div>
             </div>
           <?php } ?>
@@ -51,7 +69,7 @@
                   <tr>
                     <td>
                       <!-- <a href="<?php echo base_url('Rs/detail_pengajuan/' . $key['id_sjp']); ?>"> -->
-                      <?php echo $key['nama_pasien']; ?></a> <input type="hidden" name="id_sjp[]" value="<?php echo $key['id_sjp'] ?>">
+                      <?php echo $key['nama_pasien']; ?></a>
                     </td>
                     <td><?php echo $key['tanggal_pengajuan']; ?></td>
                     <td><?php if (!empty($penyakit)) {
