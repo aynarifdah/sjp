@@ -53,3 +53,5 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/pages/gallery.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/bootstrap-select.css">
+
+  <meta name="google-site-verification" content="mxkbhJfBHvmOPdA4_MWZzpSy3hLaNnBJgdd-ZodLrUM" />

@@ -1,0 +1,15 @@
+# Group 1
+User-agent: Googlebot
+Disallow: /api/
+Disallow: /Callback/
+Disallow: /Cetak/
+Disallow: /Check/
+Disallow: /Dinkes/
+Disallow: /Dinsos/
+Disallow: /Exportexcel/
+Disallow: /Kelurahan/
+Disallow: /Masyarakat/
+Disallow: /Rs/
+Disallow: /Welcome/
+Allow: /Home/
+Allow: /Auth/
