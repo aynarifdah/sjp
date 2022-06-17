@@ -29,6 +29,7 @@
   <div class="card">
     <div class="card-head">
       <div class="card-header">
+        <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
             <h4 class="card-title">Data Pengajuan SJP Baru</h4>
@@ -108,6 +109,7 @@
                 <thead>
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                    <th style="width: 10px !important; color: #6B6F82!important;">No</th>
                     <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
@@ -117,6 +119,7 @@
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+                    <th style="width: 10px !important; color: #6B6F82!important;">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -229,6 +232,12 @@
         "type": "date-eu"
       }],
       columns: [{
+            data: "no",
+            className: " dt-head-center dt-body-center bodyclick",
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },{
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
@@ -312,6 +321,16 @@
 
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+        },
+        {
+          data: "id_sjp",
+          "render": function(data, type, row, meta) {
+            var pengajuan = row.id_pengajuan;
+            var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_pengajuan_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+            
+            return hapus;
+          },
+          className: "dt-head-center dt-body-right"
         }
       ],
       ajax: {

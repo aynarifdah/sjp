@@ -1616,4 +1616,108 @@ class Kelurahan extends CI_Controller
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
     }
+
+    public function edit_berkas_persyaratan($idsjp, $id_pengajuan)
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
+        // var_dump($data['topik']);
+        // var_dump($data['diagnosa']);
+        // die;
+
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("edit berkas persyaratan", $path),
+            "content" => $this->load->view('kelurahan/edit_berkas_persyaratan', $data, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function aksi_edit_berkas_persyaratan()
+    {
+        $id_sjp = $this->input->post("id_sjp");
+        $id_pp = $this->input->post("id_pp");
+        // ==========================PERSYARATAN=========================
+        $dokumen = $this->input->post('dokumen');
+        $id_persyaratan = $this->input->post('id_persyaratan');
+
+        $data_pasien = [
+            'feedback'          => $this->input->post("feedback")
+        ];
+
+        $this->M_SJP->editSJP($id_sjp, $data_pasien);
+
+
+        $countfiles = count(array($id_persyaratan));
+        $data = [];
+        for ($i = 0; $i < $countfiles; $i++) {
+
+            if (!empty($_FILES['dokumen']['name'][$i])) {
+                // Define new $_FILES array - $_FILES['file']
+                $_FILES['file']['name'] = $_FILES['dokumen']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['dokumen']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['dokumen']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['dokumen']['size'][$i];
+
+                $name_file = $_FILES['file']['name'];
+                $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+                $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $nama_pasien));
+                $new_name_image = time() . '_' . $nikPasien . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+
+
+                // Set preference
+                $config['upload_path'] = 'uploads/dokumen/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                $config['max_size'] = '5000'; // max_size in kb
+                // $config['file_name'] = $_FILES['dokumen']['name'][$i];
+                $config['file_name'] = $new_name_image;
+
+
+                //Load upload library
+                $this->load->library('upload', $config);
+
+                // File upload
+                if ($this->upload->do_upload('file')) {
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+
+                    $data = [
+                        'attachment' => $filename,
+                    ];
+
+                    $this->db->where('id_pengajuan', $id_pp);
+                    $this->db->where('id_persyaratan', $id_persyaratan[$i]);
+                    $this->db->update('attachment', $data);
+                }
+            }
+        }
+
+        redirect('Kelurahan/edit_berkas_persyaratan/' . $id_sjp . '/' . $id_pp);
+    }
 }

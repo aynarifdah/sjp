@@ -103,6 +103,7 @@
                 <table id="datatable" class="table table-bordered" style="width: 100%;">
                   <thead>
                     <tr>
+                      <th style="width: 10px !important; color: #6B6F82!important;">No</th>
                       <th style="width: 10px !important; color: #6B6F82!important;">Nama</th>
                       <th style="width: 30px; color: #6B6F82!important;">Username</th>
                       <!-- <th style="width: 30px;max-width: 50px; color: #6B6F82!important;">Password</th> -->
@@ -280,6 +281,12 @@
       "info": true,
       "bFilter": false,
       columns: [{
+            data: "no",
+            className: " dt-head-center dt-body-center bodyclick",
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },{
           data: "nama",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },

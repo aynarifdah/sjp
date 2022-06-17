@@ -434,10 +434,12 @@ class Dinkes extends CI_Controller
     public function input_feedback()
     {
         $feedback_dinkes = $this->input->post('feedback');
+        $feedback_rs = $this->input->post('feedback_rs');
         $id_sjp = $this->input->post('id_sjp');
         $datafeedback = array(
             'feedback_dinkes' => $feedback_dinkes,
-        );
+            'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
+        );  
 
         $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
         // var_dump($updatefeedback);
@@ -735,8 +737,9 @@ class Dinkes extends CI_Controller
             $akhir           = $this->input->post("akhir");
             $rs              = $this->input->post("rs");
             $status          = $this->input->post("status");
+            $jenis_rawat     = $this->input->post("jenis_rawat");
             $cari            = $this->input->post("cari");
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $cari);
+            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
         } else {
             $id_status_klaim = $this->input->post('status_klaim');
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
@@ -1168,6 +1171,20 @@ class Dinkes extends CI_Controller
         force_download($file, NULL);
     }
 
+    public function FormPassphrase()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $id_pengajuan = $this->input->post('id_pengajuan');
+        $passphrase = $this->input->post('passphrase');
+
+        if ($passphrase == '!Bsre1221*') {
+            $this->CetakTest($id_sjp);
+        }else{
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $id_pengajuan);
+        }
+    }
+
     public function CetakTest($id_sjp)
     {
         // setlocale(LC_ALL, 'in_ID');
@@ -1494,4 +1511,209 @@ class Dinkes extends CI_Controller
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public function Waktu_pengajuan()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Pengajuan", $path),
+            "content" => $this->load->view('dinkes/waktu_pengaju', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_pengajuan()
+    {
+        $data       = $this->M_SJP->parameter_waktu_pengajuan();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_pengajuan($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu", $path),
+            "content" => $this->load->view('edit_waktu_pengajuan', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_buka' =>  $this->input->post('waktu_buka'),
+            'waktu_tutup' =>  $this->input->post('waktu_tutup')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_pengajuan', $data);
+        redirect('Dinkes/Waktu_pengajuan', 'refresh');
+    }
+
+    public function hapussjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuanall');
+    }
+
+    public function hapus_pengajuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuan_sjp');
+    }
+
+    public function hapus_persetujuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Persetujuan SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/persetujuan_sjp_kayankesru');
+    }
+
+    public function hapus_disetujui_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Disetujui SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/disetujui_sjp');
+    }
+
+    public function Waktu_survey()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Survey", $path),
+            "content" => $this->load->view('dinkes/waktu_survey', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_survey()
+    {
+        $data       = $this->M_SJP->parameter_waktu_survey();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu_survey($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_survey($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu Survey", $path),
+            "content" => $this->load->view('edit_waktu_survey', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu_survey()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_survey' =>  $this->input->post('waktu_survey'),
+            'selesai_survey' =>  $this->input->post('selesai_survey')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_survey', $data);
+        redirect('Dinkes/Waktu_survey', 'refresh');
+    }
+
+    public function nominal_pembiayaan()
+    {
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
+
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->getnominal_pembiayaan($value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Dinkes/pengajuan_klaim');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('nominal_pembiayaan', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
+    }
+
+    public function proses_input_pembiayaan()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $nominalklaim   = $this->input->post('nominal');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        if ($nominalklaim == null) {
+            redirect('Dinkes/pengajuan_klaim','refresh');
+        }else{
+            foreach ($id_sjp as $key) { 
+                array_push($dataklaim, array(
+                    'id_sjp'      => $key,
+                    'nominal_pembiayaan'   => $nominalklaim[$index],
+                    'status_klaim'    => 3,
+                    'tanggal_persetujuan_klaim' => date("Y-m-d")
+                ));
+                $index++;
+            }
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Input Nominal Pembiayaan berhasil!</div>');
+
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+        redirect('Dinkes/pengajuan_klaim','refresh');
+    }
 }

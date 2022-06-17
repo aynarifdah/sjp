@@ -2,7 +2,7 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 
 <head>
-  <title>Halaman pengajuan SJP</title>
+  <title>Halaman Waktu Pengajuan</title>
 </head>
 
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
@@ -29,10 +29,9 @@
   <div class="card">
     <div class="card-head">
       <div class="card-header">
-        <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Disetujui SJP Baru</h4>
+            <h4 class="card-title">Waktu Buka Tutup Pengajuan</h4>
           </div>
         </div>
         <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
@@ -45,7 +44,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                <a href="<?php echo base_url('Exportexcel/disetujui_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
+                <!-- <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a> -->
 
               </div>
             </div>
@@ -53,62 +52,15 @@
           <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
           </div>
-          <div class="row" style="padding-left: 15px; padding-right: 15px;">
-            <div class="col-lg-3 filter">
-              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
-                <option value="" selected>Semua Puskesmas</option>
-                <?php if (!empty($puskesmas)) : ?>
-                  <?php foreach ($puskesmas as $puskes) : ?>
-                    <option value="<?= $puskes['id_puskesmas'] ?>"><?= $puskes['nama_puskesmas'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
-            </div>
-            <div class="col-lg-3 filter">
-              <select name="rs" id="rs" class="select2 form-control">
-                <option value="" selected>Semua Rumah Sakit</option>
-                <?php if (!empty($rs)) : ?>
-                  <?php foreach ($rs as $rsu) : ?>
-                    <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
-            </div>
-            <div class="col-lg-3 filter">
-              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-            </div>
-            <div class="col-lg-3 filter">
-              <div class="position-relative has-icon-left">
-                <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
-                <div class="form-control-position">
-                  <i class="ft-search"></i>
-                </div>
-              </div>
-            </div>
-            <!--  <div class="col-lg-3 filter">
-              <div class="position-relative has-icon-left">
-                <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-              </div>
-            </div> -->
-          </div>
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">
               <table id="datatable" class="table table-bordered" style="width: 100%;">
                 <thead>
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                    <!-- <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th> -->
-                    <th style="width: 30px; color: #6B6F82!important;">No</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
-                    <th style="width: 30px;">Tanggal<br> Pengajuan</th>
-                    <!-- <th>Lama Pengajuan</th> -->
-                    <th>Jenis Jaminan</th>
-                    <th style="width: 30px;">Rumah <br>Sakit</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Jam</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
-
-                    <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Aksi</th>
+                    <th style="width: 10px !important; color: #6B6F82!important;">No</th>
+                    <th style="width: 10px !important; color: #6B6F82!important;">Waktu Buka</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Waktu Tutup</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -226,120 +178,26 @@
             render: function(data, type, row, meta) {
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
-        },
-        {
-          data: "nama_pasien",
+        },{
+          data: "waktu_buka",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "tanggal_pengajuan",
-          "render": function(data, type, row, meta) {
-            var date = new Date(data);
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var dt = date.getDate();
-
-            if (dt < 10) {
-              dt = '0' + dt;
-            }
-            if (month < 10) {
-              month = '0' + month;
-            }
-
-            var datenow = dt + '-' + month + '-' + year;
-            return datenow;
-          },
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "nama_jenis",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "nm_rs",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "tanggal_pengajuan",
-          "render": function(data, type, row, meta) {
-            var today = new Date().toISOString().slice(0,10);
-            const diffInMs   = new Date(row.tanggal_selesai) - new Date(data)
-            const diffInDays = diffInMs / (1000 * 60 * 60);
-            return Math.round(diffInDays)+' Jam ';
-          },
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "kd_kecamatan",
-          className: "dt-head-center dt-body-right bodyclick",
-          "render": function(data, type, row, meta) {
-            if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' || 
-              data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
-              domisili = '<p>Depok</p>'
-            }else{
-              domisili = '<p>Non Depok</p>'
-            }
-            return domisili;
-          }
-        },
-        {
-          data: "id_status_pengajuan",
-          "render": function(data, type, row, meta) {
-            if (data == 1) {
-              //$('.statuspengajuan').addClass('bg-info');
-              return '<div class="badge bg-blue-grey " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-              //return row.status_pengajuan;
-            } else if (data == 2) {
-              // $('.statuspengajuan').addClass('bg-warning');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-info " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 3) {
-              // $('.statuspengajuan').addClass('bg-danger');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 4) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 5) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 6) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-success " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 7) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            }
-
-          },
-          className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
-        },
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            var pengajuan = row.id_pengajuan;
-            var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_disetujui_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            
-            return hapus;
-          },
-          className: "dt-head-center dt-body-right"
+          data: "waktu_tutup",
+          className: "text-info dt-head-center dt-body-right bodyclick"
         }
       ],
       ajax: {
-        url: ' <?php echo base_url("Dinkes/getdisetujuisjpdinas"); ?>',
+        url: ' <?php echo base_url("Dinkes/parameter_waktu_pengajuan"); ?>',
         method: 'POST',
-        "data": function(d) {
-          d.puskesmas = $("#puskesmas").val();
-          d.mulai = $("#mulai").val();
-          d.rs = $("#rs").val();
-          d.status = 6;
-          d.cari = $("#cari").val();
-          // console.log(d);
-        }
+        // "data": function(d) {
+        //   d.puskesmas = $("#puskesmas").val();
+        //   d.mulai = $("#mulai").val();
+        //   d.rs = $("#rs").val();
+        //   d.status = 4;
+        //   d.cari = $("#cari").val();
+        //   // console.log(d);
+        // }
       },
       lengthMenu: [
         [5, 10, 25, 50, 100, 1000],
@@ -371,9 +229,8 @@
 
     $('#datatable').on('click', 'tr', function() {
       var data = dtable.row(this).data();
-      var id_sjp = data.id_sjp;
-      var id_pengajuan = data.id_pengajuan;
-      window.location.href = "<?php echo base_url('Dinkes/detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
+      var id = data.id;
+      window.location.href = "<?php echo base_url('Dinkes/edit_parameter_waktu/'); ?>" + id;
     })
     $(document).ready(function() {
       $('#advancedfilterform').hide();

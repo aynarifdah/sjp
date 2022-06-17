@@ -33,6 +33,13 @@
                       <option value="Laki-Laki">Laki - Laki</option>
                     </select>
                   </div>
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="pemohon_pengajuan" id="pemohon_pengajuan" class="form-control" required>
+                      <option value="">Pilih Pemohon</option>
+                      <option value="Relawan">Relawan</option>
+                      <option value="Kader">Kader</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
@@ -229,11 +236,11 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
                       <option value="">Pilih Jenis Rawat</option>
-                      <option value="Rawat Inap">Rawat Inap</option>
+                      <option value="Rawat Inap" id='rawat_inap'>Rawat Inap</option>
                       <option value="Rawat Jalan">Rawat Jalan</option>
                     </select>
                   </div>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                  <div class="kelas_rawat col-lg-3" style="padding: 0px 15px 5px 15px;" id="pilih_kelas_rawat">
                     <select name="kelas_rawat" id="kelas_rawat" class="form-control" style="width: 100%">
                       <option value="">Pilih Kelas Rawat</option>
                       <?php if (!empty($kelas_rawat)) {
@@ -635,4 +642,27 @@
   });
 
   // TEST 04-02-2021
+
+
+  /////////////////////////////////////Pengembangan SJP Rifqy/////////////////////////////////////
+
+  $(document).ready(function() {
+
+    $("select#jenisrawat").on('change', function() {
+        $("#pilih_kelas_rawat").hide();
+
+        if($('#rawat_inap').is(':selected')) {
+          $("#pilih_kelas_rawat").fadeIn();
+        }
+         
+        if($(this).val() == "Rawat Inap"){
+        $("#kelas_rawat").attr('required', '');
+
+        }else{
+        $("#kelas_rawat").removeAttr('required');            
+
+        }
+    }).change();
+});
+
 </script>

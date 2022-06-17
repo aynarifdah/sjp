@@ -160,32 +160,36 @@ class Home extends CI_Controller
 
     public function permohonan_sjp()
     {
-        $jam = date('H');
-        $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 16 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Home/pengajuan');
-        } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        $jam = date('H:i:s');
+        $hari = date('H:i:s');
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+        $jam_pengajuan = $this->M_data->getJamPengajuan();
+        foreach ($jam_pengajuan as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_buka"])) . ' - ' . date('H:i', strtotime($key["waktu_tutup"])) . ' WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect('Home/pengajuan');
+            } else {
+                $data = array(
+                    'topik'      => $this->M_SJP->diagnosa(),
+                    'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                    'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                    'rumahsakit' => $this->M_SJP->rumahsakit(),
+                    'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                    'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                );
 
-            $this->load->view('template/default_template', $data);
+                $path = "";
+                $data = array(
+                    "page" => $this->load("Input Pasien", $path),
+                    "content" => $this->load->view('input_pasien', $data, true)
+                );
+
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
     public function getKelurahan()
@@ -228,6 +232,7 @@ class Home extends CI_Controller
         $whatsapp1       = $this->input->post('whatsapp_pemohon');
         $email1          = $this->input->post('email_pemohon');
         $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
@@ -243,6 +248,7 @@ class Home extends CI_Controller
             'email'         => $email1,
             'status_hubungan'       => $statushubungan,
             'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
             //'feedback_dokumen'   => $feedback
         );
         // var_dump($datapermohonan['status_hubungan']);
@@ -686,27 +692,31 @@ class Home extends CI_Controller
     }
     public function siap_survey($id_sjp, $id_pengajuan)
     {
-        $jam = date('H');
-        $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 16 || $jam < 8) {
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect($_SERVER['HTTP_REFERER'], 'refresh');
-        } else {
-            $path = "";
-            $data['page']         = $this->load("Siap Survey", $path);
-            $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-            $data['survey']       = $this->M_SJP->variabel_survey();
-            $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-            $data['id_sjp']       = $id_sjp;
-            $data['id_pengajuan'] = $id_pengajuan;
-            $data['content']      = $this->load->view('siap_survey', $data, true, false);
-            // var_dump($data['opsi']);die;
+        $jam = date('H:i:s');
+        $hari = date('H:i:s');
 
-            $this->load->view('template/default_template', $data);
+        $jam_survey = $this->M_data->getJamSurvey();
+        foreach ($jam_survey as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["selesai_survey"] || $jam < $key["waktu_survey"]) {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_survey"])) . ' - ' . date('H:i', strtotime($key["selesai_survey"])) . ' WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect($_SERVER['HTTP_REFERER'], 'refresh');
+            } else {
+                $path = "";
+                $data['page']         = $this->load("Siap Survey", $path);
+                $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
+                $data['survey']       = $this->M_SJP->variabel_survey();
+                $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
+                $data['id_sjp']       = $id_sjp;
+                $data['id_pengajuan'] = $id_pengajuan;
+                $data['content']      = $this->load->view('siap_survey', $data, true, false);
+                // var_dump($data['opsi']);die;
+
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
 
