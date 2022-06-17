@@ -119,12 +119,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-
-	'hostname' => '18.136.123.139',
-	'username' => 'scdev',
-	'password' => 'p1n4ng9A',
-	'database' => 'sjp',
-
+    'hostname' => 'localhost',
+	'username' => 'sjp',
+	'password' => '',
+	'database' => 'x]&xf_a(',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
