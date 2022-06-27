@@ -1221,7 +1221,7 @@ class Dinkes extends CI_Controller
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
         file_put_contents($location, $output);
 
-		
+        
 
 
         $username = 'esign';
@@ -1233,28 +1233,28 @@ class Dinkes extends CI_Controller
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-        	'file' => curl_file_create($file,'application/pdf'),
-        	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
-        	'nik' => '0803202100007062',
-        	'passphrase' => '!Bsre1221*',
-        	'page' => '1',
-        	'tampilan' => 'visible',
-        	'image' => 'true',
-        	'linkQR' => 'https://google.com',
-        	'xAxis' => '800',
-        	'yAxis' => '100',
-        	'width' => '300',
-        	'height' => '250'
-        	);
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => '!Bsre1221*',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '800',
+            'yAxis' => '100',
+            'width' => '300',
+            'height' => '250'
+            );
         $ch = curl_init();
         $options = array(
-        	CURLOPT_URL => $url,
-        	CURLOPT_USERPWD => $username . ":" . $password,
-        	// CURLOPT_HEADER => true,
-        	CURLOPT_POST => 1,
-        	CURLOPT_HTTPHEADER => $headers,
-        	CURLOPT_POSTFIELDS => $postfields,
-        	CURLOPT_RETURNTRANSFER => true
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
         ); 
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
@@ -1262,13 +1262,13 @@ class Dinkes extends CI_Controller
 
         curl_close($ch);
          if($error != ""){
-        	var_dump($error);
-        	die();
+            var_dump($error);
+            die();
         }
         unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
         header("Content-Type: application/pdf");
-		echo $resp;
+        echo $resp;
         
     }
 
