@@ -737,8 +737,9 @@ class Dinkes extends CI_Controller
             $akhir           = $this->input->post("akhir");
             $rs              = $this->input->post("rs");
             $status          = $this->input->post("status");
+            $jenis_rawat     = $this->input->post("jenis_rawat");
             $cari            = $this->input->post("cari");
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $cari);
+            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
         } else {
             $id_status_klaim = $this->input->post('status_klaim');
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
@@ -1220,7 +1221,7 @@ class Dinkes extends CI_Controller
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
         file_put_contents($location, $output);
 
-		
+        
 
 
         $username = 'esign';
@@ -1232,28 +1233,28 @@ class Dinkes extends CI_Controller
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-        	'file' => curl_file_create($file,'application/pdf'),
-        	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
-        	'nik' => '0803202100007062',
-        	'passphrase' => '!Bsre1221*',
-        	'page' => '1',
-        	'tampilan' => 'visible',
-        	'image' => 'true',
-        	'linkQR' => 'https://google.com',
-        	'xAxis' => '800',
-        	'yAxis' => '100',
-        	'width' => '300',
-        	'height' => '250'
-        	);
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => '!Bsre1221*',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '800',
+            'yAxis' => '100',
+            'width' => '300',
+            'height' => '250'
+            );
         $ch = curl_init();
         $options = array(
-        	CURLOPT_URL => $url,
-        	CURLOPT_USERPWD => $username . ":" . $password,
-        	// CURLOPT_HEADER => true,
-        	CURLOPT_POST => 1,
-        	CURLOPT_HTTPHEADER => $headers,
-        	CURLOPT_POSTFIELDS => $postfields,
-        	CURLOPT_RETURNTRANSFER => true
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
         ); 
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
@@ -1261,13 +1262,13 @@ class Dinkes extends CI_Controller
 
         curl_close($ch);
          if($error != ""){
-        	var_dump($error);
-        	die();
+            var_dump($error);
+            die();
         }
         unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
         header("Content-Type: application/pdf");
-		echo $resp;
+        echo $resp;
         
     }
 
@@ -1650,5 +1651,69 @@ class Dinkes extends CI_Controller
         $this->db->where('id', $id);
         $this->db->update('jam_survey', $data);
         redirect('Dinkes/Waktu_survey', 'refresh');
+    }
+
+    public function nominal_pembiayaan()
+    {
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
+
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->getnominal_pembiayaan($value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Dinkes/pengajuan_klaim');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('nominal_pembiayaan', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
+    }
+
+    public function proses_input_pembiayaan()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $nominalklaim   = $this->input->post('nominal');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        if ($nominalklaim == null) {
+            redirect('Dinkes/pengajuan_klaim','refresh');
+        }else{
+            foreach ($id_sjp as $key) { 
+                array_push($dataklaim, array(
+                    'id_sjp'      => $key,
+                    'nominal_pembiayaan'   => $nominalklaim[$index],
+                    'status_klaim'    => 3,
+                    'tanggal_persetujuan_klaim' => date("Y-m-d")
+                ));
+                $index++;
+            }
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Input Nominal Pembiayaan berhasil!</div>');
+
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+        redirect('Dinkes/pengajuan_klaim','refresh');
     }
 }
