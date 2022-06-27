@@ -38,7 +38,7 @@
                  </div>
                </fieldset>
                <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
-               <div class="sso-depok-login-btn mt-1 text-center"></div>
+	       <!-- <div class="sso-depok-login-btn mt-1 text-center"></div> -->
              </form>
            </div>
          </div>
