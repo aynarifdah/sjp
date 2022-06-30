@@ -1262,13 +1262,29 @@ class Dinkes extends CI_Controller
 
         curl_close($ch);
          if($error != ""){
-            var_dump($error);
-            die();
-        }
-        unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            // var_dump($error);
+            // die();
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        header("Content-Type: application/pdf");
-        echo $resp;
+            $tte_gagal = array(
+                'pesan'          => 'Gagal',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
+
+            $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
+            
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+            $tte_berhasil = array(
+                'pesan'          => 'Berhasil',
+            );
+            $this->db->insert('log_tte', $tte_berhasil);
+
+            header("Content-Type: application/pdf");
+            echo $resp;
+        }
         
     }
 

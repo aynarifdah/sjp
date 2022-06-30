@@ -883,13 +883,13 @@
               <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>">
               <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan']?>">
               <label>Passphrase :</label>
-              <input type="text" class="form-control" name="passphrase" autocomplete="off">
+              <input type="text" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
+          <button type="submit" class="btn btn-primary" id="submit_passphrase">Simpan</button>
         </div>
       </form>
     </div>
@@ -1172,6 +1172,14 @@
        var id_pengajuan = $(this).attr('data-pengajuan');
        var id_status_pengajuan = $(this).val();
        window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
+     });
+
+     $('#submit_passphrase').on('click', function(){
+      var value = $('#passphrase').val();
+
+      if (value == '!Bsre1221*') {
+        alert('TTE Berhasil');
+      }
      });
    </script>
 
