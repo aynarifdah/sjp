@@ -147,9 +147,17 @@
                          <th scope="row">Nominal Pembiayaan</th>
                          <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
                            <td>
-                             <input type="number" class="form-control tambahnominal">
-                             <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
-
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <input type="number" class="form-control tambahnominal">
+                                  <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
+                                </div>
+                                <div class="col-md-4">
+                                  <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
+                                   <button type="button" class="btn btn-secondary btn-sm text-center float-right submitnominal" style="margin-top: 6px;"> Submit Nominal</button>
+                                 <?php } ?>
+                                </div>
+                              </div>
                            </td>
                          <?php  } else { ?>
                            <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
@@ -169,14 +177,32 @@
                        <tr>
                          <th scope="row">Feedback untuk Puskesmas</th>
                          <td>
-                           <input type="text" class="form-control tambahfeedback">
-                           <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <input type="text" class="form-control tambahfeedback">
+                              <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                            </div>
+                            <div class="col-md-4">
+                              <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                 <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
+                               <?php } ?>
+                            </div>
+                          </div>
                          </td>
                        </tr>
                        <tr>
                          <th scope="row">Feedback untuk Rumah Sakit</th>
                            <td>
-                             <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
+                              </div>
+                              <div class="col-md-4">
+                                <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                              </div>
+                            </div>
                            </td>
                        </tr>
                        <?php endif ?>
@@ -238,14 +264,9 @@
 
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
-                     <button type="button" class="btn btn-secondary btn-sm text-center submitnominal ml-1"> Submit Nominal</button>
-                   <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2"> -->
-                   <?php if ($this->session->userdata('instansi') == 1) { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right submitfeedback ml-1"> Submit feedback</button>
-                   <?php } ?>
+                
                    <!-- </div>
 
 
@@ -972,17 +993,38 @@
        });
      });
 
-     $('.submitfeedback').click(function(event) {
+     $('.submitfeedbackpuskesmas').click(function(event) {
        //  $('.inputfeedback').hide();
        var value = $('.tambahfeedback').val();
        var id_sjp = $('.id_sjpvalfeedback').val();
-       var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
+       // var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
        //console.log(value);
        $.ajax({
          url: '<?= base_url(); ?>Dinkes/input_feedback',
          method: "POST",
          data: {
            feedback: value,
+           id_sjp: id_sjp,
+           // feedback_rs: value_rs,
+         },
+         async: false,
+         success: function(data) {
+           location.reload();
+         }
+       });
+     });
+
+     $('.submitfeedbackrs').click(function(event) {
+       //  $('.inputfeedback').hide();
+       // var value = $('.tambahfeedback').val();
+       var id_sjp = $('.id_sjpvalfeedback').val();
+       var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
+       //console.log(value);
+       $.ajax({
+         url: '<?= base_url(); ?>Dinkes/input_feedback_rs',
+         method: "POST",
+         data: {
+           // feedback: value,
            id_sjp: id_sjp,
            feedback_rs: value_rs,
          },

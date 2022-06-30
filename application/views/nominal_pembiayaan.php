@@ -6,7 +6,7 @@
 </head>
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title" id="title">Nominal Pembiayaan</h4>
+    <h4 class="card-title" id="title">Daftar Pembiayaan</h4>
     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
     <div class="heading-elements">
       <ul class="list-inline mb-0">
@@ -22,7 +22,7 @@
       <?php if (!empty($dataklaim)) {
         foreach ($dataklaim as $key) { ?>
           <form action="<?php echo base_url('Dinkes/proses_input_pembiayaan'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
-            <div class="form-group row mt-2">
+            <!-- <div class="form-group row mt-2">
               <label class="col-lg-3 label-control" for="">Nominal Pembiayaan</label>
               <div class="col-lg-6">
                 <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
@@ -45,7 +45,7 @@
                    </td>
                  <?php } ?>
               </div>
-            </div>
+            </div> -->
           <?php } ?>
         <?php } ?>
         <div id='loader' style='display: none; width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;'>
@@ -57,16 +57,22 @@
             <thead>
               <tr>
                 <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                <th>No</th>
                 <th>Nama Pasien</th>
-                <th>Tanggal Pengajuan</th>
+                <th style="width: 15px;">Tanggal<br>Pengajuan</th>
                 <th>Diagnosa</th>
                 <th>Jenis Rawat</th>
+                <th>Nominal Pembiayaan</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <?php if (!empty($dataklaim)) {
+              <?php 
+              $no = 1;
+              if (!empty($dataklaim)) {
                 foreach ($dataklaim as $key) { ?>
                   <tr>
+                    <td><?= $no++?></td>
                     <td>
                       <!-- <a href="<?php echo base_url('Rs/detail_pengajuan/' . $key['id_sjp']); ?>"> -->
                       <?php echo $key['nama_pasien']; ?></a>
@@ -92,9 +98,32 @@
                         } ?>
                     </td>
                     <td><?php echo $key['jenis_rawat']; ?></td>
+                    <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
+                       <td>
+                         <input type="number" class="form-control tambahnominal" name="nominal[]" required>
+                         <input type="hidden" class="id_sjpval" name="id_sjp[]" value="<?= $key['id_sjp']; ?>">
+
+                       </td>
+                     <?php  } else { ?>
+                       <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
+                       </td>
+                     <?php } ?>
                     <?php if (!empty($dataklaim)) : ?>
                       <input id="dokumen_hidden" type="hidden" name="dokumen_hidden" value="<?= $key['namafile'] ?>">
                     <?php endif; ?>
+                    <td>
+                     <?php if ($key['status_klaim'] == 1) {
+                        echo '<div class="badge bg-blue-grey" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } elseif ($key['status_klaim'] == 2) {
+                        echo '<div class="badge bg-info" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } elseif ($key['status_klaim'] == 3) {
+                        echo '<div class="badge bg-warning" style="font-size: 14px;">' . $key['nama_statusklaim'] . '<i class="ft-alert-triangle"></i></div>';
+                      } elseif ($key['status_klaim'] == null) {
+
+                      } else {
+                        echo '<div class="badge bg-success" style="font-size: 14px;">' . $key['nama_statusklaim'] . '  </div>';
+                      } ?>
+                   </td>
                   </tr>
               <?php }
               } ?>
