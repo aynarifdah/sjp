@@ -434,10 +434,26 @@ class Dinkes extends CI_Controller
     public function input_feedback()
     {
         $feedback_dinkes = $this->input->post('feedback');
-        $feedback_rs = $this->input->post('feedback_rs');
+        // $feedback_rs = $this->input->post('feedback_rs');
         $id_sjp = $this->input->post('id_sjp');
         $datafeedback = array(
             'feedback_dinkes' => $feedback_dinkes,
+            // 'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
+        );  
+
+        $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
+        // var_dump($updatefeedback);
+        // die;
+        echo json_encode($updatefeedback);
+    }
+
+    public function input_feedback_rs()
+    {
+        // $feedback_dinkes = $this->input->post('feedback');
+        $feedback_rs = $this->input->post('feedback_rs');
+        $id_sjp = $this->input->post('id_sjp');
+        $datafeedback = array(
+            // 'feedback_dinkes' => $feedback_dinkes,
             'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
         );  
 
@@ -1265,13 +1281,29 @@ class Dinkes extends CI_Controller
 
         curl_close($ch);
          if($error != ""){
-            var_dump($error);
-            die();
-        }
-        unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            // var_dump($error);
+            // die();
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        header("Content-Type: application/pdf");
-        echo $resp;
+            $tte_gagal = array(
+                'pesan'          => 'Gagal',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
+
+            $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
+            
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+            $tte_berhasil = array(
+                'pesan'          => 'Berhasil',
+            );
+            $this->db->insert('log_tte', $tte_berhasil);
+
+            header("Content-Type: application/pdf");
+            echo $resp;
+        }
         
     }
 
