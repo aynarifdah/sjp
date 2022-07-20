@@ -62,8 +62,8 @@
                               </div>
                               <div class="col-lg-5">
                                 <h5><strong>Hasil Survey : <span class="hasil"></span>
-                                	<span>/</span>
-                                	<span class="persyaratan"></span> Kriteria
+                                  <span>/</span>
+                                  <span class="persyaratan"></span> Kriteria
                                 </strong></h5>
                                 <h5><strong><span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
                               </div>
