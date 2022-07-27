@@ -184,8 +184,9 @@ class M_SJP extends CI_Model
   }
   function variabel_survey()
   {
-    $this->db->select('ceklist_survey, id_ceklist_survey');
+    $this->db->select('ceklist_survey, id_ceklist_survey, indeks as index_survey,bobot as bobot_survey');
     $this->db->from('ceklist_survey');
+    $this->db->where('ceklist_survey.status', '1');
     $query = $this->db->get()->result();
     return $query;
   }
@@ -1762,5 +1763,20 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
+
+  public function getKategoriPenerima($total)
+  {
+    $this->db->select('kategori');
+    $this->db->from('kategori_penerima');
+    $this->db->where('min_nilai <= ', $total);
+    $this->db->where('max_nilai >= ', $total);
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->row()->kategori;
+    } else {
+      return "Tidak Ditemukan";
+    }
+  }
+
 
 }

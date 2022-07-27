@@ -1633,4 +1633,11 @@ class Home extends CI_Controller
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
     }
+
+    public function getKategoriPenerima()
+    {
+        $total = $this->input->post('totalakumulatif');
+        $kategori = $this->M_SJP->getKategoriPenerima($total);
+        echo json_encode($kategori);
+    }
 }
