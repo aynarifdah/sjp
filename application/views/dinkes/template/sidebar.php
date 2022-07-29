@@ -12,6 +12,8 @@
       </li>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/disetujui_sjp'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Disetujui</span></a>
       </li>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/ditolak_sjp'); ?>"><i class="ft-x-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Ditolak</span></a>
+      </li>
 
       <li class=" nav-item"><a href="#"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.page_headers.main">Proses Klaim</span></a>
         <ul class="menu-content">
