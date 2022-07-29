@@ -114,6 +114,7 @@
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <!-- <th>Lama Pengajuan</th> -->
+                    <th>Jenis Rawat</th>
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
@@ -263,6 +264,10 @@
             var datenow = dt + '-' + month + '-' + year;
             return datenow;
           },
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "jenis_rawat",
           className: "dt-head-center dt-body-right bodyclick"
         },
         {

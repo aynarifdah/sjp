@@ -116,6 +116,7 @@
                     <!-- <th>Lama Pengajuan</th> -->
                     <!-- <th>Puskesmas</th> -->
                     <th style="width: 30px;">Rumah <br>Sakit</th>
+                    <th style="width: 30px;">Jenis <br>Rawat</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
@@ -287,6 +288,10 @@
         },
         {
           data: "nm_rs",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "jenis_rawat",
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
