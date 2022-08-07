@@ -125,9 +125,25 @@
                        <?php if (!empty($key['tanggal_survey'])) { ?>
                          <tr>
                            <th scope="row">Hasil Survey</th>
-                           <td>
-                             <h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
-                           </td>
+                           <?php if ($key['kemiskinan'] == null) { ?>
+                             <td>
+                               <h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
+                             </td>
+                           <?php }else{ ?>
+                            <td>
+                              <h5><strong>
+                                <?php if ($key['kemiskinan'] == 'Sangat Miskin'){ ?>
+                                  <div class="badge bg-danger">Sangat Miskin</div>
+                                <?php }elseif($key['kemiskinan'] == 'Miskin') { ?>
+                                  <div class="badge" style="background-color: yellow; color: black;">Miskin</div>
+                                <?php }elseif($key['kemiskinan'] == 'Rentan Miskin') { ?>
+                                  <div class="badge bg-danger" style="background-color: yellow;">Rentan Miskin</div>
+                                <?php }else{ ?>
+                                  <div class="badge bg-success">Tidak Miskin</div>
+                                <?php } ?>
+                              </strong></h5>
+                            </td>
+                           <?php } ?>
                          </tr>
                          <tr>
                            <th scope="row">Surveyor</th>
