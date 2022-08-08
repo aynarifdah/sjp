@@ -639,16 +639,16 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
-  public function kethasilsurvey($id_sjp, $id_puskesmas = null)
+  public function kethasilsurvey($id_sjp)
   {
     $this->db->select('ceklist_survey.ceklist_survey, opsi_ceklist.keterangan');
     $this->db->from('survey');
     $this->db->join('ceklist_survey', 'ceklist_survey.id_ceklist_survey = survey.id_ceklist_survey', 'left');
     $this->db->join('opsi_ceklist', 'opsi_ceklist.id_opsi_ceklist = survey.id_opsi_ceklist', 'left');
 
-    if (!empty($id_puskesmas)) {
-      $this->db->where('id_puskesmas', $id_puskesmas);
-    }
+    // if (!empty($id_puskesmas)) {
+    //   $this->db->where('id_puskesmas', $id_puskesmas);
+    // }
     if (!empty($id_sjp)) {
       $this->db->where('id_sjp', $id_sjp);
     }
@@ -1837,6 +1837,15 @@ class M_SJP extends CI_Model
     // TEST 18-02-2021
     $query = $this->db->get()->result_array();
     return $query;
+  }
+
+  public function getByKelurahanId($kelurahan_id)
+  {
+    $this->db->select('key_wilayah');
+    $this->db->where('key_wilayah', $kelurahan_id);
+    $hasil = $this->db->get('kelurahan');
+    $result = $hasil->result();
+    return $result[0]->key_wilayah;
   }
 
 

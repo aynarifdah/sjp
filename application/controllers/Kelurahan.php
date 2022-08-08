@@ -211,10 +211,10 @@ class Kelurahan extends CI_Controller
 
 
 
-    public function getIdPuskesmas($puskesmas_id)
+    public function getIdKelurahan($kelurahan_id)
     {
-        $id_puskesmas = $this->M_SJP->getByPuskesmasId($puskesmas_id);
-        return $id_puskesmas;
+        $id_kelurahan = $this->M_SJP->getByKelurahanId($kelurahan_id);
+        return $id_kelurahan;
     }
 
     public function input_pasien()
@@ -725,7 +725,8 @@ class Kelurahan extends CI_Controller
         $ceklistsurvey = $this->input->post('ceklist_survey');
         $catatan       = $this->input->post('catatan');
         $bobot         = $this->input->post('bobot');
-        $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        $ket_miskin         = $this->input->post('ket_miskin');
+        $id_kelurahan = $this->getIdKelurahan($this->session->userdata('id_join'));
         $datainsert    = array();
         // echo count($ceklistsurvey);die;
         $index = 0; // Set index array awal dengan 0
@@ -735,7 +736,7 @@ class Kelurahan extends CI_Controller
                 'id_sjp'              => $id_sjp,
                 'id_opsi_ceklist'     => $opsi[$index],
                 'jawaban'             => $bobot[$index],
-                'id_puskesmas'        => $id_puskesmas
+                'id_kelurahan'        => $id_kelurahan
 
             ));
 
@@ -765,6 +766,7 @@ class Kelurahan extends CI_Controller
             'tanggal_survey'    => $tanggalsurvey,
             'surveyor'          => $surveyor,
             'keterangan_survey' => $catatan,
+            'kemiskinan' => $ket_miskin,
             // 'status_survey'     => $status_survey
         );
         $this->M_SJP->update_survey_sjp($data_sjp, $id_sjp);
@@ -1485,7 +1487,9 @@ class Kelurahan extends CI_Controller
 
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join, $id_pengajuan);
         // print_r($data['datapermohonan']);
-        $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
+        // sementara dihide
+        // $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
+        $id_puskesmas =  $data['datapermohonan'][0];
         // echo($id_puskesmas);die;
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
 
