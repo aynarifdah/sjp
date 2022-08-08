@@ -703,7 +703,7 @@ class Kelurahan extends CI_Controller
             $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
             $data['id_sjp']       = $id_sjp;
             $data['id_pengajuan'] = $id_pengajuan;
-            $data['content']      = $this->load->view('siap_survey', $data, true, false);
+            $data['content']      = $this->load->view('kelurahan/siap_survey_kelurahan', $data, true, false);
             // var_dump($data['opsi']);die;
 
             $this->load->view('template/default_template', $data);
@@ -1719,5 +1719,12 @@ class Kelurahan extends CI_Controller
         }
 
         redirect('Kelurahan/edit_berkas_persyaratan/' . $id_sjp . '/' . $id_pp);
+    }
+
+    public function getKategoriPenerima()
+    {
+        $total = $this->input->post('totalakumulatif');
+        $kategori = $this->M_SJP->getKategoriPenerima($total);
+        echo json_encode($kategori);
     }
 }
