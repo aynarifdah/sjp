@@ -162,30 +162,33 @@ class Kelurahan extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 23 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Kelurahan/pengajuan');
-        } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        $jam_pengajuan = $this->M_data->getJamPengajuan();
+        foreach ($jam_pengajuan as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect('Kelurahan/pengajuan');
+            } else {
+                $data = array(
+                    'topik'      => $this->M_SJP->diagnosa(),
+                    'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                    'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                    'rumahsakit' => $this->M_SJP->rumahsakit(),
+                    'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                    'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                );
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+                $path = "";
+                $data = array(
+                    "page" => $this->load("Input Pasien", $path),
+                    "content" => $this->load->view('input_pasien', $data, true)
+                );
 
-            $this->load->view('template/default_template', $data);
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
     public function getKelurahan()
@@ -688,25 +691,28 @@ class Kelurahan extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect($_SERVER['HTTP_REFERER'], 'refresh');
-        } else {
-            $path = "";
-            $data['page']         = $this->load("Siap Survey", $path);
-            $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-            $data['survey']       = $this->M_SJP->variabel_survey();
-            $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-            $data['id_sjp']       = $id_sjp;
-            $data['id_pengajuan'] = $id_pengajuan;
-            $data['content']      = $this->load->view('kelurahan/siap_survey_kelurahan', $data, true, false);
-            // var_dump($data['opsi']);die;
+        $jam_survey = $this->M_data->getJamSurvey();
+        foreach ($jam_survey as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["selesai_survey"] || $jam < $key["waktu_survey"]) {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect($_SERVER['HTTP_REFERER'], 'refresh');
+            } else {
+                $path = "";
+                $data['page']         = $this->load("Siap Survey", $path);
+                $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
+                $data['survey']       = $this->M_SJP->variabel_survey();
+                $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
+                $data['id_sjp']       = $id_sjp;
+                $data['id_pengajuan'] = $id_pengajuan;
+                $data['content']      = $this->load->view('kelurahan/siap_survey_kelurahan', $data, true, false);
+                // var_dump($data['opsi']);die;
 
-            $this->load->view('template/default_template', $data);
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
 
