@@ -122,7 +122,7 @@
                               </tr>
                             </tbody>
                           </table>
-                        <!--   <table class="table table-bordered table-striped">
+                        <!--   <table class="table table-bordered table-striped">s
                             
                         </table> -->
                         <button type="submit" class="btn mr-1 mb-1 btn-primary btn-sm surveybtn confirm-survey"  style="float: right;">Submit</button>
