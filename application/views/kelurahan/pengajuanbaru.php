@@ -299,7 +299,7 @@
           data: "tanggal_survey",
           "render": function(data, type, row, meta) {
             if (data == '' || data == null) {
-              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Kelurahan/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
             } else {
               return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
             }
