@@ -114,7 +114,7 @@
                               <tr>
                                 <td colspan="2" class="text-center">Keterangan</td>
                                 <td colspan="2" class="text-center"><span class="kethasilkemiskinan">Tidak Ditemukan</span> </td>
-                                <input type="text" name="ket_miskin" class="kethasilkemiskinaninput">
+                                <input type="hidden" name="ket_miskin" class="kethasilkemiskinaninput">
                               </tr>
                               <tr>
                                 <td colspan="2" class="text-center">Catatan Survey</td>
