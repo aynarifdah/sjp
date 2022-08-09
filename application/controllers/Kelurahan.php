@@ -1672,6 +1672,8 @@ class Kelurahan extends CI_Controller
     {
         $id_sjp = $this->input->post("id_sjp");
         $id_pp = $this->input->post("id_pp");
+        $nikPasien = $this->input->post('nikpasien');
+        $nama_pasien        = $this->input->post('nama_pasien');
         // ==========================PERSYARATAN=========================
         $dokumen = $this->input->post('dokumen');
         $id_persyaratan = $this->input->post('id_persyaratan');
@@ -1711,6 +1713,7 @@ class Kelurahan extends CI_Controller
 
                 //Load upload library
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 // File upload
                 if ($this->upload->do_upload('file')) {

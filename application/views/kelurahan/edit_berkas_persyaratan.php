@@ -19,6 +19,8 @@
             <form action="<?= base_url($controller . 'aksi_edit_berkas_persyaratan'); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform" enctype="multipart/form-data">
               <input type="hidden" name="id_sjp" value="<?= $detail[0]['id_sjp'] ?>">
               <input type="hidden" name="id_pp" value="<?= $this->uri->segment(4) ?>">
+              <input type="hidden" class="form-control" placeholder="NIK" name="nikpasien" id="nikpasien" required value="<?= $detail[0]['nik'] ?>" readonly>
+              <input type="hidden" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pasien" id="namapasien" required value="<?= $detail[0]['nama_pasien'] ?>" readonly>
               <fieldset class="mt-2">
                 <!-- DOKUMEN PERSYARATAN -->
 
