@@ -425,6 +425,7 @@ class M_SJP extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('jenis_sjp');
+    $this->db->where('status =', Null);
     $query = $this->db->get()->result_array();
     return $query;
   }
