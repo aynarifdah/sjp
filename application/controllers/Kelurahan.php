@@ -1685,7 +1685,7 @@ class Kelurahan extends CI_Controller
         $this->M_SJP->editSJP($id_sjp, $data_pasien);
 
 
-        $countfiles = count(array($id_persyaratan));
+        $countfiles = count($_FILES['dokumen']['name']);
         $data = [];
         for ($i = 0; $i < $countfiles; $i++) {
 
