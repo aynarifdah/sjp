@@ -1416,7 +1416,7 @@ class Home extends CI_Controller
             // ==========================PERSYARATAN=========================
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count(array($id_persyaratan));
+            $countfiles = count($_FILES['dokumen']['name']);
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
