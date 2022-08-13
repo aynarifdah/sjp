@@ -1737,7 +1737,7 @@ class Kelurahan extends CI_Controller
     public function getKategoriPenerima()
     {
         $total = $this->input->post('totalakumulatif');
-        $kategori = $this->M_SJP->getKategoriPenerima($total);
+        $kategori = $this->M_SJP->getKategoriPenerima((float)$total);
         echo json_encode($kategori);
     }
 }
