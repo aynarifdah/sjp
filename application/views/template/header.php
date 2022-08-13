@@ -48,7 +48,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-divider"></div><a class="dropdown-item" href="<?php echo base_url('Auth/logout');?>"><i class="ft-power"></i> Logout</a>
-                <div class="sso-depok-logout-btn"></div>
+                <!-- <div class="sso-depok-logout-btn"></div> -->
               </div>
             </li>
           </ul>
