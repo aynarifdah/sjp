@@ -141,9 +141,15 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
+<<<<<<< HEAD
 	'hostname' => '18.136.123.139',
 	'username' => 'scdev',
 	'password' => 'p1n4ng9A',
+=======
+    'hostname' => 'localhost',
+	'username' => 'sjp',
+	'password' => 'x]&xf_a(',
+>>>>>>> origin/masterv.1.41
 	'database' => 'sjp',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
