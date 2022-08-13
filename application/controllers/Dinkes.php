@@ -1231,7 +1231,7 @@ class Dinkes extends CI_Controller
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
 
-        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
@@ -1307,6 +1307,240 @@ class Dinkes extends CI_Controller
         
     }
 
+    // public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
+    // {
+
+    //     $html =
+    //         '<html><head>
+    //     <meta charset="utf-8">
+    //     <title>Surat Jaminan Pelayanan</title>
+    //     <style>
+    //     @font-face 
+    //     {
+    //         font-family: Arial;
+    //         font-style: normal;
+    //         font-weight: normal;
+    //         src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
+    //     }
+    //     body {
+    //       font-family: Arial;
+    //       font-size: 14px;
+    //       margin-top:0px;
+    //       margin-left:10px;
+    //     }
+        
+    //     #kop {
+    //       margin-bottom:30px;
+    //     }
+    //     .a { display: inline-block; width: 70px; font-size:14px;}
+    //     .b { display: inline-block; width: 20px; font-size:14px;}
+    //     .c { display: inline-block; width: 300px; font-size:14px;}
+
+    //     table {
+    //     border-collapse: collapse;
+    //     width: 100%;
+    //     }
+    //     th, td {
+    //     text-align: left;
+    //     padding: 5px;
+    //     }
+
+    //     .content {
+    //         font-family: Arial !important;
+    //         font-size: 14px;
+    //         text-align:justify;
+    //         margin-left: 100px;
+    //         margin-right: 30px;
+    //     }
+    //     .right{
+    //     float:right;
+    //     }
+    //     .left{
+    //     float:left;
+    //     }
+    //     table {
+    //         border-collapse:separate; 
+    //         border-spacing: 0 0.6em;
+    //       }
+
+    //     .a, .b, .c
+    //     {
+    //         font-size:14px;
+    //     }
+
+    //     .tanggal
+    //     {
+    //         margin-left: 490px;
+    //     }
+
+    //     .keterangan
+    //     {
+    //         position: relative;
+    //         width: 700px;
+    //         height: 70px;
+    //     }
+
+    //     .kiri
+    //     {
+    //         position: absolute;
+    //         width: 390px;
+    //         height: auto;
+    //     }
+    //     .kanan
+    //     {
+    //         position: absolute;
+    //         top: 5px;
+    //         left: 490px;
+    //         width: 200px;
+    //         height: 60px;
+    //     }
+
+    //     .breakword
+    //     {
+    //         overflow-wrap:break-word !important;
+    //         word-wrap:break-word;
+    //     }
+
+    //     #hal
+    //     {
+    //         margin-top: 14px;
+    //     }
+    //     .info
+    //     {
+    //         text-indent: 50px;
+    //     }
+    //     .footer
+    //     {
+    //     	font-style: italic;
+    //     	text-align: center;
+    //     }
+
+
+    
+    //     </style>
+    //   </head>
+    //   <body>
+    //     <img src=' . $img_kop . ' alt="" id="kop" width="100%">
+           
+    //     <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+    //     <br><br>
+
+    //     <div class="keterangan">
+    //         <div class="kiri">
+    //             <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+    //             <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+    //             <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+    //         </div>
+            
+            
+    //         <div class="kanan">
+    //             Kepada :<br>
+    //             <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+    //             Di Tempat
+    //         </div>
+    //     </div>
+  
+    //   <br><br>
+    //   <div class="row">
+    //     <div class="col-lg-12">
+
+    //       Dari hasil penelitian kami atas surat-surat dari :
+    //       <br>
+    //         <table class="table table-borderless table-sm">
+    //           <tbody>
+    //             <tr>
+    //               <td style="width: 30%">Nama Pasien</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Tanggal Lahir</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Jenis Kelamin</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Tgl. Mulai Rawat</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Alamat</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . $sjp[0]->alamatpasien . '</td>
+    //             </tr>
+    //             <tr>
+    //               <td style="width: 30%">Domisili</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . $sjp[0]->domisili . '</td>
+    //             </tr>
+    //           </tbody>
+    //         </table><br>
+      
+    //       Ternyata pasien tersebut memenuhi syarat :
+    //       <br>
+    //        <table class="table table-borderless table-sm">
+    //         <tbody>
+    //           <tr>
+    //             <td  style="width: 30%">Dirawat di</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $sjp[0]->nama_kelas . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Dilakukan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $sjp[0]->jenis_rawat . '</td>
+    //           </tr>
+              
+    //           <tr>
+    //             <td  style="width: 30%">Diagnosa sementara</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $diag . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Diberikan jaminan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Lain-lain</td>
+    //             <td style="width: 5%">:</td>
+    //             <td></td>
+    //           </tr>
+    //           <tr>
+    //             <td style="width: 30%">Jaminan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+    //           </tr>
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //   </div>
+    //   <div class="info">
+    //   <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+    //   </div>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br><br><br><br><br><br><br><br>
+    //   <div class="footer" style="margin-bottom:0">
+    //   <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
+    //   </div>
+
+    //   </body></html>';
+    //     return $html;
+    // }
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
     {
 
@@ -1411,8 +1645,8 @@ class Dinkes extends CI_Controller
         }
         .footer
         {
-        	font-style: italic;
-        	text-align: center;
+            font-style: italic;
+            text-align: center;
         }
 
 
@@ -1527,6 +1761,7 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="150" align="right">
       <br>
       <br>
       <br>
@@ -1541,6 +1776,7 @@ class Dinkes extends CI_Controller
       </body></html>';
         return $html;
     }
+
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAHDI - (Maaf, biar gampang kebaca)
