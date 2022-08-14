@@ -1497,7 +1497,7 @@ class Kelurahan extends CI_Controller
         $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
         $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
-        $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
+        $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         // var_dump($data['penyakit']);
         // die;
