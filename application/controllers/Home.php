@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Options;
 
 class Home extends CI_Controller
 {
@@ -1641,5 +1642,347 @@ class Home extends CI_Controller
         $total = $this->input->post('totalakumulatif');
         $kategori = $this->M_SJP->getKategoriPenerima((float)$total);
         echo json_encode($kategori);
+    }
+
+    public function CetakTest($id_sjp)
+    {
+        // setlocale(LC_ALL, 'in_ID');
+        $sjp = $this->M_SJP->detail_cetak($id_sjp);
+        // var_dump($sjp);
+        // die;
+        $diagpasien = $this->M_SJP->diagpasien($id_sjp);
+        $diag = implode(', ', array_column($diagpasien, 'namadiag'));
+        $img = base_url('/assets/uploads/cap.png');
+        $img_kop = base_url('/assets/images/kop_surat.png');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
+
+        // print_r($idtest);
+        // $this->load->view('dinkes/cetak');
+        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
+        // die;
+
+        $this->load->library('dompdf_gen');
+        $option = new Options();
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+        $option->set('defaultFont', 'Arial');
+        // $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->set_option('isRemoteEnabled', TRUE);
+        $this->dompdf->render();
+
+        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+        $time = date('His');
+        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        file_put_contents($location, $output);
+
+        
+
+
+        $username = 'esign';
+        $password = 'qwerty';
+        $url = "103.113.30.81/api/sign/pdf";
+        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+
+        
+
+        $headers = array("Content-Type:multipart/form-data");
+        $postfields = array(
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => '!Bsre1221*',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '800',
+            'yAxis' => '100',
+            'width' => '300',
+            'height' => '250'
+            );
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
+        ); 
+        curl_setopt_array($ch, $options);
+        $resp = curl_exec($ch);
+        $error = curl_error($ch);
+
+        // var_dump($resp);
+        // die();
+
+        curl_close($ch);
+         if($error != ""){
+            // var_dump($error);
+            // die();
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+            $tte_gagal = array(
+                'pesan'          => 'Gagal',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
+
+            $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
+            
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+            $tte_berhasil = array(
+                'pesan'          => 'Berhasil',
+            );
+            $this->db->insert('log_tte', $tte_berhasil);
+
+            header("Content-Type: application/pdf");
+            echo $resp;
+        }
+        
+    }
+
+    public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
+    {
+
+        $html =
+            '<html><head>
+        <meta charset="utf-8">
+        <title>Surat Jaminan Pelayanan</title>
+        <style>
+        @font-face 
+        {
+            font-family: Arial;
+            font-style: normal;
+            font-weight: normal;
+            src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
+        }
+        body {
+          font-family: Arial;
+          font-size: 14px;
+          margin-top:0px;
+          margin-left:10px;
+        }
+        
+        #kop {
+          margin-bottom:30px;
+        }
+        .a { display: inline-block; width: 70px; font-size:14px;}
+        .b { display: inline-block; width: 20px; font-size:14px;}
+        .c { display: inline-block; width: 300px; font-size:14px;}
+
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        th, td {
+        text-align: left;
+        padding: 5px;
+        }
+
+        .content {
+            font-family: Arial !important;
+            font-size: 14px;
+            text-align:justify;
+            margin-left: 100px;
+            margin-right: 30px;
+        }
+        .right{
+        float:right;
+        }
+        .left{
+        float:left;
+        }
+        table {
+            border-collapse:separate; 
+            border-spacing: 0 0.6em;
+          }
+
+        .a, .b, .c
+        {
+            font-size:14px;
+        }
+
+        .tanggal
+        {
+            margin-left: 490px;
+        }
+
+        .keterangan
+        {
+            position: relative;
+            width: 700px;
+            height: 70px;
+        }
+
+        .kiri
+        {
+            position: absolute;
+            width: 390px;
+            height: auto;
+        }
+        .kanan
+        {
+            position: absolute;
+            top: 5px;
+            left: 490px;
+            width: 200px;
+            height: 60px;
+        }
+
+        .breakword
+        {
+            overflow-wrap:break-word !important;
+            word-wrap:break-word;
+        }
+
+        #hal
+        {
+            margin-top: 14px;
+        }
+        .info
+        {
+            text-indent: 50px;
+        }
+        .footer
+        {
+            font-style: italic;
+            text-align: center;
+        }
+
+
+    
+        </style>
+      </head>
+      <body>
+        <img src=' . $img_kop . ' alt="" id="kop" width="100%">
+           
+        <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+        <br><br>
+
+        <div class="keterangan">
+            <div class="kiri">
+                <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+                <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+                <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+            </div>
+            
+            
+            <div class="kanan">
+                Kepada :<br>
+                <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+                Di Tempat
+            </div>
+        </div>
+  
+      <br><br>
+      <div class="row">
+        <div class="col-lg-12">
+
+          Dari hasil penelitian kami atas surat-surat dari :
+          <br>
+            <table class="table table-borderless table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 30%">Nama Pasien</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tanggal Lahir</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Jenis Kelamin</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tgl. Mulai Rawat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Alamat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->alamatpasien . '</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Domisili</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->domisili . '</td>
+                </tr>
+              </tbody>
+            </table><br>
+      
+          Ternyata pasien tersebut memenuhi syarat :
+          <br>
+           <table class="table table-borderless table-sm">
+            <tbody>
+              <tr>
+                <td  style="width: 30%">Dirawat di</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->nama_kelas . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Dilakukan</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->jenis_rawat . '</td>
+              </tr>
+              
+              <tr>
+                <td  style="width: 30%">Diagnosa sementara</td>
+                <td style="width: 5%">:</td>
+                <td>' . $diag . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Diberikan jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Lain-lain</td>
+                <td style="width: 5%">:</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="info">
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      </div>
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="150" align="right">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br><br><br><br><br><br><br><br>
+      <div class="footer" style="margin-bottom:0">
+      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
+      </div>
+
+      </body></html>';
+        return $html;
     }
 }
