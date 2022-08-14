@@ -150,9 +150,9 @@ class Kelurahan extends CI_Controller
 
     public function gethasilsurvey()
     {
-        $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        // $id_kelurahan = $this->getIdKelurahan($this->session->userdata('id_join'));
         $id_sjp = $this->input->post('id_sjp');
-        $data = $this->M_SJP->gethasilsurvey($id_sjp, $id_puskesmas);
+        $data = $this->M_SJP->gethasilsurvey($id_sjp);
         echo json_encode($data);
     }
 
