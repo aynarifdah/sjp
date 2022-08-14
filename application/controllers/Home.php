@@ -1723,30 +1723,29 @@ class Home extends CI_Controller
         // die();
 
         curl_close($ch);
-         if($error != ""){
-            // var_dump($error);
-            // die();
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        //////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        // if($error != ""){
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-            $tte_gagal = array(
-                'pesan'          => 'Gagal',
-            );
-            $this->db->insert('log_tte', $tte_gagal);
+        //     $tte_gagal = array(
+        //         'pesan'          => 'Gagal',
+        //     );
+        //     $this->db->insert('log_tte', $tte_gagal);
 
-            $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
-            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
-        }else{
+        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        // }else{
             
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-            $tte_berhasil = array(
-                'pesan'          => 'Berhasil',
-            );
-            $this->db->insert('log_tte', $tte_berhasil);
+        //     $tte_berhasil = array(
+        //         'pesan'          => 'Berhasil',
+        //     );
+        //     $this->db->insert('log_tte', $tte_berhasil);
 
-            header("Content-Type: application/pdf");
-            echo $resp;
-        }
+        //     header("Content-Type: application/pdf");
+        //     echo $resp;
+        // }
         
     }
 
