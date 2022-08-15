@@ -328,10 +328,10 @@
                       <div class="col-lg-9">
                         <?php if ($key["id_persyaratan"] == 5 || $key["id_persyaratan"] == 14 || $key["id_persyaratan"] == 4) { ?>
                           <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required>
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required value="">
                         <?php } else { ?>
                           <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;">
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" value="">
                         <?php }
                         ?>
 

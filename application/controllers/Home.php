@@ -413,6 +413,17 @@ class Home extends CI_Controller
                     'id_pengajuan'   => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
                 );
+            }else {
+                // Uploaded file data
+
+                $fileData      = $this->upload->data();
+                $persyaratan[] = array(
+                    'id_jenis_izin'  => $jenisizin,
+                    'attachment'     => '',
+                    //'feedback'       => $feedback,
+                    'id_pengajuan'   => $id_pengajuan,
+                    'id_persyaratan' => $nama_persyaratan[$i],
+                );
             }
             // else{
             //     echo "gagal";die;
@@ -432,6 +443,8 @@ class Home extends CI_Controller
             // Upload status message
 
         }
+        // var_dump($persyaratan);
+        // die();
 
         // $this->db->insert_batch('attachment',$persyaratan);
         //var_dump($persyaratan);die;
