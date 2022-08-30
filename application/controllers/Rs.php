@@ -276,6 +276,17 @@ class Rs extends CI_Controller
                     'id_pengajuan'   => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
                 );
+            }else {
+                // Uploaded file data
+
+                $fileData      = $this->upload->data();
+                $persyaratan[] = array(
+                    'id_jenis_izin'  => $jenisizin,
+                    'attachment'     => '',
+                    //'feedback'       => $feedback,
+                    'id_pengajuan'   => $id_pengajuan,
+                    'id_persyaratan' => $nama_persyaratan[$i],
+                );
             }
             // else{
             //     echo "gagal";die;
