@@ -273,7 +273,7 @@
         }else if (result == 'Rentan Miskin') {
           $('.catatan').html('Hasil survey Kriteria Rentan Miskin, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
         }else if (result == 'Tidak Miskin'){
-          $('.catatan').html('Hasil survey Kriteria Sangat Miskin, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+          $('.catatan').html('Hasil survey Kriteria Tidak Miskin, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
         }
       }
     });
