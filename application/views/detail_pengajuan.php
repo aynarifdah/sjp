@@ -261,7 +261,7 @@
                      ?>
 
                         <?php if (in_array(null, $status_berkas)) {?>
-                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
+                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Lengkapi Berkas Persyaratan</button></a>
                         <?php }else{ ?>
                           <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-primary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
                         <?php } ?>
