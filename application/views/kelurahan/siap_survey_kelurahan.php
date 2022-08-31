@@ -253,7 +253,7 @@
 
   function getKategoriPenerima() {
     totalakumulatif = totalakumulatif.toFixed(2);
-    alert(totalakumulatif);
+    // alert(totalakumulatif);
     $.ajax({
       url: "<?php echo base_url(); ?>Kelurahan/getKategoriPenerima",
       method: "POST",
