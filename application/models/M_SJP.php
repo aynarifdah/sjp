@@ -1381,7 +1381,7 @@ class M_SJP extends CI_Model
     $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
-    $this->db->join('kelurahan kel', 'sjp.kd_kelurahan = kel.kelurahan', 'left');
+    $this->db->join('kelurahan kel', 'sjp.kd_kelurahan = kel.kelurahan AND sjp.kd_kecamatan = kel.kecamatan', 'left');
     if (!empty($kelurahan)) {
       $this->db->where('kel.key_wilayah =', $kelurahan);
     }
