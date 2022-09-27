@@ -1283,7 +1283,7 @@ class Dinkes extends CI_Controller
          if($error != ""){
             // var_dump($error);
             // die();
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            // unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
             $tte_gagal = array(
                 'pesan'          => 'Gagal',
@@ -1294,7 +1294,7 @@ class Dinkes extends CI_Controller
             redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
         }else{
             
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            // unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
             $tte_berhasil = array(
                 'pesan'          => 'Berhasil',
