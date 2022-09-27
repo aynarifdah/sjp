@@ -1276,8 +1276,8 @@ class Dinkes extends CI_Controller
         $resp = curl_exec($ch);
         $error = curl_error($ch);
 
-        var_dump($error);
-        die();
+        // var_dump($error);
+        // die();
 
         curl_close($ch);
          if($error != ""){
