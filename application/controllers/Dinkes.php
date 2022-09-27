@@ -1197,6 +1197,12 @@ class Dinkes extends CI_Controller
             $this->CetakTest($id_sjp);
         }else{
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
+
+            $tte_gagal = array(
+                'pesan'          => 'Gagal Passphrase Salah',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
+
             redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $id_pengajuan);
         }
     }
@@ -1302,6 +1308,7 @@ class Dinkes extends CI_Controller
             $this->db->insert('log_tte', $tte_berhasil);
 
             header("Content-Type: application/pdf");
+            header("Content-Disposition:attachment;filename='downloaded.pdf'"); 
             echo $resp;
         }
         
