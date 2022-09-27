@@ -1307,7 +1307,7 @@ class Dinkes extends CI_Controller
             );
             $this->db->insert('log_tte', $tte_berhasil);
 
-            header("Content-Type: application/pdf");
+            // header("Content-Type: application/pdf");
             // header("Content-Disposition:attachment;filename=downloaded.pdf"); 
             echo $resp;
         }
