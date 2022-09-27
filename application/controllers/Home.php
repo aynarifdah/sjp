@@ -1987,7 +1987,7 @@ class Home extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-      <img src=' . $ttd . ' alt="" id="kop" width="310" height="150" align="right">
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
       <br>
       <br>
       <br>
