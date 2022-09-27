@@ -1975,6 +1975,11 @@ class Home extends CI_Controller
                 <td style="width: 5%">:</td>
                 <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
               </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>' . 'Depok : 75.000.000 '. "<br>" .'Luar Depok : 25.000.000' . '</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1989,7 +1994,7 @@ class Home extends CI_Controller
       <br>
       <br>
       <br>
-      <br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br>
       <div class="footer" style="margin-bottom:0">
       <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
       </div>
@@ -1997,4 +2002,46 @@ class Home extends CI_Controller
       </body></html>';
         return $html;
     }
+
+    public function getToken()
+    {
+        $url = "http://192.168.19.9/api/authenticate?email=diskominfo.dw@depok.go.id&password=diskominfodepok";
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        $error_msg = curl_error($curl);
+        curl_close($curl);
+        $json_response = json_decode($response);
+
+        return $json_response;
+
+    }
+
+    public function ValidasiDTKSbyNIK($nik)
+    {
+        $gettoken = $this->getToken();
+
+        $auth = $gettoken->token;
+        
+        $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
+        $data_api = array(
+            "Auth" => $auth,
+            "JenisApi" => 'Cek Nik Dtks'
+        );
+        $fields_string = http_build_query($data_api);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        $error_msg = curl_error($curl);
+        curl_close($curl);
+        $json_response = json_decode($response);
+        echo json_encode($json_response);
+    }
+
 }

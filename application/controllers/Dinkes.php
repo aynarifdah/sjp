@@ -1754,6 +1754,11 @@ class Dinkes extends CI_Controller
                 <td style="width: 5%">:</td>
                 <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
               </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>' . 'Depok : 75.000.000 '. "<br>" .'Luar Depok : 25.000.000' . '</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1761,14 +1766,14 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-      <img src=' . $ttd . ' alt="" id="kop" width="310" height="150" align="right">
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
       <br>
       <br>
       <br>
       <br>
       <br>
       <br>
-      <br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br>
       <div class="footer" style="margin-bottom:0">
       <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
       </div>
