@@ -389,8 +389,8 @@
 
 
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                  <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
-                  <!-- <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button> -->
+                  <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a> -->
+                  <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
                <?php } ?>
                </div>
              </div>
