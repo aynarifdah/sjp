@@ -501,38 +501,38 @@ class Dinkes extends CI_Controller
 
     public function index()
     {
-        // $path = "";
-        // $anggaran_tahun     = $this->M_SJP->anggaran();
-        // $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
-        // // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+        $path = "";
+        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
-        // $d = [
-        //     'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
-        //     'tahun'             => $this->M_SJP->tahun(),
-        //     // 'bulan'             => $this->M_SJP->bulan(),
-        //     'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-        //     // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
-        //     // 'sisa_anggaran'     => $sisa_anggaran,
-        //     'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
-        //     'total_pasien'       => $this->M_SJP->total_pasien(),
-        //     'distribusi'         => json_encode($this->M_SJP->distribusi()),
-        //     'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
-        //     'trend_pasien'      => $this->M_SJP->trend_pasien(),
-        //     'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-        //     'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
-        //     'controller'        => $this->instansi()
-        // ];
+        $d = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+            'tahun'             => $this->M_SJP->tahun(),
+            // 'bulan'             => $this->M_SJP->bulan(),
+            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
+            'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
+            'trend_pasien'      => $this->M_SJP->trend_pasien(),
+            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
+            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
+            'controller'        => $this->instansi()
+        ];
 
-        // // var_dump($d['distribusi']);
-        // // die;
-        // // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
+        // var_dump($d['distribusi']);
+        // die;
+        // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
-        // $data = array(
-        //     "page"    => $this->load("Dashboard", $path),
-        //     "content" => $this->load->view('dashboard', $d, true)
-        // );
+        $data = array(
+            "page"    => $this->load("Dashboard", $path),
+            "content" => $this->load->view('dashboard', $d, true)
+        );
 
-        // $this->load->view('template/default_template', $data);
+        $this->load->view('template/default_template', $data);
     }
 
 
