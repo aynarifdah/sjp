@@ -504,15 +504,15 @@ class Dinkes extends CI_Controller
         $path = "";
         $anggaran_tahun     = $this->M_SJP->anggaran();
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
-        $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
         $d = [
             'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
             'tahun'             => $this->M_SJP->tahun(),
-            'bulan'             => $this->M_SJP->bulan(),
+            // 'bulan'             => $this->M_SJP->bulan(),
             'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-            'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
-            'sisa_anggaran'     => $sisa_anggaran,
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
             'total_pasien'       => $this->M_SJP->total_pasien(),
             'distribusi'         => json_encode($this->M_SJP->distribusi()),
@@ -1286,7 +1286,7 @@ class Dinkes extends CI_Controller
         // die();
 
         curl_close($ch);
-        //////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        ////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
         // if($error != ""){
         //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 

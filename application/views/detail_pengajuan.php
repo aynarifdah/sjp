@@ -931,7 +931,7 @@
               <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>">
               <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan']?>">
               <label>Passphrase :</label>
-              <input type="text" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
+              <input type="password" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
             </div>
           </div>
         </div>
