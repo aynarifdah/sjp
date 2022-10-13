@@ -1195,7 +1195,7 @@ public function proses_entry_klaim()
         $countfiles = count($dokumen);
         $dataFiles = [];
         for ($i = 0; $i < $countfiles; $i++) {
-            for ($j = 0; $j < 3; $j++) {
+            for ($j = 0; $j < 4; $j++) {
                 if (!empty($_FILES['dokumen']['name'][$j])) {
                     $_FILES['file']['name'] = $_FILES['dokumen']['name'][$j];
                     $_FILES['file']['type'] = $_FILES['dokumen']['type'][$j];
@@ -1230,6 +1230,11 @@ public function proses_entry_klaim()
                         } elseif ($j == 2) {
                             $dataFiles[] = array(
                                 'other_files' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 3) {
+                            $dataFiles[] = array(
+                                'ket_pasien' => $filename['file_name'],
                                 'id_sjp'   => $id_sjp
                             );
                         }
