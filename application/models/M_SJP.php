@@ -1309,7 +1309,7 @@ class M_SJP extends CI_Model
       $this->db->where('sjp.jenis_rawat =', $jenis_rawat);
     }
     if (!empty($cari)) {
-      $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
+      $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan,sjp.nomor_tagihan)', $cari);
     }
     $this->db->where('status_klaim !=', null);
     // $this->db->where('status_edit', 1);
