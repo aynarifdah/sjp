@@ -145,6 +145,7 @@
                 <th>Nomor SJP</th>
                 <th>Rumah Sakit</th>
                 <th>Jenis Rawat</th>
+                <th>Nomor <br>Tagihan</th>
                 <th>Tanggal <br>Tagihan</th>
                 <th>Nominal <br>Pengajuan</th>
                 <th>Status</th>
@@ -333,6 +334,10 @@
       },
       {
         data: "jenis_rawat",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "nomor_tagihan",
         className: "dt-head-center dt-body-right bodyclick"
       },
       {
