@@ -1963,7 +1963,7 @@ class Home extends CI_Controller
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu Setelah tanggal Diterbitkan' : '-')) . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>
@@ -1978,7 +1978,9 @@ class Home extends CI_Controller
               <tr>
                 <td style="width: 30%">Batas Maksimal Pagu</td>
                 <td style="width: 5%">:</td>
-                <td>' . 'Depok : 75.000.000 '. "<br>" .'Luar Depok : 25.000.000' . '</td>
+                <td>'.
+                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+                 . '</td>
               </tr>
             </tbody>
           </table>
