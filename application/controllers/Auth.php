@@ -83,7 +83,7 @@ class Auth extends CI_Controller
 				helper_log("login", "Berhasil Login", $user->id_instansi);
 				switch ($user->id_instansi) {
 					case "1":
-						redirect('Dinkes/', 'refresh');
+						redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
 						break;
 					case "2":
 						redirect('Rs/', 'refresh');
