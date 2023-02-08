@@ -47,8 +47,11 @@
               <div class="element mb-1 p-r-15">
 
                 <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
+                <?php if ($this->session->userdata('nama') != 'Dinsos View'){ ?>
+                  <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border: none !important; border-radius: 10px;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                <?php }else{ ?>
 
-                <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border: none !important; border-radius: 10px;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                <?php } ?>
                 <a href="<?php echo base_url('Dinsos/excel_data_semua_pengajuan') ?>" class="btn btn-sm btn-success" style="border: none !important; border-radius: 10px;"><i class="ft-printer"></i> Export Excel</a>
               </div>
             </div>
