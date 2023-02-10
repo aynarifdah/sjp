@@ -8,6 +8,8 @@
         <ul class="menu-content">
           <li><a class="menu-item" href="<?php echo base_url('Dinsos/permohonan_baru_dinsos'); ?>" data-i18n="nav.templates.horz.main">Pengajuan SJP</a></li>
           <li><a class="menu-item" href="<?php echo base_url('Dinsos/persetujuan_sjp_dinsos'); ?>" data-i18n="nav.templates.horz.main">Persetujuan SJP</a></li>
+          <li class=" nav-item"><a href="<?php echo base_url('Dinsos/ditolak_sjp'); ?>"><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Ditolak</span></a>
+          </li>
         </ul>
       </li>
       <li class="nav-item"><a href="<?php echo base_url('Dinsos/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
