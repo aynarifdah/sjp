@@ -141,15 +141,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => 'localhost',
-	// 'username' => 'sjp',
-	// 'password' => 'x]&xf_a(',
-	// 'database' => 'sjp',
-	'hostname' => 'localhost',
-	'username' => 'userscdev',
-	'password' => '9[Sr!2+uu%^A4eJWsYd_&@9H*',
+    'hostname' => 'localhost',
+	'username' => 'sjpuser',
+	'password' => 'GzGqa)f)87]@u{)^?+9}arL',
 	'database' => 'sjp',
-
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

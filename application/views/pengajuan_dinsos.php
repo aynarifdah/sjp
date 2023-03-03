@@ -47,8 +47,11 @@
               <div class="element mb-1 p-r-15">
 
                 <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
+                <?php if ($this->session->userdata('nama') != 'Dinsos View'){ ?>
+                  <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border: none !important; border-radius: 10px;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                <?php }else{ ?>
 
-                <a href="<?php echo base_url('Dinsos/permohonan_sjp_dinsos') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border: none !important; border-radius: 10px;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                <?php } ?>
                 <a href="<?php echo base_url('Dinsos/excel_data_semua_pengajuan') ?>" class="btn btn-sm btn-success" style="border: none !important; border-radius: 10px;"><i class="ft-printer"></i> Export Excel</a>
               </div>
             </div>
@@ -82,7 +85,7 @@
                 <option value="" selected>Semua Status</option>
                 <?php if (!empty($statuspengajuan)) : ?>
                   <?php foreach ($statuspengajuan as $sp) : ?>
-                    <?php if ($sp['id_statuspengajuan'] == 1 || $sp['id_statuspengajuan'] == 3 || $sp['id_statuspengajuan'] == 5 || $sp['id_statuspengajuan'] == 7) {
+                    <?php if ($sp['id_statuspengajuan'] == 1 || $sp['id_statuspengajuan'] == 3 || $sp['id_statuspengajuan'] == 5) {
                       continue;
                     } ?>
                     <option value="<?= $sp['id_statuspengajuan'] ?>"><?= $sp['status_pengajuan'] ?></option>
@@ -116,7 +119,6 @@
                   <th style="width: 30px;">Rumah <br>Sakit</th>
                   <!-- <th>Diagnosa</th> -->
                   <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                  <th style="width: 30px;">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -285,20 +287,6 @@
 
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
-        },
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            var pengajuan = row.id_pengajuan;
-            var hapus = `<a href="<?php echo base_url('/Dinsos/hapussjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            if (row.id_status_pengajuan != 6) {
-              return hapus
-            } else {
-              // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
-              return '';
-            }
-          },
-          className: "dt-head-center dt-body-right"
         },
         //   {data: "tanggal_survey", "render": function ( data, type, row, meta ) {
         //    if (data == '' || data == null) {
