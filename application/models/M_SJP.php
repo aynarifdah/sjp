@@ -1453,7 +1453,9 @@ class M_SJP extends CI_Model
     }
     // $this->db->where('pp.id_status_pengajuan =', 4);
     // $this->db->where_not_in('jenis_sjp', [1,3,5,7]);
-    $this->db->where('jenis_sjp =', $id_jenissjp);
+    if ($this->session->userdata('nama') != 'Dinsos View') {
+      $this->db->where('jenis_sjp =', $id_jenissjp);
+    }
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();
     return $query;

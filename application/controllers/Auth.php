@@ -69,17 +69,16 @@ class Auth extends CI_Controller
 			redirect('Auth/', 'refresh');
 		} else {
 			if ($password == $this->encryption->decrypt($user->password)) {
-				$session = array(
-					'authenticated' =>	true,
-					'id_user' 		=>	$user->id_user,
-					'username'		=>	$user->username,
-					'nama'    		=>	$user->nama,
-					'password'		=>	$user->nama,
-					'level'   		=>	$user->level,
-					'instansi'		=>	$user->id_instansi,
-					'id_join'		=>	$user->id_join
-				);
-				$this->session->set_userdata($session);
+				
+				$this->session->set_userdata('authenticated', true);
+				$this->session->set_userdata('id_user', $user->id_user);
+				$this->session->set_userdata('username', $user->username);
+				$this->session->set_userdata('nama', $user->nama);
+				$this->session->set_userdata('password', $user->nama);
+				$this->session->set_userdata('level', $user->level);
+				$this->session->set_userdata('instansi', $user->id_instansi);
+				$this->session->set_userdata('id_join', $user->id_join);
+
 				helper_log("login", "Berhasil Login", $user->id_instansi);
 				switch ($user->id_instansi) {
 					case "1":
