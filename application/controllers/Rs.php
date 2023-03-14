@@ -1206,7 +1206,7 @@ public function proses_entry_klaim()
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-                    $config['max_size'] = '5000'; // max_size in kb
+                    $config['max_size'] = '50000'; // max_size in kb
                     $config['file_name'] = $_FILES['dokumen']['name'][$j];
 
                     //Load upload library
