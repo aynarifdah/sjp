@@ -399,6 +399,7 @@ class Home extends CI_Controller
 
             // Load and initialize upload library
 
+            $this->load->library('image_lib');
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             //var_dump($this->upload->initialize($config));die;
@@ -413,6 +414,19 @@ class Home extends CI_Controller
                     'id_pengajuan'   => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
                 );
+
+                $configer =  array(
+                    'image_library'   => 'gd2',
+                    'source_image'    =>  $fileData['full_path'],
+                    'maintain_ratio'  =>  TRUE,
+                    'width'           =>  750,
+                    'height'          =>  750,
+                    'quality'         =>  60
+                );
+                $this->image_lib->clear();
+                $this->image_lib->initialize($configer);
+                $this->image_lib->resize();
+                
             }else {
                 // Uploaded file data
 
