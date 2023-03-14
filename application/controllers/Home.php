@@ -426,7 +426,7 @@ class Home extends CI_Controller
                 $this->image_lib->clear();
                 $this->image_lib->initialize($configer);
                 $this->image_lib->resize();
-                
+
             }else {
                 // Uploaded file data
 
@@ -1465,12 +1465,13 @@ class Home extends CI_Controller
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-                    $config['max_size'] = '5000'; // max_size in kb
+                    $config['max_size'] = '20000'; // max_size in kb
                     // $config['file_name'] = $_FILES['dokumen']['name'][$i];
                     $config['file_name'] = $new_name_image;
 
 
                     //Load upload library
+                    $this->load->library('image_lib');
                     $this->load->library('upload', $config);
 
                     // File upload
@@ -1481,6 +1482,18 @@ class Home extends CI_Controller
                         $data = [
                             'attachment' => $filename,
                         ];
+
+                        $configer =  array(
+                            'image_library'   => 'gd2',
+                            'source_image'    =>  $uploadData['full_path'],
+                            'maintain_ratio'  =>  TRUE,
+                            'width'           =>  750,
+                            'height'          =>  750,
+                            'quality'         =>  60
+                        );
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($configer);
+                        $this->image_lib->resize();
 
                         $this->db->where('id_pengajuan', $id_pengajuan);
                         $this->db->where('id_persyaratan', $id_persyaratan[$i]);
