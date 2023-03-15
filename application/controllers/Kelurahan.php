@@ -1731,7 +1731,7 @@ class Kelurahan extends CI_Controller
                         'maintain_ratio'  =>  TRUE,
                         'width'           =>  750,
                         'height'          =>  750,
-                        'quality'         =>  60
+                        'quality'         =>  80
                     );
                     $this->image_lib->clear();
                     $this->image_lib->initialize($configer);
