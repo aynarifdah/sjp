@@ -1483,18 +1483,6 @@ class Home extends CI_Controller
                             'attachment' => $filename,
                         ];
 
-                        $configer =  array(
-                            'image_library'   => 'gd2',
-                            'source_image'    =>  $uploadData['full_path'],
-                            'maintain_ratio'  =>  TRUE,
-                            'width'           =>  750,
-                            'height'          =>  750,
-                            'quality'         =>  80
-                        );
-                        $this->image_lib->clear();
-                        $this->image_lib->initialize($configer);
-                        $this->image_lib->resize();
-
                         $this->db->where('id_pengajuan', $id_pengajuan);
                         $this->db->where('id_persyaratan', $id_persyaratan[$i]);
                         $this->db->update('attachment', $data);
