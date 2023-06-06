@@ -32,7 +32,7 @@
         <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Disetujui SJP Baru</h4>
+            <h4 class="card-title">Data Ditolak SJP Baru</h4>
           </div>
         </div>
         <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
