@@ -407,7 +407,7 @@
                    <a class="nav-link tabdetail" id="baseIcon-tab4" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon4" aria-expanded="false"><i class="ft-clipboard"></i> Hasil Survey</a>
                  </li>
                  <li class="nav-item">
-                   <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Rumah Sakit</a>
+                   <a class="nav-link tabdetail" id="baseIcon-tab6" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Rumah Sakit</a>
                  </li>
                  <li class="nav-item">
                    <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5" href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dok Persyaratan</a>
