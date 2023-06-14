@@ -664,19 +664,19 @@
                                <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['other_files'] ?></p>
                              </div>
                            <?php endif; ?>
-                           <?php if ($extensions_nama_file !== "pdf") : ?>
+                           <?php if ($extensions_nama_file != "pdf") : ?>
                              <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
                                  <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
                              </figure>
                            <?php endif; ?>
-                           <?php if ($extensions_file_resume !== "pdf") : ?>
+                           <?php if ($extensions_file_resume != "pdf") : ?>
                              <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
                                  <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" alt="" /></a>
                              </figure>
                            <?php endif; ?>
-                           <?php if ($extensions_other_files !== "pdf") : ?>
+                           <?php if ($extensions_other_files != "pdf") : ?>
                              <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
                                  <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" alt="" /></a>
