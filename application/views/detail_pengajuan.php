@@ -167,7 +167,16 @@
                        <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
                          <tr>
                            <th scope="row">Nominal Klaim</th>
-                           <td><?= number_format((float)$key['nominal_klaim']); ?></td>
+                           <td>
+                            <?php
+                            
+                            $subject = $key['nominal_klaim'];
+                            $search = array("Rp", ".", ",") ;
+                            $value = str_replace($search, '', $subject) ;
+                            echo number_format((float)$value); 
+                            ?>
+                              
+                            </td>
                          </tr>
                        <?php } ?>
                        <tr>
