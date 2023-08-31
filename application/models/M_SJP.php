@@ -1608,7 +1608,7 @@ class M_SJP extends CI_Model
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
     // $this->db->where('pp.id_status_pengajuan =', 4);
 
-
+    $this->db->where('nik !=', '');
     $this->db->where('nik =', $nik);
 
 
