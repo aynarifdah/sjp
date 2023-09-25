@@ -1,0 +1,35 @@
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>PORTAL SJP | Kota Depok</title>
+  <meta content="" name="description">
+
+  <meta content="" name="keywords">
+  <link rel="icon" href="<?= base_url('assets-web') ?>/img/hospital.png">
+  <link rel="stylesheet" href="<?= base_url('assets-web') ?>/css/style.css">
+  <link rel="apple-touch-icon" href="<?= base_url('assets-web') ?>/img/hospital.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="<?= base_url('assets-web/vendor/aos/aos.css" rel="stylesheet') ?>">
+  <link href="<?= base_url('assets-web/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet') ?>">
+  <link href="<?= base_url('assets-web/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet') ?>">
+  <link href="<?= base_url('assets-web/vendor/glightbox/css/glightbox.min.css" rel="stylesheet') ?>">
+  <link href="<?= base_url('assets-web/vendor/remixicon/remixicon.css" rel="stylesheet') ?>">
+  <link href="<?= base_url('assets-web/vendor/swiper/swiper-bundle.min.css" rel="stylesheet') ?>"> 
+
+  <!-- icon -->
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+  <!-- LIGHTBOX -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css"> -->
+
+</head>
+
