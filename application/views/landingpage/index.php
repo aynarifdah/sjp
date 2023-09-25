@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center">
           <h3 data-aos=""><span class="span"></span> Sistem Jaminan Pelayanan<br>
-            <span class="span"> Kota Depok</span></h3>
+            <span class="span">Kota Depok</span></h3>
 
             <div class="row mt-4 border-top pt-3">
               <div class="col-4 d-flex">
