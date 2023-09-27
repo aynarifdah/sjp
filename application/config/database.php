@@ -160,4 +160,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries'=>TRUE
 );
-
