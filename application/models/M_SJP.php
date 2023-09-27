@@ -1196,7 +1196,7 @@ class M_SJP extends CI_Model
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
     $this->db->join('puskesmas pus', 'sjp.id_puskesmas = pus.id_puskesmas', 'left');
-    $this->db->join('kelurahan kel', 'sjp.kd_kelurahan = kel.kelurahan', 'left');
+    $this->db->join('kelurahan kel', 'sjp.kd_kelurahan = kel.kelurahan AND sjp.kd_kecamatan = kel.kecamatan', 'left');
     $this->db->join('attachment att', 'att.id_pengajuan = pp.id_pengajuan AND att.attachment = ""  ', 'left');
     ;
     if (!empty($kelurahan)) {
@@ -1233,7 +1233,7 @@ class M_SJP extends CI_Model
       $this->db->where_not_in('pp.id_status_pengajuan',  $where);
     }
     // $this->db->where('id_puskesmas =', $id_puskesmas);
-    // $this->db->group_by('pp.id_pengajuan');
+    $this->db->group_by('pp.id_pengajuan');
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();
     return $query;
