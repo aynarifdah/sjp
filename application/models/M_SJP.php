@@ -1226,10 +1226,14 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
     //$this->db->where('pp.id_status_pengajuan !=', 4);
-    $where = array(1, 2);
-    $this->db->where_not_in('pp.id_status_pengajuan',  $where);
+    if (!empty($kelurahan)) {
+
+    }else{
+      $where = array(1, 2);
+      $this->db->where_not_in('pp.id_status_pengajuan',  $where);
+    }
     // $this->db->where('id_puskesmas =', $id_puskesmas);
-    // $this->db->group_by('pp.id_pengajuan');
+    $this->db->group_by('pp.id_pengajuan');
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();
     return $query;
