@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
 
                 <!-- KEKERASAN  WIDGET -->
                 <div id="counts about" class="counts about">
@@ -97,19 +98,35 @@
                     </div>
                 </div><!-- End Counts Section -->
 
+                <br>
+                <br>
                 <div class="chart mb-3">
                     <div class="row">
-                        <div class="col-md-6">
+                    <div class="col-md-6">
                             <div class="shadow-sm p-3 mb-3 rounded">
                                 <figure class="highcharts-figure">
-                                    <div id="kekerasan-pertahun"></div>
+                                    <div id="pasien-keseluruhan"></div>
                                 </figure>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="shadow-sm p-3 mb-3 rounded">
                                 <figure class="highcharts-figure">
-                                    <div id="kekerasan-daerah"></div>
+                                    <div id="pasien-pertahun"></div>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="shadow-sm p-3 mb-3 rounded">
+                                <figure class="highcharts-figure">
+                                    <div id="pasien-daerah"></div>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="shadow-sm p-3 mb-3 rounded">
+                                <figure class="highcharts-figure">
+                                    <div id="pasien-kelurahan"></div>
                                 </figure>
                             </div>
                         </div>

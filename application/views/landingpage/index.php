@@ -61,7 +61,7 @@
             <img src="<?= base_url('assets-web') ?>/img/icon/kekerasan-fisik.png" style="width: 20%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span> -->
-                <p>Jumlah Pasein</p>
+                <p>Jumlah Pasien</p>
               </div>
             </div>
           </div>
