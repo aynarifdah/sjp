@@ -96,6 +96,9 @@ class Auth extends CI_Controller
 					case "6":
 						redirect('Kelurahan/', 'refresh');
 						break;
+					case "7":
+						redirect('Home/', 'refresh');
+						break;
 						// case "5":
 						//     redirect('Masyarakat/', 'refresh'); 
 						//     break;
@@ -148,6 +151,9 @@ class Auth extends CI_Controller
 				break;
 			case 6:
 				$controller = "Kelurahan/";
+				break;
+			case 7:
+				$controller = "Home/";
 				break;
 			default:
 				$controller = "Auth/";

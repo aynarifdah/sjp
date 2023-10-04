@@ -141,7 +141,7 @@
       url     = "<?= base_url($controller);?>getRs";
       namaI   = "rs";
       optionV = '<option value="" selected>Pilih Rumah Sakit</option>';
-    } else if(instansi == 3){
+    } else if(instansi == 3 || instansi == 7){
       // Pusekesmas
       change  = true;
       url     = "<?= base_url($controller);?>getPuskesmas";
