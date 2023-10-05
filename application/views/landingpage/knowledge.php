@@ -34,6 +34,10 @@
 
             <div class="content">
 
+              <!-- <p>
+                        Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.
+                      </p> -->
+
               <div class="row align-self-center gy-4 features">
                 <div class="col-md-12 aos-init aos-animate" data-aos="zoom-out" data-aos-delay="200">
                   <div class="feature-box"
@@ -139,8 +143,7 @@
                     <div class="carousel-item active">
                       <div class="post-box">
                         <div class="post-img">
-                          <img src="<?= base_url('assets-web') ?>/img/galeri/galeri(1).jpg"
-                            class="img-fluid" alt="">
+                          <img src="<?= base_url('assets-web') ?>/img/galeri/galeri(1).jpg" class="img-fluid" alt="">
                         </div>
                         <span class="post-date">Mon, July 11</span>
                         <h3 class="post-title">Rumah Sakit LMN mendapatkan Penghargaan Pelayanan Terbaik</h3>
@@ -160,7 +163,7 @@
                 <button type="button" class="btn-outline-tags">Masyarakat</button>
                 <button type="button" class="btn-outline-tags">Kegiatan</button>
               </div>
-
+              
             </div>
           </div>
         </div>

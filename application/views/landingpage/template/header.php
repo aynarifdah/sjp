@@ -10,8 +10,8 @@
             </div>
             <div class="col-md-3 d-flex justify-content-end">
             <div class="contact-info">
-                <a href="mailto:#"><i class="ri-mail-fill"></i> sjp@gmail.com</a> | 
-                <a href="#"><i class="ri-phone-fill"></i> 021xxxxxxx</a>
+                <a href="mailto:#"><i class="ri-mail-fill"></i> dinkes@depok.go.id</a> | 
+                <a href="#"><i class="ri-phone-fill"></i> 02129402281</a>
             </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
     <br>
   <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-    <a href="index.html" class="logo d-flex align-items-center">
+    <a href="#" class="logo d-flex align-items-center">
       <img src="<?= base_url('assets-web') ?>/img/logo sjp.png" alt="">
       <!-- <span>FlexStart</span> -->
     </a>
@@ -65,7 +65,7 @@
 
   </div>
 </header>
-<div id="mySidenav" class="sidenav">
+<!-- <div id="mySidenav" class="sidenav">
   <a href="#" id="Informasi">
     <i class="ri-line-chart-fill"></i>
     <span class="text-side-nav hidden-xs" style="font-size: 14px !important;">Statistik</span>
@@ -83,9 +83,9 @@
     <span class="text-side-nav hidden-xs" style="font-size: 14px !important;">SI PPA</span>
   </a>
   <a data-toggle="modal" data-target="#kontakpenting" id="LCovid" style="background-color: #85bed2 !important;">
-    <i class="ri-phone-fill"></i>
+    <i class="ri-phone-fill"></i> -->
     <!-- <span class="text-side-nav hidden-xs" style="font-size: 14px !important;">Layanan Darurat</span> -->
-  </a>
-</div>
+  <!-- </a>
+</div> -->
 
 

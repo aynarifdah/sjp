@@ -1,14 +1,14 @@
 <!-- Vendor JS Files -->
-<script src="<?php echo base_url('assets-web/purecounter/purecounter.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/aos/aos.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/glightbox/js/glightbox.min.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/isotope-layout/isotope.pkgd.min.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/swiper/swiper-bundle.min.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/php-email-form/validate.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/purecounter/purecounter.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/aos/aos.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/glightbox/js/glightbox.min.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/isotope-layout/isotope.pkgd.min.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/php-email-form/validate.js') ?>"></script>
 
-<script src="<?php echo base_url('assets-web/splide/js/splide.js') ?>"></script>
-<script src="<?php echo base_url('assets-web/splide/js/splide.min.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/splide/js/splide.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/vendor/splide/js/splide.min.js') ?>"></script>
 
 <!-- LIGHTBOX -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script> -->
@@ -23,7 +23,7 @@
 
 
 <!-- Template Main JS File -->
-<script src="<?php echo base_url('assets-web/js/main.js') ?>"></script>
+<script src="<?php echo base_url('assets-web/asset/js/main.js') ?>"></script>
 
 <!-- LIGHTBOX -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script> -->
@@ -176,7 +176,7 @@
                 'Ratu Jaya',
                 'Sawangan Lama',
                 'Sukamaju Baru',
-                'Tanah Baru tugu',
+                'Tanah Baru',
                 'Tugu'
             ]
         },
@@ -244,7 +244,7 @@
             name: 'jumlah Pengajuan SJP',
             data: [916, 064, 742, 851, 490, 282, 121, 434]
         }, {
-            name: 'jumlah Survey sjp',
+            name: 'jumlah SJP yang sedang di survey',
             data: [744, 722, 005, 771, 185, 377, 147, 387]
         }],
 

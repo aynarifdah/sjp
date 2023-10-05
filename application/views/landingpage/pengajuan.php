@@ -1,44 +1,42 @@
 <section id="portfolio" class="portfolio">
-    <div class="galerisec text-center border-bottom mb-5 aos-init aos-animate" data-aos="">
-        <h2>Cek Pengajuan <span class="span">SJP</span></h2>
-        <div class="breadcrumb aos-init aos-animate d-flex justify-content-center" data-aos="">
-            <nav style="--bs-breadcrumb-divider: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&quot;);"
-                aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?php echo site_url('landingpage/index') ?>">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Galeri Foto</li>
-                </ol>
-            </nav>
-        </div>
+  <div class="galerisec text-center border-bottom mb-5 aos-init aos-animate" data-aos="fade-up">
+    <h2>Cek Pengajuan <span class="span">SJP</span></h2>
+    <div class="breadcrumb aos-init aos-animate d-flex justify-content-center" data-aos="fade-up">
+      <nav
+        style="--bs-breadcrumb-divider: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&quot;);"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="<?php echo site_url('landingpage/index') ?>">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Galeri Foto</li>
+        </ol>
+      </nav>
     </div>
-    <main>
-<div class="container" style="padding-top: 60px; padding-bottom: 50px;">
+  </div>
+  <main>
+    <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
       <div class="main_title">
-        <h5>Silahkan Cek <strong>Status Pengajuan Pasien</strong> dibawah ini</h5>
+        <h4>Silahkan Cek <strong>Status Pengajuan Pasien</strong> dibawah ini</h4>
         <!-- <p>Sistem Pendaftaran Online SJP Kota Depok.</p> -->
       </div>
 
       <div class="card" style="padding: 20px;">
         <div class="card-content collapse show">
           <div class="card-body">
-  
-  <form class="mt-5 mb-5" id="cek">
- <h5 class="text-left ml-3"><i class="ft-file"></i> <strong>NIK</strong></h5>
-    <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="namalengkap">NIK* (Nomor Induk Kependudukan)</label>
-                  <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control kontrakform" placeholder="Nomor Induk Kependudukan"
-                    name="nik" id="nik"> 
-                    <button type="submit" class="btn btn-primary btn-md" name="button" style="margin-left: 108%;">Cari</button>
-                  </div>
-                 
-                </div>
-       
-                
-  </form> 
 
-   <div class="table-responsive">
+            <form class="mt-5 mb-5" id="cek">
+              <h4 class="text-left ml-3"><i class="ft-file"></i> <strong>NIK</strong></h4>
+              <div class="form-group row">
+                <label class="col-lg-3 label-control" for="namalengkap">NIK*(Nomor Induk Kependudukan)</label>
+                <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
+                  <input type="text" class="form-control kontrakform" placeholder="Nomor Induk Kependudukan" name="nik"
+                    id="nik">
+                  <button type="submit" class="btn btn-primary btn-md" name="button" style="margin-left: 108%;">Cari</button>
+                </div>
+              </div>
+            </form>
+
+            <div class="table-responsive">
         
       
         <section id="configuration" style="padding-top: 10px;">

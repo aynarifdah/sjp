@@ -151,7 +151,8 @@
                 <a class="date">
                   <i class="ri-calendar-todo-fill"></i> 2022-12-12 08:11:00 </a>
                 <h5>Sistem Jaminan Pelayanan Kesehatan Diperbarui untuk Meningkatkan Akses Pasien</h5>
-                <p class="desk">Pemerintah telah mengumumkan pembaruan besar dalam sistem jaminan pelayanan kesehatan yang bertujuan untuk meningkatkan akses pasien ke perawatan medis.
+                <p class="desk">Pemerintah telah mengumumkan pembaruan besar dalam sistem jaminan pelayanan kesehatan
+                  yang bertujuan untuk meningkatkan akses pasien ke perawatan medis.
                 </p>
               </div>
             </div>

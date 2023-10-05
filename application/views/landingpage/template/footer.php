@@ -22,9 +22,9 @@
 
           <div class="col-lg-3 col-md-3 footer-contact text-center text-md-start">
             <h4>Kontak</h4>
-            <p>Jl. Permata Raya No.6, Pd. Jaya, Kec. Cipayung, Kota Depok, Jawa Barat 16438 <br><br>
-              <strong>Phone:</strong> 021XXXXXXXX<br>
-              <strong>Email:</strong> dp3ap2kb@gmail.com<br>
+            <p>Gedung Baleka II, Jl. Margonda Raya No.54, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431 <br><br>
+              <strong>Phone:</strong> 02129402281<br>
+              <strong>Email:</strong> dinkes@depok.go.id<br>
             </p>
 
           </div>

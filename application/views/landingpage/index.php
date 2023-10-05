@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center">
-          <h3 data-aos=""><span class="span"></span> Sistem Jaminan Pelayanan<br>
+          <h3 data-aos=""><span class="span"></span> Sistem Jaminan Pelayanan <br> (SJP Online)
             <span class="span">Kota Depok</span></h3>
 
             <div class="row mt-4 border-top pt-3">
@@ -58,10 +58,9 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 22%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span> -->
-                <h2>1459</h2>
                 <p>Jumlah Pasien</p>
               </div>
             </div>
@@ -69,10 +68,9 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 22%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span> -->
-                <h2>1456</h2>
                 <p>Jumlah Pengajuan SJP</p>
               </div>
             </div>
@@ -80,10 +78,9 @@
 
           <div class="col-lg-3 col-md-6 end">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 22%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span> -->
-                <h2>1453</h2>
                 <p>Jumlah SJP di Setujui</p>
               </div>
             </div>
@@ -94,7 +91,7 @@
         <div class="row mb-3">
           <div class="col-12 justify-content-end">
             <div class="readmore d-flex justify-content-end">
-              <a href="statistik.php"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
+              <a href="<?php echo site_url('landingpage/statistik') ?>"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
             </div>
           </div>
         </div>
@@ -249,7 +246,7 @@
             <div class="row mt-3">
               <div class="col-12 justify-content-end">
                 <div class="readmore d-flex justify-content-end">
-                  <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
+                <a href="<?php echo site_url('landingpage/pengumuman') ?>"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
                 </div>
               </div>
             </div>
@@ -334,7 +331,7 @@
             <div class="row mt-3">
               <div class="col-12 justify-content-end">
                 <div class="readmore d-flex justify-content-end">
-                  <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
+                <a href="<?php echo site_url('landingpage/agenda') ?>"> Selengkapnya  <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
                 </div>
               </div>
             </div>
@@ -396,7 +393,7 @@
                 <div class="row mt-3">
                   <div class="col-12 justify-content-end">
                     <div class="readmore d-flex justify-content-end">
-                      <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
+                    <a href="<?php echo site_url('landingpage/knowledge') ?>"> Selengkapnya  <i class='bx bxs-chevron-right-circle bx-tada' ></i></a>
                     </div>
                   </div>
                 </div>

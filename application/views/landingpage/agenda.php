@@ -1,23 +1,25 @@
-
 <main class="main" id="main">
     <section id="statistik" class="statistik">
-    
-        <div class="agendasec text-center border-bottom mb-5 aos-init aos-animate" data-aos="">
+
+        <div class="agendasec text-center border-bottom mb-5 aos-init aos-animate" data-aos="fade-up">
             <h2>Agenda <span class="span">SJP</span></h2>
-                <div class="breadcrumb aos-init aos-animate d-flex justify-content-center" data-aos="">
-                    <nav style="--bs-breadcrumb-divider: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&quot;);" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">aGENDA</li>
-                        </ol>
-                    </nav>
-                </div>
+            <div class="breadcrumb aos-init aos-animate d-flex justify-content-center" data-aos="fade-up">
+                <nav style="--bs-breadcrumb-divider: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&quot;);"
+                    aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">AGENDA</li>
+                    </ol>
+                </nav>
             </div>
+        </div>
+
         <div class="container">
-               
-                
-            <div class="breadcrumb" data-aos="">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+
+
+            <div class="breadcrumb" data-aos="fade-up">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                    aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Agenda Kegiatan</li>
@@ -25,22 +27,48 @@
                 </nav>
             </div>
 
-            <div class="filter mb-3" data-aos="">
+            <div class="filter mb-3" data-aos="fade-up">
                 <div class="row">
                     <div class="col-md-3">
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Kecamatan</option>
-                            <option value="1">Cilodong</option>
-                            <option value="2">Pancoranmas</option>
+                            <option value="1">Beji</option>
+                            <option value="2">Bojongsari</option>
+                            <option value="3">Cilodong</option>
+                            <option value="3">Cimanggis</option>
                             <option value="3">Cinere</option>
+                            <option value="3">Cipayung</option>
+                            <option value="3">Limo</option>
+                            <option value="3">Pancoranmas</option>
+                            <option value="3">Sawangan</option>
+                            <option value="3">Sukmajaya</option>
+                            <option value="3">Tapos</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Kelurahan</option>
-                            <option value="1">Jatimulya</option>
-                            <option value="2">Pancoranmas</option>
+                            <option value="1">Abdi Jaya</option>
+                            <option value="2">beji</option>
+                            <option value="3">bojongsari</option>
                             <option value="3">Cinere</option>
+                            <option value="3">cisalak</option>
+                            <option value="3">Curug(Cimanggis)</option>
+                            <option value="3">Duren Mekar</option>
+                            <option value="3">Grogol</option>
+                            <option value="3">Jatimulya</option>
+                            <option value="3">Kedaung</option>
+                            <option value="3">Kukusan</option>
+                            <option value="3">Luar Depok</option>
+                            <option value="3">Mekar Sari</option>
+                            <option value="3">Pangkalan Jati</option>
+                            <option value="3">Pasir Putih</option>
+                            <option value="3">Pondok Petir</option>
+                            <option value="3">Ratu Jaya</option>
+                            <option value="3">Sawangan Lama</option>
+                            <option value="3">Sukamaju Baru</option>
+                            <option value="3">Tanah Baru</option>
+                            <option value="3">Tugu</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -80,102 +108,120 @@
                         <div class="row">
                             <div style="overflow-x:auto;">
                                 <table class="table table-bordered">
-                                    <tbody><tr>
-                                        <th>S</th>
-                                        <th>M</th>
-                                        <th>T</th>
-                                        <th>W</th>
-                                        <th>T</th>
-                                        <th>F</th>
-                                        <th>S</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="other">26 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event1">Hari Anti Narkoba Nasional</a></div></td>
-                                        <td class="other">27</td>
-                                        <td class="other">28</td>
-                                        <td class="other">29 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event2">Hari Keluarga Nasional</a></div></td>
-                                        <td class="other">30</td>
-                                        <td>1 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event3">Hari Buah Sedunia</a></div></td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>4</td>
-                                        <td>5</td>
-                                        <td>6</td>
-                                        <td>7</td>
-                                        <td>8</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>11</td>
-                                        <td>12</td>
-                                        <td>13</td>
-                                        <td class="today">14 <br>Today</td>
-                                        <td>15</td>
-                                        <td>16</td>
-                                    </tr>
-                                    <tr>
-                                        <td>17 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event4">Hari Saka Bakti Husada</a></div>
-                                        <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event5">Talkshow Hidup Sehat Gaya Saka Bakti Husada</a></div>
-                                        </td>
-                                        <td>18</td>
-                                        <td>19</td>
-                                        <td>20</td>
-                                        <td>21</td>
-                                        <td>22</td>
-                                        <td>23 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event6">Hari Anak Nasional</a></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>24</td>
-                                        <td>25</td>
-                                        <td>26</td>
-                                        <td>27</td>
-                                        <td>28 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event7">Hari Hepatitis Sedunia</a></div></td>
-                                        <td>29</td>
-                                        <td>30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>31</td>
-                                        <td class="other">1 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event8">Pekan Asi Sedunia</a></div></td>
-                                        <td class="other">2</td>
-                                        <td class="other">3</td>
-                                        <td class="other">4</td>
-                                        <td class="other">5 <br>
-                                            <div class="event"><a class="event-text" href="" data-bs-toggle="modal" data-bs-target="#event9">Hari Dharma Wanita Nasional</a></div></td>
-                                        <td class="other">6</td>
-                                    </tr>
-                                </tbody></table>
+                                    <tbody>
+                                        <tr>
+                                            <th>S</th>
+                                            <th>M</th>
+                                            <th>T</th>
+                                            <th>W</th>
+                                            <th>T</th>
+                                            <th>F</th>
+                                            <th>S</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="other">26 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event1">Hari Anti Narkoba Nasional</a></div>
+                                            </td>
+                                            <td class="other">27</td>
+                                            <td class="other">28</td>
+                                            <td class="other">29 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event2">Hari Keluarga Nasional</a></div>
+                                            </td>
+                                            <td class="other">30</td>
+                                            <td>1 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event3">Hari Buah Sedunia</a></div>
+                                            </td>
+                                            <td>2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>11</td>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td class="today">14 <br>Today</td>
+                                            <td>15</td>
+                                            <td>16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>17 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event4">Hari Saka Bakti Husada</a></div>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event5">Talkshow Hidup Sehat Gaya Saka Bakti
+                                                        Husada</a></div>
+                                            </td>
+                                            <td>18</td>
+                                            <td>19</td>
+                                            <td>20</td>
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event6">Hari Anak Nasional</a></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>24</td>
+                                            <td>25</td>
+                                            <td>26</td>
+                                            <td>27</td>
+                                            <td>28 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event7">Hari Hepatitis Sedunia</a></div>
+                                            </td>
+                                            <td>29</td>
+                                            <td>30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>31</td>
+                                            <td class="other">1 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event8">Pekan Asi Sedunia</a></div>
+                                            </td>
+                                            <td class="other">2</td>
+                                            <td class="other">3</td>
+                                            <td class="other">4</td>
+                                            <td class="other">5 <br>
+                                                <div class="event"><a class="event-text" href="" data-bs-toggle="modal"
+                                                        data-bs-target="#event9">Hari Dharma Wanita Nasional</a></div>
+                                            </td>
+                                            <td class="other">6</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div> 
-        </div></div>
-<!-- ======= Values Section ======= -->
-
-            
-
-            
-
-                        
                     </div>
+                    <!-- ======= Values Section ======= -->
+
+
+
+
+
+
                 </div>
             </div>
-                </div>
-            
+        </div>
+        </div>
+
         </div>
     </section>
 </main>
 
- <!-- Modal -->
- <div class="modal fade" id="event1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="event1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
         

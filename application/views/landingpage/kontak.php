@@ -86,7 +86,7 @@
                             <span class="tape"></span>
                             <h4>Alamat <span><i class="icon-pin pull-right"></i></span></h4>
                             <p>
-                                Kota Depok Jawa Barat </p>
+                            Gedung Baleka II, Jl. Margonda Raya No.54, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431</p>
                             <hr>
                             <h4>Informasi Lainnya <span><i class="icon-help pull-right"></i></span></h4>
                             <p>
@@ -94,18 +94,18 @@
                                 disini.
                             </p>
                             <div class="puspaga">
-                                <h4><i class="icon-phone-squared"></i>Puspaga Depok</h4>
+                                <h4><i class="icon-phone-squared"></i>dinkesdepok.go.id</h4>
                                 <a href="tel:022-6612217">
-                                    <p style="color: #7b7b7b;">Telp : 08162522222</p>
+                                    <p style="color: #7b7b7b;">Telp : 02129402281</p>
                                 </a>
                             </div>
 
-                            <div class="puspaga">
+                            <!-- <div class="puspaga">
                                 <h4><i class="icon-phone-squared"></i>UPTD Ppa Depok</h4>
                                 <a href="tel:022-6612217">
                                     <p style="color: #7b7b7b;">Telp : 08162522222</p>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- End col-md-4 -->
