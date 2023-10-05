@@ -58,9 +58,10 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/kekerasan-fisik.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 20%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span> -->
+                <h2>1459</h2>
                 <p>Jumlah Pasien</p>
               </div>
             </div>
@@ -68,9 +69,10 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/kekerasan-mental.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span> -->
+                <h2>1456</h2>
                 <p>Jumlah Pengajuan SJP</p>
               </div>
             </div>
@@ -78,9 +80,10 @@
 
           <div class="col-lg-3 col-md-6 end">
             <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/kekerasan-seksual.png" style="width: 20%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 20%" alt="" class="icon-bg">
               <div class="text-ke">
                 <!-- <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span> -->
+                <h2>1453</h2>
                 <p>Jumlah SJP di Setujui</p>
               </div>
             </div>

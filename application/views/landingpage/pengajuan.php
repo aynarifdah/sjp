@@ -30,12 +30,13 @@
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control kontrakform" placeholder="Nomor Induk Kependudukan"
                     name="nik" id="nik"> 
+                    <button type="submit" class="btn btn-primary btn-md" name="button" style="margin-left: 108%;">Cari</button>
                   </div>
                  
                 </div>
-
-    <button type="submit" class="btn btn-primary btn-md" name="button" style="float: right;">Cari</button>
-  </form>
+       
+                
+  </form> 
 
    <div class="table-responsive">
         
