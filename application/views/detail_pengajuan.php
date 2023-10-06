@@ -113,21 +113,48 @@
                          <th scope="row">Anggaran</th>
                          <td class="text"><span class="angggaran"><?php if ($anggaran) {
                                                                     foreach ($anggaran as $keyanggaran) { ?>
-                                 <?= number_format($keyanggaran['nominal_anggaran']); ?>
+                                 <!-- <?= number_format($keyanggaran['nominal_anggaran']); ?> -->
+                                 <?php if ($key['domisili'] == 'Depok') { ?>
+                                   <strong>75.000.000</strong>
+                                 <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                                   <strong>25.000.000</strong>
+                                 <?php } else { ?>
+                                   KK Depok <strong>75.000.000</strong><br>
+                                   KK Luar Depok <strong>25.000.000</strong>
+                                 <?php } ?>
                              <?php }
-                                                                  } ?></span>&nbsp;&nbsp;<span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit"><?php
-                                                                                                                                                                                                        $a =  $keyanggaran['nominal_anggaran'];
-                                                                                                                                                                                                        $b =  $key['nominal_pembiayaan'];
-                                                                                                                                                                                                        //Operator pengurangan variabel a dengan variabel b
-                                                                                                                                                                                                        echo $a - $b;
-                                                                                                                                                                                                        ?></span></span></td>
+                                                                  } ?></span>&nbsp;&nbsp;
+                           <?php if ($key['domisili'] == 'Depok') { ?>
+                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">75.000.000</span></span>
+                           <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">25.000.000</span></span>
+                           <?php } else { ?>
+
+                           <?php } ?>
+                         </td>
                        </tr>
                        <?php if (!empty($key['tanggal_survey'])) { ?>
                          <tr>
                            <th scope="row">Hasil Survey</th>
-                           <td>
-                             <h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
-                           </td>
+                           <?php if ($key['kemiskinan'] == null) { ?>
+                             <td>
+                               <h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
+                             </td>
+                           <?php } else { ?>
+                             <td>
+                               <h5><strong>
+                                   <?php if ($key['kemiskinan'] == 'Sangat Miskin') { ?>
+                                     <div class="badge bg-danger">Sangat Miskin</div>
+                                   <?php } elseif ($key['kemiskinan'] == 'Miskin') { ?>
+                                     <div class="badge" style="background-color: yellow; color: black;">Miskin</div>
+                                   <?php } elseif ($key['kemiskinan'] == 'Rentan Miskin') { ?>
+                                     <div class="badge bg-danger" style="background-color: yellow;">Rentan Miskin</div>
+                                   <?php } else { ?>
+                                     <div class="badge bg-success">Tidak Miskin</div>
+                                   <?php } ?>
+                                 </strong></h5>
+                             </td>
+                           <?php } ?>
                          </tr>
                          <tr>
                            <th scope="row">Surveyor</th>
@@ -140,16 +167,33 @@
                        <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
                          <tr>
                            <th scope="row">Nominal Klaim</th>
-                           <td><?= number_format((float)$key['nominal_klaim']); ?></td>
+                           <td>
+                             <?php
+
+                              $subject = $key['nominal_klaim'];
+                              $search = array("Rp", ".", ",");
+                              $value = str_replace($search, '', $subject);
+                              echo number_format((float)$value);
+                              ?>
+
+                           </td>
                          </tr>
                        <?php } ?>
                        <tr>
                          <th scope="row">Nominal Pembiayaan</th>
                          <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
                            <td>
-                             <input type="number" class="form-control tambahnominal">
-                             <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
-
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="number" class="form-control tambahnominal">
+                                 <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
+                                   <button type="button" class="btn btn-secondary btn-sm text-center float-right submitnominal" style="margin-top: 6px;"> Submit Nominal</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
                            </td>
                          <?php  } else { ?>
                            <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
@@ -165,16 +209,39 @@
                            </td>
                          <?php } ?>
                        </tr>
-                       <tr>
-                         <?php if ($this->session->userdata('instansi') == 1) : ?>
-                           <th scope="row">Feedback</th>
+                       <?php if ($this->session->userdata('instansi') == 1) : ?>
+                         <tr>
+                           <th scope="row">Feedback untuk Puskesmas</th>
                            <td>
-                             <input type="text" class="form-control tambahfeedback">
-                             <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
-
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="text" class="form-control tambahfeedback">
+                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
                            </td>
-                         <?php endif ?>
-                       </tr>
+                         </tr>
+                         <tr>
+                           <th scope="row">Feedback untuk Rumah Sakit</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                       <?php endif ?>
 
                      </tbody>
                    </table>
@@ -197,8 +264,27 @@
                  <?php endforeach; ?>
 
                  <div class="float-right mt-2 ml-1">
-                   <?php if ($this->session->userdata('instansi') == 3 || 2) : ?>
+                   <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
+                   <?php endif ?>
+                   <?php if ($this->session->userdata('instansi') == 6) : ?>
+                     <?php
+
+                      $status_berkas = [];
+                      foreach ($getdokumenpersyaratan as $psy) {
+
+
+                        array_push($status_berkas, $psy['attachment']);
+                      }
+
+                      ?>
+
+                     <?php if (in_array(null, $status_berkas)) { ?>
+                       <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Lengkapi Berkas Persyaratan</button></a>
+                     <?php } else { ?>
+                       <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-primary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
+                     <?php } ?>
+
                    <?php endif ?>
                  </div>
 
@@ -213,14 +299,9 @@
 
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
-                     <button type="button" class="btn btn-secondary btn-sm text-center submitnominal ml-1"> Submit Nominal</button>
-                   <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2"> -->
-                   <?php if ($this->session->userdata('instansi') == 1) { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right submitfeedback ml-1"> Submit feedback</button>
-                   <?php } ?>
+
                    <!-- </div>
 
 
@@ -311,6 +392,7 @@
                  </div>
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
                  <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                 <!-- <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button> -->
                <?php } ?>
                </div>
              </div>
@@ -327,7 +409,7 @@
                    <a class="nav-link tabdetail" id="baseIcon-tab4" data-toggle="tab" aria-controls="tabIcon4" href="#tabIcon4" aria-expanded="false"><i class="ft-clipboard"></i> Hasil Survey</a>
                  </li>
                  <li class="nav-item">
-                   <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Rumah Sakit</a>
+                   <a class="nav-link tabdetail" id="baseIcon-tab6" data-toggle="tab" aria-controls="tabIcon6" href="#tabIcon6" aria-expanded="false"><i class="ft-clipboard"></i> Dok Rumah Sakit</a>
                  </li>
                  <li class="nav-item">
                    <a class="nav-link tabdetail" id="baseIcon-tab5" data-toggle="tab" aria-controls="tabIcon5" href="#tabIcon5" aria-expanded="false"><i class="ft-clipboard"></i> Dok Persyaratan</a>
@@ -563,48 +645,51 @@
                      <div class="card-content">
                        <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                          <div class="row">
-
-                           <?php
-                            $i = 1;
-                            $extensions_nama_file = pathinfo(base_url('uploads/dokumen/') . $key['namafile'], PATHINFO_EXTENSION);
-                            $extensions_file_resume = pathinfo(base_url('uploads/dokumen/') . $key['file_resume'], PATHINFO_EXTENSION);
-                            $extensions_other_files = pathinfo(base_url('uploads/dokumen/') . $key['other_files'], PATHINFO_EXTENSION);
-                            ?>
-                           <?php if ($extensions_nama_file == "pdf") : ?>
-                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['namafile'] ?></p>
-                             </div>
-                           <?php endif; ?>
-                           <?php if ($extensions_file_resume == "pdf") : ?>
-                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['file_resume'] ?></p>
-                             </div>
-                           <?php endif; ?>
-                           <?php if ($extensions_other_files == "pdf") : ?>
-                             <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                               <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                               <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $key['other_files'] ?></p>
-                             </div>
-                           <?php endif; ?>
-                           <?php if ($extensions_nama_file !== "pdf") : ?>
-                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['namafile'] ?>" alt="" /></a>
-                             </figure>
-                           <?php endif; ?>
-                           <?php if ($extensions_file_resume !== "pdf") : ?>
-                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['file_resume'] ?>" alt="" /></a>
-                             </figure>
-                           <?php endif; ?>
-                           <?php if ($extensions_other_files !== "pdf") : ?>
-                             <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                               <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
-                                 <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['other_files'] ?>" alt="" /></a>
-                             </figure>
+                           <?php if (!empty($riwayatpengajuan)) : ?>
+                             <?php foreach ($riwayatpengajuan as $val) : ?>
+                               <?php
+                                $i = 1;
+                                $extensions_nama_file = pathinfo(base_url('uploads/dokumen/') . $val['namafile'], PATHINFO_EXTENSION);
+                                $extensions_file_resume = pathinfo(base_url('uploads/dokumen/') . $val['file_resume'], PATHINFO_EXTENSION);
+                                $extensions_other_files = pathinfo(base_url('uploads/dokumen/') . $val['other_files'], PATHINFO_EXTENSION);
+                                ?>
+                               <?php if ($extensions_nama_file == "pdf") : ?>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['namafile'] ?></p>
+                                 </div>
+                               <?php endif; ?>
+                               <?php if ($extensions_file_resume == "pdf") : ?>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['file_resume'] ?></p>
+                                 </div>
+                               <?php endif; ?>
+                               <?php if ($extensions_other_files == "pdf") : ?>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['other_files'] ?></p>
+                                 </div>
+                               <?php endif; ?>
+                               <?php if ($extensions_nama_file !== "pdf") : ?>
+                                 <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['namafile'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['namafile'] ?>" alt="" /></a>
+                                 </figure>
+                               <?php endif; ?>
+                               <?php if ($extensions_file_resume !== "pdf") : ?>
+                                 <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['file_resume'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['file_resume'] ?>" alt="" /></a>
+                                 </figure>
+                               <?php endif; ?>
+                               <?php if ($extensions_other_files !== "pdf") : ?>
+                                 <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['other_files'] ?>" data-lightbox="example-set" data-title="Dokumen Persyaratan">
+                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['other_files'] ?>" alt="" /></a>
+                                 </figure>
+                               <?php endif; ?>
+                             <?php endforeach; ?>
                            <?php endif; ?>
 
 
@@ -756,8 +841,12 @@
                    <table class="table mb-0 ">
                      <tbody>
                        <tr>
-                         <th scope="row" class="border-top-0">Feedback Dinkes :</th>
+                         <th scope="row" class="border-top-0">Feedback Dinkes untuk Puskesmas:</th>
                          <td class="border-top-0"><?= $key['feedback_dinkes'] ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Feedback Dinkes untuk Rumah Sakit:</th>
+                         <td class="border-top-0"><?= $key['feedback_dinkes_untuk_rumahsakit'] ?></td>
                        </tr>
 
                      </tbody>
@@ -835,6 +924,36 @@
      </div>
    </div>
 
+   <!-- Modal -->
+   <div class="modal fade" id="Modalcetaksjp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title" id="exampleModalLongTitle"><strong>Form Passphrase</strong></h4>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <form action="<?= base_url('Dinkes/FormPassphrase') ?>" method="POST">
+           <div class="modal-body">
+             <div class="row">
+               <div class="col-md-12">
+                 <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp'] ?>">
+                 <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan'] ?>">
+                 <label>Passphrase :</label>
+                 <input type="password" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
+               </div>
+             </div>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button type="submit" class="btn btn-primary" id="submit_passphrase">Simpan</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+
    <script src="<?php echo base_url() ?>assets/viewerPdf/js/libs/jquery.min.js" type="text/javascript"></script>
    <script src="<?php echo base_url() ?>assets/viewerPdf/js/dflip.min.js" type="text/javascript"></script>
    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
@@ -886,17 +1005,40 @@
        });
      });
 
-     $('.submitfeedback').click(function(event) {
+     $('.submitfeedbackpuskesmas').click(function(event) {
        //  $('.inputfeedback').hide();
        var value = $('.tambahfeedback').val();
        var id_sjp = $('.id_sjpvalfeedback').val();
+       // var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
        //console.log(value);
        $.ajax({
          url: '<?= base_url(); ?>Dinkes/input_feedback',
          method: "POST",
          data: {
            feedback: value,
-           id_sjp: id_sjp
+           id_sjp: id_sjp,
+           // feedback_rs: value_rs,
+         },
+         async: false,
+         success: function(data) {
+           location.reload();
+         }
+       });
+     });
+
+     $('.submitfeedbackrs').click(function(event) {
+       //  $('.inputfeedback').hide();
+       // var value = $('.tambahfeedback').val();
+       var id_sjp = $('.id_sjpvalfeedback').val();
+       var value_rs = $('.tambahfeedbackuntukrumahsakit').val();
+       //console.log(value);
+       $.ajax({
+         url: '<?= base_url(); ?>Dinkes/input_feedback_rs',
+         method: "POST",
+         data: {
+           // feedback: value,
+           id_sjp: id_sjp,
+           feedback_rs: value_rs,
          },
          async: false,
          success: function(data) {
@@ -1084,6 +1226,14 @@
        var id_pengajuan = $(this).attr('data-pengajuan');
        var id_status_pengajuan = $(this).val();
        window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
+     });
+
+     $('#submit_passphrase').on('click', function() {
+       var value = $('#passphrase').val();
+
+       if (value == '!Bsre1221*') {
+         alert('TTE Berhasil');
+       }
      });
    </script>
 

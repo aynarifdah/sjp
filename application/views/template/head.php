@@ -1,3 +1,4 @@
+  <meta name="google-site-verification" content="mxkbhJfBHvmOPdA4_MWZzpSy3hLaNnBJgdd-ZodLrUM" />
   <link rel="apple-touch-icon" href="<?php echo base_url() ?>app-assets/images/ico/apple-icon-120.png">
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url() ?>assets/images/hospital.png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700" rel="stylesheet">
@@ -56,3 +57,4 @@
 
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/dflip.min.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/themify-icons.min.css" rel="stylesheet" type="text/css" />
+  <meta name="google-site-verification" content="mxkbhJfBHvmOPdA4_MWZzpSy3hLaNnBJgdd-ZodLrUM" />

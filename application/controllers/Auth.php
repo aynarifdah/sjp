@@ -49,9 +49,15 @@ class Auth extends CI_Controller
 	}
 
 	public function proses_login()
-	{
-		$username 	= $this->input->post('username');
-		$password 	= $this->input->post('password');
+	{	
+		if ($this->session->userdata('login_data')) {
+			$session_data = $this->session->userdata('login_data');
+			$username = $session_data['username'];
+			$password = $session_data['password'];
+		} else {
+			$username 	= $this->input->post('username');
+			$password 	= $this->input->post('password');
+		}
 		$user 		= $this->M_login->readBy($username);
 		// var_dump($user);die;
 		//  echo  $this->encryption->encrypt($password);die; 
@@ -63,21 +69,20 @@ class Auth extends CI_Controller
 			redirect('Auth/', 'refresh');
 		} else {
 			if ($password == $this->encryption->decrypt($user->password)) {
-				$session = array(
-					'authenticated' =>	true,
-					'id_user' 		=>	$user->id_user,
-					'username'		=>	$user->username,
-					'nama'    		=>	$user->nama,
-					'password'		=>	$user->nama,
-					'level'   		=>	$user->level,
-					'instansi'		=>	$user->id_instansi,
-					'id_join'		=>	$user->id_join
-				);
-				$this->session->set_userdata($session);
+				
+				$this->session->set_userdata('authenticated', true);
+				$this->session->set_userdata('id_user', $user->id_user);
+				$this->session->set_userdata('username', $user->username);
+				$this->session->set_userdata('nama', $user->nama);
+				$this->session->set_userdata('password', $user->nama);
+				$this->session->set_userdata('level', $user->level);
+				$this->session->set_userdata('instansi', $user->id_instansi);
+				$this->session->set_userdata('id_join', $user->id_join);
+
 				helper_log("login", "Berhasil Login", $user->id_instansi);
 				switch ($user->id_instansi) {
 					case "1":
-						redirect('Dinkes/', 'refresh');
+						redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
 						break;
 					case "2":
 						redirect('Rs/', 'refresh');

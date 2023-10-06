@@ -29,6 +29,7 @@
   <div class="card">
     <div class="card-head">
       <div class="card-header">
+        <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
             <h4 class="card-title">Data Disetujui SJP Baru</h4>
@@ -97,15 +98,18 @@
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
                     <!-- <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th> -->
+                    <th style="width: 30px; color: #6B6F82!important;">No</th>
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <!-- <th>Lama Pengajuan</th> -->
+                    <th>Jenis Rawat</th>
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
                     <th style="width: 30px; color: #6B6F82!important;">Jam</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
-                    <!-- <th>Diagnosa</th> -->
+
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+                    <th style="width: 30px; color: #6B6F82!important;">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -217,7 +221,13 @@
         "targets": 2,
         "type": "date-eu"
       }],
-      columns: [
+      columns: [{
+            data: "no",
+            className: " dt-head-center dt-body-center bodyclick",
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            }
+        },
         {
           data: "nama_pasien",
           className: "text-info dt-head-center dt-body-right bodyclick"
@@ -240,6 +250,10 @@
             var datenow = dt + '-' + month + '-' + year;
             return datenow;
           },
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "jenis_rawat",
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
@@ -308,6 +322,16 @@
 
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+        },
+        {
+          data: "id_sjp",
+          "render": function(data, type, row, meta) {
+            var pengajuan = row.id_pengajuan;
+            var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_disetujui_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+            
+            return hapus;
+          },
+          className: "dt-head-center dt-body-right"
         }
       ],
       ajax: {

@@ -451,10 +451,28 @@ class Dinkes extends CI_Controller
     public function input_feedback()
     {
         $feedback_dinkes = $this->input->post('feedback');
+        // $feedback_rs = $this->input->post('feedback_rs');
         $id_sjp = $this->input->post('id_sjp');
         $datafeedback = array(
             'feedback_dinkes' => $feedback_dinkes,
-        );
+            // 'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
+        );  
+
+        $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
+        // var_dump($updatefeedback);
+        // die;
+        echo json_encode($updatefeedback);
+    }
+
+    public function input_feedback_rs()
+    {
+        // $feedback_dinkes = $this->input->post('feedback');
+        $feedback_rs = $this->input->post('feedback_rs');
+        $id_sjp = $this->input->post('id_sjp');
+        $datafeedback = array(
+            // 'feedback_dinkes' => $feedback_dinkes,
+            'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
+        );  
 
         $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
         // var_dump($updatefeedback);
@@ -503,15 +521,15 @@ class Dinkes extends CI_Controller
         $path = "";
         $anggaran_tahun     = $this->M_SJP->anggaran();
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
-        $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
         $d = [
             'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
             'tahun'             => $this->M_SJP->tahun(),
-            'bulan'             => $this->M_SJP->bulan(),
+            // 'bulan'             => $this->M_SJP->bulan(),
             'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-            'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
-            'sisa_anggaran'     => $sisa_anggaran,
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
             'total_pasien'       => $this->M_SJP->total_pasien(),
             'distribusi'         => json_encode($this->M_SJP->distribusi()),
@@ -752,8 +770,9 @@ class Dinkes extends CI_Controller
             $akhir           = $this->input->post("akhir");
             $rs              = $this->input->post("rs");
             $status          = $this->input->post("status");
+            $jenis_rawat     = $this->input->post("jenis_rawat");
             $cari            = $this->input->post("cari");
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $cari);
+            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
         } else {
             $id_status_klaim = $this->input->post('status_klaim');
             $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
@@ -1185,6 +1204,26 @@ class Dinkes extends CI_Controller
         force_download($file, NULL);
     }
 
+    public function FormPassphrase()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $id_pengajuan = $this->input->post('id_pengajuan');
+        $passphrase = $this->input->post('passphrase');
+
+        if ($passphrase == '!Bsre1221*') {
+            $this->CetakTest($id_sjp);
+        }else{
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
+
+            $tte_gagal = array(
+                'pesan'          => 'Gagal Passphrase Salah',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
+
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $id_pengajuan);
+        }
+    }
+
     public function CetakTest($id_sjp)
     {
         // setlocale(LC_ALL, 'in_ID');
@@ -1215,13 +1254,13 @@ class Dinkes extends CI_Controller
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
 
-        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
         file_put_contents($location, $output);
 
-		
+        
 
 
         $username = 'esign';
@@ -1233,45 +1272,64 @@ class Dinkes extends CI_Controller
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-        	'file' => curl_file_create($file,'application/pdf'),
-        	'imageTTD' => curl_file_create($ttd,'image/jpeg'),
-        	'nik' => '0803202100007062',
-        	'passphrase' => '!Bsre1234*',
-        	'page' => '1',
-        	'tampilan' => 'visible',
-        	'image' => 'true',
-        	'linkQR' => 'https://google.com',
-        	'xAxis' => '800',
-        	'yAxis' => '100',
-        	'width' => '300',
-        	'height' => '250'
-        	);
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => '!Bsre1221*',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '800',
+            'yAxis' => '100',
+            'width' => '300',
+            'height' => '250'
+            );
         $ch = curl_init();
         $options = array(
-        	CURLOPT_URL => $url,
-        	CURLOPT_USERPWD => $username . ":" . $password,
-        	// CURLOPT_HEADER => true,
-        	CURLOPT_POST => 1,
-        	CURLOPT_HTTPHEADER => $headers,
-        	CURLOPT_POSTFIELDS => $postfields,
-        	CURLOPT_RETURNTRANSFER => true
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
         ); 
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
         $error = curl_error($ch);
 
-        curl_close($ch);
-         if($error != ""){
-        	var_dump($error);
-        	die();
-        }
-        unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        // var_dump($error);
+        // die();
 
-        header("Content-Type: application/pdf");
-		echo $resp;
+        curl_close($ch);
+        ////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        // if($error != ""){
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        //     $tte_gagal = array(
+        //         'pesan'          => 'Gagal',
+        //     );
+        //     $this->db->insert('log_tte', $tte_gagal);
+
+        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        // }else{
+            
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        //     $tte_berhasil = array(
+        //         'pesan'          => 'Berhasil',
+        //     );
+        //     $this->db->insert('log_tte', $tte_berhasil);
+
+        //     header("Content-Type: application/pdf");
+        //     echo $resp;
+        // }
         
     }
 
+    //Ketika blm ada akun tte//
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
     {
 
@@ -1376,8 +1434,8 @@ class Dinkes extends CI_Controller
         }
         .footer
         {
-        	font-style: italic;
-        	text-align: center;
+            font-style: italic;
+            text-align: center;
         }
 
 
@@ -1473,7 +1531,7 @@ class Dinkes extends CI_Controller
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu Setelah tanggal Diterbitkan' : '-')) . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>
@@ -1485,6 +1543,13 @@ class Dinkes extends CI_Controller
                 <td style="width: 5%">:</td>
                 <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
               </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>'.
+                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+                 . '</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -1492,13 +1557,14 @@ class Dinkes extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
       <br>
       <br>
       <br>
       <br>
       <br>
       <br>
-      <br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br>
       <div class="footer" style="margin-bottom:0">
       <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
       </div>
@@ -1507,8 +1573,498 @@ class Dinkes extends CI_Controller
         return $html;
     }
 
+    // Ketika ada akun tte ///
+    // public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
+    // {
+
+    //     $html =
+    //         '<html><head>
+    //     <meta charset="utf-8">
+    //     <title>Surat Jaminan Pelayanan</title>
+    //     <style>
+    //     @font-face 
+    //     {
+    //         font-family: Arial;
+    //         font-style: normal;
+    //         font-weight: normal;
+    //         src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
+    //     }
+    //     body {
+    //       font-family: Arial;
+    //       font-size: 14px;
+    //       margin-top:0px;
+    //       margin-left:10px;
+    //     }
+        
+    //     #kop {
+    //       margin-bottom:30px;
+    //     }
+    //     .a { display: inline-block; width: 70px; font-size:14px;}
+    //     .b { display: inline-block; width: 20px; font-size:14px;}
+    //     .c { display: inline-block; width: 300px; font-size:14px;}
+
+    //     table {
+    //     border-collapse: collapse;
+    //     width: 100%;
+    //     }
+    //     th, td {
+    //     text-align: left;
+    //     padding: 5px;
+    //     }
+
+    //     .content {
+    //         font-family: Arial !important;
+    //         font-size: 14px;
+    //         text-align:justify;
+    //         margin-left: 100px;
+    //         margin-right: 30px;
+    //     }
+    //     .right{
+    //     float:right;
+    //     }
+    //     .left{
+    //     float:left;
+    //     }
+    //     table {
+    //         border-collapse:separate; 
+    //         border-spacing: 0 0.6em;
+    //       }
+
+    //     .a, .b, .c
+    //     {
+    //         font-size:14px;
+    //     }
+
+    //     .tanggal
+    //     {
+    //         margin-left: 490px;
+    //     }
+
+    //     .keterangan
+    //     {
+    //         position: relative;
+    //         width: 700px;
+    //         height: 70px;
+    //     }
+
+    //     .kiri
+    //     {
+    //         position: absolute;
+    //         width: 390px;
+    //         height: auto;
+    //     }
+    //     .kanan
+    //     {
+    //         position: absolute;
+    //         top: 5px;
+    //         left: 490px;
+    //         width: 200px;
+    //         height: 60px;
+    //     }
+
+    //     .breakword
+    //     {
+    //         overflow-wrap:break-word !important;
+    //         word-wrap:break-word;
+    //     }
+
+    //     #hal
+    //     {
+    //         margin-top: 14px;
+    //     }
+    //     .info
+    //     {
+    //         text-indent: 50px;
+    //     }
+    //     .footer
+    //     {
+    //         font-style: italic;
+    //         text-align: center;
+    //     }
+
+
+    
+    //     </style>
+    //   </head>
+    //   <body>
+    //     <img src=' . $img_kop . ' alt="" id="kop" width="100%">
+           
+    //     <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+    //     <br><br>
+
+    //     <div class="keterangan">
+    //         <div class="kiri">
+    //             <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+    //             <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+    //             <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+    //         </div>
+            
+            
+    //         <div class="kanan">
+    //             Kepada :<br>
+    //             <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+    //             Di Tempat
+    //         </div>
+    //     </div>
+  
+    //   <br><br>
+    //   <div class="row">
+    //     <div class="col-lg-12">
+
+    //       Dari hasil penelitian kami atas surat-surat dari :
+    //       <br>
+    //         <table class="table table-borderless table-sm">
+    //           <tbody>
+    //             <tr>
+    //               <td style="width: 30%">Nama Pasien</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Tanggal Lahir</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Jenis Kelamin</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Tgl. Mulai Rawat</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
+    //             </tr>
+                
+    //             <tr>
+    //               <td style="width: 30%">Alamat</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . $sjp[0]->alamatpasien . '</td>
+    //             </tr>
+    //             <tr>
+    //               <td style="width: 30%">Domisili</td>
+    //               <td style="width: 5%">:</td>
+    //               <td>' . $sjp[0]->domisili . '</td>
+    //             </tr>
+    //           </tbody>
+    //         </table><br>
+      
+    //       Ternyata pasien tersebut memenuhi syarat :
+    //       <br>
+    //        <table class="table table-borderless table-sm">
+    //         <tbody>
+    //           <tr>
+    //             <td  style="width: 30%">Dirawat di</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $sjp[0]->nama_kelas . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Dilakukan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $sjp[0]->jenis_rawat . '</td>
+    //           </tr>
+              
+    //           <tr>
+    //             <td  style="width: 30%">Diagnosa sementara</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . $diag . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Diberikan jaminan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu' : '-')) . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td  style="width: 30%">Lain-lain</td>
+    //             <td style="width: 5%">:</td>
+    //             <td></td>
+    //           </tr>
+    //           <tr>
+    //             <td style="width: 30%">Jaminan</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+    //           </tr>
+    //           <tr>
+    //             <td style="width: 30%">Batas Maksimal Pagu</td>
+    //             <td style="width: 5%">:</td>
+    //             <td>'.
+    //                 ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+    //              . '</td>
+    //           </tr>
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //   </div>
+    //   <div class="info">
+    //   <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+    //   </div>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br>
+    //   <br><br><br><br><br><br>
+    //   <div class="footer" style="margin-bottom:0">
+    //   <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
+    //   </div>
+
+    //   </body></html>';
+    //     return $html;
+    // }
+
+
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function Waktu_pengajuan()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Pengajuan", $path),
+            "content" => $this->load->view('dinkes/waktu_pengaju', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_pengajuan()
+    {
+        $data       = $this->M_SJP->parameter_waktu_pengajuan();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_pengajuan($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu", $path),
+            "content" => $this->load->view('edit_waktu_pengajuan', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_buka' =>  $this->input->post('waktu_buka'),
+            'waktu_tutup' =>  $this->input->post('waktu_tutup')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_pengajuan', $data);
+        redirect('Dinkes/Waktu_pengajuan', 'refresh');
+    }
+
+    public function hapussjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuanall');
+    }
+
+    public function hapus_pengajuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Pengajuan BERHASIL dihapus!</div>');
+        redirect('Dinkes/pengajuan_sjp');
+    }
+
+    public function hapus_persetujuan_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Persetujuan SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/persetujuan_sjp_kayankesru');
+    }
+
+    public function hapus_disetujui_sjp($id_sjp, $id_pengajuan)
+    {   
+        $this->M_SJP->delete_pengajuan($id_pengajuan);
+        $this->M_SJP->delete_sjp($id_sjp);
+        // $this->M_SJP->delete_attachment($id_pengajuan);
+        $this->M_SJP->delete_diagnosa($id_sjp);
+        $this->M_SJP->delete_survey($id_sjp);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Disetujui SJP BERHASIL dihapus!</div>');
+        redirect('Dinkes/disetujui_sjp');
+    }
+
+    public function Waktu_survey()
+    {
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Waktu Survey", $path),
+            "content" => $this->load->view('dinkes/waktu_survey', false, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function parameter_waktu_survey()
+    {
+        $data       = $this->M_SJP->parameter_waktu_survey();
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_parameter_waktu_survey($id)
+    {
+        $path = "";
+        $data['waktu'] = $this->M_SJP->detail_waktu_survey($id);
+
+        $data = array(
+            "page"    => $this->load("Edit Waktu Survey", $path),
+            "content" => $this->load->view('edit_waktu_survey', $data, true)
+        );
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function update_parameter_waktu_survey()
+    {
+        $id = $this->input->post('id');
+        $data = array(
+            'waktu_survey' =>  $this->input->post('waktu_survey'),
+            'selesai_survey' =>  $this->input->post('selesai_survey')
+        );
+        $this->db->where('id', $id);
+        $this->db->update('jam_survey', $data);
+        redirect('Dinkes/Waktu_survey', 'refresh');
+    }
+
+    public function nominal_pembiayaan()
+    {
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
+
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->getnominal_pembiayaan($value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Dinkes/pengajuan_klaim');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('nominal_pembiayaan', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
+    }
+
+    public function proses_input_pembiayaan()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $nominalklaim   = $this->input->post('nominal');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        if ($nominalklaim == null) {
+            redirect('Dinkes/pengajuan_klaim','refresh');
+        }else{
+            foreach ($id_sjp as $key) { 
+                array_push($dataklaim, array(
+                    'id_sjp'      => $key,
+                    'nominal_pembiayaan'   => $nominalklaim[$index],
+                    'status_klaim'    => 3,
+                    'tanggal_persetujuan_klaim' => date("Y-m-d")
+                ));
+                $index++;
+            }
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Input Nominal Pembiayaan berhasil!</div>');
+
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+        redirect('Dinkes/pengajuan_klaim','refresh');
+    }
+
+    public function ditolak_sjp()
+    {
+        // $id_status_pengajuan = 3;
+        $path = "";
+        $datax = array(
+            'datapermohonan' => $this->M_SJP->select_ditolak_sjp(),
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+        );
+        $data = array(
+            "page"    => $this->load("Pengajuan SJP", $path),
+            "content" => $this->load->view('dinkes/ditolak_sjp', $datax, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getditolaksjpdinas()
+    {
+        if ($this->input->post() !== Null) {
+            $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
+            $rs         = $this->input->post("rs");
+            $status     = $this->input->post("status");
+            $cari       = $this->input->post("cari");
+            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+        } else {
+            $data       = $this->M_SJP->getditolaksjpdinas();
+        }
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
 
 }

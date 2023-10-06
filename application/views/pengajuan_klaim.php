@@ -30,6 +30,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-lg-12">
+          <?= $this->session->flashdata('message'); ?>
           <h4 class="card-title">Data Pengajuan Klaim</h4>
         </div>
       </div>
@@ -57,34 +58,21 @@
                 <button type="button" class="btn btn-secondary btn-sm" id="updatestatbayar"><i class="ft-credit-card"></i>&nbsp; Update Status Bayar</button>
               <?php } ?>
 
+              <button type="button" id="nominal" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Nominal Pembiayaan</button>
+
             </div>
           </div>
         </div>
 
         <div class="row" style="padding-left: 15px; padding-right: 15px;">
-          <div class="col-lg-2 filter">
+          <div class="col-lg-3 filter">
             <label>Tanggal mulai :</label>
             <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
           </div>
-          <div class="col-lg-2 filter">
+          <div class="col-lg-3 filter">
             <label>Tanggal akhir :</label>
             <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Akhir Referensi">
           </div>
-          <?php if ($status_klaim <= 0) : ?>
-            <div class="col-lg-2 filter">
-              <label>Status Klaim</label>
-              <select name="status" id="status" class="form-control">
-                <option value="" selected>Semua Status</option>
-                <?php if (!empty($statusklaim)) : ?>
-                  <?php foreach ($statusklaim as $sk) : ?>
-                    <option value="<?= $sk['id_statusklaim'] ?>"><?= $sk['nama_statusklaim'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
-            </div>
-          <?php else : ?>
-            <input type="hidden" name="status" id="status" value="">
-          <?php endif ?>
           <div class="col-lg-3 filter">
             <label>Rumah Sakit</label>
             <select name="rs" id="rs" class="form-control">
@@ -104,6 +92,30 @@
                 <i class="ft-search"></i>
               </div>
             </div>
+          </div>
+          <?php if ($status_klaim <= 0) : ?>
+            <div class="col-lg-4 filter mt-1 mb-1">
+              <label>Status Klaim</label>
+              <select name="status" id="status" class="form-control">
+                <option value="" selected>Semua Status</option>
+                <?php if (!empty($statusklaim)) : ?>
+                  <?php foreach ($statusklaim as $sk) : ?>
+                    <option value="<?= $sk['id_statusklaim'] ?>"><?= $sk['nama_statusklaim'] ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+          <?php else : ?>
+            <input type="hidden" name="status" id="status" value="">
+          <?php endif ?>
+
+          <div class="col-lg-4 filter mt-1 mb-1">
+            <label>Jenis Rawat</label>
+            <select name="jenis_rawat" id="jenis_rawat" class="form-control">
+              <option value="" selected>Semua Jenis Rawat</option>
+                  <option value="Rawat Inap">Rawat Inap</option>
+                  <option value="Rawat Jalan">Rawat Jalan</option>
+            </select>
           </div>
         </div>
 
@@ -128,9 +140,12 @@
                 <th>
                   <div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div>
                 </th>
+                <th>No</th>
                 <th style="color: #6B6F82 !important;">Nama</th>
                 <th>Nomor SJP</th>
                 <th>Rumah Sakit</th>
+                <th>Jenis Rawat</th>
+                <th>Nomor <br>Tagihan</th>
                 <th>Tanggal <br>Tagihan</th>
                 <th>Nominal <br>Pengajuan</th>
                 <th>Status</th>
@@ -228,6 +243,18 @@
 </script> -->
 
 <script>
+  $('#nominal').click(function(event) {
+    // console.log($(".check:checked").val());
+    var id_sjp = [];
+    $("input.check:checked").each(function(e) {
+      id_sjp[e] = $(this).val();
+      console.log(id_sjp);
+    });
+    // console.log(id_sjp);
+    var url = "nominal_pembiayaan?get=" + encodeURIComponent(id_sjp);
+    window.location.href = url;
+  });
+
   $('#updatestatbayar').click(function(event) {
     var id_sjp = [];
     $(".check:checked").each(function(index) {
@@ -287,6 +314,13 @@
         className: "dt-head-center dt-body-right"
       },
       {
+          data: "no",
+          className: " dt-head-center dt-body-center bodyclick",
+          render: function(data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+          }
+      },
+      {
         data: "nama_pasien",
         className: "text-info dt-head-center dt-body-right bodyclick"
       },
@@ -296,6 +330,14 @@
       },
       {
         data: "nm_rs",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "jenis_rawat",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "nomor_tagihan",
         className: "dt-head-center dt-body-right bodyclick"
       },
       {
@@ -357,6 +399,7 @@
         d.akhir = $("#akhir").val();
         d.rs = $("#rs").val();
         d.status = $("#status").val();
+        d.jenis_rawat = $("#jenis_rawat").val();
         d.cari = $("#cari").val();
       }
     },

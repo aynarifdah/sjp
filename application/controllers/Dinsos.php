@@ -1406,4 +1406,43 @@ class Dinsos extends CI_Controller
     }
     // Download dokumen
 
+    public function ditolak_sjp()
+    {
+        // $id_status_pengajuan = 3;
+        $path = "";
+        $datax = array(
+            'datapermohonan' => $this->M_SJP->select_ditolak_sjp(),
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+        );
+        $data = array(
+            "page"    => $this->load("Ditolak SJP", $path),
+            "content" => $this->load->view('ditolak_dinsos_sjp', $datax, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getditolaksjpdinas()
+    {
+        if ($this->input->post() !== Null) {
+            $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
+            $rs         = $this->input->post("rs");
+            $status     = $this->input->post("status");
+            $cari       = $this->input->post("cari");
+            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+        } else {
+            $data       = $this->M_SJP->getditolaksjpdinas();
+        }
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
 }

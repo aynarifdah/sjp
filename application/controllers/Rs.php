@@ -276,6 +276,17 @@ class Rs extends CI_Controller
                     'id_pengajuan'   => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
                 );
+            }else {
+                // Uploaded file data
+
+                $fileData      = $this->upload->data();
+                $persyaratan[] = array(
+                    'id_jenis_izin'  => $jenisizin,
+                    'attachment'     => '',
+                    //'feedback'       => $feedback,
+                    'id_pengajuan'   => $id_pengajuan,
+                    'id_persyaratan' => $nama_persyaratan[$i],
+                );
             }
             // else{
             //     echo "gagal";die;
@@ -1202,7 +1213,7 @@ public function proses_entry_klaim()
         $countfiles = count($dokumen);
         $dataFiles = [];
         for ($i = 0; $i < $countfiles; $i++) {
-            for ($j = 0; $j < 3; $j++) {
+            for ($j = 0; $j < 4; $j++) {
                 if (!empty($_FILES['dokumen']['name'][$j])) {
                     $_FILES['file']['name'] = $_FILES['dokumen']['name'][$j];
                     $_FILES['file']['type'] = $_FILES['dokumen']['type'][$j];
@@ -1213,7 +1224,7 @@ public function proses_entry_klaim()
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-                    $config['max_size'] = '5000'; // max_size in kb
+                    $config['max_size'] = '50000'; // max_size in kb
                     $config['file_name'] = $_FILES['dokumen']['name'][$j];
 
                     //Load upload library
@@ -1237,6 +1248,11 @@ public function proses_entry_klaim()
                         } elseif ($j == 2) {
                             $dataFiles[] = array(
                                 'other_files' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 3) {
+                            $dataFiles[] = array(
+                                'ket_pasien' => $filename['file_name'],
                                 'id_sjp'   => $id_sjp
                             );
                         }
@@ -1477,7 +1493,7 @@ public function proses_entry_klaim()
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . date_format(date_create($sjp[0]->selesai_rawat), "d-m-Y") . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . 'Selesai perawatan' . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>

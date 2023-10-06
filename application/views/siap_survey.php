@@ -60,20 +60,21 @@
                                   <option value="7">Tolak Pengajuan</option>
                                 </select>
                               </div>
-                              <div class="col-lg-5">
-                                <h5><strong>Hasil Survey : <span class="hasil"></span>
-                                	<span>/</span>
-                                	<span class="persyaratan"></span> Kriteria
-                                </strong></h5>
-                                <h5><strong><span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
+                              <!-- <div class="col-lg-5"> -->
+                                <!-- <h5><strong>Hasil Survey : <span class="hasil"></span> -->
+                                  <!-- <h5><strong>Hasil Survey : <span class="kethasilkemiskinan"></span>
+                                	<span>/</span> -->
+                                	<!-- <span class="persyaratan"></span> Kriteria -->
+                                <!-- </strong></h5> -->
+                                <!-- <h5><strong><span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5> -->
                               </div>
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">Catatan Survey</th>
                           <td><textarea class="form-control catatan" name="catatan"></textarea></td>
-                        </tr>
+                        </tr> -->
 
                       </tbody>
                     </table>
@@ -95,8 +96,8 @@
                             <td><?php echo $no++;?></td>
                             <td><input type="hidden" class="ceklist_survey" value="<?php echo $key->id_ceklist_survey?>" name="ceklist_survey[]"><?php echo $key->ceklist_survey?></td>
                             <td><fieldset class="form-group position-relative"> 
-                              <select class="form-control opsi"  name="opsi[]">
-                                <option value="0">Pilih Keterangan</option>
+                              <select class="form-control opsi" name="opsi[]" data-index-ceklist="<?= $key->index_survey; ?>" data-bobot-ceklist="<?= $key->bobot_survey; ?>" data-indeks-akumulatif="0">
+                                <option value="">Pilih Keterangan</option>
                                 <?php if(!empty($opsi)){
                                   foreach ($opsi as $op ) {
                                     if ($op->id_ceklist_survey == $key->id_ceklist_survey) {
@@ -110,9 +111,18 @@
                                 <?php } ?>
                               </tr>
                               <?php } ?>   
+                              <tr>
+                                <td colspan="2" class="text-center">Keterangan</td>
+                                <td colspan="2" class="text-center"><span class="kethasilkemiskinan">Tidak Ditemukan</span> </td>
+                                <input type="hidden" name="ket_miskin" class="kethasilkemiskinaninput">
+                              </tr>
+                              <tr>
+                                <td colspan="2" class="text-center">Catatan Survey</td>
+                                <td colspan="2" class="text-center"><textarea class="form-control catatan" name="catatan"></textarea></td>
+                              </tr>
                             </tbody>
                           </table>
-                        <!--   <table class="table table-bordered table-striped">
+                        <!--   <table class="table table-bordered table-striped">s
                             
                         </table> -->
                         <button type="submit" class="btn mr-1 mb-1 btn-primary btn-sm surveybtn confirm-survey"  style="float: right;">Submit</button>
@@ -152,185 +162,123 @@
         $('.persyaratan').html(bobot.length);
 
       });
-      function myFunc(total, num) {
-        return total + num;
-      }
-        var countopsi = []; //menyiapkan tempat penyimpanan hasil opsi yg dipilih
-        $('.opsi').each(function(index) {
-          $('.opsi').eq(index).change(function() {
-            var opsi = $(this).val();
-            //console.log (opsi);
-            $.ajax({
-              url: "<?php echo base_url(); ?>Home/getbobot", 
-              method : "POST",
-              dataType : "JSON",
-              data : {idopsi : opsi},
-              async : false,
-              success: function(result){
-                console.log("getbobot",result)
-                $('.bobot').eq(index).val(result);
-                if (result == 0) {
-                 $('.opsi').eq(index).removeClass('activegreen');
-                 if ($('.opsi').eq(index).hasClass('active')) {
-                  $('.opsi').eq(index).removeClass('active');
-                }else{
-                  $('.opsi').eq(index).addClass('active');
-                }
 
-              }else{
-                $('.opsi').eq(index).removeClass('active');
-                if ($('.opsi').eq(index).hasClass('activegreen')) {
-                  $('.opsi').eq(index).removeClass('activegreen');
-                }else{
-                  $('.opsi').eq(index).addClass('activegreen');
-                }
-              }
-          //  countopsi.push(result);
+      var indeksakumulatif;
+  let indexsurvey = 0;
+  let totalakumulatif = 0;
+  // $('.hasil').html(totalakumulatif);
+
+  function myFunc(total, num) {
+
+    return total + num;
+  }
+  var countopsi = []; //menyiapkan tempat penyimpanan hasil opsi yg dipilih
+
+  $('.opsi').each(function(index) {
+    $('.opsi').eq(index).change(function() {
+
+      var opsi = $(this).val();
+
+      //console.log (opsi);
+      $.ajax({
+        url: "<?php echo base_url(); ?>Home/getbobot",
+        method: "POST",
+        dataType: "JSON",
+        data: {
+          idopsi: opsi
+        },
+        async: false,
+        success: function(result) {
+
+          console.log("getbobot", result)
+
+
+
+          indexsurvey = $('.opsi').eq(index).data('index-ceklist');
+          bobotsurvey = $('.opsi').eq(index).data('bobot-ceklist');
+          indeksakumulatif = $('.opsi').eq(index);
+          jumlahakumulatif = bobotsurvey * indexsurvey * result;
+          jumlahakumulatif = jumlahakumulatif.toFixed(2);
+          // indeksakumulatif.attr('indeks-akumulatif', jumlahakumulatif);
+
+          $('.bobot').eq(index).val(jumlahakumulatif);
+          // $('.indeks').eq(index).text(jumlahakumulatif);
+          $('.bobot').trigger('change');
+
+          // alert($('.opsi').eq(index).data('indeks-akumulatif'));
+          // alert(jumlahakumulatif);
+
+
+          if (result == 0) {
+            $('.opsi').eq(index).removeClass('activegreen');
+            // if ($('.opsi').eq(index).hasClass('active')) {
+            //   $('.opsi').eq(index).removeClass('active');
+            // } else {
+            //   $('.opsi').eq(index).addClass('active');
+            // }
+
+          } else {
+            $('.opsi').eq(index).removeClass('active');
+            // if ($('.opsi').eq(index).hasClass('activegreen')) {
+            //   $('.opsi').eq(index).removeClass('activegreen');
+            // } else {
+            //   $('.opsi').eq(index).addClass('activegreen');
+            // }
+          }
+          countopsi.push(result);
+          getKategoriPenerima();
         }
 
-      });    
-            var bobotisi = $('.bobot').eq(index).val();
-            //console.log(bobotisi);
-            if (bobotisi != '') {
-              countopsi.push(bobotisi);
+      });
+    })
+  })
 
-            }
-      // console.log(countopsi);
-       // 
-        var bobot = 0;
-        var jumlahbobot = 0;
-         $('.bobot').each(function(i, e) {
-           var bobotval = $(this).val();
-            console.log(bobotval);
-      //     bobot.push(+bobotval);
+  $('.bobot').change(function() {
 
-             bobot +=parseInt(bobotval);
-             jumlahbobot++;
-         });
-         // console.log(bobot);
-         var countbobot =  bobot;
-         $('.hasil').html(countbobot);
-         $('.persyaratan').html(bobot.length);
-         if (countbobot >= 11) {
-          $('.catatan').html('Hasil survey '+countbobot+'/'+jumlahbobot+' Kriteria, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
-          $('.kethasil').html('LAYAK');
-          $('.iconhasil').removeClass('ft-user-x text-danger');
-          $('.kethasil').removeClass('text-danger');
-          if ($('.iconhasil').hasClass('ft-user-x')) {
-            $('.iconhasil').removeClass('ft-user-x text-danger');
-            $('.kethasil').removeClass('text-danger');
-          }else{
-            $('.iconhasil').addClass('ft-user-check text-success');
-            $('.kethasil').addClass('text-success');
-          }
-        }else{
-           $('.catatan').html('Hasil survey '+countbobot+'/'+jumlahbobot+' Kriteria, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
-          $('.kethasil').html('TIDAK LAYAK');
-          $('.kethasil').removeClass('text-success');
-          $('.iconhasil').removeClass('ft-user-check text-success');
-          if ($('.iconhasil').hasClass('ft-user-check  text-success')) {
-            $('.iconhasil').removeClass('ft-user-check text-success');
-          }else{
-            $('.iconhasil').addClass('ft-user-x text-danger');
-            $('.kethasil').addClass('text-danger');
-          }
-        } 
-     })
-        })
-      //   $('.opsi').change(function(event) {
-      //    var bobot = [];
-      //    $('.bobot').each(function(i, e) {
-      //      var bobotval = $(this).val();
-      //       console.log(bobotval);
-      // //     bobot.push(+bobotval);
-      //        bobot +=bobotval;
-      //    });
-      //    // console.log(bobot);
-      //    var countbobot =  bobot;
-      //    $('.hasil').html(countbobot);
-      //    $('.persyaratan').html(bobot.length);
-      //    if (countbobot >= 11) {
-      //     $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
-      //     $('.kethasil').html('LAYAK');
-      //     $('.iconhasil').removeClass('ft-user-x text-danger');
-      //     $('.kethasil').removeClass('text-danger');
-      //     if ($('.iconhasil').hasClass('ft-user-x')) {
-      //       $('.iconhasil').removeClass('ft-user-x text-danger');
-      //       $('.kethasil').removeClass('text-danger');
-      //     }else{
-      //       $('.iconhasil').addClass('ft-user-check text-success');
-      //       $('.kethasil').addClass('text-success');
-      //     }
-      //   }else{
-      //      $('.catatan').html('Hasil survey '+countbobot+'/'+bobot.length+' Kriteria, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
-      //     $('.kethasil').html('TIDAK LAYAK');
-      //     $('.kethasil').removeClass('text-success');
-      //     $('.iconhasil').removeClass('ft-user-check text-success');
-      //     if ($('.iconhasil').hasClass('ft-user-check  text-success')) {
-      //       $('.iconhasil').removeClass('ft-user-check text-success');
-      //     }else{
-      //       $('.iconhasil').addClass('ft-user-x text-danger');
-      //       $('.kethasil').addClass('text-danger');
-      //     }
-      //   }
-      //   // alert(countbobot);
-      // });
+    totalakumulatif = 0;
 
-  //  console.log(countopsi);
- //  $('.surveybtn').click(function(event) {
- //   var bobot = [];
- //   var opsival = [];
- //   var ceklist_survey = [];
- //   var tanggal_survey = $('.tanggal_survey').val();
- //   var surveyor = $('.surveyor').val();
- //   var catatan =  $('.catatan').val();
- //   $('.bobot').each(function(i, e) {
- //    bobot.push($(this).val());
- //    opsival.push($('.opsi').eq(i).val());
- //    ceklist_survey.push($('.ceklist_survey').eq(i).val());
- //  });
- //   var form_data = {
- //     tanggal_survey : tanggal_survey,
- //     surveyor : surveyor,
- //     catatan : catatan,
- //     opsi : opsival,
- //     ceklist_survey : ceklist_survey,
- //     bobot : bobot
- //   }
- //   console.log(form_data);
- // });
-//  $('.confirm-survey').on('click',function(){
-//    var bobot = [];
-//    var opsival = [];
-//    var ceklist_survey = [];
-//   //  var resultbobot = bobot.map(function (x) { 
-//   //   return parseInt(x, 10); 
-//   // });
-//   var tanggal_survey = $('.tanggal_survey').val();
-//   var surveyor = $('.surveyor').val();
-//   var catatan =  $('.catatan').val();
-//   $('.bobot').each(function(i, e) {
-//     var bobotval = $(this).val();
-//     bobot.push(+bobotval);
-//     opsival.push($('.opsi').eq(i).val());
-//     ceklist_survey.push($('.ceklist_survey').eq(i).val());
-//   });
-//   var form_data = {
-//    tanggal_survey : tanggal_survey,
-//    surveyor : surveyor,
-//    catatan : catatan,
-//    opsi : opsival,
-//    ceklist_survey : ceklist_survey,
-//    bobot : bobot
-//  }
-//  var countbobot =  bobot.reduce(myFunc);
-//  console.log(countbobot);
-//  if (countbobot < 12) {
-//    var title = "Hasil Survey "+countbobot+" Kurang dari kriteria yang direkomendasikan";
-//  }else{
-//    var title = "Hasil Survey "+countbobot+" Kurang dari kriteria yang direkomendasikan";
-//  }
-// });
+
+    $('.bobot').each(function() {
+      indeksakumulatif = $(this).val();
+
+
+      totalakumulatif += Number(indeksakumulatif);
+
+
+    });
+
+    $('.hasil').html(totalakumulatif.toFixed(2));
+    $('.totalakumulatif').html(totalakumulatif.toFixed(2));
+  });
+
+  function getKategoriPenerima() {
+    totalakumulatif = totalakumulatif.toFixed(2);
+    // alert(totalakumulatif);
+    $.ajax({
+      url: "<?php echo base_url(); ?>Home/getKategoriPenerima",
+      method: "POST",
+      dataType: "JSON",
+      data: {
+        totalakumulatif: totalakumulatif
+      },
+      async: false,
+      success: function(result) {
+        $('.kethasilkemiskinan').html(result);
+        $('.kethasilkemiskinaninput').val(result);
+        $('#kategori_penerima_survey').val(result);
+        if (result == 'Sangat Miskin') {
+          $('.catatan').html('Hasil survey Kriteria Sangat Miskin, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+        }else if (result == 'Miskin') {
+          $('.catatan').html('Hasil survey Kriteria Miskin, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+        }else if (result == 'Rentan Miskin') {
+          $('.catatan').html('Hasil survey Kriteria Rentan Miskin, Pasien dinyatakan LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+        }else if (result == 'Tidak Miskin'){
+          $('.catatan').html('Hasil survey Kriteria Tidak Miskin, Pasien dinyatakan TIDAK LAYAK mendapatkan Pembiayaan Bantuan Sosial diluar Kuota PBI');
+        }
+      }
+    });
+
+  }
 </script>
 
 </body>

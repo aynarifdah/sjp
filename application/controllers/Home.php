@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Options;
 
 class Home extends CI_Controller
 {
@@ -160,32 +161,36 @@ class Home extends CI_Controller
 
     public function permohonan_sjp()
     {
-        $jam = date('H');
-        $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Home/pengajuan');
-        } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-            );
+        $jam = date('H:i:s');
+        $hari = date('H:i:s');
 
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien', $data, true)
-            );
+        $jam_pengajuan = $this->M_data->getJamPengajuan();
+        foreach ($jam_pengajuan as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_buka"])) . ' - ' . date('H:i', strtotime($key["waktu_tutup"])) . ' WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect('Home/pengajuan');
+            } else {
+                $data = array(
+                    'topik'      => $this->M_SJP->diagnosa(),
+                    'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                    'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                    'rumahsakit' => $this->M_SJP->rumahsakit(),
+                    'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                    'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                );
 
-            $this->load->view('template/default_template', $data);
+                $path = "";
+                $data = array(
+                    "page" => $this->load("Input Pasien", $path),
+                    "content" => $this->load->view('input_pasien', $data, true)
+                );
+
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
     public function getKelurahan()
@@ -228,6 +233,7 @@ class Home extends CI_Controller
         $whatsapp1       = $this->input->post('whatsapp_pemohon');
         $email1          = $this->input->post('email_pemohon');
         $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
         //$feedback        = $this->input->post('feedback_dokumen');
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
@@ -243,6 +249,7 @@ class Home extends CI_Controller
             'email'         => $email1,
             'status_hubungan'       => $statushubungan,
             'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
             //'feedback_dokumen'   => $feedback
         );
         // var_dump($datapermohonan['status_hubungan']);
@@ -394,6 +401,7 @@ class Home extends CI_Controller
 
             // Load and initialize upload library
 
+            $this->load->library('image_lib');
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
             //var_dump($this->upload->initialize($config));die;
@@ -404,6 +412,30 @@ class Home extends CI_Controller
                 $persyaratan[] = array(
                     'id_jenis_izin'  => $jenisizin,
                     'attachment'     => $fileData['file_name'],
+                    //'feedback'       => $feedback,
+                    'id_pengajuan'   => $id_pengajuan,
+                    'id_persyaratan' => $nama_persyaratan[$i],
+                );
+
+                $configer =  array(
+                    'image_library'   => 'gd2',
+                    'source_image'    =>  $fileData['full_path'],
+                    'maintain_ratio'  =>  TRUE,
+                    'width'           =>  750,
+                    'height'          =>  750,
+                    'quality'         =>  80
+                );
+                $this->image_lib->clear();
+                $this->image_lib->initialize($configer);
+                $this->image_lib->resize();
+
+            }else {
+                // Uploaded file data
+
+                $fileData      = $this->upload->data();
+                $persyaratan[] = array(
+                    'id_jenis_izin'  => $jenisizin,
+                    'attachment'     => '',
                     //'feedback'       => $feedback,
                     'id_pengajuan'   => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
@@ -427,6 +459,8 @@ class Home extends CI_Controller
             // Upload status message
 
         }
+        // var_dump($persyaratan);
+        // die();
 
         // $this->db->insert_batch('attachment',$persyaratan);
         //var_dump($persyaratan);die;
@@ -688,27 +722,31 @@ class Home extends CI_Controller
     }
     public function siap_survey($id_sjp, $id_pengajuan)
     {
-        $jam = date('H');
-        $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
-            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect($_SERVER['HTTP_REFERER'], 'refresh');
-        } else {
-            $path = "";
-            $data['page']         = $this->load("Siap Survey", $path);
-            $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-            $data['survey']       = $this->M_SJP->variabel_survey();
-            $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-            $data['id_sjp']       = $id_sjp;
-            $data['id_pengajuan'] = $id_pengajuan;
-            $data['content']      = $this->load->view('siap_survey', $data, true, false);
-            // var_dump($data['opsi']);die;
+        $jam = date('H:i:s');
+        $hari = date('H:i:s');
 
-            $this->load->view('template/default_template', $data);
+        $jam_survey = $this->M_data->getJamSurvey();
+        foreach ($jam_survey as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["selesai_survey"] || $jam < $key["waktu_survey"]) {
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Survey Tempat Tinggal Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_survey"])) . ' - ' . date('H:i', strtotime($key["selesai_survey"])) . ' WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect($_SERVER['HTTP_REFERER'], 'refresh');
+            } else {
+                $path = "";
+                $data['page']         = $this->load("Siap Survey", $path);
+                $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
+                $data['survey']       = $this->M_SJP->variabel_survey();
+                $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
+                $data['id_sjp']       = $id_sjp;
+                $data['id_pengajuan'] = $id_pengajuan;
+                $data['content']      = $this->load->view('siap_survey', $data, true, false);
+                // var_dump($data['opsi']);die;
+
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
 
@@ -721,6 +759,7 @@ class Home extends CI_Controller
         $ceklistsurvey = $this->input->post('ceklist_survey');
         $catatan       = $this->input->post('catatan');
         $bobot         = $this->input->post('bobot');
+        $ket_miskin         = $this->input->post('ket_miskin');
         $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
         $datainsert    = array();
         // echo count($ceklistsurvey);die;
@@ -761,6 +800,7 @@ class Home extends CI_Controller
             'tanggal_survey'    => $tanggalsurvey,
             'surveyor'          => $surveyor,
             'keterangan_survey' => $catatan,
+            'kemiskinan' => $ket_miskin,
             // 'status_survey'     => $status_survey
         );
         $this->M_SJP->update_survey_sjp($data_sjp, $id_sjp);
@@ -1406,7 +1446,7 @@ class Home extends CI_Controller
             // ==========================PERSYARATAN=========================
             $dokumen = $this->input->post('dokumen');
             $id_persyaratan = $this->input->post('id_persyaratan');
-            $countfiles = count(array($id_persyaratan));
+            $countfiles = count($_FILES['dokumen']['name']);
             $data = [];
             for ($i = 0; $i < $countfiles; $i++) {
 
@@ -1427,12 +1467,13 @@ class Home extends CI_Controller
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-                    $config['max_size'] = 0; // max_size in kb
+                    $config['max_size'] = '20000'; // max_size in kb
                     // $config['file_name'] = $_FILES['dokumen']['name'][$i];
                     $config['file_name'] = $new_name_image;
 
 
                     //Load upload library
+                    $this->load->library('image_lib');
                     $this->load->library('upload', $config);
 
                     // File upload
@@ -1644,4 +1685,401 @@ class Home extends CI_Controller
         $file = 'uploads/dokumen/' . $file_name;
         force_download($file, NULL);
     }
+
+    public function getKategoriPenerima()
+    {
+        $total = $this->input->post('totalakumulatif');
+        $kategori = $this->M_SJP->getKategoriPenerima((float)$total);
+        echo json_encode($kategori);
+    }
+
+    public function CetakTest($id_sjp)
+    {
+        // setlocale(LC_ALL, 'in_ID');
+        $sjp = $this->M_SJP->detail_cetak($id_sjp);
+        // var_dump($sjp);
+        // die;
+        $diagpasien = $this->M_SJP->diagpasien($id_sjp);
+        $diag = implode(', ', array_column($diagpasien, 'namadiag'));
+        $img = base_url('/assets/uploads/cap.png');
+        $img_kop = base_url('/assets/images/kop_surat.png');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
+
+        // print_r($idtest);
+        // $this->load->view('dinkes/cetak');
+        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
+        // die;
+
+        $this->load->library('dompdf_gen');
+        $option = new Options();
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+        $option->set('defaultFont', 'Arial');
+        // $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->set_option('isRemoteEnabled', TRUE);
+        $this->dompdf->render();
+
+        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+        $time = date('His');
+        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        file_put_contents($location, $output);
+
+        
+
+
+        $username = 'esign';
+        $password = 'qwerty';
+        $url = "103.113.30.81/api/sign/pdf";
+        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+
+        
+
+        $headers = array("Content-Type:multipart/form-data");
+        $postfields = array(
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => '!Bsre1221*',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '800',
+            'yAxis' => '100',
+            'width' => '300',
+            'height' => '250'
+            );
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
+        ); 
+        curl_setopt_array($ch, $options);
+        $resp = curl_exec($ch);
+        $error = curl_error($ch);
+
+        // var_dump($resp);
+        // die();
+
+        curl_close($ch);
+        //////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        // if($error != ""){
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        //     $tte_gagal = array(
+        //         'pesan'          => 'Gagal',
+        //     );
+        //     $this->db->insert('log_tte', $tte_gagal);
+
+        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        // }else{
+            
+        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+
+        //     $tte_berhasil = array(
+        //         'pesan'          => 'Berhasil',
+        //     );
+        //     $this->db->insert('log_tte', $tte_berhasil);
+
+        //     header("Content-Type: application/pdf");
+        //     echo $resp;
+        // }
+        
+    }
+
+    public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
+    {
+
+        $html =
+            '<html><head>
+        <meta charset="utf-8">
+        <title>Surat Jaminan Pelayanan</title>
+        <style>
+        @font-face 
+        {
+            font-family: Arial;
+            font-style: normal;
+            font-weight: normal;
+            src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
+        }
+        body {
+          font-family: Arial;
+          font-size: 14px;
+          margin-top:0px;
+          margin-left:10px;
+        }
+        
+        #kop {
+          margin-bottom:30px;
+        }
+        .a { display: inline-block; width: 70px; font-size:14px;}
+        .b { display: inline-block; width: 20px; font-size:14px;}
+        .c { display: inline-block; width: 300px; font-size:14px;}
+
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        th, td {
+        text-align: left;
+        padding: 5px;
+        }
+
+        .content {
+            font-family: Arial !important;
+            font-size: 14px;
+            text-align:justify;
+            margin-left: 100px;
+            margin-right: 30px;
+        }
+        .right{
+        float:right;
+        }
+        .left{
+        float:left;
+        }
+        table {
+            border-collapse:separate; 
+            border-spacing: 0 0.6em;
+          }
+
+        .a, .b, .c
+        {
+            font-size:14px;
+        }
+
+        .tanggal
+        {
+            margin-left: 490px;
+        }
+
+        .keterangan
+        {
+            position: relative;
+            width: 700px;
+            height: 70px;
+        }
+
+        .kiri
+        {
+            position: absolute;
+            width: 390px;
+            height: auto;
+        }
+        .kanan
+        {
+            position: absolute;
+            top: 5px;
+            left: 490px;
+            width: 200px;
+            height: 60px;
+        }
+
+        .breakword
+        {
+            overflow-wrap:break-word !important;
+            word-wrap:break-word;
+        }
+
+        #hal
+        {
+            margin-top: 14px;
+        }
+        .info
+        {
+            text-indent: 50px;
+        }
+        .footer
+        {
+            font-style: italic;
+            text-align: center;
+        }
+
+
+    
+        </style>
+      </head>
+      <body>
+        <img src=' . $img_kop . ' alt="" id="kop" width="100%">
+           
+        <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+        <br><br>
+
+        <div class="keterangan">
+            <div class="kiri">
+                <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+                <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+                <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+            </div>
+            
+            
+            <div class="kanan">
+                Kepada :<br>
+                <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+                Di Tempat
+            </div>
+        </div>
+  
+      <br><br>
+      <div class="row">
+        <div class="col-lg-12">
+
+          Dari hasil penelitian kami atas surat-surat dari :
+          <br>
+            <table class="table table-borderless table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 30%">Nama Pasien</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tanggal Lahir</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Jenis Kelamin</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tgl. Mulai Rawat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Alamat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->alamatpasien . '</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Domisili</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->domisili . '</td>
+                </tr>
+              </tbody>
+            </table><br>
+      
+          Ternyata pasien tersebut memenuhi syarat :
+          <br>
+           <table class="table table-borderless table-sm">
+            <tbody>
+              <tr>
+                <td  style="width: 30%">Dirawat di</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->nama_kelas . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Dilakukan</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->jenis_rawat . '</td>
+              </tr>
+              
+              <tr>
+                <td  style="width: 30%">Diagnosa sementara</td>
+                <td style="width: 5%">:</td>
+                <td>' . $diag . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Diberikan jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu Setelah tanggal Diterbitkan' : '-')) . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Lain-lain</td>
+                <td style="width: 5%">:</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>'.
+                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+                 . '</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="info">
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      </div>
+      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br><br><br><br><br><br>
+      <div class="footer" style="margin-bottom:0">
+      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
+      </div>
+
+      </body></html>';
+        return $html;
+    }
+
+    public function getToken()
+    {
+        $url = "http://192.168.19.9/api/authenticate?email=diskominfo.dw@depok.go.id&password=diskominfodepok";
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        $error_msg = curl_error($curl);
+        curl_close($curl);
+        $json_response = json_decode($response);
+
+        return $json_response;
+
+    }
+
+    public function ValidasiDTKSbyNIK($nik)
+    {
+        $gettoken = $this->getToken();
+
+        $auth = $gettoken->token;
+        
+        $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
+        $data_api = array(
+            "Auth" => $auth,
+            "JenisApi" => 'Cek Nik Dtks'
+        );
+        $fields_string = http_build_query($data_api);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        $error_msg = curl_error($curl);
+        curl_close($curl);
+        $json_response = json_decode($response);
+        echo json_encode($json_response);
+    }
+
 }

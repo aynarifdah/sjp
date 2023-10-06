@@ -33,6 +33,13 @@
                       <option value="Laki-Laki">Laki - Laki</option>
                     </select>
                   </div>
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="pemohon_pengajuan" id="pemohon_pengajuan" class="form-control" required>
+                      <option value="">Pilih Pemohon</option>
+                      <option value="Relawan">Relawan</option>
+                      <option value="Kader">Kader</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
@@ -238,11 +245,11 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
                       <option value="">Pilih Jenis Rawat</option>
-                      <option value="Rawat Inap">Rawat Inap</option>
+                      <option value="Rawat Inap" id='rawat_inap'>Rawat Inap</option>
                       <option value="Rawat Jalan">Rawat Jalan</option>
                     </select>
                   </div>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                  <div class="kelas_rawat col-lg-3" style="padding: 0px 15px 5px 15px;" id="pilih_kelas_rawat">
                     <select name="kelas_rawat" id="kelas_rawat" class="form-control" style="width: 100%">
                       <option value="">Pilih Kelas Rawat</option>
                       <?php if (!empty($kelas_rawat)) {
@@ -328,12 +335,12 @@
                     <div class="form-group row" id="modalwal">
                       <label class="col-lg-3 label-control" for="modal"><?= $key['nama_persyaratan'] ?></label>
                       <div class="col-lg-9">
-                        <?php if ($key["id_persyaratan"] == 6 || $key["id_persyaratan"] == 7 && 8 || $key["id_persyaratan"] == 10  && 8 || $key["id_persyaratan"] == 3 && 11 || $key["id_persyaratan"] == 11 && 12 || $key["id_persyaratan"] == 12 && 13 || $key["id_persyaratan"] == 13 && 14 || $key["id_persyaratan"] == 14) { ?>
-                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;">
-                        <?php } else { ?>
+                        <?php if ($key["id_persyaratan"] == 5 || $key["id_persyaratan"] == 14 || $key["id_persyaratan"] == 4) { ?>
                           <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
-                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required>
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required value="">
+                        <?php } else { ?>
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" value="">
                         <?php }
                         ?>
 
@@ -532,65 +539,65 @@
   //   var tes = $('.sjpform').serialize();
   //   console.log(decodeURIComponent(tes));
   // })
-  $('#nik').change(function() {
-    var nik = $(this).val();
-    $.ajax({
-      url: "getDataByNIK/" + nik,
-      type: 'GET',
-      beforeSend: function() {
-        $('#loader_form').show();
-      },
-      complete: function() {
-        $('#loader_form').hide();
-      },
-      success: function(data) {
-        var json_data = JSON.parse(data);
-        var api_data = json_data.content[0];
-        let jk = api_data.JENIS_KLMIN;
-        let kecPasien = api_data.KEC_NAME;
-        let kelPasien = api_data.KEL_NAME;
-        console.log(kelPasien);
-        if (api_data.hasOwnProperty('RESPONSE_CODE')) {
-          alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
-        } else {
-          $('#namapasien').val(api_data.NAMA_LGKP);
-          // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
-          $('#tanggallahirpasien').val(api_data.TGL_LHR);
-          $('#tempatlahirpasien').val(api_data.TMPT_LHR);
-          $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
-          $('#alamatpasien').val(api_data.ALAMAT);
-          $('#rtpasien').val(api_data.NO_RT);
-          $('#rwpasien').val(api_data.NO_RW);
-          $("#" + api_data.AGAMA).attr('selected', true);
+  // $('#nik').change(function() {
+  //   var nik = $(this).val();
+  //   $.ajax({
+  //     url: "getDataByNIK/" + nik,
+  //     type: 'GET',
+  //     beforeSend: function() {
+  //       $('#loader_form').show();
+  //     },
+  //     complete: function() {
+  //       $('#loader_form').hide();
+  //     },
+  //     success: function(data) {
+  //       var json_data = JSON.parse(data);
+  //       var api_data = json_data.content[0];
+  //       let jk = api_data.JENIS_KLMIN;
+  //       let kecPasien = api_data.KEC_NAME;
+  //       let kelPasien = api_data.KEL_NAME;
+  //       console.log(kelPasien);
+  //       if (api_data.hasOwnProperty('RESPONSE_CODE')) {
+  //         alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
+  //       } else {
+  //         $('#namapasien').val(api_data.NAMA_LGKP);
+  //         // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
+  //         $('#tanggallahirpasien').val(api_data.TGL_LHR);
+  //         $('#tempatlahirpasien').val(api_data.TMPT_LHR);
+  //         $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
+  //         $('#alamatpasien').val(api_data.ALAMAT);
+  //         $('#rtpasien').val(api_data.NO_RT);
+  //         $('#rwpasien').val(api_data.NO_RW);
+  //         $("#" + api_data.AGAMA).attr('selected', true);
 
-          $('#jeniskelaminkpasien').val(jk);
-          $('#kd_kecamatanpasien').val(kecPasien).trigger('change');
-          $('#kd_kelurahanpasien').val(kelPasien).trigger('change');
-          // $('#Kecamatan').remove();
-          // $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
-          // var kelurahan = '';
-          // kelurahan += '<div class="form-group row kecamatan_value">';
-          // kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
-          // kelurahan += '<div class="col-sm-9">';
-          // kelurahan += '<div class="input-group mb-2">';
-          // kelurahan += '<div class="input-group-prepend">';
-          // kelurahan += '<div class="input-group-text">';
-          // kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
-          // kelurahan += '</div>';
-          // kelurahan += '</div>';
-          // kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
-          // kelurahan += '</div>';
-          // kelurahan += '</div>';
-          // kelurahan += '</div>';
-          // $('#kecamatan_value').append(kelurahan);
-        }
-        // console.log(api_data);
-      },
-    });
+  //         $('#jeniskelaminkpasien').val(jk);
+  //         $('#kd_kecamatanpasien').val(kecPasien).trigger('change');
+  //         $('#kd_kelurahanpasien').val(kelPasien).trigger('change');
+  //         // $('#Kecamatan').remove();
+  //         // $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
+  //         // var kelurahan = '';
+  //         // kelurahan += '<div class="form-group row kecamatan_value">';
+  //         // kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
+  //         // kelurahan += '<div class="col-sm-9">';
+  //         // kelurahan += '<div class="input-group mb-2">';
+  //         // kelurahan += '<div class="input-group-prepend">';
+  //         // kelurahan += '<div class="input-group-text">';
+  //         // kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
+  //         // kelurahan += '</div>';
+  //         // kelurahan += '</div>';
+  //         // kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
+  //         // kelurahan += '</div>';
+  //         // kelurahan += '</div>';
+  //         // kelurahan += '</div>';
+  //         // $('#kecamatan_value').append(kelurahan);
+  //       }
+  //       // console.log(api_data);
+  //     },
+  //   });
 
 
 
-  });
+  // });
   // TEST 04-02-2021
 
 
@@ -644,4 +651,43 @@
   });
 
   // TEST 04-02-2021
+
+
+  /////////////////////////////////////Pengembangan SJP Rifqy/////////////////////////////////////
+
+  $(document).ready(function() {
+
+    $("select#jenisrawat").on('change', function() {
+        $("#pilih_kelas_rawat").hide();
+
+        if($('#rawat_inap').is(':selected')) {
+          $("#pilih_kelas_rawat").fadeIn();
+        }
+         
+        if($(this).val() == "Rawat Inap"){
+        $("#kelas_rawat").attr('required', '');
+
+        }else{
+        $("#kelas_rawat").removeAttr('required');            
+
+        }
+    }).change();
+
+    $('#nik').change(function() {
+        var nik = $(this).val();
+        $.ajax({
+            url: "ValidasiDTKSbyNIK/" + nik,
+            type: 'POST',
+            success: function(data) {
+                var json_data = JSON.parse(data);
+                if (!json_data.data) {
+                    alert('NIK Tidak Terdaftar pada DTKS');
+                } else {
+                    alert('NIK Terdaftar pada DTKS');
+                }
+            },
+        });
+    });
+});
+
 </script>

@@ -12,6 +12,8 @@
       </li>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/disetujui_sjp'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Disetujui</span></a>
       </li>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/ditolak_sjp'); ?>"><i class="ft-x-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Ditolak</span></a>
+      </li>
 
       <li class=" nav-item"><a href="#"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.page_headers.main">Proses Klaim</span></a>
         <ul class="menu-content">
@@ -38,6 +40,16 @@
     <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/UserManagement'); ?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>
       </li>
+      <li class=" nav-item"><a href="#"><i class="ft-settings"></i><span class="menu-title" data-i18n="nav.page_headers.main">Parameter</span></a>
+      <ul class="menu-content">
+
+        <li><a href="<?php echo base_url('Dinkes/Waktu_pengajuan'); ?>" class="menu-item">Waktu Pengajuan</a>
+        </li>
+
+        <li><a href="<?php echo base_url('Dinkes/Waktu_survey'); ?>" class="menu-item">Waktu Survey</a>
+        </li>
+      </ul>
+    </li>
     <?php endif ?>
     </ul>
   </div>

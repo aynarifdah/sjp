@@ -46,7 +46,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
+                <!-- <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a> -->
 
                 <a href="<?php echo base_url('Exportexcel/pkm_pengajuan_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
 
@@ -299,7 +299,7 @@
           data: "tanggal_survey",
           "render": function(data, type, row, meta) {
             if (data == '' || data == null) {
-              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Kelurahan/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
             } else {
               return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
             }

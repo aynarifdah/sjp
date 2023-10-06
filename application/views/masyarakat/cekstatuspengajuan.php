@@ -36,6 +36,7 @@
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Pasien</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Tanggal<br> Pengajuan</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Rumah <br>Sakit</th>
+              <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Feedback</th>
               <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
               <!-- <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Aksi</th> -->
             </tr>
@@ -132,6 +133,7 @@ function loaddata(nik){
       return datenow;
     }, className: "dt-head-center dt-body-right bodyclick" },
     {data: "nm_rs", className : "dt-head-center dt-body-right bodyclick"},
+    {data: "feedback_dinkes", className : "dt-head-center dt-body-right bodyclick"},
     {data: "id_status_pengajuan", "render": function ( data, type, row, meta ) {
       if (data == 1) {
         //$('.statuspengajuan').addClass('bg-info');
