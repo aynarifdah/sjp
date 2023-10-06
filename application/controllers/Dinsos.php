@@ -184,7 +184,7 @@ class Dinsos extends CI_Controller
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
         $this->load->view('template/default_template', $data);
         //echo $data['level'];die;
-        //var_dump($data['datapermohonan']);die;
+        // var_dump($data['datapermohonan']);die;
 
 
     }
@@ -236,7 +236,7 @@ class Dinsos extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 14 || $jam < 8) {
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                     Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -525,6 +525,21 @@ class Dinsos extends CI_Controller
         //      $this->load->view('template/default_template', $data);
     }
 
+    public function view_pdf($id_pengajuan, $id_persyaratan)
+    {
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
 
     // public function perset(){
     //     $path = "";
@@ -1296,7 +1311,7 @@ class Dinsos extends CI_Controller
             'draw' => '',
             'recordsFiltered' => '',
             'recordsTotal' => '',
-            'query' => $this->db->last_query(),
+            // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
     }

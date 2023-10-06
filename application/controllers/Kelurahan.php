@@ -1507,6 +1507,26 @@ class Kelurahan extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
+
+    public function view_pdf($id_pengajuan, $id_jenis_izin, $id_persyaratan)
+    {
+        // $id_jenis_izin = 1;
+        // $id_pengajuan = 1;
+        // $id_persyaratan = 2;
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_jenis_izin, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
     public function persetujuan_sjp()
     {
         $path = "";

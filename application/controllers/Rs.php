@@ -32,7 +32,7 @@ class Rs extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                     Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -465,6 +465,24 @@ class Rs extends CI_Controller
         // var_dump($data['datapasien']);
         // die;
     }
+
+    public function view_pdf($id_pengajuan, $id_persyaratan)
+    {
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+
     public function gethasilsurvey()
     {
         $id_puskesmas = 1;

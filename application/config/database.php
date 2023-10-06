@@ -141,7 +141,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-    'hostname' => 'localhost',
+	'hostname' => 'localhost',
 	'username' => 'scdev',
 	'password' => 'p1n4ng9A',
 	'database' => 'sjp',

@@ -677,10 +677,24 @@ class M_SJP extends CI_Model
     $this->db->from('attachment');
     $this->db->where('id_pengajuan ', $id_pengajuan);
     $this->db->where('id_jenis_izin', $id_jenis_izin);
+    // $this->db->where('id_persyaratan', $id_persyaratan);
     // $this->db->where('id_persyaratan !=', 4);
     $query = $this->db->get()->result_array();
     return $query;
   }
+  
+  public function getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan)
+  {
+    $this->db->select('*');
+    $this->db->from('attachment');
+    $this->db->where('id_pengajuan ', $id_pengajuan);
+    // $this->db->where('id_jenis_izin', $id_jenis_izin);
+    $this->db->where('id_persyaratan', $id_persyaratan);
+    // $this->db->where('id_persyaratan !=', 4);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
   public function input_nominal_pembiayaan($data, $id_sjp)
   {
     $this->db->where('id_sjp', $id_sjp);

@@ -262,6 +262,7 @@ class Home extends CI_Controller
         // }
 
         $nik           = $this->input->post('nik');
+        $status_jkn    = $this->input->post('status_jkn');
         $nama_pasien   = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
         $tempatlahir   = $this->input->post('tempat_lahir');
@@ -296,6 +297,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
@@ -1329,7 +1331,7 @@ class Home extends CI_Controller
 
             // Informasi Pasien | Tabel sjp
             $nikPasien          = $this->input->post('nikpasien');
-            $domisili          = $this->input->post('domisili');
+            $domisili           = $this->input->post('domisili');
             $nama_pasien        = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
             $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
@@ -1465,7 +1467,11 @@ class Home extends CI_Controller
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+<<<<<<< HEAD
                     $config['max_size'] = '20000'; // max_size in kb
+=======
+                    $config['max_size'] = 0; // max_size in kb
+>>>>>>> origin/iqbaleRadjasa
                     // $config['file_name'] = $_FILES['dokumen']['name'][$i];
                     $config['file_name'] = $new_name_image;
 
@@ -1539,6 +1545,25 @@ class Home extends CI_Controller
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_pdf($id_pengajuan, $id_persyaratan)
+    {
+        // $id_jenis_izin = 1;
+        // $id_pengajuan = 1;
+        // $id_persyaratan = 2;
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+        
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+        
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
         $this->load->view('template/default_template', $data);
     }
 
