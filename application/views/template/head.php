@@ -53,3 +53,6 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/pages/gallery.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/bootstrap-select.css">
+
+  <link href="<?php echo base_url() ?>assets/viewerPdf/css/dflip.min.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo base_url() ?>assets/viewerPdf/css/themify-icons.min.css" rel="stylesheet" type="text/css" />

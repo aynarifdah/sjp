@@ -119,7 +119,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '18.136.123.139',
+	'hostname' => 'localhost',
 	'username' => 'scdev',
 	'password' => 'p1n4ng9A',
 	'database' => 'sjp',

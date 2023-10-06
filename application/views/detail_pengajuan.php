@@ -63,7 +63,7 @@
                               echo '<div class="badge bg-danger bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
                             } ?>
 
-                      <?php
+                           <?php
                             $now = date("Y-m-d");
                             $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d");
                             $date1 = date_create($tgl);
@@ -90,9 +90,9 @@
                                 $tgl = date_format(date_create($key['tanggal_pengajuan']), "Y-m-d h:i:s");
                                 $date1 = date_create($tgl);
                                 if ($key['tanggal_selesai'] == null) {
-                                $date2 = date_create($now);
+                                  $date2 = date_create($now);
                                 } else {
-                                $date2 = date_create($key['tanggal_selesai']);
+                                  $date2 = date_create($key['tanggal_selesai']);
                                 }
                                 // $diff = date_diff($now, $tgl);
 
@@ -100,9 +100,9 @@
 
                                 $stro2 = strtotime($tgl);
 
-                                echo $jam = round(($stro1 - $stro2)/(60 * 60));
+                                echo $jam = round(($stro1 - $stro2) / (60 * 60));
                                 ?>
-                                Jam
+                               Jam
                              </div>
                            </td>
                          </tr>
@@ -309,12 +309,6 @@
                      </div>
                    </div>
                  </div>
-
-
-
-
-
-
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
                  <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
                <?php } ?>
@@ -355,6 +349,10 @@
                        <tr>
                          <th scope="row" class="border-top-0">NIK</th>
                          <td class="border-top-0"><?php echo $key['nik']; ?></td>
+                       </tr>
+                       <tr>
+                         <th scope="row" class="border-top-0">Status JKN</th>
+                         <td class="border-top-0"><?php echo $key['status_jkn']; ?></td>
                        </tr>
                        <tr>
                          <th scope="row" class="border-top-0">Nama Pasien</th>
@@ -667,7 +665,7 @@
                  </div>
                  <div class="tab-pane paneldetail" id="tabIcon5" aria-labelledby="baseIcon-tab5">
                    <div class="note">
-                     <p> <strong>Catatan Dokumen:</strong> <span class="catatan"><?php echo $key['feedback']; ?></span></p>
+                     <p> <strong>Catatan Dokumen:</strong><span class="catatan"><?php echo $key['feedback']; ?></span></p>
                    </div>
                    <section id="image-gallery" class="card">
                      <div class="card-content">
@@ -678,20 +676,22 @@
                               $i = 1;
                               foreach ($getdokumenpersyaratan as $att) { ?>
 
-                               <!-- <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
-                                    $ext = $path_parts['extension'];
-                                    if ($ext == "pdf") :
-                                    ?> -->
-                               <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                 <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                 <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
-                               </div>
-                               <!-- <?php else : ?> -->
-                               <figure class="col-lg-6 col-md-6 col-12">
-                                 <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
-                                   <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
-                               </figure>
-                               <!-- <?php endif; ?> -->
+                               <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
+                                $ext = $path_parts['extension'];
+                                if ($ext == "pdf") :
+                                ?>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                   <a href="<?= base_url($controller) . 'view_pdf/' . $att['id_pengajuan'] . '/' . $att['id_persyaratan'] . '/' . $att['attachment'] ?> " target="_blank">
+                                     <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                     <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
+                                   </a>
+                                 </div>
+                               <?php else : ?>
+                                 <figure class="col-lg-6 col-md-6 col-12">
+                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
+                                 </figure>
+                               <?php endif; ?>
 
 
 
@@ -699,7 +699,6 @@
                             } ?>
 
                          </div>
-
 
                        </div>
                        <!--/ Image grid -->
@@ -836,6 +835,8 @@
      </div>
    </div>
 
+   <script src="<?php echo base_url() ?>assets/viewerPdf/js/libs/jquery.min.js" type="text/javascript"></script>
+   <script src="<?php echo base_url() ?>assets/viewerPdf/js/dflip.min.js" type="text/javascript"></script>
    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous"></script>
    <script src="<?= base_url() ?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
@@ -847,33 +848,6 @@
    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
    <script type="text/javascript">
-     function getNamePdf(e) {
-       var file_name = $('#' + e).find('p').html();
-       window.location.href = '<?= base_url($controller); ?>download_file_pdf/' + file_name;
-
-       //  alert(file_name);
-       // $.ajax({
-       //   url: '<?= base_url($controller); ?>download_file_pdf',
-       //   method: "POST",
-       //   data: {
-       //     pdfName: file_name
-       //   },
-
-
-       //   success: function() {
-
-       //   }
-
-       // });
-
-     }
-
-
-
-     //  $('.pdfButton').on('click', function() {
-     //    alert(id);
-     //  })
-
      function logCetak() {
        $.ajax({
          url: '<?= base_url($controller); ?>logCetak',
