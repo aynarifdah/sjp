@@ -1467,11 +1467,7 @@ class Home extends CI_Controller
                     // Set preference
                     $config['upload_path'] = 'uploads/dokumen/';
                     $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-<<<<<<< HEAD
                     $config['max_size'] = '20000'; // max_size in kb
-=======
-                    $config['max_size'] = 0; // max_size in kb
->>>>>>> origin/iqbaleRadjasa
                     // $config['file_name'] = $_FILES['dokumen']['name'][$i];
                     $config['file_name'] = $new_name_image;
 

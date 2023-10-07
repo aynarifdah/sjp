@@ -114,25 +114,25 @@
                          <td class="text"><span class="angggaran"><?php if ($anggaran) {
                                                                     foreach ($anggaran as $keyanggaran) { ?>
                                  <!-- <?= number_format($keyanggaran['nominal_anggaran']); ?> -->
-                                 <?php if($key['domisili'] == 'Depok'){ ?>
-                                  <strong>75.000.000</strong>
-                                 <?php }elseif ($key['domisili'] == 'Luar Depok') { ?>
-                                  <strong>25.000.000</strong>
-                                 <?php }else{ ?>
-                                 KK Depok <strong>75.000.000</strong><br>
-                                 KK Luar Depok <strong>25.000.000</strong>
+                                 <?php if ($key['domisili'] == 'Depok') { ?>
+                                   <strong>75.000.000</strong>
+                                 <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                                   <strong>25.000.000</strong>
+                                 <?php } else { ?>
+                                   KK Depok <strong>75.000.000</strong><br>
+                                   KK Luar Depok <strong>25.000.000</strong>
                                  <?php } ?>
                              <?php }
-                              } ?></span>&nbsp;&nbsp;
-                              <?php if($key['domisili'] == 'Depok'){ ?>
-                                <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">75.000.000</span></span>
-                               <?php }elseif ($key['domisili'] == 'Luar Depok') { ?>
-                                <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">25.000.000</span></span>
-                               <?php }else{ ?>
+                                                                  } ?></span>&nbsp;&nbsp;
+                           <?php if ($key['domisili'] == 'Depok') { ?>
+                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">75.000.000</span></span>
+                           <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">25.000.000</span></span>
+                           <?php } else { ?>
 
-                               <?php } ?>
-                          </td>
-                        </tr>
+                           <?php } ?>
+                         </td>
+                       </tr>
                        <?php if (!empty($key['tanggal_survey'])) { ?>
                          <tr>
                            <th scope="row">Hasil Survey</th>
@@ -140,20 +140,20 @@
                              <td>
                                <h5><strong><span class="hasil"></span><span>/</span><span class="persyaratan"></span>&nbsp;&nbsp;<span class="kethasil"></span>&nbsp;<i class="iconhasil"></i></strong></h5>
                              </td>
-                           <?php }else{ ?>
-                            <td>
-                              <h5><strong>
-                                <?php if ($key['kemiskinan'] == 'Sangat Miskin'){ ?>
-                                  <div class="badge bg-danger">Sangat Miskin</div>
-                                <?php }elseif($key['kemiskinan'] == 'Miskin') { ?>
-                                  <div class="badge" style="background-color: yellow; color: black;">Miskin</div>
-                                <?php }elseif($key['kemiskinan'] == 'Rentan Miskin') { ?>
-                                  <div class="badge bg-danger" style="background-color: yellow;">Rentan Miskin</div>
-                                <?php }else{ ?>
-                                  <div class="badge bg-success">Tidak Miskin</div>
-                                <?php } ?>
-                              </strong></h5>
-                            </td>
+                           <?php } else { ?>
+                             <td>
+                               <h5><strong>
+                                   <?php if ($key['kemiskinan'] == 'Sangat Miskin') { ?>
+                                     <div class="badge bg-danger">Sangat Miskin</div>
+                                   <?php } elseif ($key['kemiskinan'] == 'Miskin') { ?>
+                                     <div class="badge" style="background-color: yellow; color: black;">Miskin</div>
+                                   <?php } elseif ($key['kemiskinan'] == 'Rentan Miskin') { ?>
+                                     <div class="badge bg-danger" style="background-color: yellow;">Rentan Miskin</div>
+                                   <?php } else { ?>
+                                     <div class="badge bg-success">Tidak Miskin</div>
+                                   <?php } ?>
+                                 </strong></h5>
+                             </td>
                            <?php } ?>
                          </tr>
                          <tr>
@@ -168,32 +168,32 @@
                          <tr>
                            <th scope="row">Nominal Klaim</th>
                            <td>
-                            <?php
-                            
-                            $subject = $key['nominal_klaim'];
-                            $search = array("Rp", ".", ",") ;
-                            $value = str_replace($search, '', $subject) ;
-                            echo number_format((float)$value); 
-                            ?>
-                              
-                            </td>
+                             <?php
+
+                              $subject = $key['nominal_klaim'];
+                              $search = array("Rp", ".", ",");
+                              $value = str_replace($search, '', $subject);
+                              echo number_format((float)$value);
+                              ?>
+
+                           </td>
                          </tr>
                        <?php } ?>
                        <tr>
                          <th scope="row">Nominal Pembiayaan</th>
                          <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
                            <td>
-                              <div class="row">
-                                <div class="col-md-8">
-                                  <input type="number" class="form-control tambahnominal">
-                                  <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
-                                </div>
-                                <div class="col-md-4">
-                                  <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="number" class="form-control tambahnominal">
+                                 <input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['status_klaim'] == 2) { ?>
                                    <button type="button" class="btn btn-secondary btn-sm text-center float-right submitnominal" style="margin-top: 6px;"> Submit Nominal</button>
                                  <?php } ?>
-                                </div>
-                              </div>
+                               </div>
+                             </div>
                            </td>
                          <?php  } else { ?>
                            <td><?= number_format((float)$key['nominal_pembiayaan']); ?>&nbsp;&nbsp;
@@ -210,37 +210,37 @@
                          <?php } ?>
                        </tr>
                        <?php if ($this->session->userdata('instansi') == 1) : ?>
-                       <tr>
-                         <th scope="row">Feedback untuk Puskesmas</th>
-                         <td>
-                          <div class="row">
-                            <div class="col-md-8">
-                              <input type="text" class="form-control tambahfeedback">
-                              <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
-                            </div>
-                            <div class="col-md-4">
-                              <?php if ($this->session->userdata('instansi') == 1) { ?>
-                                 <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
-                               <?php } ?>
-                            </div>
-                          </div>
-                         </td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Feedback untuk Rumah Sakit</th>
+                         <tr>
+                           <th scope="row">Feedback untuk Puskesmas</th>
                            <td>
-                            <div class="row">
-                              <div class="col-md-8">
-                                <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
-                              </div>
-                              <div class="col-md-4">
-                                <?php if ($this->session->userdata('instansi') == 1) { ?>
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="text" class="form-control tambahfeedback">
+                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                         <tr>
+                           <th scope="row">Feedback untuk Rumah Sakit</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-8">
+                                 <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
+                               </div>
+                               <div class="col-md-4">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
                                    <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
                                  <?php } ?>
-                              </div>
-                            </div>
+                               </div>
+                             </div>
                            </td>
-                       </tr>
+                         </tr>
                        <?php endif ?>
 
                      </tbody>
@@ -268,23 +268,22 @@
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
                    <?php endif ?>
                    <?php if ($this->session->userdata('instansi') == 6) : ?>
-                    <?php 
+                     <?php
 
-                    $status_berkas = [];
-                    foreach ($getdokumenpersyaratan as $psy) {
+                      $status_berkas = [];
+                      foreach ($getdokumenpersyaratan as $psy) {
 
-        
-                      array_push($status_berkas, $psy['attachment']);
 
-                    }
+                        array_push($status_berkas, $psy['attachment']);
+                      }
 
-                     ?>
+                      ?>
 
-                        <?php if (in_array(null, $status_berkas)) {?>
-                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Lengkapi Berkas Persyaratan</button></a>
-                        <?php }else{ ?>
-                          <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-primary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
-                        <?php } ?>
+                     <?php if (in_array(null, $status_berkas)) { ?>
+                       <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-secondary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Lengkapi Berkas Persyaratan</button></a>
+                     <?php } else { ?>
+                       <a href="<?php echo base_url($controller . 'edit_berkas_persyaratan/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-primary btn-sm float-right mr-1"><i class="ft-edit"></i>&nbsp;Edit Berkas Persyaratan</button></a>
+                     <?php } ?>
 
                    <?php endif ?>
                  </div>
@@ -302,7 +301,7 @@
                  <div class="float-right mt-2 ml-1"> -->
                    <!-- </div>
                  <div class="float-right mt-2"> -->
-                
+
                    <!-- </div>
 
 
@@ -392,8 +391,8 @@
                    </div>
                  </div>
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                  <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
-                  <!-- <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button> -->
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                 <!-- <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button> -->
                <?php } ?>
                </div>
              </div>
@@ -646,8 +645,8 @@
                      <div class="card-content">
                        <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                          <div class="row">
-                          <?php if (!empty($riwayatpengajuan)) : ?>
-                            <?php foreach ($riwayatpengajuan as $val) : ?>
+                           <?php if (!empty($riwayatpengajuan)) : ?>
+                             <?php foreach ($riwayatpengajuan as $val) : ?>
                                <?php
                                 $i = 1;
                                 $extensions_nama_file = pathinfo(base_url('uploads/dokumen/') . $val['namafile'], PATHINFO_EXTENSION);
@@ -690,8 +689,8 @@
                                      <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $val['other_files'] ?>" alt="" /></a>
                                  </figure>
                                <?php endif; ?>
-                            <?php endforeach;?>
-                          <?php endif;?>
+                             <?php endforeach; ?>
+                           <?php endif; ?>
 
 
 
@@ -1229,12 +1228,12 @@
        window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
      });
 
-     $('#submit_passphrase').on('click', function(){
-      var value = $('#passphrase').val();
+     $('#submit_passphrase').on('click', function() {
+       var value = $('#passphrase').val();
 
-      if (value == '!Bsre1221*') {
-        alert('TTE Berhasil');
-      }
+       if (value == '!Bsre1221*') {
+         alert('TTE Berhasil');
+       }
      });
    </script>
 

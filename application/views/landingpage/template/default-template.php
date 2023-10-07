@@ -8,6 +8,7 @@
 
 
 	<?php echo $page["header"]; ?>
+	<?php echo $page["navbar"]; ?>
 
 	<?php echo $content; ?>
 
