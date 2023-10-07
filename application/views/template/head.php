@@ -4,35 +4,14 @@
 
   <!-- BEGIN VENDOR CSS-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/vendors.css">
-  <!-- END VENDOR CSS-->
-
-  <!-- BEGIN MODERN CSS-->
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/app.css">
-  <!-- END MODERN CSS-->
-
-  <!-- BEGIN Page Level CSS-->
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/core/menu/menu-types/vertical-menu.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/core/colors/palette-gradient.css">
-  <!-- END Page Level CSS-->
-
-  <!-- BEGIN Custom CSS-->
-  <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/style.css"> -->
-  <link href="<?= base_url('assets-web/img/hospital.png') ?>" rel="icon">
-  <link href="<?= base_url('assets-web/css/style.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/img/hospital.png') ?>" rel="apple-touch-icon">
-  <!-- END Custom CSS-->
-
-  <!-- BEGIN VENDOR CSS-->
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/vendors.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/photoswipee.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/pages/gallery.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/bootstrap-select.css">
-
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/pickers/daterange/daterangepicker.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/pickers/pickadate/pickadate.css">
-
   <!-- END VENDOR CSS-->
+
   <!-- BEGIN MODERN CSS-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/app.css">
   <!-- END MODERN CSS-->
@@ -44,7 +23,7 @@
   <!-- END Page Level CSS-->
 
   <!-- BEGIN Custom CSS-->
-  <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/style.css"> -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/style.css">
 
   <!-- Asset Pop Up Jangan Diotak atik-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/lightbox.min.css">
@@ -57,6 +36,6 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/icheck/custom.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/plugins/forms/checkboxes-radios.css">
 
-
+  <!-- View PDF -->
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/dflip.min.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/themify-icons.min.css" rel="stylesheet" type="text/css" />

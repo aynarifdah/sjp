@@ -20,8 +20,9 @@ class landingpage extends CI_Controller
     {
 
         $page = array(
-            "head"    => $this->load->view('template/head', array("title" => $title), true),
+            "head"    => $this->load->view('landingpage/template/head', array("title" => $title), true),
             "header"  => $this->load->view('landingpage/template/header', false, true),
+            "navbar"  => $this->load->view('landingpage/template/navbar', false, true),
             "main_js" => $this->load->view('landingpage/template/main_js', false, true),
             "footer"  => $this->load->view('landingpage/template/footer', false, true)
         );
