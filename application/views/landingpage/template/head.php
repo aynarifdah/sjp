@@ -18,12 +18,12 @@
 
 
   <!-- Vendor CSS Files -->
-  <link href="<?= base_url('assets-web/vendor/aos/aos.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('assets-web/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet"> 
+  <link href="<?= base_url('assets-web/asset/vendor/aos/aos.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets-web/asset/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets-web/asset/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets-web/asset/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets-web/asset/vendor/remixicon/remixicon.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets-web/asset/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet">
 
   <!-- icon -->
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
@@ -32,4 +32,3 @@
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css"> -->
 
 </head>
-
