@@ -44,7 +44,7 @@
 <main id="main">
   <!-- ======= Counts Section ======= -->
   <section id="counts about" class="counts about">
-    <div class="container" data-aos="">
+    <div class="container" data-aos="fade-up">
 
       <div class="row gy-4 mb-3">
 
@@ -61,9 +61,10 @@
 
         <div class="col-lg-3 col-md-6">
           <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 22%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <!-- <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span> -->
+              <h2 data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                class="purecounter"></h2>
               <p>Jumlah Pasien</p>
             </div>
           </div>
@@ -71,9 +72,10 @@
 
         <div class="col-lg-3 col-md-6">
           <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 22%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <!-- <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span> -->
+              <h2 data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
+                class="purecounter"></h2>
               <p>Jumlah Pengajuan SJP</p>
             </div>
           </div>
@@ -81,9 +83,10 @@
 
         <div class="col-lg-3 col-md-6 end">
           <div class="count-box">
-            <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 22%" alt="" class="icon-bg">
+            <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <!-- <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span> -->
+              <h2 data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                class="purecounter"></h2>
               <p>Jumlah SJP di Setujui</p>
             </div>
           </div>
@@ -94,8 +97,7 @@
       <div class="row mb-3">
         <div class="col-12 justify-content-end">
           <div class="readmore d-flex justify-content-end">
-            <a href="<?php echo site_url('landingpage/statistik') ?>"> Selengkapnya <i
-                class='bx bxs-chevron-right-circle bx-tada'></i></a>
+            <a href="statistik.php"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada'></i></a>
           </div>
         </div>
       </div>
@@ -107,7 +109,7 @@
   <!-- ======= Values Section ======= -->
   <section id="values" class="values">
 
-    <div class="container" data-aos="">
+    <div class="container" data-aos="fade-up">
 
       <div class="row">
         <div class="col-md-6">
@@ -264,8 +266,7 @@
           <div class="row mt-3">
             <div class="col-12 justify-content-end">
               <div class="readmore d-flex justify-content-end">
-                <a href="<?php echo site_url('landingpage/pengumuman') ?>"> Selengkapnya <i
-                    class='bx bxs-chevron-right-circle bx-tada'></i></a>
+                <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada'></i></a>
               </div>
             </div>
           </div>
@@ -283,7 +284,7 @@
   <!-- ======= Values Section ======= -->
   <section id="values" class="values">
 
-    <div class="container" data-aos="">
+  <div class="container" data-aos="fade-up">
 
       <div class="row">
 
@@ -353,8 +354,7 @@
           <div class="row mt-3">
             <div class="col-12 justify-content-end">
               <div class="readmore d-flex justify-content-end">
-                <a href="<?php echo site_url('landingpage/agenda') ?>"> Selengkapnya <i
-                    class='bx bxs-chevron-right-circle bx-tada'></i></a>
+                <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada'></i></a>
               </div>
             </div>
           </div>
@@ -433,8 +433,7 @@
               <div class="row mt-3">
                 <div class="col-12 justify-content-end">
                   <div class="readmore d-flex justify-content-end">
-                    <a href="<?php echo site_url('landingpage/knowledge') ?>"> Selengkapnya <i
-                        class='bx bxs-chevron-right-circle bx-tada'></i></a>
+                    <a href="#"> Selengkapnya <i class='bx bxs-chevron-right-circle bx-tada'></i></a>
                   </div>
                 </div>
               </div>
@@ -467,14 +466,14 @@
 
   <section id="portfolio" class="portfolio">
 
-    <div class="container" data-aos="">
+  <div class="container" data-aos="fade-up">
 
       <header class="section-header text-center">
         <h2>Informasi</h2>
         <p>Galeri Sistem Jaminan Pelayanan</p>
       </header>
 
-      <div class="row">
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
         <div class="col-lg-12 d-flex justify-content-center">
           <ul id="portfolio-flters">
             <li data-filter="*" class="filter-active">All</li>
@@ -484,8 +483,7 @@
         </div>
       </div>
 
-      <!-- {{-- <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200"> --}} -->
-      <div class="row gy-4 portfolio-container">
+      <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
         <div class="col-lg-4 col-md-6 portfolio-item foto">
           <div class="portfolio-wrap rounded-sm">
