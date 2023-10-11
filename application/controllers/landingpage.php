@@ -170,12 +170,12 @@ private function load($title = '', $datapath = '')
     $this->load->view('landingpage/template/master', $data);
    }
 
-    public function peraturanwalikota()
+    public function perwal()
 		{
 	$path = "";
     $data = array(
        "page"    => $this->load("Index", $path) ,
-       "content" => $this->load->view('landingpage/peraturanwalikota', false, true)
+       "content" => $this->load->view('landingpage/perwal', false, true)
    );
 
     $this->load->view('landingpage/template/master', $data);
