@@ -170,18 +170,18 @@ private function load($title = '', $datapath = '')
     $this->load->view('landingpage/template/master', $data);
    }
 
-    public function perwal()
+    public function peraturan()
 		{
 	$path = "";
     $data = array(
        "page"    => $this->load("Index", $path) ,
-       "content" => $this->load->view('landingpage/perwal', false, true)
+       "content" => $this->load->view('landingpage/peraturan', false, true)
    );
 
     $this->load->view('landingpage/template/master', $data);
    }
 
-    public function download_no01(){
+   public function download_no01(){
     force_download('assets-web/img/dokumen/22. PETUNJUK TEKNIS PEMBIAYAAN JAMINAN KESEHATAN BAGI MASYARAKAT.pdf', NULL);
     }
 
