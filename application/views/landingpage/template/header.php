@@ -54,7 +54,7 @@
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/syarat') ?>">Syarat sjp</a></li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengajuan') ?>">Status Pengajuan
                 SJP</a></li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan') ?>">Peraturan Wali kota
+            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
                 Depok</a></li>
           </ul>
         </li>

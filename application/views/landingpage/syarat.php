@@ -12,35 +12,122 @@
       </nav>
     </div>
   </div>
-  <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
+  <!-- <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
     <center>
       <div class="main_title">
         <h3>Perhatikan <strong>Dokumen Persyaratan</strong> dibawah Ini</h3>
         <p>Sistem Jaminan Pelayanan (SJP) Online</p>
       </div>
-    </center>
+    </center> -->
 
 
-    <div class="col-lg-12 col-12" style="margin-top: 20px;">
-      <a href="" class="box_cat_home" style="text-align: left !important; padding-left: 50px;">
-        <h3>Persyaratannya, Antara lain:</h3>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          1. KTP (Kartu Tanda Penduduk)</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          2. KK (Kartu Keluarga)</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          3. Surat Rawat Jalan/Inap</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          4. Surat Rujukan Puskesmas</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          5. SKTM (Surat Keterangan Tidak Mampu)</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          6. Surat Keterangan Lahir (JAMPERSAL)</p>
-        <p style="margin-bottom: 10px !important; font-size: 15px; color: black; font-weight: bold;">
-          7. Bukti pengurusan KIS dari Dinas Sosial (bagi peserta jkn tunggak bayar)</p>
-      </a>
-    </div>
+    <section id="values" class="values">
+      <header class="section-header text-center">
+      <h3>Perhatikan <strong>Dokumen Persyaratan</strong> dibawah Ini</h3>
+      </header>
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="persyaratan">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <!-- <i class="ri-calendar-todo-fill"></i> -->
+                        <h6>01</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>KTP (Kartu Tanda Penduduk)</h5>
+                    </div>
+                  </div>
+                </div>
 
-    <!-- Home -->
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>02</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>KK (Kartu Keluarga)</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>03</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>Surat Rawat Jalan/Inap</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>04</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>Surat Rujukan Puskesmas</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>05</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>SKTM (Surat Keterangan Tidak Mampu)</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>06</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>Surat Keterangan Lahir (JAMPERSAL)</h5>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-12">
+                  <div class="card-persyaratan d-flex">
+                    <div>
+                      <div class="border rounded p-1 text-center">
+                        <h6>07</h6>
+                      </div>
+                    </div>
+                    <div class="sub-text">
+                      <h5>Bukti pengurusan KIS dari Dinas Sosial (bagi peserta jkn tunggak bayar)</h5>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+    </section>
 
   </div>

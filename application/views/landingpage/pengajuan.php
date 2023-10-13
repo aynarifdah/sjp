@@ -15,10 +15,14 @@
   <main>
     <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
-      <div class="main_title">
+      <!-- <div class="main_title">
         <h4>Silahkan Cek <strong>Status Pengajuan Pasien</strong> dibawah ini</h4>
-        <!-- <p>Sistem Pendaftaran Online SJP Kota Depok.</p> -->
-      </div>
+      </div> -->
+
+      <!-- <section id="values" class="values"> -->
+      <header class="section-header text-center">
+      <h3>Silahkan Cek <strong>Status Pengajuan Pasien</strong> dibawah ini</h3>
+      </header>
 
       <div class="card" style="padding: 20px;">
         <div class="card-content collapse show">

@@ -3184,3 +3184,104 @@ background-color: #013ca3;
   padding: 5px;
   border-radius: 5px;
 }
+
+
+/* alur */
+.values .card-alur{
+  background: #fbfbfb;
+  border-radius: 10px;
+  border: 1px solid #a9b2d4;
+  padding: 5px;
+  transition:  ease-in-out 0s;
+  width: 300px;
+  height: 250px;
+}
+
+.values .card-alur:hover{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  transition: 0.6s;
+  cursor: pointer;
+  border: 0;
+}
+.values .card-alur .img{
+  width:200px;
+  height: 90px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.values .card-alur .img img{
+ object-fit: cover;
+ height: 100%;
+}
+.values .card-alur .sub-text{
+  margin-left: 12px;
+}
+
+.values .card-alur .sub-text h4{
+  color: #444444;
+  font-weight: 600;
+}
+.values .card-alur:hover .sub-text h4{
+  color: #ef9a9a;
+  font-weight: 700;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.values .card-alur .sub-text p{
+  color: #918e8e;
+  font-weight: 500;
+}
+.values .card-alur:hover .sub-text p{
+  color: #ef9a9a;
+  font-weight: 500;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.values .card-alur .sub-text .desk{
+  color: #a6a6a6;
+  font-size: 12px;
+}
+/* END alur */
+
+
+
+/* home persyaratan */
+.values .persyaratan .card-persyaratan{
+  background: #fcfbfb;
+  border-radius: 10px;
+  border: 1px solid #dcd9d9;
+  padding: 15px;
+  width: 820px;
+  height: 60px;
+  transition:  ease-in-out 0s;
+  margin-left: 120px;
+  margin-bottom: 30px;
+}
+.values .persyaratan .card-persyaratan:hover{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  transition: 0.6s;
+  cursor: pointer;
+  border: 0;
+}
+.values .persyaratan .card-persyaratan .sub-text{
+  margin-left: 10px;
+  padding: 5px;
+}
+.values .persyaratan .card-persyaratan .sub-text h5{
+  color: #444444;
+  font-weight: 550;
+  font-size: 17px;
+}
+.values .persyaratan .card-persyaratan:hover .sub-text h5{
+  color: #8ecbeb;
+  font-weight: 550;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.values .persyaratan .card-persyaratan .sub-text .desk{
+  color: #a6a6a6;
+  font-size: 12px;
+}
+/* END */
