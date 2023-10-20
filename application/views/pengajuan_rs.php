@@ -130,7 +130,7 @@
                     </div>
                   </div>
                   </div>
-                  <!-- <section id="configuration" style="padding-top: 10px;"> -->
+                  <section id="configuration" style="padding-top: 10px;">
                     <table id="datatable" class="table table-bordered" style="width: 100%;">
                       <thead>
                         <tr>
@@ -149,7 +149,7 @@
                       <tbody>
                       </tbody>
                     </table>
-                  <!-- </section> -->
+                  </section>
                 </div>
               </div>
             </div>
