@@ -17,7 +17,18 @@
                 <div class="card-content collapse show">
                     <div class="card-body">
                         <?php if (!empty($id_sjp) && !empty($id_pengajuan)) : ?>
+                            <?php if($this->session->userdata('instansi') == 2) { ?>
+
                             <form action="<?php echo base_url('Rs/proses_edit_klaim_pengajuan/' . $id_sjp . '/' . $id_pengajuan); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
+
+                            <?php }elseif($this->session->userdata('instansi') == 7) { ?>
+
+                            <form action="<?php echo base_url('Home/proses_edit_klaim_pengajuan/' . $id_sjp . '/' . $id_pengajuan); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
+
+
+                            <?php } ?>
+
+
                                 <fieldset>
                                     <?php if (!empty($riwayatpengajuan)) : ?>
                                         <?php foreach ($riwayatpengajuan as $val) : ?>

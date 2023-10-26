@@ -27,14 +27,14 @@
   </style>
 
   <div class="card">
-    <?= $this->session->flashdata('message'); ?>
     <div class="card-head">
       <div class="card-header">
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Semua Pengajuan</h4>
+            <h4 class="card-title">Data Pengajuan Klaim</h4>
           </div>
         </div>
+        <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
       </div>
     </div>
     <div class="card-content">
@@ -44,36 +44,44 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                <a href="<?php echo base_url('Rs/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
-                <a href="<?php echo base_url('Rs/excel_semua_pengajuan') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
+                <!--  <button type="button" class="btn bg-success bg-darken-4 btn-sm text-white" id="export"><i class="icon-cloud-download"></i>&nbsp; Eksport ke Excel</button> -->
 
+                <!-- <a href="<?php echo base_url('Rs/entry_klaim') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"></i>Entry Klaim</button></a> -->
 
               </div>
             </div>
-            <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
-
-            </div>
-            <div class="row" style="padding-left: 15px; padding-right: 15px;">
-              <!--  <?php if ($this->session->userdata('level') == 1) : ?>
+          </div>
+          <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
           </div>
           <div class="row" style="padding-left: 15px; padding-right: 15px;">
-            <!--    <?php if ($this->session->userdata('level') == 1) : ?>
-            <div class="col-lg-3 filter">
-              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
-                <option value="" selected>Semua Puskesmas</option>
-                <?php if (!empty($puskesmas)) : ?>
-                  <?php foreach ($puskesmas as $puskes) : ?>
-                    <option value="<?= $puskes['id_puskesmas'] ?>" ><?= $puskes['nama_puskesmas'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
+            <div class="col-lg-2 filter">
+              <label>Tanggal mulai :</label>
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
             </div>
-
-          <?php endif ?>  -->
-
+            <div class="col-lg-2 filter">
+              <label>Tanggal akhir :</label>
+              <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Akhir Referensi">
+            </div>
+            <?php if ($status_klaim <= 0) : ?>
+              <div class="col-lg-2 filter">
+                <label>Status Klaim</label>
+                <select name="status" id="status" class="form-control">
+                  <option value="" selected>Semua Status</option>
+                  <?php if (!empty($statusklaim)) : ?>
+                    <?php foreach ($statusklaim as $sk) : ?>
+                      <option value="<?= $sk['id_statusklaim'] ?>"><?= $sk['nama_statusklaim'] ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
+            <?php else : ?>
+              <input type="hidden" name="status" id="status" value="">
+            <?php endif ?>
+            <?php if ($this->session->userdata('level') == 1) : ?>
               <div class="col-lg-3 filter">
-                <select name="rs" id="rs" class="form-control select2">
+                <label>Rumah Sakit</label>
+                <select name="rs" id="rs" class="form-control">
                   <option value="" selected>Semua Rumah Sakit</option>
                   <?php if (!empty($rs)) : ?>
                     <?php foreach ($rs as $rsu) : ?>
@@ -82,78 +90,43 @@
                   <?php endif ?>
                 </select>
               </div>
-              <div class="col-lg-3 filter">
-                <select name="status" id="status" class="form-control">
-                  <option value="" selected>Semua Status</option>
-                  <?php if (!empty($statuspengajuan)) : ?>
-                    <?php foreach ($statuspengajuan as $sp) : ?>
-                      <option value="<?= $sp['id_statuspengajuan'] ?>"><?= $sp['status_pengajuan'] ?></option>
-                    <?php endforeach ?>
-                  <?php endif ?>
-                </select>
-              </div>
-              <div class="col-lg-3 filter">
-                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-              </div>
-              <div class="col-lg-3 filter">
-                <div class="position-relative has-icon-left">
-                  <input type="text" class="form-control" id="cari" placeholder="Cari Nama Pasien, Pemohon, Rumah sakit, Status Pengajuan">
-                  <div class="form-control-position">
-                    <i class="ft-search"></i>
-                  <?php endif ?> -->
-                  <div class="col-lg-3 filter">
-                    <select name="rs" id="rs" class="form-control">
-                      <option value="" selected>Semua Rumah Sakit</option>
-                      <?php if (!empty($rs)) : ?>
-                        <?php foreach ($rs as $rsu) : ?>
-                          <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
-                        <?php endforeach ?>
-                      <?php endif ?>
-                    </select>
-                  </div>
-                  <div class="col-lg-3 filter">
-                    <select name="status" id="status" class="form-control">
-                      <option value="" selected>Semua Status</option>
-                      <?php if (!empty($statuspengajuan)) : ?>
-                        <?php foreach ($statuspengajuan as $sp) : ?>
-                          <option value="<?= $sp['id_statuspengajuan'] ?>"><?= $sp['status_pengajuan'] ?></option>
-                        <?php endforeach ?>
-                      <?php endif ?>
-                    </select>
-                  </div>
-                  <div class="col-lg-3 filter">
-                    <div class="position-relative has-icon-left">
-                      <input type="text" class="form-control" id="cari" placeholder="Cari Nama Pasien, Pemohon, Rumah sakit, Status Pengajuan">
-                      <div class="form-control-position">
-                        <i class="ft-search"></i>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  <!-- <section id="configuration" style="padding-top: 10px;"> -->
-                    <table id="datatable" class="table table-bordered" style="width: 100%;">
-                      <thead>
-                        <tr>
-                          <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                          <th style="color: #6B6F82!important;">Pemohon</th>
-                          <th style="color: #6B6F82!important;">Pasien</th>
-                          <th>Tanggal<br> Pengajuan</th>
-                          <!-- <th>Lama Pengajuan</th> -->
-                          <!-- <th>Puskesmas</th> -->
-                          <th>Rumah <br>Sakit</th>
-                          <!-- <th>Diagnosa</th> -->
-                          <th style="background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                          <!-- <th>Aksi</th> -->
-                        </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                  <!-- </section> -->
+            <?php else : ?>
+              <input type="hidden" id="rs" name="rs" value="<?= $this->session->userdata('id_join'); ?>">
+            <?php endif ?>
+            <div class="col-lg-3 filter">
+              <label>Cari</label>
+              <div class="position-relative has-icon-left">
+                <input type="text" class="form-control" name="cari" id="cari" placeholder="Cari Nama, No Referensi, No SJP">
+                <div class="form-control-position">
+                  <i class="ft-search"></i>
                 </div>
               </div>
             </div>
+            <div class="col-lg-3 mt-2">
+              <a href="<?php echo base_url('Rs/data_pengajuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
+            </div>
           </div>
+          <section id="configuration" style="padding: 10px;">
+            <table id="datatable" class="table table-bordered" style="width: 100%;">
+              <thead>
+                <tr>
+                  <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                  <th style="width: 10px !important; color: #6B6F82!important;">Pasien</th>
+                  <th style="width: 30px; color: #6B6F82!important;">Nomor SJP</th>
+                  <th style="width: 30px;">Tanggal<br> Referensi</th>
+                  <!-- <th>Lama Pengajuan</th> -->
+                  <!-- <th>Puskesmas</th> -->
+                  <th style="width: 30px;">Nomor <br>Referensi</th>
+                  <!-- <th>Diagnosa</th> -->
+                  <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Nominal <br>Pengajuan</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </section>
         </div>
       </div>
     </div>
@@ -220,11 +193,33 @@
   <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
-  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/datatable-basic.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
 
+  <!-- <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script> -->
+
+  <!-- tambahan -->
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/dataTables.fixedHeader.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/dataTables.responsive.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/responsive.bootstrap.min.js"></script>
   <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
-  <!-- <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script> -->
+
+  <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/responsive.bootstrap.min.css">
+  <!-- tambahan -->
+
+
+  <!-- <script type="text/javascript">
+    $(document).ready(function() {
+        var table = $('#example').DataTable( {
+            responsive: true
+        } );
+     
+        new $.fn.dataTable.FixedHeader( table );
+    });
+</script> -->
+
   <script>
     // Polaris Checkbox & Radio
     $('.skin-polaris input').iCheck({
@@ -233,6 +228,7 @@
     });
     $(".select2").select2();
     var dtable = $("#datatable").DataTable({
+      // "responsive": true,
       "processing": true,
       "paging": true,
       "ordering": false,
@@ -243,15 +239,15 @@
         "type": "date-eu"
       }],
       columns: [{
-          data: "nama_pemohon",
-          className: "text-info dt-head-center dt-body-right bodyclick"
-        },
-        {
           data: "nama_pasien",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "tanggal_pengajuan",
+          data: "nomor_surat",
+          className: "text-info dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "tanggal_tagihan",
           "render": function(data, type, row, meta) {
             var date = new Date(data);
             var year = date.getFullYear();
@@ -271,66 +267,61 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "nm_rs",
+          data: "nomor_tagihan",
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "id_status_pengajuan",
+          data: "nominal_klaim",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "id_statusklaim",
           "render": function(data, type, row, meta) {
             if (data == 1) {
               //$('.statuspengajuan').addClass('bg-info');
-              return '<div class="badge bg-blue-grey " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+              return '<div class="badge bg-blue-grey " style="font-size: 14px;">' + row.nama_statusklaim + '</div>'
               //return row.status_pengajuan;
             } else if (data == 2) {
               // $('.statuspengajuan').addClass('bg-warning');
               // return row.status_pengajuan;
-              return '<div class="badge bg-info " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+              return '<div class="badge bg-info " style="font-size: 14px;">' + row.nama_statusklaim + '</div>'
             } else if (data == 3) {
               // $('.statuspengajuan').addClass('bg-danger');
               // return row.status_pengajuan;
-              return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.nama_statusklaim + '</div>'
             } else if (data == 4) {
               // $('.statuspengajuan').addClass('bg-success');
               // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 5) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 6) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-success " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 7) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+              return '<div class="badge bg-success " style="font-size: 14px;">' + row.nama_statusklaim + '</div>'
             }
 
           },
-          className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+          className: "dt-head-center dt-body-right bodyclick statuspengajuan text-black"
         },
-        // {
-        //   data: "id_sjp",
-        //   "render": function(data, type, row, meta) {
-        //     return `<a href="<?php echo base_url('/Rs/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+        {
+          data: "id_sjp",
+          "render": function(data, type, row, meta) {
+            var edit = `<a href="<?php echo base_url(); ?>Home/Edit_klaim_pengajuan/` + row.id_sjp + `/` + row.id_pengajuan + `"" id="edit" class="btn btn-warning btn-sm" i><i class="ft-edit"></i></a>`;
+            if (row.id_statusklaim == 2) {
+              return edit
+            } else {
+              // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
+              return '';
+            }
 
-
-        //   },
-        //   className: "dt-head-center dt-body-right"
-        // },
+          },
+          className: "dt-head-center dt-body-right"
+        },
 
       ],
       ajax: {
-        url: ' <?php echo base_url("Rs/getalldatapermohonan"); ?>',
+        url: ' <?php echo base_url($controller . "getdatapengajuanklaim"); ?>',
         method: 'POST',
         "data": function(d) {
-
-          d.rumahsakit = <?= $this->session->userdata('id_join') ?>;
-
-
+          d.status_klaim = '<?php echo $status_klaim ?>';
           d.mulai = $("#mulai").val();
-          d.rs = $("#rs").val();
+          d.akhir = $("#akhir").val();
+          d.pkm = <?= $this->session->userdata('id_join') ?>;;
           d.status = $("#status").val();
           d.cari = $("#cari").val();
         }
@@ -346,7 +337,6 @@
     dtable
       .order([2, 'desc'])
       .draw();
-
     $(".filter").on('change', function() {
       dtable.ajax.reload();
     });
@@ -359,17 +349,24 @@
     });
 
 
-
-
-
+    $('#entryklaim').click(function(event) {
+      var id_sjp = [];
+      $(".check:checked").each(function(index) {
+        id_sjp[index] = $(this).val();
+      });
+      console.log(id_sjp);
+      var url = "entry_klaim?get=" + encodeURIComponent(id_sjp);
+      window.location.href = url;
+      // console.log(kontrakid);
+    });
 
     $('#datatable').on('click', 'tr', function() {
       var data = dtable.row(this).data();
       var id_sjp = data.id_sjp;
       var id_pengajuan = data.id_pengajuan;
       //console.log(data.id);
-      //console.log("<?php echo base_url('Html/detail_harga/'); ?>" + komoditi);
-      window.location.href = "<?php echo base_url('Rs/detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
+      //console.log("<?php echo base_url($controller . 'detail_harga/'); ?>" + komoditi);
+      window.location.href = "<?php echo base_url($controller . 'detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
     })
     $(document).ready(function() {
       $('#advancedfilterform').hide();
@@ -391,13 +388,13 @@
         title: title
       };
       // alert(tipe);
-      $("#content").load("<?= base_url(); ?>Home/KontrakAdd", data);
+      $("#content").load("<?= base_url($controller); ?>KontrakAdd", data);
     });
     $('.detail').on("click", function() {
-      $("#content").load("<?= base_url(); ?>Home/Halaman_detail_pengajuan");
+      $("#content").load("<?= base_url($controller); ?>Halaman_detail_pengajuan");
     });
     $('#putuskontrak').on("click", function() {
-      $("#content").load("<?= base_url(); ?>Home/putuskontrak");
+      $("#content").load("<?= base_url($controller); ?>putuskontrak");
     });
     // // Date Range from & to
     // var from_$input = $('#picker_from').pickadate(),
@@ -433,10 +430,10 @@
     //   }
     // });
     $("#bayar").on("click", function() {
-      $("#content").load("<?= base_url(); ?>Home/bayarkontrak");
+      $("#content").load("<?= base_url($controller); ?>bayarkontrak");
     });
     $("#btlkontrak").on("click", function() {
-      $("#content").load("<?= base_url(); ?>Home/putuskontrak");
+      $("#content").load("<?= base_url($controller); ?>putuskontrak");
     });
 
     //   $('.check').on('ifUnchecked', function (event) {

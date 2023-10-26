@@ -21,7 +21,11 @@
     <div class="card-body">
       <?php if (!empty($dataklaim)) {
         foreach ($dataklaim as $key) { ?>
+        <?php if($this->session->userdata('instansi') == 2) { ?>
           <form action="<?php echo base_url('Rs/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
+        <?php }elseif($this->session->userdata('instansi') == 7) { ?>
+          <form action="<?php echo base_url('Home/proses_entry_klaim'); ?>" method="POST" enctype="multipart/form-data" class="form form-horizontal">
+        <?php } ?>
             <div class="form-group row mt-2">
               <label class="col-lg-3 label-control" for="">Tanggal Tagihan</label>
               <div class="col-lg-3">
@@ -205,7 +209,11 @@
     // } else {
 
     $.ajax({
-      url: '<?= base_url() ?>Rs/edit_claim',
+      <?php if($this->session->userdata('instansi') == 2) { ?>
+        url: '<?= base_url() ?>Rs/edit_claim',
+      <?php }elseif($this->session->userdata('instansi') == 7) { ?>
+        url: '<?= base_url() ?>Home/edit_claim',
+      <?php } ?>
       type: 'post',
       data: form_data,
       cache: false,

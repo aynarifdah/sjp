@@ -863,13 +863,38 @@ class Home extends CI_Controller
     }
     public function entry_klaim()
     {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("Entry Klaim", $path),
-            "content" => $this->load->view('entry_klaim', false, true)
-        );
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
 
-        $this->load->view('template/default_template', $data);
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->view_permohonanklaim_pkm(null, null, Null, Null, Null, Null, Null, $value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Home/draft_klaim_puskesmas');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('entry_klaim', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
     }
 
 
@@ -1145,6 +1170,9 @@ class Home extends CI_Controller
                 $controller = "Dinsos/";
                 break;
             case 6:
+                $controller = "Home/";
+                break;
+            case 7:
                 $controller = "Home/";
                 break;
             default:
@@ -2080,6 +2108,368 @@ class Home extends CI_Controller
         curl_close($curl);
         $json_response = json_decode($response);
         echo json_encode($json_response);
+    }
+
+    public function draft_klaim_puskesmas($id_status_klaim = Null)
+    {
+        // $id_rumah_sakit = 1;
+        $datay = array(
+            'status_klaim'      => $id_status_klaim,
+            'dataklaim'         => $this->M_SJP->getdatapengajuanklaim_puskesmas(),
+            'statusklaim'       => $this->M_data->getStatusKlaim(),
+            //'dataklaim'         => $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit),
+            'penyakit'          => $this->M_SJP->diagpasien(),
+            'controller'        => $this->instansi(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+        );
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Draft klaim", $path),
+            "content" => $this->load->view('draft_klaim_puskesmas', $datay, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_permohonanklaim_pkm()
+    {
+
+        // $id_rumah_sakit = 1;
+        // echo $id_instansi;die;
+        if ($this->input->post() !== Null) {
+            $id_instansi = $this->session->userdata("instansi");
+            $id_join     = $this->session->userdata("id_join");
+            // echo $id_instansi;die;
+            $mulai           = $this->input->post("mulai");
+            $akhir           = $this->input->post("akhir");
+            $pkm              = $this->input->post("pkm");
+            $status          = $this->input->post("status");
+            $cari            = $this->input->post("cari");
+            $data            = $this->M_SJP->view_permohonanklaim_pkm($mulai, $akhir, $pkm, $status, $cari, $id_instansi, $id_join, null);
+            // echo $data;die;
+            // $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim,$mulai,$akhir,$rs,$status,$cari);
+        } else {
+            $data            = $this->M_SJP->view_permohonanklaim_pkm($id_rumah_sakit);
+        }
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_claim()
+    {
+        // var_dump($this->input->post());
+        // die;
+        $idsjp = explode(",", $this->input->post('result'));
+        $tanggal_tagihan = $this->input->post('tanggal_tagihan');
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = explode(",", $this->input->post('nominal_klaim'));
+        $catatan_klaim = explode(",", $this->input->post('catatan_klaim'));
+        $claimData = array();
+        $index = 0;
+        // var_dump($idsjp);
+        // die;
+        foreach ($idsjp as $key) {
+            array_push($claimData, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomor_tagihan,
+                'tanggal_tagihan' => $tanggal_tagihan,
+                'nominal_klaim'   => $nominal_klaim[$index],
+                'catatan_klaim'   => $catatan_klaim[$index],
+                'status_klaim'    => null,
+                'status_edit'    => 0,
+            ));
+            $index++;
+        }
+
+        $this->db->update_batch('sjp', $claimData, 'id_sjp');
+
+        $dataImage      = array();
+        for ($i = 0; $i < 1; $i++) {
+
+            for ($j = 0; $j < 3; $j++) {
+
+                $_FILES['file']['name']     = $_FILES['files']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['files']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['files']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['files']['size'][$j];
+                $uploadPath = 'uploads/dokumen/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                $config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('file')) {
+
+                    $fileData      = $this->upload->data();
+
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+                    // $this->db->set('namafile', $fileData['file_name']);
+                    // $this->db->where('id_sjp', $idsjp[$i]);
+                    // $this->db->update('sjp');
+
+                    // $this->db->update('sjp', $dataImage, 'id_sjp');
+                    if ($j == $file1) {
+                        $dataImage[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file2) {
+                        $dataImage[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file3) {
+                        $dataImage[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    }
+                }
+                $this->db->update_batch('sjp', $dataImage, 'id_sjp');
+            }
+        }
+    }
+
+    public function proses_entry_klaim()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $tanggaltagihan = $this->input->post('tanggal_tagihan');
+        $nomortagihan   = $this->input->post('nomor_tagihan');
+        $nominalklaim   = $this->input->post('nominal_klaim');
+        $catatanklaim   = $this->input->post('catatan_klaim');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        foreach ($id_sjp as $key) { // Kita buat perulangan berdasarkan nis sampai data terakhir
+            array_push($dataklaim, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomortagihan,
+                'tanggal_tagihan' => $tanggaltagihan,
+                'nominal_klaim'   => $nominalklaim[$index],
+                'catatan_klaim'   => $catatanklaim[$index],
+                'status_klaim'    => 2,
+                'status_edit'     => 1
+            ));
+            $index++;
+        }
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+
+        $dok = count($_FILES['dokumen']['name']);
+        $persyaratan      = array();
+        for ($i = 0; $i < count($id_sjp); $i++) {
+
+            for ($j = 0; $j < $dok; $j++) {
+
+                $getInfoPasien = $this->db->get_where('sjp', ['id_sjp' => $id_sjp[$i]])->row_array();
+                $nik = $getInfoPasien['nik'];
+                $nama_pasien = strtolower(preg_replace('/\s+/', '', $getInfoPasien['nama_pasien']));
+
+                $_FILES['file']['name']     = $_FILES['dokumen']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['dokumen']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['dokumen']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['dokumen']['size'][$j];
+
+                $name_file = $_FILES['file']['name'];
+                $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+                $new_name_image = $nik . '' . $nama_pasien . '' . $file_name_pieces;
+
+                // File upload configuration
+                $uploadPath = 'uploads/dokumen/';
+                $config['file_name'] = $new_name_image;
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                // $config['encrypt_name'] = TRUE;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                //var_dump($this->upload->initialize($config));die;
+                if ($this->upload->do_upload('file')) {
+                    // Uploaded file data
+
+                    $fileData      = $this->upload->data();
+
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+                    $file4 = 3 * $i + 0 + 3;
+
+                    if ($j == $file1) {
+                        $persyaratan[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file2) {
+                        $persyaratan[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file3) {
+                        $persyaratan[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file4) {
+                        $persyaratan[] = array(
+                            'ket_pasien' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    }
+                }
+                $this->db->update_batch('sjp', $persyaratan, 'id_sjp');
+            }
+        }
+
+
+        redirect('Home/daftar_klaim_pkm', 'refresh');
+    }
+
+    public function daftar_klaim_pkm($id_status_klaim = null)
+    {
+
+        //$id_status_klaim = 3;
+        $datay = array(
+            'status_klaim'      => $id_status_klaim,
+            'dataklaim' => $this->M_SJP->getdatapengajuanklaim_puskesmas(),
+            'penyakit' => $this->M_SJP->diagpasien(),
+            'controller' => $this->instansi(),
+            'rs'                => $this->M_data->getRS(),
+            'statusklaim'       => $this->M_data->getStatusKlaim()
+        );
+        //var_dump($datay['dataklaim']);die;
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Daftar klaim", $path),
+            "content" => $this->load->view('daftar_klaim_pkm', $datay, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getdatapengajuanklaim()
+    {
+        if ($this->input->post() !== Null) {
+            $id_status_klaim = $this->input->post('status_klaim');
+            $mulai           = $this->input->post("mulai");
+            $akhir           = $this->input->post("akhir");
+            $pkm              = $this->input->post("pkm");
+            $status          = $this->input->post("status");
+            $cari            = $this->input->post("cari");
+            $data            = $this->M_SJP->getdatapengajuanklaim_puskesmas($id_status_klaim, $mulai, $akhir, $pkm, $status, $cari);
+        } else {
+            $data            = $this->M_SJP->getdatapengajuanklaim_puskesmas($id_status_klaim);
+        }
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function Edit_klaim_pengajuan($idsjp, $id_pengajuan)
+    {
+        $this->db->select('nik');
+        $this->db->from('sjp');
+        $this->db->where('id_sjp', $idsjp);
+        $nik = $this->db->get()->row();
+        $path = "";
+        $dataKlaim = [
+            'id_sjp' => $idsjp,
+            'id_pengajuan' => $id_pengajuan,
+            'riwayatpengajuan' => $this->M_SJP->riwayatsjpasien($idsjp),
+        ];
+        // var_dump($dataKlaim['riwayatpengajuan']);
+        // die;
+        $data = array(
+            "page" => $this->load("Edit Klaim Pengajuan", $path),
+            "content" => $this->load->view('edit_klaim_pengajuan', $dataKlaim, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function proses_edit_klaim_pengajuan($id_sjp, $id_pengajuan)
+    {
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = $this->input->post('nominal_klaim');
+        $data = [
+            'nomor_tagihan' => $nomor_tagihan,
+            'nominal_klaim' => $nominal_klaim
+        ];
+        $this->M_SJP->editSJP($id_sjp, $data);
+
+        $dokumen = $this->input->post('dokumen_hidden');
+        $countfiles = count($dokumen);
+        $dataFiles = [];
+        for ($i = 0; $i < $countfiles; $i++) {
+            for ($j = 0; $j < 4; $j++) {
+                if (!empty($_FILES['dokumen']['name'][$j])) {
+                    $_FILES['file']['name'] = $_FILES['dokumen']['name'][$j];
+                    $_FILES['file']['type'] = $_FILES['dokumen']['type'][$j];
+                    $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                    $_FILES['file']['error'] = $_FILES['dokumen']['error'][$j];
+                    $_FILES['file']['size'] = $_FILES['dokumen']['size'][$j];
+
+                    // Set preference
+                    $config['upload_path'] = 'uploads/dokumen/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                    $config['max_size'] = '50000'; // max_size in kb
+                    $config['file_name'] = $_FILES['dokumen']['name'][$j];
+
+                    //Load upload library
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+
+                    // File upload
+                    if ($this->upload->do_upload('file')) {
+
+                        $filename      = $this->upload->data();
+                        if ($j == 0) {
+                            $dataFiles[] = array(
+                                'namafile' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 1) {
+                            $dataFiles[] = array(
+                                'file_resume' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 2) {
+                            $dataFiles[] = array(
+                                'other_files' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 3) {
+                            $dataFiles[] = array(
+                                'ket_pasien' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        }
+                        $this->db->update_batch('sjp', $dataFiles, 'id_sjp');
+                    }
+                }
+            }
+        }
+
+        redirect('Home/daftar_klaim_pkm');
     }
 
 }
