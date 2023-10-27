@@ -209,40 +209,6 @@
                            </td>
                          <?php } ?>
                        </tr>
-                       <?php if ($this->session->userdata('instansi') == 1) : ?>
-                         <tr>
-                           <th scope="row">Feedback untuk Puskesmas</th>
-                           <td>
-                             <div class="row">
-                               <div class="col-md-8">
-                                 <input type="text" class="form-control tambahfeedback">
-                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
-                               </div>
-                               <div class="col-md-4">
-                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
-                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
-                                 <?php } ?>
-                               </div>
-                             </div>
-                           </td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Feedback untuk Rumah Sakit</th>
-                           <td>
-                             <div class="row">
-                               <div class="col-md-8">
-                                 <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
-                               </div>
-                               <div class="col-md-4">
-                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
-                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
-                                 <?php } ?>
-                               </div>
-                             </div>
-                           </td>
-                         </tr>
-                       <?php endif ?>
-
                      </tbody>
                    </table>
                  </div>
@@ -844,6 +810,40 @@
                  <div class="tab-pane paneldetail" id="tabIcon7" aria-labelledby="baseIcon-tab7">
                    <table class="table mb-0 ">
                      <tbody>
+                      <?php if ($this->session->userdata('instansi') == 1) : ?>
+                         <tr>
+                           <th scope="row">Feedback untuk Puskesmas</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-9">
+                                 <textarea class="ckeditor tambahfeedback" id="ckedtor"></textarea>
+
+                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-3">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                         <tr>
+                           <th scope="row">Feedback untuk Rumah Sakit</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-9">
+                                 <textarea class="ckeditor tambahfeedbackuntukrumahsakit" id="ckedtor"></textarea>
+                               </div>
+                               <div class="col-md-3">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                       <?php endif ?>
                        <tr>
                          <th scope="row" class="border-top-0">Feedback Dinkes untuk Puskesmas:</th>
                          <td class="border-top-0"><?= $key['feedback_dinkes'] ?></td>
