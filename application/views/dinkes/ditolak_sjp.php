@@ -45,7 +45,7 @@
             <div class="col-lg-12">
               <div class="element mb-1 p-r-15">
 
-                <a href="<?php echo base_url('Exportexcel/disetujui_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
+                <a href="<?php echo base_url('Exportexcel/ditolak_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button></a>
 
               </div>
             </div>
