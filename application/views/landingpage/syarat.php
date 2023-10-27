@@ -12,122 +12,50 @@
       </nav>
     </div>
   </div>
-  <!-- <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
-    <center>
-      <div class="main_title">
-        <h3>Perhatikan <strong>Dokumen Persyaratan</strong> dibawah Ini</h3>
-        <p>Sistem Jaminan Pelayanan (SJP) Online</p>
-      </div>
-    </center> -->
 
-
-    <section id="values" class="values">
-      <header class="section-header text-center">
-      <h3>Perhatikan <strong>Dokumen Persyaratan</strong> dibawah Ini</h3>
+  <header class="section-header text-center">
+      <h4>PERHATIKAN <strong>DOKUMEN PERSYARATAN</strong> DIBAWAH INI</h4>
+      <h6>Sistem Jaminan Pelayanan (SJP) Online</h6>
       </header>
-      <div class="container" data-aos="fade-up">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="persyaratan">
-              <div class="row">
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <!-- <i class="ri-calendar-todo-fill"></i> -->
-                        <h6>01</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>KTP (Kartu Tanda Penduduk)</h5>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>02</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>KK (Kartu Keluarga)</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>03</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>Surat Rawat Jalan/Inap</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>04</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>Surat Rujukan Puskesmas</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>05</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>SKTM (Surat Keterangan Tidak Mampu)</h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>06</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>Surat Keterangan Lahir (JAMPERSAL)</h5>
-                    </div>
-                  </div>
-                </div>
+  <div class="card-syarat">
+    <!-- <img src="path-to-your-image.jpg" alt="Card Image"> -->
+    <h6 style="font-weight: bold;">Kelengkapan Berkas Permohonan:</h6>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      1. Fotocopy KTP Depok.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      2. Fotocopy KK Depok yang masih berlaku ( Minimum 6 bulan menjadi warga Depok ) atau Surat Keterangan Tempat
+      Tinggal min. sudah lebih dari Permanen dari DISDUKCAPIL ( Aplikasi SILONDO BERMULA ).
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      3. Surat Keterangan Rawat Inap dari Rumah sakit / Rujukan dari Puskesmas.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      4. Bukti P-Care KIS dan SIMPUS
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      5. Surat Permohonan Individu untuk Walikota Depok.
+    </p>
 
 
-                <div class="col-12">
-                  <div class="card-persyaratan d-flex">
-                    <div>
-                      <div class="border rounded p-1 text-center">
-                        <h6>07</h6>
-                      </div>
-                    </div>
-                    <div class="sub-text">
-                      <h5>Bukti pengurusan KIS dari Dinas Sosial (bagi peserta jkn tunggak bayar)</h5>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
-
-          </div>
-    </section>
-
+    <h6 style="font-weight: bold; padding-top: 20px;">Kelengkapan Dokumen Kelurahan:</h6>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      1. Surat Keterangan Tidak Mampu.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      2. Surat Permohonan Bantuan Pembiayaan.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      3. Jaminan Kesehatan di luar Kuota-KN.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      4. Bukti Kepengurusan KIS PBI dari Dinas Sosial.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      5. Bukti Lembar Verifikasi dan Foto Tempat Tinggal Pemohon.
+    </p>
+    <p style="margin-bottom: 10px !important; font-size: 15px; color: black;">
+      6. Parameter Kemiskinan menggunakan Indeks Kemiskinan 3.80.
+    </p>
   </div>

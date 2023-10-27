@@ -46,6 +46,8 @@
             </li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/knowledge') ?>">Knowladge</a></li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengumuman') ?>">Pengumuman</a></li>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
+                Depok</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down"></i></a>
@@ -54,8 +56,6 @@
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/syarat') ?>">Syarat sjp</a></li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengajuan') ?>">Status Pengajuan
                 SJP</a></li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
-                Depok</a></li>
           </ul>
         </li>
         <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/statistik') ?>">Statistik</a></li>
