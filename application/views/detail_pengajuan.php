@@ -294,6 +294,10 @@
                    <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey'])) { ?>
                      <a href="<?php echo base_url($controller . 'siap_survey/' . $key['id_sjp'] . '/' . $key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
                    <?php } ?>
+
+                    <?php if ($this->session->userdata('instansi') == 3) { ?>
+                      <a href="<?php echo base_url($controller . 'pengajuan_ulang/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>" class="btn btn-primary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-plus"></i>&nbsp;Pengajuan Ulang</a>
+                    <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
 

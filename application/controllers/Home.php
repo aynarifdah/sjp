@@ -2472,4 +2472,45 @@ class Home extends CI_Controller
         redirect('Home/daftar_klaim_pkm');
     }
 
+    public function pengajuan_ulang($idsjp, $id_pengajuan)
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
+        // var_dump($data['topik']);
+        // var_dump($data['diagnosa']);
+        // die;
+
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Pengajuan Ulang", $path),
+            "content" => $this->load->view('pengajuan_ulang', $data, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
 }
