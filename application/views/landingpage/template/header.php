@@ -47,21 +47,21 @@
             </li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/knowledge') ?>">Knowladge</a></li>
             <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengumuman') ?>">Pengumuman</a></li>
-        </ul>
-    </li>
-    <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down"></i></a>
-      <ul>
-        <!-- {{-- <li><a href="https://sipetrea.depok.go.id/">SIPETREA</a></li> --}} -->
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/syarat') ?>">Syarat sjp</a></li>
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengajuan') ?>">Status Pengajuan
-        SJP</a></li>
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
-        Depok</a></li>
-    </ul>
-</li>
-<li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/statistik') ?>">Statistik</a></li>
-<li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/kontak') ?>">Hubungi Kami</a></li>
-<!-- <li><a href="blog.html">Blog</a></li> -->
+            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
+                Depok</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <!-- {{-- <li><a href="https://sipetrea.depok.go.id/">SIPETREA</a></li> --}} -->
+            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/syarat') ?>">Syarat sjp</a></li>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengajuan') ?>">Status Pengajuan
+                SJP</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/statistik') ?>">Statistik</a></li>
+        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/kontak') ?>">Hubungi Kami</a></li>
+        <!-- <li><a href="blog.html">Blog</a></li> -->
 
 <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
 <!-- <li><a class="getstarted scrollto" href="#about">Data Anak</a></li> -->

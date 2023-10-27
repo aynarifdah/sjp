@@ -3284,4 +3284,32 @@ background-color: #013ca3;
   color: #a6a6a6;
   font-size: 12px;
 }
+
+
+/* persyaratan */
+.card-syarat {
+  width: 84%; /* Lebar card */
+  padding: 20px; /* Ruang dalam card */
+  border: 1px solid #ccc; /* Garis tepi card */
+  border-radius: 12px; /* Sudut melengkung card */
+  box-shadow: 0 2px 4px rgba(125, 155, 199, 0.1); /* Efek bayangan card */
+  /* background-color: #08da4e; */
+  margin-left: 100px;
+}
+.card-syarat:hover{
+  background-color: #f2f3f5;
+  transition: 0.6s; 
+  cursor: pointer;
+  border: 0;
+}
+.card-syarat-title {
+  font-size: 18px; /* Ukuran teks judul card */
+}
+
+.card-syarat-text {
+  font-size: 12px; /* Ukuran teks isi card */
+}
+
+
+
 /* END */
