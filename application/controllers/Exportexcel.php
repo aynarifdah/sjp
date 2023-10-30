@@ -16,67 +16,125 @@ class Exportexcel extends CI_Controller
     // Dinkes
     public function data_semua_pengajuan()
     {
+        $puskesmas = $this->input->post('puskesmas');
+        $rs = $this->input->post('rs');
+        $status = $this->input->post('status');
+        $search = $this->input->post('search');
+        $tanggal = $this->input->post('mulai');
+
         $data = array(
             'title' => 'data_semua_pengajuan',
-            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all()
+            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $tanggal)
         );
         $this->load->view('exportexcel/data_semua_pengajuan', $data);
     }
     public function pengajuan_sjp_baru()
     {
+        $puskesmas = $this->input->post('puskesmas');
+        $rs = $this->input->post('rs');
+        // $status = $this->input->post('status');
+        $search = $this->input->post('search');
+        $tanggal = $this->input->post('mulai');
+
         $data = array(
             'title' => 'pengajuan_sjp_baru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 4, Null)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 4, $search, $tanggal)
         );
         $this->load->view('exportexcel/pengajuan_sjp_baru', $data);
     }
     public function persetujuan_sjp_kayankesru()
     {
+
+        $puskesmas = $this->input->post('puskesmas');
+        $rs = $this->input->post('rs');
+        // $status = $this->input->post('status');
+        $search = $this->input->post('search');
+        $tanggal = $this->input->post('mulai');
+
+
         $data = array(
             'title' => 'persetujuan_sjp_kayankesru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 5, Null)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 5, $search, $tanggal)
         );
         $this->load->view('exportexcel/excel_persetujuan_sjp_kayankesru', $data);
     }
 
     public function disetujui_sjp()
     {
+        $puskesmas = $this->input->post('puskesmas');
+        $rs = $this->input->post('rs');
+        // $status = $this->input->post('status');
+        $search = $this->input->post('search');
+        $tanggal = $this->input->post('mulai');
+
         $data = array(
             'title' => 'disetujui_sjp',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 6, Null)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 6, $search, $tanggal)
         );
         $this->load->view('exportexcel/excel_disetujui_sjp', $data);
     }
 
     public function pengajuan_klaim()
     {
+        $id_status_klaim = $this->input->post('status_klaim');
+        $mulai           = $this->input->post("mulai");
+        $akhir           = $this->input->post("akhir");
+        $rs              = $this->input->post("rs");
+        $status          = $this->input->post("status");
+        $jenis_rawat     = $this->input->post("jenis_rawat");
+        $cari            = $this->input->post("cari");
+
         $data = array(
             'title' => 'pengajuan_klaim',
-            'dataexcel' => $this->M_SJP->getdatapengajuanklaim()
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari)
         );
         $this->load->view('exportexcel/excel_pengajuan_klaim', $data);
     }
     public function persetujuan_klaim()
     {
+        // $id_status_klaim = $this->input->post('status_klaim');
+        $mulai           = $this->input->post("mulai");
+        $akhir           = $this->input->post("akhir");
+        $rs              = $this->input->post("rs");
+        $status          = $this->input->post("status");
+        $jenis_rawat     = $this->input->post("jenis_rawat");
+        $cari            = $this->input->post("cari");
+
         $data = array(
             'title' => 'persetujuan_klaim',
-            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(2)
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(2, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari)
         );
         $this->load->view('exportexcel/excel_persetujuan_klaim', $data);
     }
     public function pembayaran_klaim()
     {
+        // $id_status_klaim = $this->input->post('status_klaim');
+        $mulai           = $this->input->post("mulai");
+        $akhir           = $this->input->post("akhir");
+        $rs              = $this->input->post("rs");
+        $status          = $this->input->post("status");
+        $jenis_rawat     = $this->input->post("jenis_rawat");
+        $cari            = $this->input->post("cari");
+
         $data = array(
             'title' => 'pembayaran_klaim',
-            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(3)
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(3, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari)
         );
         $this->load->view('exportexcel/excel_pembayaran_klaim', $data);
     }
     public function sudah_bayar_klaim()
     {
+        // $id_status_klaim = $this->input->post('status_klaim');
+        $mulai           = $this->input->post("mulai");
+        $akhir           = $this->input->post("akhir");
+        $rs              = $this->input->post("rs");
+        $status          = $this->input->post("status");
+        $jenis_rawat     = $this->input->post("jenis_rawat");
+        $cari            = $this->input->post("cari");
+        
         $data = array(
             'title' => 'sudah_bayar_klaim',
-            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(4)
+            'dataexcel' => $this->M_SJP->getdatapengajuanklaim(4, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari)
         );
         $this->load->view('exportexcel/excel_sudah_bayar_klaim', $data);
     }
@@ -140,6 +198,21 @@ class Exportexcel extends CI_Controller
             'dataexcel' => $this->M_SJP->view_permohonansjp_pus(6, $var['id_puskesmas'], null, null, null, $var['id_join'], $var['id_instansi'])
         );
         $this->load->view('exportexcel/excel_pkm_persetujuan_sjp', $data);
+    }
+
+    public function ditolak_sjp()
+    {
+        $puskesmas = $this->input->post('puskesmas');
+        $rs = $this->input->post('rs');
+        // $status = $this->input->post('status');
+        $search = $this->input->post('search');
+        $tanggal = $this->input->post('mulai');
+
+        $data = array(
+            'title' => 'ditolak_sjp',
+            'dataexcel' => $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, 7, $search, $tanggal)
+        );
+        $this->load->view('exportexcel/excel_ditolak_sjp', $data);
     }
 
     // Puskesmas

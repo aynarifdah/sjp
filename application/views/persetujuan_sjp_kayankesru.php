@@ -41,69 +41,66 @@
     <div class="card-content">
       <div class="card-body">
         <div class="table-responsive">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="element mb-1 p-r-15">
-                <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button></a>
+          <form action="<?= base_url(''); ?>Exportexcel/persetujuan_sjp_kayankesru" method="POST">
 
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="element mb-1 p-r-15">
+                  <button id="btnSearchDrop2" type="submit" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i> Export Excel</button>
+
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
+            <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
-          </div>
-          <div class="row" style="padding-left: 15px; padding-right: 15px;">
-            <div class="col-lg-3 filter">
-              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
-                <option value="" selected>Semua Puskesmas</option>
-                <?php if (!empty($puskesmas)) : ?>
-                  <?php foreach ($puskesmas as $puskes) : ?>
-                    <option value="<?= $puskes['id_puskesmas'] ?>"><?= $puskes['nama_puskesmas'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
             </div>
-            <div class="col-lg-2 filter">
-              <select name="rs" id="rs" class="select2 form-control">
-                <option value="" selected>Semua RS</option>
-                <?php if (!empty($rs)) : ?>
-                  <?php foreach ($rs as $rsu) : ?>
-                    <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
-            </div>
-            <?php if ($this->uri->segment(2) != 'pengajuan_sjp') : ?>
-              <div class="col-lg-2 filter">
-                <select name="status" id="status" class="form-control">
-                  <option value="" selected>Semua Status</option>
-                  <?php if (!empty($statuspengajuan)) : ?>
-                    <?php foreach ($statuspengajuan as $sp) : ?>
-                      <option value="<?= $sp['id_statuspengajuan'] ?>"><?= $sp['status_pengajuan'] ?></option>
+            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+              <div class="col-lg-3 filter">
+                <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
+                  <option value="" selected>Semua Puskesmas</option>
+                  <?php if (!empty($puskesmas)) : ?>
+                    <?php foreach ($puskesmas as $puskes) : ?>
+                      <option value="<?= $puskes['id_puskesmas'] ?>"><?= $puskes['nama_puskesmas'] ?></option>
                     <?php endforeach ?>
                   <?php endif ?>
                 </select>
               </div>
-            <?php endif ?>
-            <div class="col-lg-2 filter">
-              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-            </div>
-            <div class="col-lg-3 filter">
-              <div class="position-relative has-icon-left">
-                <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
-                <div class="form-control-position">
-                  <i class="ft-search"></i>
+              <div class="col-lg-2 filter">
+                <select name="rs" id="rs" class="select2 form-control">
+                  <option value="" selected>Semua RS</option>
+                  <?php if (!empty($rs)) : ?>
+                    <?php foreach ($rs as $rsu) : ?>
+                      <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
+              <?php if ($this->uri->segment(2) != 'pengajuan_sjp') : ?>
+                <div class="col-lg-2 filter">
+                  <select name="status" id="status" class="form-control">
+                    <option value="" selected>Semua Status</option>
+                    <?php if (!empty($statuspengajuan)) : ?>
+                      <?php foreach ($statuspengajuan as $sp) : ?>
+                        <option value="<?= $sp['id_statuspengajuan'] ?>"><?= $sp['status_pengajuan'] ?></option>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                  </select>
+                </div>
+              <?php endif ?>
+              <div class="col-lg-2 filter">
+                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+              </div>
+              <div class="col-lg-3 filter">
+                <div class="position-relative has-icon-left">
+                  <input type="text" class="form-control" id="cari" name="search" placeholder="Cari NIK, Nama Pasien">
+                  <div class="form-control-position">
+                    <i class="ft-search"></i>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
 
-          <!--  <div class="row mt-2">
-            <div class="col-lg-3 offset-lg-9">
-              <a href="<?php echo base_url('Exportexcel/persetujuan_sjp_kayankesru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-            </div>
-          </div>
- -->
           <section id="configuration" style="padding: 10px;">
             <div class="table-responsive">
               <table id="datatable" class="table table-bordered" style="width: 100%;">
