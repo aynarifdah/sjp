@@ -3295,6 +3295,7 @@ background-color: #013ca3;
   box-shadow: 0 2px 4px rgba(125, 155, 199, 0.1); /* Efek bayangan card */
   /* background-color: #08da4e; */
   margin-left: 100px;
+  background: #f8f8fb;
 }
 .card-syarat:hover{
   background-color: #f2f3f5;
