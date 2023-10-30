@@ -5,7 +5,7 @@
   <title>Halaman utama</title>
 </head>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="<?php echo base_url() ?>app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
