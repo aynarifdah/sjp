@@ -32,7 +32,7 @@
         <li><a class="nav-link scrollto active" href="/"><i class="ri-home-smile-2-fill px-2" style="color: #e3227c89"></i></a></li>
         <li class="dropdown"><a href=""><span>Profil</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a href="<?php echo site_url('landingpage/tentangkami') ?>">Tentang SJP Kota Depok</a></li>
+            <li><a href="<?php echo site_url('landingpage/TentangKami') ?>">Tentang SJP Kota Depok</a></li>
             <li><a href="<?php echo site_url('landingpage/tujuan') ?>">Tujuan SJP</a></li>
             <li><a href="<?php echo site_url('landingpage/manfaat') ?>">Manfaat SJP</a></li>
           </ul>

@@ -752,7 +752,7 @@
                    <div class="note">
                      <p> <strong>Catatan Dokumen:</strong><span class="catatan"><?php echo $key['feedback']; ?></span></p>
                    </div>
-                   <section id="image-gallery" class="card">
+                   <section id="image-gallery" class="card">  
                      <div class="card-content">
                        <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
                          <div class="row">

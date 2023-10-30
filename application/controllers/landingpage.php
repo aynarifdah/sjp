@@ -41,12 +41,12 @@ class landingpage extends CI_Controller
         $this->load->view('landingpage/template/master', $data);
     }
 
-    public function tentangkami()
+    public function TentangKami()
     {
         $path = "";
         $data = array(
             "page"    => $this->load("Index", $path),
-            "content" => $this->load->view('landingpage/tentangkami', false, true)
+            "content" => $this->load->view('landingpage/TentangKami', false, true)
         );
 
         $this->load->view('landingpage/template/master', $data);
