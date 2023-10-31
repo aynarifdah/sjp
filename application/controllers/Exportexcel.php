@@ -20,11 +20,13 @@ class Exportexcel extends CI_Controller
         $rs = $this->input->post('rs');
         $status = $this->input->post('status');
         $search = $this->input->post('search');
-        $tanggal = $this->input->post('mulai');
+        $mulai = $this->input->post('mulai');
+        $akhir   = $this->input->post("akhir");
+
 
         $data = array(
             'title' => 'data_semua_pengajuan',
-            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $tanggal)
+            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $mulai, $akhir)
         );
         $this->load->view('exportexcel/data_semua_pengajuan', $data);
     }
@@ -34,11 +36,13 @@ class Exportexcel extends CI_Controller
         $rs = $this->input->post('rs');
         // $status = $this->input->post('status');
         $search = $this->input->post('search');
-        $tanggal = $this->input->post('mulai');
+        $mulai = $this->input->post('mulai');
+        $akhir = $this->input->post('akhir');
+
 
         $data = array(
             'title' => 'pengajuan_sjp_baru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 4, $search, $tanggal)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 4, $search, $mulai, $akhir)
         );
         $this->load->view('exportexcel/pengajuan_sjp_baru', $data);
     }
@@ -49,12 +53,14 @@ class Exportexcel extends CI_Controller
         $rs = $this->input->post('rs');
         // $status = $this->input->post('status');
         $search = $this->input->post('search');
-        $tanggal = $this->input->post('mulai');
+        $mulai = $this->input->post('mulai');
+        $akhir = $this->input->post('akhir');
+
 
 
         $data = array(
             'title' => 'persetujuan_sjp_kayankesru',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 5, $search, $tanggal)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 5, $search, $mulai, $akhir)
         );
         $this->load->view('exportexcel/excel_persetujuan_sjp_kayankesru', $data);
     }
@@ -65,11 +71,13 @@ class Exportexcel extends CI_Controller
         $rs = $this->input->post('rs');
         // $status = $this->input->post('status');
         $search = $this->input->post('search');
-        $tanggal = $this->input->post('mulai');
+        $mulai = $this->input->post('mulai');
+        $akhir = $this->input->post('akhir');
+
 
         $data = array(
             'title' => 'disetujui_sjp',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 6, $search, $tanggal)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 6, $search, $mulai, $akhir)
         );
         $this->load->view('exportexcel/excel_disetujui_sjp', $data);
     }
@@ -206,11 +214,13 @@ class Exportexcel extends CI_Controller
         $rs = $this->input->post('rs');
         // $status = $this->input->post('status');
         $search = $this->input->post('search');
-        $tanggal = $this->input->post('mulai');
+        $mulai = $this->input->post('mulai');
+        $akhir  = $this->input->post("akhir");
+
 
         $data = array(
             'title' => 'ditolak_sjp',
-            'dataexcel' => $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, 7, $search, $tanggal)
+            'dataexcel' => $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, 7, $search, $mulai, $akhir)
         );
         $this->load->view('exportexcel/excel_ditolak_sjp', $data);
     }

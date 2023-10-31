@@ -593,10 +593,11 @@ class Dinkes extends CI_Controller
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
+            $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai);
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir);
         } else {
             $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
         }
@@ -671,10 +672,11 @@ class Dinkes extends CI_Controller
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
+            $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas();
         }
@@ -711,10 +713,11 @@ class Dinkes extends CI_Controller
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
+            $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas();
         }
@@ -2033,10 +2036,11 @@ class Dinkes extends CI_Controller
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
+            $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
         } else {
             $data       = $this->M_SJP->getditolaksjpdinas();
         }

@@ -56,7 +56,8 @@
 
             </div>
             <div class="row" style="padding-left: 15px; padding-right: 15px;">
-              <div class="col-lg-3 filter">
+              <div class="col-lg-4 filter">
+                <label>Puskesmas</label>
                 <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
                   <option value="" selected>Semua Puskesmas</option>
                   <?php if (!empty($puskesmas)) : ?>
@@ -66,7 +67,8 @@
                   <?php endif ?>
                 </select>
               </div>
-              <div class="col-lg-3 filter">
+              <div class="col-lg-4 filter">
+                <label>Rumah Sakit</label>
                 <select name="rs" id="rs" class="select2 form-control">
                   <option value="" selected>Semua Rumah Sakit</option>
                   <?php if (!empty($rs)) : ?>
@@ -77,7 +79,8 @@
                 </select>
               </div>
               <?php if ($this->uri->segment(2) != 'pengajuan_sjp') : ?>
-                <div class="col-lg-3 filter">
+                <div class="col-lg-2 filter mt-3">
+                  <label>Status</label>
                   <select name="status" id="status" class="form-control">
                     <option value="" selected>Semua Status</option>
                     <?php if (!empty($statuspengajuan)) : ?>
@@ -88,10 +91,8 @@
                   </select>
                 </div>
               <?php endif ?>
-              <div class="col-lg-3 filter">
-                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-              </div>
-              <div class="col-lg-3 filter">
+              <div class="col-lg-4 filter">
+                <label>Cari</label>
                 <div class="position-relative has-icon-left">
                   <input type="text" class="form-control" id="cari" name="search" placeholder="Cari NIK, Nama Pasien">
                   <div class="form-control-position">
@@ -99,11 +100,15 @@
                   </div>
                 </div>
               </div>
-              <!--  <div class="col-lg-3 filter">
-                <div class="position-relative has-icon-left">
-                  <a href="<?php echo base_url('Exportexcel/pengajuan_sjp_baru') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Export Excel</a>
-                </div>
-              </div> -->
+
+              <div class="col-lg-3 filter mt-1">
+                <label>Tanggal Mulai</label>
+                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+              </div>
+              <div class="col-lg-3 filter mt-1">
+                <label>Tanggal Akhir</label>
+                <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Mulai Referensi">
+              </div>
             </div>
 
           </form>
@@ -348,6 +353,7 @@
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
           d.mulai = $("#mulai").val();
+          d.akhir = $("#akhir").val();
           d.rs = $("#rs").val();
           d.status = 4;
           d.cari = $("#cari").val();
