@@ -2491,6 +2491,8 @@ class Home extends CI_Controller
             'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
             // test
             'topik'      => $this->M_SJP->diagnosa(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+
             'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
             // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
@@ -2516,5 +2518,357 @@ class Home extends CI_Controller
 
         $this->load->view('template/default_template', $data);
     }
+
+
+    // Sementara hide upload gambar Rifqy 2 November 2023
+    // public function input_pengajuan_ulang()
+    // {
+    //     $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+    //     $nama_pemohon    = $this->input->post('nama_pemohon');
+    //     $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+    //     $alamat1         = $this->input->post('alamat_pemohon');
+    //     $rt1             = $this->input->post('rt_pemohon');
+    //     $rw1             = $this->input->post('rw_pemohon');
+    //     $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+    //     $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+    //     $telepon1        = $this->input->post('telepon_pemohon');
+    //     $whatsapp1       = $this->input->post('whatsapp_pemohon');
+    //     $email1          = $this->input->post('email_pemohon');
+    //     $statushubungan  = $this->input->post('status_hubungan');
+    //     $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+    //     $jenisizin       = 1; //jenis izin sjp dibuat default 
+    //     $datapermohonan  = array(
+    //         'nama_pemohon'  => $nama_pemohon,
+    //         'jenis_kelamin' => $jeniskelamin1,
+    //         'alamat'        => $alamat1,
+    //         'rt'            => $rt1,
+    //         'rw'            => $rw1,
+    //         'kd_kelurahan'  => $kelurahan1,
+    //         'kd_kecamatan'  => $kecamatan1,
+    //         'telepon'       => $telepon1,
+    //         'whatsapp'      => $whatsapp1,
+    //         'email'         => $email1,
+    //         'status_hubungan'       => $statushubungan,
+    //         'jenis_izin'            => $jenisizin,
+    //         'pemohon_pengajuan'            => $pemohonpengajuan,
+
+    //     );
+
+    //     $this->db->insert('permohonan_pengajuan', $datapermohonan);
+    //     $id_pengajuan = $this->db->insert_id();
+
+    //     $nik           = $this->input->post('nik');
+    //     $status_jkn    = $this->input->post('status_jkn');
+    //     $nama_pasien   = $this->input->post('nama_pasien');
+    //     $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+    //     $tempatlahir   = $this->input->post('tempat_lahir');
+    //     $tanggallahir  = $this->input->post('tanggal_lahir');
+    //     $pekerjaan     = $this->input->post('pekerjaan');
+    //     $golongandarah = $this->input->post('golongan_darah');
+    //     $alamat        = $this->input->post('alamat_pasien');
+    //     $rt            = $this->input->post('rt_pasien');
+    //     $rw            = $this->input->post('rw_pasien');
+    //     $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+    //     $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+    //     $telepon       = $this->input->post('telepon_pasien');
+    //     $whatsapp      = $this->input->post('whatsapp_pasien');
+    //     $email         = $this->input->post('email_pasien');
+    //     $jenisrawat    = $this->input->post('jenis_rawat');
+    //     $rumahsakit    = $this->input->post('nama_rumah_sakit');
+    //     $kelas_rawat     = $this->input->post('kelas_rawat');
+    //     $jenisjaminan    = $this->input->post('jenisjaminan');
+    //     $domisili       = $this->input->post('domisili');
+    //     $mulairawat      = $this->input->post('mulairawat');
+    //     $akhirrawat      = $this->input->post('akhirrawat');
+    //     $feedback      = $this->input->post('feedback');
+    //     $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+    //     // test 02-05-2021
+    //     $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+    //     $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+    //     $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+    //     // test 02-05-2021
+    //     $datasjp       = array(
+    //         'id_pengajuan'     => $id_pengajuan,
+    //         'id_puskesmas'     => $id_puskesmas,
+    //         'id_rumah_sakit'   => $rumahsakit,
+    //         'nik'              => $nik,
+    //         'status_jkn'       => $status_jkn,
+    //         'nama_pasien'      => $nama_pasien,
+    //         'jenis_kelamin'    => $jeniskelamin,
+    //         'tempat_lahir'     => $tempatlahir,
+    //         'tanggal_lahir'    => $tanggallahir,
+    //         'pekerjaan'        => $pekerjaan,
+    //         'golongan_darah'   => $golongandarah,
+    //         'alamat'           => $alamat,
+    //         'rt'               => $rt,
+    //         'rw'               => $rw,
+    //         'kd_kelurahan'     => $kelurahan,
+    //         'kd_kecamatan'     => $kecamatan,
+    //         'telepon'          => $telepon,
+    //         'whatsapp'         => $whatsapp,
+    //         'email'            => $email,
+    //         'jenis_rawat'      => $jenisrawat,
+    //         'jenis_sjp'         => $jenisjaminan,
+    //         'domisili'          => $domisili,
+    //         'kelas_rawat'      => $kelas_rawat,
+    //         'mulai_rawat'      => $mulairawat,
+    //         'selesai_rawat'    => $akhirrawat,
+    //         'feedback'         => $feedback,
+    //         'feedback_dinkes'  => $feedback_dinkes,
+    //     );
+
+    //     $this->db->insert('sjp', $datasjp);
+    //     $id_sjp = $this->db->insert_id();
+        
+    //     $kd_diagnosa = $this->input->post('repeater-group'); 
+
+    //     $dataDiagnosa = array();
+    //     $diagnosaLainnya = '';
+    //     $penyakit = '';
+    //     foreach ($kd_diagnosa as $key) {
+    //         if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         } else {
+    //             $penyakit = $key['diagnosa'];
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         }
+    //         $dataDiagnosa[] = array(
+    //             'id_sjp'      => $id_sjp,
+    //             'id_penyakit' => $penyakit,
+    //             'penyakit' => $diagnosaLainnya
+    //         );
+    //     }
+    //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+    //     $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+    //     $dokumen          = $this->input->post('dokumen');
+    //     $file_old          = $this->input->post('file_old');
+
+    //     $pasien = $this->input->post('nama_pasien');
+    //     $persyaratan      = array();
+    //     for ($i = 0; $i < count($nama_persyaratan); $i++) {
+
+    //         $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
+    //         $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+    //         $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+    //         $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
+    //         $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+
+    //         $name_file = $_FILES['file']['name'];
+    //         $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+    //         $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
+    //         $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+            
+    //         // File upload configuration
+    //         $uploadPath = 'uploads/dokumen/';
+    //         $config['upload_path'] = $uploadPath;
+    //         $config['file_name'] = $new_name_image;
+    //         // $config['encrypt_name'] = TRUE;
+    //         $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+
+    //         // Load and initialize upload library
+
+    //         $this->load->library('image_lib');
+    //         $this->load->library('upload', $config);
+    //         $this->upload->initialize($config);
+    //         if ($this->upload->do_upload('file')) {
+    //             // Uploaded file data
+    //             $fileData      = $this->upload->data();
+    //             // if ($fileData['file_name'] == null) {
+    //             //     $file = $file_old[$i];
+    //             // }else{
+    //             //     $file = $fileData['file_name'];
+    //             // }
+
+    //             // var_dump($file);
+    //             // die();
+
+                
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => $fileData['file_name'],
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+
+    //             $configer =  array(
+    //                 'image_library'   => 'gd2',
+    //                 'source_image'    =>  $fileData['full_path'],
+    //                 'maintain_ratio'  =>  TRUE,
+    //                 'width'           =>  750,
+    //                 'height'          =>  750,
+    //                 'quality'         =>  80
+    //             );
+    //             $this->image_lib->clear();
+    //             $this->image_lib->initialize($configer);
+    //             $this->image_lib->resize();
+
+    //         }else {
+    //             // Uploaded file data
+
+    //             $fileData      = $this->upload->data();
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => '',
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+    //         }
+    //     }
+    //     if (!empty($persyaratan)) {
+    //         $this->db->insert_batch('attachment', $persyaratan);
+    //     }
+    //     redirect(site_url('Home/permohonan_baru'));
+
+    // }
+
+     public function input_pengajuan_ulang()
+    {
+        $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        $nama_pemohon    = $this->input->post('nama_pemohon');
+        $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+        $alamat1         = $this->input->post('alamat_pemohon');
+        $rt1             = $this->input->post('rt_pemohon');
+        $rw1             = $this->input->post('rw_pemohon');
+        $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+        $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+        $telepon1        = $this->input->post('telepon_pemohon');
+        $whatsapp1       = $this->input->post('whatsapp_pemohon');
+        $email1          = $this->input->post('email_pemohon');
+        $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+        $jenisizin       = 1; //jenis izin sjp dibuat default 
+        $datapermohonan  = array(
+            'nama_pemohon'  => $nama_pemohon,
+            'jenis_kelamin' => $jeniskelamin1,
+            'alamat'        => $alamat1,
+            'rt'            => $rt1,
+            'rw'            => $rw1,
+            'kd_kelurahan'  => $kelurahan1,
+            'kd_kecamatan'  => $kecamatan1,
+            'telepon'       => $telepon1,
+            'whatsapp'      => $whatsapp1,
+            'email'         => $email1,
+            'status_hubungan'       => $statushubungan,
+            'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
+
+        );
+
+        $this->db->insert('permohonan_pengajuan', $datapermohonan);
+        $id_pengajuan = $this->db->insert_id();
+
+        $nik           = $this->input->post('nik');
+        $status_jkn    = $this->input->post('status_jkn');
+        $nama_pasien   = $this->input->post('nama_pasien');
+        $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+        $tempatlahir   = $this->input->post('tempat_lahir');
+        $tanggallahir  = $this->input->post('tanggal_lahir');
+        $pekerjaan     = $this->input->post('pekerjaan');
+        $golongandarah = $this->input->post('golongan_darah');
+        $alamat        = $this->input->post('alamat_pasien');
+        $rt            = $this->input->post('rt_pasien');
+        $rw            = $this->input->post('rw_pasien');
+        $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+        $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+        $telepon       = $this->input->post('telepon_pasien');
+        $whatsapp      = $this->input->post('whatsapp_pasien');
+        $email         = $this->input->post('email_pasien');
+        $jenisrawat    = $this->input->post('jenis_rawat');
+        $rumahsakit    = $this->input->post('nama_rumah_sakit');
+        $kelas_rawat     = $this->input->post('kelas_rawat');
+        $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
+        $mulairawat      = $this->input->post('mulairawat');
+        $akhirrawat      = $this->input->post('akhirrawat');
+        $feedback      = $this->input->post('feedback');
+        $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+        // test 02-05-2021
+        $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+        $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+        $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+        // test 02-05-2021
+        $datasjp       = array(
+            'id_pengajuan'     => $id_pengajuan,
+            'id_puskesmas'     => $id_puskesmas,
+            'id_rumah_sakit'   => $rumahsakit,
+            'nik'              => $nik,
+            'status_jkn'       => $status_jkn,
+            'nama_pasien'      => $nama_pasien,
+            'jenis_kelamin'    => $jeniskelamin,
+            'tempat_lahir'     => $tempatlahir,
+            'tanggal_lahir'    => $tanggallahir,
+            'pekerjaan'        => $pekerjaan,
+            'golongan_darah'   => $golongandarah,
+            'alamat'           => $alamat,
+            'rt'               => $rt,
+            'rw'               => $rw,
+            'kd_kelurahan'     => $kelurahan,
+            'kd_kecamatan'     => $kecamatan,
+            'telepon'          => $telepon,
+            'whatsapp'         => $whatsapp,
+            'email'            => $email,
+            'jenis_rawat'      => $jenisrawat,
+            'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
+            'kelas_rawat'      => $kelas_rawat,
+            'mulai_rawat'      => $mulairawat,
+            'selesai_rawat'    => $akhirrawat,
+            'feedback'         => $feedback,
+            'feedback_dinkes'  => $feedback_dinkes,
+        );
+
+        $this->db->insert('sjp', $datasjp);
+        $id_sjp = $this->db->insert_id();
+        
+        $kd_diagnosa = $this->input->post('repeater-group'); 
+
+        $dataDiagnosa = array();
+        $diagnosaLainnya = '';
+        $penyakit = '';
+        foreach ($kd_diagnosa as $key) {
+            if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            } else {
+                $penyakit = $key['diagnosa'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            }
+            $dataDiagnosa[] = array(
+                'id_sjp'      => $id_sjp,
+                'id_penyakit' => $penyakit,
+                'penyakit' => $diagnosaLainnya
+            );
+        }
+        $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+        $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+        $dokumen          = $this->input->post('dokumen');
+        $file_old          = $this->input->post('file_old');
+
+        $pasien = $this->input->post('nama_pasien');
+        $persyaratan      = array();
+        for ($i = 0; $i < count($nama_persyaratan); $i++) {        
+            
+            $persyaratan[] = array(
+                'id_jenis_izin'  => $jenisizin,
+                'attachment'     => $dokumen[$i],
+                //'feedback'       => $feedback,
+                'id_pengajuan'   => $id_pengajuan,
+                'id_persyaratan' => $nama_persyaratan[$i],
+            );
+        }
+        if (!empty($persyaratan)) {
+            $this->db->insert_batch('attachment', $persyaratan);
+        }
+        redirect(site_url('Home/permohonan_baru'));
+
+    }
+
 
 }

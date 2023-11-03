@@ -16,7 +16,7 @@
         </div>
         <div class="card-content collapse show">
           <div class="card-body">
-            <form action="<?= base_url($controller . 'detail_pengajuan/' . $detail[0]['id_sjp'] . '/' . $id_pengajuan); ?>" method="POST" class="wpcf7-form sjpform" id="sjpform" enctype="multipart/form-data">
+            <form action="<?php echo base_url('Home/input_pengajuan_ulang'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
               <input type="hidden" name="id_sjp" value="<?= $detail[0]['id_sjp'] ?>">
               <input type="hidden" name="id_pp" value="<?= $this->uri->segment(4) ?>">
               <?php if ($this->session->userdata('instansi') == 6) { ?>
@@ -39,13 +39,13 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Telp" name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>" readonly>
+                      <input type="text" class="form-control" placeholder="No Telp" name="telepon_pemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>" readonly>
                     </div>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappemohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>" readonly>
+                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_emohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>" readonly>
                     </div>
                     <div class="col-lg-4">
-                      <input type="email" class="form-control" placeholder="Email" name="emailpemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>" readonly>
+                      <input type="email" class="form-control" placeholder="Email" name="email_pemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>" readonly>
                     </div>
                   </div>
                   <div class="form-group row" id="modalwal">
@@ -67,13 +67,13 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
                     <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Alamat" name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>" readonly>
+                      <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>" readonly>
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rt" name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>" readonly>
+                      <input type="text" class="form-control" placeholder="Rt" name="rt_pemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>" readonly>
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rw" name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>" readonly>
+                      <input type="text" class="form-control" placeholder="Rw" name="rw_pemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>" readonly>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -90,7 +90,7 @@
                       </select>
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%" readonly>
+                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahan_pemohon" style="width: 100%" readonly>
                         <option>Pilih Kelurahan</option>
 
                       </select>
@@ -106,6 +106,7 @@
                     <div class="col-lg-3">
                       <input type="text" class="form-control" placeholder="NIK" name="nikpasien" id="nikpasien" required value="<?= $detail[0]['nik'] ?>" readonly>
                     </div>
+
                   </div>
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="domisili">Domisili</label>
@@ -116,6 +117,7 @@
                         <option value="Luar Depok" <?= $detail[0]['domisili'] == "Luar Depok" ? 'selected' : '' ?>>Luar Depok</option>
                       </select>
                     </div>
+
                   </div>
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap</label>
@@ -327,13 +329,13 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Telp" name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>">
+                      <input type="text" class="form-control" placeholder="No Telp" name="telepon_pemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>">
                     </div>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappemohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>">
+                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_pemohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>">
                     </div>
                     <div class="col-lg-4">
-                      <input type="email" class="form-control" placeholder="Email" name="emailpemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>">
+                      <input type="email" class="form-control" placeholder="Email" name="email_pemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>">
                     </div>
                   </div>
                   <div class="form-group row" id="modalwal">
@@ -355,20 +357,20 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
                     <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Alamat" name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>">
+                      <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>">
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rt" name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>">
+                      <input type="text" class="form-control" placeholder="Rt" name="rt_pemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>">
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rw" name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>">
+                      <input type="text" class="form-control" placeholder="Rw" name="rw_pemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatanpemohon" style="width: 100%">
+                      <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatan_pemohon" style="width: 100%">
                         <option>Pilih Kecamatan</option>
                         <?php if (!empty($kecamatan)) : $i = 0; ?>
                           <?php foreach ($kecamatan as $key) : ?>
@@ -378,7 +380,7 @@
                       </select>
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%">
+                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahan_pemohon" style="width: 100%">
                         <option>Pilih Kelurahan</option>
 
                       </select>
@@ -390,18 +392,39 @@
                 <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
                 <fieldset class="mt-2">
                   <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="nik">NIK</label>
+                    <label class="col-lg-3 label-control" for="nik">NIK/Status JKN*</label>
                     <div class="col-lg-3">
-                      <input type="text" class="form-control" placeholder="NIK" name="nikpasien" id="nikpasien" required value="<?= $detail[0]['nik'] ?>">
+                      <input type="text" class="form-control" placeholder="NIK" name="nik" id="nikpasien" required value="<?= $detail[0]['nik'] ?>">
                     </div>
+
+                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                      <select name="status_jkn" id="status_jkn" class="form-control" required>
+                        <option value="<?php echo strtoupper($detail[0]['status_jkn']); ?>"><?php echo strtoupper($detail[0]['status_jkn']); ?></option>
+                        <option value="Tunggak Bayar">Tunggak Bayar</option>
+                        <option value="Belum JKN">Belum JKN</option>
+                        <option value="Bukan Manfaat JKN">Bukan Manfaat JKN</option>
+                      </select>
+                    </div>
+
                   </div>
                   <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="domisili">Domisili</label>
+                    <label class="col-lg-3 label-control" for="domisili">Jenis Jaminan/Domisili*</label>
                     <div class="col-lg-3">
                       <select name="domisili" id="domisili" name="domisili" class="form-control">
                         <option value="">Pilih Domisili</option>
                         <option value="Depok" <?= $detail[0]['domisili'] == "Depok" ? 'selected' : '' ?>>Depok</option>
                         <option value="Luar Depok" <?= $detail[0]['domisili'] == "Luar Depok" ? 'selected' : '' ?>>Luar Depok</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-3">
+                      <select name="jenisjaminan" class="form-control" required>
+                        <option value="<?php echo strtoupper($detail[0]['jenis_sjp']); ?>"><?php echo strtoupper($detail[0]['nama_jenis']); ?></option>
+                        <?php if (!empty($jenisjaminan)) {
+                          foreach ($jenisjaminan as $key) { ?>
+                            <option value="<?= $key['id_jenissjp'] ?>"><?= $key['nama_jenis'] ?></option>
+                        <?php }
+                        } ?>
                       </select>
                     </div>
                   </div>
@@ -421,23 +444,23 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="tempat">Tempat/ Tanggal Lahir</label>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Tempat Lahir" name="tempat_lahir_pasien" id="tempatlahirpasien" required value="<?= $detail[0]['tempat_lahir'] ?>">
+                      <input type="text" class="form-control" placeholder="Tempat Lahir" name="tempat_lahir" id="tempatlahirpasien" required value="<?= $detail[0]['tempat_lahir'] ?>">
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                       <?php
                       $tanggal_lahir_pasien =  $detail[0]['tanggal_lahir'];
                       $new_date = date_format(date_create($tanggal_lahir_pasien), "d-m-Y");
                       ?>
-                      <input type="text" class="form-control datepicker" placeholder="Tanggal Lahir" name="tanggal_lahir_pasien" id="tanggallahirpasien" required value="<?= $new_date ?>">
+                      <input type="text" class="form-control datepicker" placeholder="Tanggal Lahir" name="tanggal_lahir" id="tanggallahirpasien" required value="<?= $new_date ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="tempat">Pekerjaan/ Gol Darah</label>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Pekerjaan" name="pekerjaanpasien" id="pekerjaanpasien" required value="<?= $detail[0]['pekerjaan'] ?>">
+                      <input type="text" class="form-control" placeholder="Pekerjaan" name="pekerjaan" id="pekerjaanpasien" required value="<?= $detail[0]['pekerjaan'] ?>">
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block" id="golongandarah" name="golongan_darah_pasien" style="width: 100%">
+                      <select class="select2 form-control block" id="golongandarah" name="golongan_darah" style="width: 100%">
                         <option value="">Golongan Darah</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -449,20 +472,20 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="alamat_pasien">Alamat/Rt/Rw</label>
                     <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Alamat" name="alamatpasien" id="alamatpasien" required value="<?= $detail[0]['alamat'] ?>">
+                      <input type="text" class="form-control" placeholder="Alamat" name="alamat_pasien" id="alamatpasien" required value="<?= $detail[0]['alamat'] ?>">
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rt" name="rtpasien" id="rtpasien" required value="<?= $detail[0]['rt'] ?>">
+                      <input type="text" class="form-control" placeholder="Rt" name="rt_pasien" id="rtpasien" required value="<?= $detail[0]['rt'] ?>">
                     </div>
                     <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rw" name="rwpasien" id="rwpasien" required value="<?= $detail[0]['rw'] ?>">
+                      <input type="text" class="form-control" placeholder="Rw" name="rw_pasien" id="rwpasien" required value="<?= $detail[0]['rw'] ?>">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kecamatan" id="kd_kecamatanpasien" name="kd_kecamatanpasien" style="width: 100%">
+                      <select class="select2 form-control block kecamatan" id="kd_kecamatanpasien" name="kd_kecamatan_pasien" style="width: 100%">
                         <option>Pilih Kecamatan</option>
                         <?php if (!empty($kecamatan)) {
                           foreach ($kecamatan as $key) { ?>
@@ -472,7 +495,7 @@
                       </select>
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpasien" name="kd_kelurahanpasien" style="width: 100%">
+                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpasien" name="kd_kelurahan_pasien" style="width: 100%">
                         <option>Pilih Kelurahan</option>
                       </select>
                     </div>
@@ -480,13 +503,13 @@
                   <div class="form-group row">
                     <label class="col-lg-3 label-control" for="notelp">Informasi Kontak</label>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Telp" name="teleponpasien" id="teleponpasien" value="<?= $detail[0]['telepon'] ?>">
+                      <input type="text" class="form-control" placeholder="No Telp" name="telepon_pasien" id="telepon_pasien" value="<?= $detail[0]['telepon'] ?>">
                     </div>
                     <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappasien" id="whatsapppasien" value="<?= $detail[0]['whatsapp'] ?>">
+                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsap_pasien" id="whatsapp_pasien" value="<?= $detail[0]['whatsapp'] ?>">
                     </div>
                     <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
-                      <input type="email" class="form-control" placeholder="Email" name="emailpasien" id="emailpasien" value="<?= $detail[0]['email'] ?>">
+                      <input type="email" class="form-control" placeholder="Email" name="email_pasien" id="email_pasien" value="<?= $detail[0]['email'] ?>">
                     </div>
                   </div>
 
@@ -606,31 +629,35 @@
                         <?php if ($key["id_persyaratan"] == 6 || $key["id_persyaratan"] == 7 && 8 || $key["id_persyaratan"] == 10  && 8 || $key["id_persyaratan"] == 3 || $key["id_persyaratan"] == 21) { ?>
                           <?php if ($extensions == "pdf") : ?>
                             <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
+                            <input type="hidden" value="<?= $key['attachment']; ?>" class="form-control" name="dokumen[]" style="height: 40px;">
                             <img id="old" name="old" class="old" src="<?php echo base_url() ?>assets/images/pdf.png" width="100" height="auto">
                             <small class="text-sm"><?= $key['attachment']; ?></small>
-                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                            <!-- <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?php echo $key['attachment'] ?>"> -->
                           <?php endif; ?>
 
                           <?php if ($extensions !== "pdf") : ?>
                             <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;">
+                            <input type="hidden" value="<?= $key['attachment']; ?>" class="form-control" name="dokumen[]" style="height: 40px;">
                             <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
 
-                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                            <!-- <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?php echo $key['attachment'] ?>"> -->
                           <?php endif; ?>
 
                         <?php } else { ?>
                           <?php if ($extensions == "pdf") : ?>
                             <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
+                            <input type="hidden" value="<?= $key['attachment']; ?>" class="form-control" name="dokumen[]" style="height: 40px;">
                             <img id="old" name="old" class="old" src="<?php echo base_url() ?>assets/images/pdf.png" width="100" height="auto">
                             <small class="text-sm"><?= $key['attachment']; ?></small>
-                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                            <!-- <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?php echo $key['attachment'] ?>"> -->
                           <?php endif; ?>
 
                           <?php if ($extensions !== "pdf") : ?>
                             <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="id_persyaratan[]" style="height: 40px;" required>
+                            <input type="hidden" value="<?= $key['attachment']; ?>" class="form-control" name="dokumen[]" style="height: 40px;">
                             <img id="old" name="old" class="old" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>" width="100" height="auto">
 
-                            <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?= base_url() ?>uploads/dokumen/<?php echo $key['attachment'] ?>">
+                            <!-- <input type="file" id="dokumen" class="form-control mt-2 filedokumen" name="dokumen[]" style="height: 40px;" value="<?php echo $key['attachment'] ?>"> -->
                           <?php endif; ?>
 
                         <?php }
