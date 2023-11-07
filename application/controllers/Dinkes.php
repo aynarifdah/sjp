@@ -1210,7 +1210,7 @@ class Dinkes extends CI_Controller
         $id_pengajuan = $this->input->post('id_pengajuan');
         $passphrase = $this->input->post('passphrase');
 
-        if ($passphrase == '!Bsre1221*') {
+        if ($passphrase == 'Hantek1234.!') {
             $this->CetakTest($id_sjp);
         }else{
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
@@ -1254,7 +1254,8 @@ class Dinkes extends CI_Controller
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
 
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        // Kalo mau pake tte di comment
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
@@ -1263,8 +1264,8 @@ class Dinkes extends CI_Controller
         
 
 
-        $username = 'esign';
-        $password = 'qwerty';
+        $username = 'test';
+        $password = 'test#2023';
         $url = "103.113.30.81/api/sign/pdf";
         $file = './pdfTemporary/sjp_'.$time.'.pdf';
 
@@ -1275,7 +1276,7 @@ class Dinkes extends CI_Controller
             'file' => curl_file_create($file,'application/pdf'),
             'imageTTD' => curl_file_create($ttd,'image/jpeg'),
             'nik' => '0803202100007062',
-            'passphrase' => '!Bsre1221*',
+            'passphrase' => 'Hantek1234.!',
             'page' => '1',
             'tampilan' => 'visible',
             'image' => 'true',
@@ -1303,29 +1304,29 @@ class Dinkes extends CI_Controller
         // die();
 
         curl_close($ch);
-        ////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
-        // if($error != ""){
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        //////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        if($error != ""){
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        //     $tte_gagal = array(
-        //         'pesan'          => 'Gagal',
-        //     );
-        //     $this->db->insert('log_tte', $tte_gagal);
+            $tte_gagal = array(
+                'pesan'          => 'Gagal',
+            );
+            $this->db->insert('log_tte', $tte_gagal);
 
-        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
-        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
-        // }else{
+            $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
             
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        //     $tte_berhasil = array(
-        //         'pesan'          => 'Berhasil',
-        //     );
-        //     $this->db->insert('log_tte', $tte_berhasil);
+            $tte_berhasil = array(
+                'pesan'          => 'Berhasil',
+            );
+            $this->db->insert('log_tte', $tte_berhasil);
 
-        //     header("Content-Type: application/pdf");
-        //     echo $resp;
-        // }
+            header("Content-Type: application/pdf");
+            echo $resp;
+        }
         
     }
 
