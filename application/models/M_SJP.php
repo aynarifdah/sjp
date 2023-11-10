@@ -425,7 +425,13 @@ class M_SJP extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('jenis_sjp');
-    $this->db->where('status =', Null);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  public function jkn()
+  {
+    $this->db->select('*');
+    $this->db->from('jkn');
     $query = $this->db->get()->result_array();
     return $query;
   }
@@ -1159,7 +1165,7 @@ class M_SJP extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  function select_pengajuan_sjp_all($id_status_pengajuan = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai)
+  function select_pengajuan_sjp_all($id_status_pengajuan = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs');
     $this->db->from('permohonan_pengajuan pp');
@@ -1202,7 +1208,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  function select_pengajuan_sjp_kelurahan($id_status_pengajuan = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai)
+  function select_pengajuan_sjp_kelurahan($id_status_pengajuan = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs,att.id_attachment');
     $this->db->from('permohonan_pengajuan pp');
@@ -1255,7 +1261,7 @@ class M_SJP extends CI_Model
 
 
 
-  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai)
+  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');
@@ -1298,7 +1304,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function getdatapengajuanklaim($id_status_klaim = null, $mulai, $akhir = Null, $rs = Null, $status = Null, $jenis_rawat = null, $cari = Null)
+  public function getdatapengajuanklaim($id_status_klaim = null, $mulai = Null, $akhir = Null, $rs = Null, $status = Null, $jenis_rawat = null, $cari = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*');
     $this->db->from('sjp');
@@ -1334,7 +1340,7 @@ class M_SJP extends CI_Model
   }
 
   //menampilkan data permohonan sjp di puskesmas
-  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_join = null, $id_instansi = null, $mulai)
+  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_join = null, $id_instansi = null, $mulai = null)
   {
     $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohion, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1388,7 +1394,7 @@ class M_SJP extends CI_Model
   }
 
    //menampilkan data permohonan sjp di kelurahan
-  public function view_permohonansjp_kelurahan($id_jenissjp = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai)
+  public function view_permohonansjp_kelurahan($id_jenissjp = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = null)
   {
     $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohion, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1440,7 +1446,7 @@ class M_SJP extends CI_Model
   }
 
 
-  public function view_permohonansjp_dinsos($id_jenissjp, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $mulai)
+  public function view_permohonansjp_dinsos($id_jenissjp, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1546,7 +1552,7 @@ class M_SJP extends CI_Model
   // return $query;
   // }
 
-  public function view_permohonanklaim_rs($mulai, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null, $id_sjp)
+  public function view_permohonanklaim_rs($id_sjp,$mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null )
   {
     $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1813,7 +1819,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai)
+  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');

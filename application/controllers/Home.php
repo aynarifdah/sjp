@@ -1,5 +1,7 @@
 <?php
 use Dompdf\Options;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Home extends CI_Controller
 {
@@ -12,6 +14,7 @@ class Home extends CI_Controller
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->model('M_data');
+        // $this->load->library('JWT');
         auth_menu();
         is_login();
     }
@@ -30,6 +33,10 @@ class Home extends CI_Controller
     }
     public function index()
     {
+        // $urltoken = "http://sitpas.depok.go.id/kds/Decrypt";
+
+        
+
         redirect('Home/pengajuan', 'refresh');
         exit();
 
@@ -181,6 +188,7 @@ class Home extends CI_Controller
                     'rumahsakit' => $this->M_SJP->rumahsakit(),
                     'kelas_rawat' => $this->M_SJP->kelas_rawat(),
                     'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                    'jkn' => $this->M_SJP->jkn(),
                 );
 
                 $path = "";
@@ -227,6 +235,7 @@ class Home extends CI_Controller
         $alamat1         = $this->input->post('alamat_pemohon');
         $rt1             = $this->input->post('rt_pemohon');
         $rw1             = $this->input->post('rw_pemohon');
+        $jkn             = $this->input->post('status_jkn');
         $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
         $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
         $telepon1        = $this->input->post('telepon_pemohon');
@@ -239,6 +248,7 @@ class Home extends CI_Controller
         $datapermohonan  = array(
             'nama_pemohon'  => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
+            'nama_jkn'              => $jkn,
             'alamat'        => $alamat1,
             'rt'            => $rt1,
             'rw'            => $rw1,
@@ -281,6 +291,7 @@ class Home extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $jkn            = $this->input->post('status_jkn');
         $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
@@ -297,6 +308,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'id_jkn'           => $jkn,
             'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
@@ -1226,7 +1238,7 @@ class Home extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $id_join = Null, $id_instansi = Null, $mulai = Null);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1239,6 +1251,7 @@ class Home extends CI_Controller
             // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
+        die;
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -1592,7 +1605,7 @@ class Home extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $id_join = Null, $id_instansi = Null, $mulai = Null);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(6, Null, Null, 6);
         }
@@ -1605,6 +1618,7 @@ class Home extends CI_Controller
             'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
+        die;
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2058,28 +2072,347 @@ class Home extends CI_Controller
 
     }
 
-    public function ValidasiDTKSbyNIK($nik)
-    {
-        $gettoken = $this->getToken();
+    // public function ValidasiDTKSbyNIK($nik)
+    // {
+    //     $gettoken = $this->getToken();
 
-        $auth = $gettoken->token;
+    //     $auth = $gettoken->token;
         
-        $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
-        $data_api = array(
-            "Auth" => $auth,
-            "JenisApi" => 'Cek Nik Dtks'
+    //     $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
+    //     $data_api = array(
+    //         "Auth" => $auth,
+    //         "JenisApi" => 'Cek Nik Dtks'
+    //     );
+    //     $fields_string = http_build_query($data_api);
+    //     $curl = curl_init();
+    //     curl_setopt($curl, CURLOPT_URL, $url);
+    //     curl_setopt($curl, CURLOPT_POST, 1);
+    //     curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //     $response = curl_exec($curl);
+    //     $error_msg = curl_error($curl);
+    //     curl_close($curl);
+    //     $json_response = json_decode($response);
+    //     echo json_encode($json_response);
+    // }
+
+
+    public function getTokenApi() {
+
+        date_default_timezone_set('Asia/Jakarta');
+        $timestamp = time();
+        $url = 'http://sitpas.depok.go.id/kds/Decrypt';
+        
+        $data = array(
+            'cid' => 'admin-kds',
+            'client_name' => 'kartu-depok',
+            'timestamp' => $timestamp
         );
-        $fields_string = http_build_query($data_api);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($curl);
-        $error_msg = curl_error($curl);
-        curl_close($curl);
-        $json_response = json_decode($response);
-        echo json_encode($json_response);
+        
+        $payload = json_encode($data);
+
+        $ch = curl_init($url);
+        
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload))
+        );
+
+        $result = curl_exec($ch);
+
+        return $result;
+
+    }
+
+    public function getSitpasApi() {
+
+        $token = $this->getTokenApi();
+
+        // Initialize cURL
+        $ch = curl_init();
+
+        $nik = $_GET["nik"];
+    
+        curl_setopt($ch, CURLOPT_URL, 'http://sitpas.depok.go.id/kds/KDSApi/DTKSWilayah?nik='. $nik .'&kecamatan=&kelurahan=&tahun=&bulan=&nama=&layanan&status=&limit=1&offset=');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'cid: admin-kds',
+            'signature: ' . $token
+        ]);
+
+        $response = curl_exec($ch);
+        $decodedResponse = json_decode($response, true);
+
+        if ($decodedResponse["message"] == "No Content") {
+            $decodedData = "Nik Tidak Terdaftar";
+            curl_close($ch);
+            print_r($decodedData);
+            die;
+        } else {
+            $decodedResponse = json_decode($response, true);
+
+            if ($decodedResponse !== null && isset($decodedResponse['data'])) {
+                $jwtKey = 'Th15!15@53cr9t#K3y';
+                $decodedData = JWT::decode($decodedResponse['data'], new Key($jwtKey, 'HS256'));
+
+                curl_close($ch);
+
+                echo '<pre>';
+                print_r($decodedData);
+                print_r($decodedData->{0}->nama);
+                echo '<pre>';
+                die;
+            }
+        }
+
+        echo json_encode($decodedData);
     }
 
 }
+
+
+
+
+
+
+// <?php
+
+// namespace App\Http\Controllers;
+
+// use Firebase\JWT\JWT;
+// use Firebase\JWT\Key;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Http;
+// use Illuminate\Routing\Controller as BaseController;
+
+// class UserController extends BaseController
+// {
+
+//     private $baseurl = 'http://sitpas.depok.go.id/kds/';
+
+//     private function getJumlahDataByLayanan($token, $layanan)
+//     {
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'KDSApi/DTKSWilayah');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//             'cid: admin-kds',
+//             'signature: '.$token
+//         ]);
+
+//         $response = curl_exec($ch);
+//         $decodedResponse = json_decode($response, true);
+
+//         if ($decodedResponse !== null) {
+//             $jwtKey = 'Th15!15@53cr9t#K3y';
+//             $decodedData = JWT::decode($decodedResponse["data"], new Key($jwtKey, 'HS256'));
+//             return collect($decodedData)->where('layanan', $layanan)->count();
+//         }
+
+//         return 0;
+//     }
+
+//     private function getTanggalPengajuanTerbaruDanTerlama($token)
+//     {
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'KDSApi/DTKSWilayah');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//             'cid: admin-kds',
+//             'signature: '.$token
+//         ]);
+
+//         $response = curl_exec($ch);
+//         $decodedResponse = json_decode($response, true);
+
+//         if ($decodedResponse !== null) {
+//             $jwtKey = 'Th15!15@53cr9t#K3y';
+//             $decodedData = JWT::decode($decodedResponse["data"], new Key($jwtKey, 'HS256'));
+
+//             $dataByLayanan = collect($decodedData);
+
+//             $tanggalPengajuanTerbaru = $dataByLayanan->max('tanggal_pengajuan');
+//             $tanggalPengajuanTerlama = $dataByLayanan->min('tanggal_pengajuan');
+
+//             return [
+//                 'tanggal_pengajuan_terbaru' => $tanggalPengajuanTerbaru,
+//                 'tanggal_pengajuan_terlama' => $tanggalPengajuanTerlama
+//             ];
+//         }
+
+//         return [
+//             'tanggal_pengajuan_terbaru' => null,
+//             'tanggal_pengajuan_terlama' => null
+//         ];
+//     }
+
+
+
+//     public function home()
+//     {
+//         // Mengatur zona waktu menjadi Asia/Jakarta
+//         date_default_timezone_set('Asia/Jakarta');
+//         $timestamp = time();
+
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'Decrypt');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_POST, true);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+//             'cid' => 'admin-kds',
+//             'client_name' => 'kartu-depok',
+//             'timestamp' => $timestamp
+//         ]));
+
+//         $response = curl_exec($ch);
+//         $token = $response;
+
+        
+//         $tanggalterbaru = $this->getTanggalPengajuanTerbaruDanTerlama($token);
+
+//         $tanggal = ($tanggalterbaru != null) ? date("d M Y", strtotime($tanggalterbaru['tanggal_pengajuan_terbaru'])) : '-';
+
+//         // Pelayanan Kesehatan Gratis
+//         $jmlpbi = $this->getJumlahDataByLayanan($token, 'Pelayanan Kesehatan Gratis');
+
+//         // Santunan Kematian
+//         $jmlsk = $this->getJumlahDataByLayanan($token, 'Santunan Kematian');
+
+//         // Beasiswa Berprestasi
+//         $jmlpendidikan = $this->getJumlahDataByLayanan($token, 'Bantuan Sosial Siswa Miskin');
+
+//         // Bantuan Rumah Tidak Layak Huni
+//         $jml = $this->getJumlahDataByLayanan($token, 'Bantuan Rumah Tidak Layak Huni');
+
+//         return view('home', compact('Berita', 'galeri', 'exlink', 'jml', 'jmlsk','jmlpbi', 'jmlpendidikan', 'tanggal'));
+//     }
+
+//     public function cek_dtks_single(){
+
+//         $key = 'Th15!15@53cr9t#K3y';
+
+//         $snik = '';
+//         $snama = '';
+//         $slayanan = '';
+
+//         if (isset($_GET['layanan'])) {
+//             $slayanan = rawurlencode($_GET['layanan']);
+//         }
+        
+//         if (isset($_GET['nik'])){
+//             $snik = $_GET['nik'];
+//         }
+
+//             if (isset($_GET['kt'])){
+//                 if($_GET['cari'] != ''){
+//                     if($_GET['kt'] == 'nama'){
+//                     $snama = $_GET['cari'];
+//                 }
+                
+//                 if($_GET['kt'] == 'nik'){
+//                     $snik = $_GET['cari'];
+//                 }
+//             }
+//         }
+
+//         // Mengatur zona waktu menjadi Asia/Jakarta
+//         date_default_timezone_set('Asia/Jakarta');
+//         $timestamp = time();
+//         $tanggal = date('d M Y', $timestamp);
+
+//         $response = Http::post($this->baseurl . 'Decrypt', [
+//             'cid' => 'admin-kds',
+//             'client_name' => 'kartu-depok',
+//             'timestamp' => $timestamp
+//         ]);
+
+//         $token = $response->body();
+
+//         // Pencarian NIK
+//         $response = Http::withHeaders([
+//             'cid' => 'admin-kds',
+//             'signature' => $token
+//         ])->get($this->baseurl . "KDSApi/DTKSWilayah?nama=$snama&nik=$snik&kecamatan=&kelurahan=&tahun=&bulan=&limit=&offset=&layanan=$slayanan&status=");
+
+
+//         $jumlahtotal = 0;
+//         $disetujui = 0;
+//         $diproses = 0;
+        
+//         if (isset($response['data']) && $response['data'] != null) {
+//             // $key = 'Th15!15@53cr9t#K3y';
+//             $result = JWT::decode($response['data'], new Key($key, 'HS256'));
+
+//             $kecamatan = $result;
+//             $result = !empty($result) ? json_encode($result) : '';
+
+//             if ($slayanan != '') {
+//                 $responseData = ($result != null) ? json_decode($result, true) : [];
+
+//                 $filteredDataDisetujui = array_filter($responseData, function ($item) {
+//                     return $item['status'] === 'Disetujui';
+//                 });
+
+//                 $filteredDataDiproses = array_filter($responseData, function ($item) {
+//                     return $item['status'] !== 'Disetujui' && $item['status'] !== 'Ditolak';
+//                 });
+            
+//                 $diproses = count($filteredDataDiproses);
+
+//                 $disetujui = count($filteredDataDisetujui);
+
+//                 $jumlahtotal = $response['total_records'] ?? 0;
+//             }
+            
+
+//             // Membuat collection dari data kecamatan
+//             $kecamatanCollection = collect($kecamatan);
+
+//             // Menghapus duplikat berdasarkan kecamatan
+//             $uniqueKecamatanCollection = $kecamatanCollection->unique('kecamatan');
+
+//             // Mengubah kembali ke array
+//             $kecamatan = $uniqueKecamatanCollection->values()->toArray();
+//         } else {
+//             $result = [];
+//             $jumlahtotal = 0;
+//             $disetujui = $diproses = '-';
+//             $kecamatan = $result;
+//             $uniqueKecamatan = [];
+//         }
+
+//         $resultArray = json_decode($result, true);
+
+//         $groupedData = [];
+
+//         foreach ($resultArray as $res) {
+//             $kecamatanresult = $res['kecamatan'];
+//             $kelurahanresult = $res['kelurahan'];
+
+//             if (!isset($groupedData[$kecamatanresult])) {
+//                 $groupedData[$kecamatanresult] = [];
+//             }
+
+//             if (!isset($groupedData[$kecamatanresult][$kelurahanresult])) {
+//                 $groupedData[$kecamatanresult][$kelurahanresult] = [
+//                     'jumlah_disetujui' => 0,
+//                     'jumlah_diproses' => 0,
+//                 ];
+//             }
+
+//             if ($res['status'] === 'Disetujui') {
+//                 $groupedData[$kecamatanresult][$kelurahanresult]['jumlah_disetujui']++;
+//             } elseif ($res['status'] !== 'Disetujui' && $res['status'] !== 'Ditolak') {
+//                 $groupedData[$kecamatanresult][$kelurahanresult]['jumlah_diproses']++;
+//             }
+//         }
+
+//         return view('informasi-dtks.cek-dtks-single',compact('snik', 'slayanan','kecamatan','result', 'jumlahtotal', 'disetujui', 'diproses', 'groupedData'));
+//     }
+// }
