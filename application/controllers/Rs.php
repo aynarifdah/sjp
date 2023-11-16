@@ -1601,5 +1601,40 @@ public function proses_entry_klaim()
             'distribusi' => json_encode($this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi))
         ];
         echo $data["distribusi"];
-    }      
+    }
+    
+    public function CetakPreview($id_sjp)
+    {
+        // setlocale(LC_ALL, 'in_ID');
+        $sjp = $this->M_SJP->detail_cetak($id_sjp);
+        // var_dump($sjp);
+        // die;
+        $diagpasien = $this->M_SJP->diagpasien($id_sjp);
+        $diag = implode(', ', array_column($diagpasien, 'namadiag'));
+        $img = base_url('/assets/uploads/cap.png');
+        $img_kop = base_url('/assets/images/kop_surat.png');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
+
+        // print_r($idtest);
+        // $this->load->view('dinkes/cetak');
+        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
+        // die;
+
+        $this->load->library('dompdf_gen');
+        $option = new Options();
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+        $option->set('defaultFont', 'Arial');
+        // $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->set_option('isRemoteEnabled', TRUE);
+        $this->dompdf->render();
+
+        // Kalo mau pake tte di comment
+        $this->dompdf->stream("cetakSJP_Preview.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+    }
 }
