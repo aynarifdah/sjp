@@ -1830,6 +1830,7 @@ class Home extends CI_Controller
         
     }
 
+    //Ketika blm ada akun tte//
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
     {
 
@@ -2056,17 +2057,6 @@ class Home extends CI_Controller
       </div>
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
-      </div>
-      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br><br><br><br><br><br>
-      <div class="footer" style="margin-bottom:0">
-      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
       </div>
 
       </body></html>';

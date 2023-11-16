@@ -1297,6 +1297,7 @@ public function proses_entry_klaim()
         //  $this->dompdf->stream("CetakTest_$t.pdf");
     }
 
+    //Ketika blm ada akun tte//
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
     {
 
@@ -1399,6 +1400,11 @@ public function proses_entry_klaim()
         {
             text-indent: 50px;
         }
+        .footer
+        {
+            font-style: italic;
+            text-align: center;
+        }
 
 
     
@@ -1493,7 +1499,7 @@ public function proses_entry_klaim()
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d ' . 'Selesai perawatan' . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu Setelah tanggal Diterbitkan' : '-')) . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>
@@ -1501,9 +1507,16 @@ public function proses_entry_klaim()
                 <td></td>
               </tr>
               <tr>
-                <td  style="width: 30%">Jaminan</td>
+                <td style="width: 30%">Jaminan</td>
                 <td style="width: 5%">:</td>
                 <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>'.
+                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+                 . '</td>
               </tr>
             </tbody>
           </table>
@@ -1512,7 +1525,6 @@ public function proses_entry_klaim()
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-        <img src=' . $ttd . ' alt="" id="kop" width="230" height="175" align="right">
 
       </body></html>';
         return $html;
