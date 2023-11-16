@@ -32,7 +32,7 @@ class Rs extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 13 || $jam < 8) {
+        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                     Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -465,6 +465,24 @@ class Rs extends CI_Controller
         // var_dump($data['datapasien']);
         // die;
     }
+
+    public function view_pdf($id_pengajuan, $id_persyaratan)
+    {
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+
     public function gethasilsurvey()
     {
         $id_puskesmas = 1;
@@ -1504,5 +1522,84 @@ public function proses_entry_klaim()
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAHDI - (Maaf, biar gampang kebaca)
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////          
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////    
+
+    public function Dashboard(){
+        $path = "";
+        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+
+        $d = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+            'tahun'             => $this->M_SJP->tahun(),
+            // 'bulan'             => $this->M_SJP->bulan(),
+            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
+            'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
+            'trend_pasien'      => $this->M_SJP->trend_pasien(),
+            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
+            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
+            'controller'        => $this->instansi()
+        ];
+
+        // var_dump($d['distribusi']);
+        // die;
+        // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
+
+        $data = array(
+            "page"    => $this->load("Dashboard", $path),
+            "content" => $this->load->view('dashboard', $d, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+
+    public function Filter(){
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        
+        $orderDistribusi = $this->input->post('orderDistribusi');
+
+        $anggaran_tahun     = $this->M_SJP->anggaran($bulan,$tahun,$kecamatan,$kelurahan);
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan,$tahun,$kecamatan,$kelurahan);
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+
+        $data = [
+            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan,$tahun,$kecamatan,$kelurahan),
+            'anggaran_tahun'        => $anggaran_tahun,
+            // 'sisa_anggaran'         => $sisa_anggaran,
+            'nominal_pembiayaan'    => $nominal_pembiayaan,
+            'total_pasien'          => $this->M_SJP->total_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'distribusi'            => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi),
+            'jumlah_kunjungan_bulan'=> $this->M_SJP->jumlah_kunjungan_bulan($bulan,$tahun,$kecamatan,$kelurahan),
+            'trend_pasien'          => $this->M_SJP->trend_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan,$tahun,$kecamatan,$kelurahan),
+            'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan,$tahun,$kecamatan,$kelurahan)
+        ];
+
+        // var_dump($data["jumlah_kunjungan_bulan"]);die;
+        // header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public function orderDistribusi()
+    {
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        $orderDistribusi = $this->input->post('orderDistribusi');
+        $data = [
+            'distribusi' => json_encode($this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi))
+        ];
+        echo $data["distribusi"];
+    }      
 }

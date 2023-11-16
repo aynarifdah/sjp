@@ -82,6 +82,15 @@ class Exportexcel extends CI_Controller
         $this->load->view('exportexcel/excel_disetujui_sjp', $data);
     }
 
+    public function ditolak_sjp()
+    {
+        $data = array(
+            'title' => 'ditolak_sjp',
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas(Null, Null, 7, Null)
+        );
+        $this->load->view('exportexcel/excel_ditolak_sjp', $data);
+    }
+
     public function pengajuan_klaim()
     {
         $id_status_klaim = $this->input->post('status_klaim');

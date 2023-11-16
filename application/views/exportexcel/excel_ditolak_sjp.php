@@ -36,6 +36,7 @@ header("Expires: 0");
                     <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nama_jenis']; ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
+<<<<<<< HEAD
                     <td>
                         <?php
                         $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d h:i:s");
@@ -67,6 +68,8 @@ header("Expires: 0");
                             }
                          ?>
                     </td>
+=======
+>>>>>>> origin/pengembanganv.1
                     <td><?php echo $key['status_pengajuan']; ?></td>
                 </tr>
         <?php $no++;

@@ -138,16 +138,16 @@ class Home extends CI_Controller
         }
     }
 
-    public function Dashboard()
-    {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("Dashboard", $path),
-            "content" => $this->load->view('dashboard', false, true)
-        );
+    // public function Dashboard()
+    // {
+    //     $path = "";
+    //     $data = array(
+    //         "page"    => $this->load("Dashboard", $path),
+    //         "content" => $this->load->view('dashboard', false, true)
+    //     );
 
-        $this->load->view('template/default_template', $data);
-    }
+    //     $this->load->view('template/default_template', $data);
+    // }
 
     public function gethasilsurvey()
     {
@@ -262,6 +262,7 @@ class Home extends CI_Controller
         // }
 
         $nik           = $this->input->post('nik');
+        $status_jkn    = $this->input->post('status_jkn');
         $nama_pasien   = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
         $tempatlahir   = $this->input->post('tempat_lahir');
@@ -296,6 +297,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
@@ -900,80 +902,84 @@ class Home extends CI_Controller
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // public function Dashboard(){
-    //     $path = "";
-    //     $anggaran_tahun     = $this->M_SJP->anggaran();
-    //     $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
-    //     $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+    public function Dashboard(){
+        $path = "";
+        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
-    //     $d = [
-    //         'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
-    //         'tahun'             => $this->M_SJP->tahun(),
-    //         'bulan'             => $this->M_SJP->bulan(),
-    //         'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-    //         'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
-    //         'sisa_anggaran'     => $sisa_anggaran,
-    //         'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
-    //         'total_pasien'       => $this->M_SJP->total_pasien(),
-    //         'distribusi'         => $this->M_SJP->distribusi(),
-    //         'jumlah_kunjungan_bulan' => $this->M_SJP->jumlah_kunjungan_bulan(),
-    //         'trend_pasien'      => $this->M_SJP->trend_pasien(),
-    //         'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-    //         'chartJenisRawat'   => $this->M_SJP->chartJenisRawat()
-    //     ];
+        $d = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+            'tahun'             => $this->M_SJP->tahun(),
+            // 'bulan'             => $this->M_SJP->bulan(),
+            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
+            'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
+            'trend_pasien'      => $this->M_SJP->trend_pasien(),
+            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
+            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
+            'controller'        => $this->instansi()
+        ];
 
-    //     // var_dump( $d['jumlah_kunjungan_bulan'] ); die;
+        // var_dump($d['distribusi']);
+        // die;
+        // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
-    //     $data = [
-    //         "page"    => $this->load("Dashboard", $path) ,
-    //         "content" => $this->load->view('dashboard', $d, true)
-    //     ];
+        $data = array(
+            "page"    => $this->load("Dashboard", $path),
+            "content" => $this->load->view('dashboard', $d, true)
+        );
 
-    //     $this->load->view('template/default_template', $data);
-    // }
+        $this->load->view('template/default_template', $data);
+    }
 
 
-    // public function Filter(){
-    //     $bulan      = $this->input->post('bulan');
-    //     $tahun      = $this->input->post('tahun');
-    //     $kecamatan  = $this->input->post('kecamatan');
-    //     $kelurahan  = $this->input->post('kelurahan');
-    //     $orderDistribusi = $this->input->post('orderDistribusi');
+    public function Filter(){
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        
+        $orderDistribusi = $this->input->post('orderDistribusi');
 
-    //     $anggaran_tahun     = $this->M_SJP->anggaran($bulan,$tahun,$kecamatan,$kelurahan);
-    //     $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan,$tahun,$kecamatan,$kelurahan);
-    //     // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+        $anggaran_tahun     = $this->M_SJP->anggaran($bulan,$tahun,$kecamatan,$kelurahan);
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan,$tahun,$kecamatan,$kelurahan);
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
-    //     $data = [
-    //         'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'anggaran_tahun'        => $anggaran_tahun,
-    //         // 'sisa_anggaran'         => $sisa_anggaran,
-    //         'nominal_pembiayaan'    => $nominal_pembiayaan,
-    //         'total_pasien'          => $this->M_SJP->total_pasien($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'distribusi'            => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi),
-    //         'jumlah_kunjungan_bulan'=> $this->M_SJP->jumlah_kunjungan_bulan($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'trend_pasien'          => $this->M_SJP->trend_pasien($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan,$tahun,$kecamatan,$kelurahan)
-    //     ];
+        $data = [
+            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan,$tahun,$kecamatan,$kelurahan),
+            'anggaran_tahun'        => $anggaran_tahun,
+            // 'sisa_anggaran'         => $sisa_anggaran,
+            'nominal_pembiayaan'    => $nominal_pembiayaan,
+            'total_pasien'          => $this->M_SJP->total_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'distribusi'            => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi),
+            'jumlah_kunjungan_bulan'=> $this->M_SJP->jumlah_kunjungan_bulan($bulan,$tahun,$kecamatan,$kelurahan),
+            'trend_pasien'          => $this->M_SJP->trend_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan,$tahun,$kecamatan,$kelurahan),
+            'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan,$tahun,$kecamatan,$kelurahan)
+        ];
 
-    //     // var_dump($data["jumlah_kunjungan_bulan"]);die;
-    //     // header('Content-Type: application/json');
-    //     echo json_encode($data);
-    // }
+        // var_dump($data["jumlah_kunjungan_bulan"]);die;
+        // header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 
-    // public function orderDistribusi(){
-    //     $bulan      = $this->input->post('bulan');
-    //     $tahun      = $this->input->post('tahun');
-    //     $kecamatan  = $this->input->post('kecamatan');
-    //     $kelurahan  = $this->input->post('kelurahan');
-    //     $orderDistribusi = $this->input->post('orderDistribusi');
-    //     $data = [
-    //         'distribusi' => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi)
-    //     ];
-    //     echo json_encode($data);
-    // }
-
+    public function orderDistribusi()
+    {
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        $orderDistribusi = $this->input->post('orderDistribusi');
+        $data = [
+            'distribusi' => json_encode($this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi))
+        ];
+        echo $data["distribusi"];
+    }
     public function UserManagement()
     {
         if ($this->session->userdata('level') != 1) {
@@ -1357,7 +1363,7 @@ class Home extends CI_Controller
 
             // Informasi Pasien | Tabel sjp
             $nikPasien          = $this->input->post('nikpasien');
-            $domisili          = $this->input->post('domisili');
+            $domisili           = $this->input->post('domisili');
             $nama_pasien        = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
             $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
@@ -1567,6 +1573,25 @@ class Home extends CI_Controller
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['content'] = $this->load->view('detail_pengajuan', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_pdf($id_pengajuan, $id_persyaratan)
+    {
+        // $id_jenis_izin = 1;
+        // $id_pengajuan = 1;
+        // $id_persyaratan = 2;
+
+        $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
+        // var_dump($data['getdokumenpersyaratan']);die;
+        
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+        
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdf', $data, true, false);
         $this->load->view('template/default_template', $data);
     }
 
@@ -2450,5 +2475,400 @@ class Home extends CI_Controller
 
         redirect('Home/daftar_klaim_pkm');
     }
+
+    public function pengajuan_ulang($idsjp, $id_pengajuan)
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
+        // var_dump($data['topik']);
+        // var_dump($data['diagnosa']);
+        // die;
+
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Pengajuan Ulang", $path),
+            "content" => $this->load->view('pengajuan_ulang', $data, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+
+    // Sementara hide upload gambar Rifqy 2 November 2023
+    // public function input_pengajuan_ulang()
+    // {
+    //     $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+    //     $nama_pemohon    = $this->input->post('nama_pemohon');
+    //     $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+    //     $alamat1         = $this->input->post('alamat_pemohon');
+    //     $rt1             = $this->input->post('rt_pemohon');
+    //     $rw1             = $this->input->post('rw_pemohon');
+    //     $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+    //     $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+    //     $telepon1        = $this->input->post('telepon_pemohon');
+    //     $whatsapp1       = $this->input->post('whatsapp_pemohon');
+    //     $email1          = $this->input->post('email_pemohon');
+    //     $statushubungan  = $this->input->post('status_hubungan');
+    //     $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+    //     $jenisizin       = 1; //jenis izin sjp dibuat default 
+    //     $datapermohonan  = array(
+    //         'nama_pemohon'  => $nama_pemohon,
+    //         'jenis_kelamin' => $jeniskelamin1,
+    //         'alamat'        => $alamat1,
+    //         'rt'            => $rt1,
+    //         'rw'            => $rw1,
+    //         'kd_kelurahan'  => $kelurahan1,
+    //         'kd_kecamatan'  => $kecamatan1,
+    //         'telepon'       => $telepon1,
+    //         'whatsapp'      => $whatsapp1,
+    //         'email'         => $email1,
+    //         'status_hubungan'       => $statushubungan,
+    //         'jenis_izin'            => $jenisizin,
+    //         'pemohon_pengajuan'            => $pemohonpengajuan,
+
+    //     );
+
+    //     $this->db->insert('permohonan_pengajuan', $datapermohonan);
+    //     $id_pengajuan = $this->db->insert_id();
+
+    //     $nik           = $this->input->post('nik');
+    //     $status_jkn    = $this->input->post('status_jkn');
+    //     $nama_pasien   = $this->input->post('nama_pasien');
+    //     $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+    //     $tempatlahir   = $this->input->post('tempat_lahir');
+    //     $tanggallahir  = $this->input->post('tanggal_lahir');
+    //     $pekerjaan     = $this->input->post('pekerjaan');
+    //     $golongandarah = $this->input->post('golongan_darah');
+    //     $alamat        = $this->input->post('alamat_pasien');
+    //     $rt            = $this->input->post('rt_pasien');
+    //     $rw            = $this->input->post('rw_pasien');
+    //     $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+    //     $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+    //     $telepon       = $this->input->post('telepon_pasien');
+    //     $whatsapp      = $this->input->post('whatsapp_pasien');
+    //     $email         = $this->input->post('email_pasien');
+    //     $jenisrawat    = $this->input->post('jenis_rawat');
+    //     $rumahsakit    = $this->input->post('nama_rumah_sakit');
+    //     $kelas_rawat     = $this->input->post('kelas_rawat');
+    //     $jenisjaminan    = $this->input->post('jenisjaminan');
+    //     $domisili       = $this->input->post('domisili');
+    //     $mulairawat      = $this->input->post('mulairawat');
+    //     $akhirrawat      = $this->input->post('akhirrawat');
+    //     $feedback      = $this->input->post('feedback');
+    //     $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+    //     // test 02-05-2021
+    //     $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+    //     $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+    //     $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+    //     // test 02-05-2021
+    //     $datasjp       = array(
+    //         'id_pengajuan'     => $id_pengajuan,
+    //         'id_puskesmas'     => $id_puskesmas,
+    //         'id_rumah_sakit'   => $rumahsakit,
+    //         'nik'              => $nik,
+    //         'status_jkn'       => $status_jkn,
+    //         'nama_pasien'      => $nama_pasien,
+    //         'jenis_kelamin'    => $jeniskelamin,
+    //         'tempat_lahir'     => $tempatlahir,
+    //         'tanggal_lahir'    => $tanggallahir,
+    //         'pekerjaan'        => $pekerjaan,
+    //         'golongan_darah'   => $golongandarah,
+    //         'alamat'           => $alamat,
+    //         'rt'               => $rt,
+    //         'rw'               => $rw,
+    //         'kd_kelurahan'     => $kelurahan,
+    //         'kd_kecamatan'     => $kecamatan,
+    //         'telepon'          => $telepon,
+    //         'whatsapp'         => $whatsapp,
+    //         'email'            => $email,
+    //         'jenis_rawat'      => $jenisrawat,
+    //         'jenis_sjp'         => $jenisjaminan,
+    //         'domisili'          => $domisili,
+    //         'kelas_rawat'      => $kelas_rawat,
+    //         'mulai_rawat'      => $mulairawat,
+    //         'selesai_rawat'    => $akhirrawat,
+    //         'feedback'         => $feedback,
+    //         'feedback_dinkes'  => $feedback_dinkes,
+    //     );
+
+    //     $this->db->insert('sjp', $datasjp);
+    //     $id_sjp = $this->db->insert_id();
+        
+    //     $kd_diagnosa = $this->input->post('repeater-group'); 
+
+    //     $dataDiagnosa = array();
+    //     $diagnosaLainnya = '';
+    //     $penyakit = '';
+    //     foreach ($kd_diagnosa as $key) {
+    //         if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         } else {
+    //             $penyakit = $key['diagnosa'];
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         }
+    //         $dataDiagnosa[] = array(
+    //             'id_sjp'      => $id_sjp,
+    //             'id_penyakit' => $penyakit,
+    //             'penyakit' => $diagnosaLainnya
+    //         );
+    //     }
+    //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+    //     $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+    //     $dokumen          = $this->input->post('dokumen');
+    //     $file_old          = $this->input->post('file_old');
+
+    //     $pasien = $this->input->post('nama_pasien');
+    //     $persyaratan      = array();
+    //     for ($i = 0; $i < count($nama_persyaratan); $i++) {
+
+    //         $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
+    //         $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+    //         $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+    //         $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
+    //         $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+
+    //         $name_file = $_FILES['file']['name'];
+    //         $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+    //         $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
+    //         $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+            
+    //         // File upload configuration
+    //         $uploadPath = 'uploads/dokumen/';
+    //         $config['upload_path'] = $uploadPath;
+    //         $config['file_name'] = $new_name_image;
+    //         // $config['encrypt_name'] = TRUE;
+    //         $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+
+    //         // Load and initialize upload library
+
+    //         $this->load->library('image_lib');
+    //         $this->load->library('upload', $config);
+    //         $this->upload->initialize($config);
+    //         if ($this->upload->do_upload('file')) {
+    //             // Uploaded file data
+    //             $fileData      = $this->upload->data();
+    //             // if ($fileData['file_name'] == null) {
+    //             //     $file = $file_old[$i];
+    //             // }else{
+    //             //     $file = $fileData['file_name'];
+    //             // }
+
+    //             // var_dump($file);
+    //             // die();
+
+                
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => $fileData['file_name'],
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+
+    //             $configer =  array(
+    //                 'image_library'   => 'gd2',
+    //                 'source_image'    =>  $fileData['full_path'],
+    //                 'maintain_ratio'  =>  TRUE,
+    //                 'width'           =>  750,
+    //                 'height'          =>  750,
+    //                 'quality'         =>  80
+    //             );
+    //             $this->image_lib->clear();
+    //             $this->image_lib->initialize($configer);
+    //             $this->image_lib->resize();
+
+    //         }else {
+    //             // Uploaded file data
+
+    //             $fileData      = $this->upload->data();
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => '',
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+    //         }
+    //     }
+    //     if (!empty($persyaratan)) {
+    //         $this->db->insert_batch('attachment', $persyaratan);
+    //     }
+    //     redirect(site_url('Home/permohonan_baru'));
+
+    // }
+
+     public function input_pengajuan_ulang()
+    {
+        $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        $nama_pemohon    = $this->input->post('nama_pemohon');
+        $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+        $alamat1         = $this->input->post('alamat_pemohon');
+        $rt1             = $this->input->post('rt_pemohon');
+        $rw1             = $this->input->post('rw_pemohon');
+        $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+        $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+        $telepon1        = $this->input->post('telepon_pemohon');
+        $whatsapp1       = $this->input->post('whatsapp_pemohon');
+        $email1          = $this->input->post('email_pemohon');
+        $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+        $jenisizin       = 1; //jenis izin sjp dibuat default 
+        $datapermohonan  = array(
+            'nama_pemohon'  => $nama_pemohon,
+            'jenis_kelamin' => $jeniskelamin1,
+            'alamat'        => $alamat1,
+            'rt'            => $rt1,
+            'rw'            => $rw1,
+            'kd_kelurahan'  => $kelurahan1,
+            'kd_kecamatan'  => $kecamatan1,
+            'telepon'       => $telepon1,
+            'whatsapp'      => $whatsapp1,
+            'email'         => $email1,
+            'status_hubungan'       => $statushubungan,
+            'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
+
+        );
+
+        $this->db->insert('permohonan_pengajuan', $datapermohonan);
+        $id_pengajuan = $this->db->insert_id();
+
+        $nik           = $this->input->post('nik');
+        $status_jkn    = $this->input->post('status_jkn');
+        $nama_pasien   = $this->input->post('nama_pasien');
+        $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+        $tempatlahir   = $this->input->post('tempat_lahir');
+        $tanggallahir  = $this->input->post('tanggal_lahir');
+        $pekerjaan     = $this->input->post('pekerjaan');
+        $golongandarah = $this->input->post('golongan_darah');
+        $alamat        = $this->input->post('alamat_pasien');
+        $rt            = $this->input->post('rt_pasien');
+        $rw            = $this->input->post('rw_pasien');
+        $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+        $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+        $telepon       = $this->input->post('telepon_pasien');
+        $whatsapp      = $this->input->post('whatsapp_pasien');
+        $email         = $this->input->post('email_pasien');
+        $jenisrawat    = $this->input->post('jenis_rawat');
+        $rumahsakit    = $this->input->post('nama_rumah_sakit');
+        $kelas_rawat     = $this->input->post('kelas_rawat');
+        $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
+        $mulairawat      = $this->input->post('mulairawat');
+        $akhirrawat      = $this->input->post('akhirrawat');
+        $feedback      = $this->input->post('feedback');
+        $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+        // test 02-05-2021
+        $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+        $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+        $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+        // test 02-05-2021
+        $datasjp       = array(
+            'id_pengajuan'     => $id_pengajuan,
+            'id_puskesmas'     => $id_puskesmas,
+            'id_rumah_sakit'   => $rumahsakit,
+            'nik'              => $nik,
+            'status_jkn'       => $status_jkn,
+            'nama_pasien'      => $nama_pasien,
+            'jenis_kelamin'    => $jeniskelamin,
+            'tempat_lahir'     => $tempatlahir,
+            'tanggal_lahir'    => $tanggallahir,
+            'pekerjaan'        => $pekerjaan,
+            'golongan_darah'   => $golongandarah,
+            'alamat'           => $alamat,
+            'rt'               => $rt,
+            'rw'               => $rw,
+            'kd_kelurahan'     => $kelurahan,
+            'kd_kecamatan'     => $kecamatan,
+            'telepon'          => $telepon,
+            'whatsapp'         => $whatsapp,
+            'email'            => $email,
+            'jenis_rawat'      => $jenisrawat,
+            'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
+            'kelas_rawat'      => $kelas_rawat,
+            'mulai_rawat'      => $mulairawat,
+            'selesai_rawat'    => $akhirrawat,
+            'feedback'         => $feedback,
+            'feedback_dinkes'  => $feedback_dinkes,
+        );
+
+        $this->db->insert('sjp', $datasjp);
+        $id_sjp = $this->db->insert_id();
+        
+        $kd_diagnosa = $this->input->post('repeater-group'); 
+
+        $dataDiagnosa = array();
+        $diagnosaLainnya = '';
+        $penyakit = '';
+        foreach ($kd_diagnosa as $key) {
+            if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            } else {
+                $penyakit = $key['diagnosa'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            }
+            $dataDiagnosa[] = array(
+                'id_sjp'      => $id_sjp,
+                'id_penyakit' => $penyakit,
+                'penyakit' => $diagnosaLainnya
+            );
+        }
+        $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+        $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+        $dokumen          = $this->input->post('dokumen');
+        $file_old          = $this->input->post('file_old');
+
+        $pasien = $this->input->post('nama_pasien');
+        $persyaratan      = array();
+        for ($i = 0; $i < count($nama_persyaratan); $i++) {        
+            
+            $persyaratan[] = array(
+                'id_jenis_izin'  => $jenisizin,
+                'attachment'     => $dokumen[$i],
+                //'feedback'       => $feedback,
+                'id_pengajuan'   => $id_pengajuan,
+                'id_persyaratan' => $nama_persyaratan[$i],
+            );
+        }
+        if (!empty($persyaratan)) {
+            $this->db->insert_batch('attachment', $persyaratan);
+        }
+        redirect(site_url('Home/permohonan_baru'));
+
+    }
+
 
 }

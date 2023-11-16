@@ -677,10 +677,24 @@ class M_SJP extends CI_Model
     $this->db->from('attachment');
     $this->db->where('id_pengajuan ', $id_pengajuan);
     $this->db->where('id_jenis_izin', $id_jenis_izin);
+    // $this->db->where('id_persyaratan', $id_persyaratan);
     // $this->db->where('id_persyaratan !=', 4);
     $query = $this->db->get()->result_array();
     return $query;
   }
+  
+  public function getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan)
+  {
+    $this->db->select('*');
+    $this->db->from('attachment');
+    $this->db->where('id_pengajuan ', $id_pengajuan);
+    // $this->db->where('id_jenis_izin', $id_jenis_izin);
+    $this->db->where('id_persyaratan', $id_persyaratan);
+    // $this->db->where('id_persyaratan !=', 4);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
   public function input_nominal_pembiayaan($data, $id_sjp)
   {
     $this->db->where('id_sjp', $id_sjp);
@@ -775,7 +789,16 @@ class M_SJP extends CI_Model
     $this->db->select('sjp.nama_pasien, pp.tanggal_pengajuan');
     $this->db->from('sjp');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+    
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
 
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -803,8 +826,18 @@ class M_SJP extends CI_Model
     $this->db->from('`rumah_sakit` rs');
     $this->db->join('sjp', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+
     $this->db->group_by("rs.nama_rumah_sakit");
 
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
+    
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -850,7 +883,11 @@ class M_SJP extends CI_Model
     $this->db->select('sp.status_pengajuan nama, count(pp.id_status_pengajuan) as jumlah');
     $this->db->from('`status_pengajuan` sp');
     $this->db->join('permohonan_pengajuan pp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     // $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+
     $this->db->group_by("sp.status_pengajuan");
     if (!empty($bulan)) {
       $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -859,10 +896,17 @@ class M_SJP extends CI_Model
       $this->db->where('YEAR(pp.tanggal_pengajuan)', date("Y", strtotime($tahun)));
     }
     if (!empty($kecamatan)) {
-      $this->db->where('kd_kecamatan', $kecamatan);
+      $this->db->where('sjp.kd_kecamatan', $kecamatan);
     }
     if (!empty($kelurahan)) {
-      $this->db->where('kd_kelurahan', $kelurahan);
+      $this->db->where('sjp.kd_kelurahan', $kelurahan);
+    }
+
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
     }
     return $this->db->get()->result_array();
   }
@@ -956,6 +1000,12 @@ class M_SJP extends CI_Model
       $this->db->from('sjp');
       $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
       $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+      $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+
+      if ($this->session->userdata('instansi') == 3){
+        $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+      }
+      
       // $this->db->group_by('pp.tanggal_pengajuan');
 
       if (!empty($bulan)) {
@@ -994,8 +1044,19 @@ class M_SJP extends CI_Model
     $this->db->select('sjp.jenis_rawat, count(*) as jumlah');
     $this->db->from('sjp');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+
     $this->db->group_by("jenis_rawat");
 
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+    
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
+    
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
