@@ -816,7 +816,7 @@
                            <td>
                              <div class="row">
                                <div class="col-md-9">
-                                 <textarea class="ckeditor tambahfeedback" id="ckedtor"></textarea>
+                                 <textarea class="tambahfeedback" rows="5" cols="50"></textarea>
 
                                  <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
                                </div>
@@ -833,7 +833,7 @@
                            <td>
                              <div class="row">
                                <div class="col-md-9">
-                                 <textarea class="ckeditor tambahfeedbackuntukrumahsakit" id="ckedtor"></textarea>
+                                 <textarea class="tambahfeedbackuntukrumahsakit" rows="5" cols="50"></textarea>
                                </div>
                                <div class="col-md-3">
                                  <?php if ($this->session->userdata('instansi') == 1) { ?>
