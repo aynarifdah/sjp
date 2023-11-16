@@ -1306,8 +1306,8 @@ class Dinkes extends CI_Controller
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-            'file' => new \CURLFile($file,'application/pdf'),
-            'imageTTD' => new \CURLFile($ttd,'image/jpeg'),
+            'file' => "@".$file.";filename=".$time.";type=application/pdf",
+            'imageTTD' => "@".$ttd.";filename=ettd;type=image/jpeg",
             'nik' => '0803202100007062',
             'passphrase' => 'Hantek1234.!',
             'page' => '1',
@@ -1327,7 +1327,8 @@ class Dinkes extends CI_Controller
             CURLOPT_POST => 1,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => $postfields,
-            CURLOPT_RETURNTRANSFER => true
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SAFE_UPLOAD => false
         ); 
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
