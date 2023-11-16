@@ -1265,7 +1265,7 @@
             error: function() {
                 alert('Tanda Tangan Elektronik berhasil');
 
-                window.location.href = "<?= base_url('Dinkes/CetakTest'); ?>/" + id_sjp;   
+                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp;   
             }
         }); 
        }
