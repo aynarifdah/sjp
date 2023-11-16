@@ -938,7 +938,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form>
+      <!-- <form> -->
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
@@ -954,7 +954,7 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="submit_passphrase">Simpan</button>
         </div>
-      </form>
+      <!-- </form> -->
     </div>
   </div>
 </div>
