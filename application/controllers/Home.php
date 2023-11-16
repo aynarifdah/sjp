@@ -1727,7 +1727,6 @@ class Home extends CI_Controller
 
     public function CetakTest($id_sjp)
     {
-        // setlocale(LC_ALL, 'in_ID');
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         // var_dump($sjp);
         // die;
@@ -1737,11 +1736,6 @@ class Home extends CI_Controller
         $img_kop = base_url('/assets/images/kop_surat.png');
         // $ttd = base_url('assets/images/ettd.jpeg');
         $ttd = './assets/images/ettd.jpeg';
-
-        // print_r($idtest);
-        // $this->load->view('dinkes/cetak');
-        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
-        // die;
 
         $this->load->library('dompdf_gen');
         $option = new Options();
@@ -1755,7 +1749,8 @@ class Home extends CI_Controller
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
 
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        // Kalo mau pake tte di comment
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
@@ -1764,8 +1759,8 @@ class Home extends CI_Controller
         
 
 
-        $username = 'esign';
-        $password = 'qwerty';
+        $username = 'test';
+        $password = 'test#2023';
         $url = "103.113.30.81/api/sign/pdf";
         $file = './pdfTemporary/sjp_'.$time.'.pdf';
 
@@ -1776,15 +1771,15 @@ class Home extends CI_Controller
             'file' => curl_file_create($file,'application/pdf'),
             'imageTTD' => curl_file_create($ttd,'image/jpeg'),
             'nik' => '0803202100007062',
-            'passphrase' => '!Bsre1221*',
+            'passphrase' => 'Hantek1234.!',
             'page' => '1',
             'tampilan' => 'visible',
             'image' => 'true',
             'linkQR' => 'https://google.com',
-            'xAxis' => '800',
-            'yAxis' => '100',
-            'width' => '300',
-            'height' => '250'
+            'xAxis' => '600',
+            'yAxis' => '117',
+            'width' => '277',
+            'height' => '227'
             );
         $ch = curl_init();
         $options = array(
@@ -1800,33 +1795,59 @@ class Home extends CI_Controller
         $resp = curl_exec($ch);
         $error = curl_error($ch);
 
-        // var_dump($resp);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+
+        // var_dump($error);
         // die();
-
         curl_close($ch);
-        //////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
-        // if($error != ""){
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        //     $tte_gagal = array(
-        //         'pesan'          => 'Gagal',
-        //     );
-        //     $this->db->insert('log_tte', $tte_gagal);
+        //////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        if($httpCode != 200){
 
-        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
-        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
-        // }else{
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	$responseData = json_decode($resp);
+
+
+        	$response = array(
+                'pesan'          => 'Gagal',
+	            'status_code' => $responseData->status,
+	            'deskripsi_status' => $responseData->error
+	        );
+
+            if ($responseData != null) {
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+
+            } else {
+                echo json_encode(['error' => 'Error decoding JSON response.']);
+            }
+
+            $this->db->insert('log_tte', $response);
+
+            // $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            // redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
             
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	
+        	$response = array(
+                'pesan'          => 'Berhasil',
+	            'status_code' => 200,
+	            'deskripsi_status' => 'OK (Sucessful)'
+	        );
+            $this->db->insert('log_tte', $response);
 
-        //     $tte_berhasil = array(
-        //         'pesan'          => 'Berhasil',
-        //     );
-        //     $this->db->insert('log_tte', $tte_berhasil);
+            // Set the filename for the download
+            $filename = 'cetakSJP_signed.pdf';
 
-        //     header("Content-Type: application/pdf");
-        //     echo $resp;
-        // }
+            // Send the appropriate headers
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $filename . '"');
+            echo $resp;
+
+        }
         
     }
 
@@ -3135,6 +3156,23 @@ class Home extends CI_Controller
 
       </body></html>';
         return $html;
+    }
+
+    public function inputStatusPassphrase()
+    {
+        // Prepare a response
+        $response = array(
+            'pesan' => 'Gagal',
+            'status_code' => 2031,
+            'deskripsi_status' => 'Passphrase anda salah'
+        );
+
+        $this->db->insert('log_tte', $response);
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 
 

@@ -1255,7 +1255,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '<?= site_url('Dinkes/CetakTest'); ?>/' + id_sjp,  
+            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp,  
             dataType: 'json',
             success: function(response) {
               if (response.status != 200) {

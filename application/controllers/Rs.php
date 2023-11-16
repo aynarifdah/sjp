@@ -1267,7 +1267,6 @@ public function proses_entry_klaim()
 
     public function CetakTest($id_sjp)
     {
-        // setlocale(LC_ALL, 'in_ID');
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         // var_dump($sjp);
         // die;
@@ -1275,12 +1274,8 @@ public function proses_entry_klaim()
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
         $img_kop = base_url('/assets/images/kop_surat.png');
-        $ttd = base_url('assets/images/newttd.png');
-
-        // print_r($idtest);
-        // $this->load->view('dinkes/cetak');
-        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
-        // die;
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
 
         $this->load->library('dompdf_gen');
         $option = new Options();
@@ -1293,8 +1288,107 @@ public function proses_entry_klaim()
         $this->dompdf->load_html($html);
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
-        //  $this->dompdf->stream("CetakTest_$t.pdf");
+
+        // Kalo mau pake tte di comment
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+        $time = date('His');
+        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        file_put_contents($location, $output);
+
+        
+
+
+        $username = 'test';
+        $password = 'test#2023';
+        $url = "103.113.30.81/api/sign/pdf";
+        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+
+        
+
+        $headers = array("Content-Type:multipart/form-data");
+        $postfields = array(
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'nik' => '0803202100007062',
+            'passphrase' => 'Hantek1234.!',
+            'page' => '1',
+            'tampilan' => 'visible',
+            'image' => 'true',
+            'linkQR' => 'https://google.com',
+            'xAxis' => '600',
+            'yAxis' => '117',
+            'width' => '277',
+            'height' => '227'
+            );
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_USERPWD => $username . ":" . $password,
+            // CURLOPT_HEADER => true,
+            CURLOPT_POST => 1,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $postfields,
+            CURLOPT_RETURNTRANSFER => true
+        ); 
+        curl_setopt_array($ch, $options);
+        $resp = curl_exec($ch);
+        $error = curl_error($ch);
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+
+        // var_dump($error);
+        // die();
+        curl_close($ch);
+
+        //////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        if($httpCode != 200){
+
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	$responseData = json_decode($resp);
+
+
+        	$response = array(
+                'pesan'          => 'Gagal',
+	            'status_code' => $responseData->status,
+	            'deskripsi_status' => $responseData->error
+	        );
+
+            if ($responseData != null) {
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+
+            } else {
+                echo json_encode(['error' => 'Error decoding JSON response.']);
+            }
+
+            $this->db->insert('log_tte', $response);
+
+            // $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            // redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
+            
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	
+        	$response = array(
+                'pesan'          => 'Berhasil',
+	            'status_code' => 200,
+	            'deskripsi_status' => 'OK (Sucessful)'
+	        );
+            $this->db->insert('log_tte', $response);
+
+            // Set the filename for the download
+            $filename = 'cetakSJP_signed.pdf';
+
+            // Send the appropriate headers
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $filename . '"');
+            echo $resp;
+
+        }
+        
     }
 
     //Ketika blm ada akun tte//
@@ -1890,5 +1984,22 @@ public function proses_entry_klaim()
 
       </body></html>';
         return $html;
+    }
+
+    public function inputStatusPassphrase()
+    {
+        // Prepare a response
+        $response = array(
+            'pesan' => 'Gagal',
+            'status_code' => 2031,
+            'deskripsi_status' => 'Passphrase anda salah'
+        );
+
+        $this->db->insert('log_tte', $response);
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 }
