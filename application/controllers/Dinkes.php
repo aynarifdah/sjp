@@ -1306,8 +1306,8 @@ class Dinkes extends CI_Controller
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-            'file' => @curl_file_create($file,'application/pdf'),
-            'imageTTD' => @curl_file_create($ttd,'image/jpeg'),
+            'file' => curl_file_create($file,'application/pdf'),
+            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
             'nik' => '0803202100007062',
             'passphrase' => 'Hantek1234.!',
             'page' => '1',
