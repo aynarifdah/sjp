@@ -361,7 +361,7 @@
                    </div>
                  </div>
                <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                 <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a> -->
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
                  <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
                <?php } ?>
                </div>
@@ -938,20 +938,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('Dinkes/FormPassphrase')?>" method="POST">
+      <form>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
-              <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>">
+              <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>" id="id_sjp_pass">
               <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan']?>">
               <label>Passphrase :</label>
               <input type="password" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
+              <div id="response"></div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="submit_passphrase">Simpan</button>
+          <button type="button" class="btn btn-primary" id="submit_passphrase">Simpan</button>
         </div>
       </form>
     </div>
@@ -1232,11 +1233,41 @@
        window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
      });
 
-     $('#submit_passphrase').on('click', function() {
-       var value = $('#passphrase').val();
+      $('#submit_passphrase').on('click', function() {
+       var passphrase = $('#passphrase').val();
+       var id_sjp = $('#id_sjp_pass').val();
 
-       if (value == '!Bsre1221*') {
-         alert('TTE Berhasil');
+
+       if (passphrase != 'Hantek1234.!') {
+          $.ajax({
+              type: 'POST',
+              url: '<?php echo site_url($controller . "inputStatusPassphrase"); ?>',
+              dataType: 'json',
+              success: function(response) {
+                  $('#response').html('<p class="btn btn-danger btn-sm mt-1">Error Status: ' + response.status_code + ' ' + response.deskripsi_status + '</p>');
+              },
+              error: function() {
+                  alert('Error processing the request.');
+              }
+          });
+
+       }else{
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= site_url('Dinkes/CetakTest'); ?>/' + id_sjp,  
+            dataType: 'json',
+            success: function(response) {
+              if (response.status != 200) {
+                $('#response').html('<p class="btn btn-danger btn-sm mt-1">Error Status: ' + response.status_code + ' ' + response.deskripsi_status + '</p>');
+              }
+            },
+            error: function() {
+                alert('Tanda Tangan Elektronik berhasil');
+
+                window.location.href = "<?= base_url('Dinkes/CetakTest'); ?>/" + id_sjp;   
+            }
+        }); 
        }
      });
    </script>
