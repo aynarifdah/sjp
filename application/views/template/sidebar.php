@@ -17,6 +17,8 @@
         <li class="nav-item"><a href="<?php echo base_url('Kelurahan/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
         </li>
         <?php }else{ ?>
+        <li class=" nav-item"><a href="<?php echo base_url('Home/Dashboard'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
+        </li>
         <li class=" nav-item"><a href="<?php echo base_url('Home/pengajuan'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
         </li>
         <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span></a>
@@ -27,6 +29,15 @@
 
           </ul>
         </li>
+        <?php if ($this->session->userdata('instansi') == 7) { ?>
+
+          <li class=" nav-item"><a href="<?php echo base_url('Home/draft_klaim_puskesmas'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List SJP</span></a>
+          </li>
+
+          <li class=" nav-item"><a href="<?php echo base_url('Home/daftar_klaim_pkm'); ?>"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List Pengajuan Klaim</span></a>
+          </li>
+
+        <?php } ?>
         <li class="nav-item"><a href="<?php echo base_url('Home/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
         </li>
         <?php } ?>

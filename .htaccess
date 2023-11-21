@@ -1,66 +1,30 @@
-# RewriteEngine On
-# RewriteBase /your-codeigniter-directory/
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php/$1 [L]
 
-# Allow any files or directories that exist to be displayed directly
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-
-# Rewrite all other URLs to index.php/URL
-# RewriteRule ^(.*)$ index.php/$1 [L]
-
-
-# RewriteEngine On
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.php/$1 [L]
-
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
-
-    RewriteEngine On
-
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-</IfModule>
+Options -Indexes
+#Header always append X-Frame-Options SAMEORIGIN
+add_header  X-Frame-Options "SAMEORIGIN" always; 
+#add_header X-Frame-Options DENY always;
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+php_value memory_limit 8568M
 
 
-# Options -Indexes
-# #Header always append X-Frame-Options SAMEORIGIN
-# add_header  X-Frame-Options "SAMEORIGIN" always; 
-# #add_header X-Frame-Options DENY always;
-
-
-# RewriteEngine On
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.php/$1 [L]
-# php_value memory_limit 8568M
-
-
-# #RewriteCond %{HTTP_HOST} !^192.168.19.59$
-# #RewriteRule ^(.*)$ http://192.168.19.59/$1 [L,R=301]
+#RewriteCond %{HTTP_HOST} !^192.168.19.59$
+#RewriteRule ^(.*)$ http://192.168.19.59/$1 [L,R=301]
 
 
 
-# <DirectoryMatch "^/.*/\.git/">
-#   Require all denied
-# </DirectoryMatch>
+<DirectoryMatch "^/.*/\.git/">
+  Require all denied
+</DirectoryMatch>
 
 
-# <Files .gitignore>
-#     Order allow,deny
-#     Deny from all
-# </Files>
+<Files .gitignore>
+    Order allow,deny
+    Deny from all
+</Files>

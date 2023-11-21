@@ -209,40 +209,6 @@
                            </td>
                          <?php } ?>
                        </tr>
-                       <?php if ($this->session->userdata('instansi') == 1) : ?>
-                         <tr>
-                           <th scope="row">Feedback untuk Puskesmas</th>
-                           <td>
-                             <div class="row">
-                               <div class="col-md-8">
-                                 <input type="text" class="form-control tambahfeedback">
-                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
-                               </div>
-                               <div class="col-md-4">
-                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
-                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
-                                 <?php } ?>
-                               </div>
-                             </div>
-                           </td>
-                         </tr>
-                         <tr>
-                           <th scope="row">Feedback untuk Rumah Sakit</th>
-                           <td>
-                             <div class="row">
-                               <div class="col-md-8">
-                                 <input type="text" class="form-control tambahfeedbackuntukrumahsakit">
-                               </div>
-                               <div class="col-md-4">
-                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
-                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
-                                 <?php } ?>
-                               </div>
-                             </div>
-                           </td>
-                         </tr>
-                       <?php endif ?>
-
                      </tbody>
                    </table>
                  </div>
@@ -294,6 +260,10 @@
                    <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey'])) { ?>
                      <a href="<?php echo base_url($controller . 'siap_survey/' . $key['id_sjp'] . '/' . $key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
                    <?php } ?>
+
+                    <?php if ($this->session->userdata('instansi') == 3) { ?>
+                      <a href="<?php echo base_url($controller . 'pengajuan_ulang/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>" class="btn btn-primary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-plus"></i>&nbsp;Pengajuan Ulang</a>
+                    <?php } ?>
                    <!-- </div>
                  <div class="float-right mt-2 ml-1"> -->
 
@@ -390,9 +360,20 @@
                      </div>
                    </div>
                  </div>
-               <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
-                 <!-- <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button> -->
+                 <!-- RUMAH SAKIT -->
+               <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
+
+                 <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button>
+
+                <!-- DINKES -->
+               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
+                  <?php if($cektte){ ?>
+                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                  <?php }else{ ?>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
+                  <?php } ?>
                <?php } ?>
                </div>
              </div>
@@ -835,6 +816,40 @@
                  <div class="tab-pane paneldetail" id="tabIcon7" aria-labelledby="baseIcon-tab7">
                    <table class="table mb-0 ">
                      <tbody>
+                      <?php if ($this->session->userdata('instansi') == 1) : ?>
+                         <tr>
+                           <th scope="row">Feedback untuk Puskesmas</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-9">
+                                 <textarea class="tambahfeedback" rows="5" cols="50"></textarea>
+
+                                 <input type="hidden" class="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+                               </div>
+                               <div class="col-md-3">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackpuskesmas" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                         <tr>
+                           <th scope="row">Feedback untuk Rumah Sakit</th>
+                           <td>
+                             <div class="row">
+                               <div class="col-md-9">
+                                 <textarea class="tambahfeedbackuntukrumahsakit" rows="5" cols="50"></textarea>
+                               </div>
+                               <div class="col-md-3">
+                                 <?php if ($this->session->userdata('instansi') == 1) { ?>
+                                   <button type="button" class="btn btn-dark btn-sm float-right submitfeedbackrs" style="margin-top: 6px;"> Submit feedback</button>
+                                 <?php } ?>
+                               </div>
+                             </div>
+                           </td>
+                         </tr>
+                       <?php endif ?>
                        <tr>
                          <th scope="row" class="border-top-0">Feedback Dinkes untuk Puskesmas:</th>
                          <td class="border-top-0"><?= $key['feedback_dinkes'] ?></td>
@@ -919,35 +934,36 @@
      </div>
    </div>
 
-   <!-- Modal -->
-   <div class="modal fade" id="Modalcetaksjp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h4 class="modal-title" id="exampleModalLongTitle"><strong>Form Passphrase</strong></h4>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-           </button>
-         </div>
-         <form action="<?= base_url('Dinkes/FormPassphrase') ?>" method="POST">
-           <div class="modal-body">
-             <div class="row">
-               <div class="col-md-12">
-                 <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp'] ?>">
-                 <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan'] ?>">
-                 <label>Passphrase :</label>
-                 <input type="password" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
-               </div>
-             </div>
-           </div>
-           <div class="modal-footer">
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button type="submit" class="btn btn-primary" id="submit_passphrase">Simpan</button>
-           </div>
-         </form>
-       </div>
-     </div>
-   </div>
+<!-- Modal -->
+<div class="modal fade" id="Modalcetaksjp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle"><strong>Form Passphrase</strong></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- <form> -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="hidden" class="form-control" name="id_sjp" value="<?= $key['id_sjp']?>" id="id_sjp_pass">
+              <input type="hidden" class="form-control" name="id_pengajuan" value="<?= $key['id_pengajuan']?>">
+              <label>Passphrase :</label>
+              <input type="password" class="form-control" name="passphrase" autocomplete="off" id="passphrase">
+              <div id="response"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="submit_passphrase">Simpan</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
 
    <script src="<?php echo base_url() ?>assets/viewerPdf/js/libs/jquery.min.js" type="text/javascript"></script>
    <script src="<?php echo base_url() ?>assets/viewerPdf/js/dflip.min.js" type="text/javascript"></script>
@@ -1223,13 +1239,62 @@
        window.location.href = '<?php echo base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
      });
 
-     $('#submit_passphrase').on('click', function() {
-       var value = $('#passphrase').val();
+      $('#submit_passphrase').on('click', function() {
+       var passphrase = $('#passphrase').val();
+       var id_sjp = $('#id_sjp_pass').val();
 
-       if (value == '!Bsre1221*') {
-         alert('TTE Berhasil');
+
+       if (passphrase != 'Hantek1234.!') {
+          $.ajax({
+              type: 'POST',
+              url: '<?php echo site_url($controller . "inputStatusPassphrase"); ?>/' + id_sjp,
+              dataType: 'json',
+              success: function(response) {
+                  $('#response').html('<p class="btn btn-danger btn-sm mt-1">Error Status: ' + response.status_code + ' ' + response.deskripsi_status + '</p>');
+              },
+              error: function() {
+                  alert('Error processing the request.');
+              }
+          });
+
+       }else{
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp + 1,  
+            dataType: 'json',
+            success: function(response) {
+              if (response.status != 200) {
+                $('#response').html('<p class="btn btn-danger btn-sm mt-1">Error Status: ' + response.status_code + ' ' + response.deskripsi_status + '</p>');
+              }
+            },
+            error: function() {
+                alert('Tanda Tangan Elektronik berhasil');
+
+                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp ;   
+            }
+        }); 
        }
      });
+
+      // Menangani klik pada tautan
+      $("#cetak_rs").click(function(event){
+        event.preventDefault(); // Mencegah tautan dari berpindah ke halaman lain
+        var id_sjp = $(this).data("id_sjp");
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= site_url($controller . 'cekPassphraseTTE'); ?>/' + id_sjp,  
+            dataType: 'json',
+            success: function(response) {
+              if (response.code != 200) {
+                alert(response.pesan);
+              }else{
+                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp; 
+              }
+            }
+        }); 
+      });
    </script>
 
 

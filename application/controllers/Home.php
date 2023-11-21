@@ -1,5 +1,7 @@
 <?php
 use Dompdf\Options;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Home extends CI_Controller
 {
@@ -12,6 +14,7 @@ class Home extends CI_Controller
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->model('M_data');
+        // $this->load->library('JWT');
         auth_menu();
         is_login();
     }
@@ -30,6 +33,10 @@ class Home extends CI_Controller
     }
     public function index()
     {
+        // $urltoken = "http://sitpas.depok.go.id/kds/Decrypt";
+
+        
+
         redirect('Home/pengajuan', 'refresh');
         exit();
 
@@ -138,16 +145,16 @@ class Home extends CI_Controller
         }
     }
 
-    public function Dashboard()
-    {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("Dashboard", $path),
-            "content" => $this->load->view('dashboard', false, true)
-        );
+    // public function Dashboard()
+    // {
+    //     $path = "";
+    //     $data = array(
+    //         "page"    => $this->load("Dashboard", $path),
+    //         "content" => $this->load->view('dashboard', false, true)
+    //     );
 
-        $this->load->view('template/default_template', $data);
-    }
+    //     $this->load->view('template/default_template', $data);
+    // }
 
     public function gethasilsurvey()
     {
@@ -181,6 +188,7 @@ class Home extends CI_Controller
                     'rumahsakit' => $this->M_SJP->rumahsakit(),
                     'kelas_rawat' => $this->M_SJP->kelas_rawat(),
                     'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                    'jkn' => $this->M_SJP->jkn(),
                 );
 
                 $path = "";
@@ -227,6 +235,7 @@ class Home extends CI_Controller
         $alamat1         = $this->input->post('alamat_pemohon');
         $rt1             = $this->input->post('rt_pemohon');
         $rw1             = $this->input->post('rw_pemohon');
+        $jkn             = $this->input->post('status_jkn');
         $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
         $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
         $telepon1        = $this->input->post('telepon_pemohon');
@@ -239,6 +248,7 @@ class Home extends CI_Controller
         $datapermohonan  = array(
             'nama_pemohon'  => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
+            'nama_jkn'              => $jkn,
             'alamat'        => $alamat1,
             'rt'            => $rt1,
             'rw'            => $rw1,
@@ -281,6 +291,7 @@ class Home extends CI_Controller
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
         $jenisjaminan    = $this->input->post('jenisjaminan');
+        $jkn            = $this->input->post('status_jkn');
         $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
@@ -297,6 +308,7 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'id_jkn'           => $jkn,
             'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama_pasien,
             'jenis_kelamin'    => $jeniskelamin,
@@ -863,13 +875,38 @@ class Home extends CI_Controller
     }
     public function entry_klaim()
     {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("Entry Klaim", $path),
-            "content" => $this->load->view('entry_klaim', false, true)
-        );
+        if (!empty($this->input->get('get'))) {
+            $idsjp = explode(",", $this->input->get('get'));
+        } else {
+            $idsjp = '';
+        }
 
-        $this->load->view('template/default_template', $data);
+        //echo count($idsjp);die;
+        $id_rumah_sakit = 1;
+
+        $data_claims = array();
+        foreach ($idsjp as $key => $value) {
+            $data_claims[$key] = $this->M_SJP->view_permohonanklaim_pkm(null, null, Null, Null, Null, Null, Null, $value)[0];
+        }
+        if (empty($data_claims)) {
+            redirect('Home/draft_klaim_puskesmas');
+        } else {
+            $datay = array(
+                'dataklaim' => $data_claims,
+                'penyakit'  => $this->M_SJP->diagpasien(),
+            );
+
+            // var_dump($datay['dataklaim']);
+            // die;
+
+            $path = "";
+            $data = array(
+                "page"    => $this->load("entry klaim", $path),
+                "content" => $this->load->view('entry_klaim', $datay, true)
+            );
+
+            $this->load->view('template/default_template', $data);
+        }
     }
 
 
@@ -877,80 +914,84 @@ class Home extends CI_Controller
     // MAHDI - (Maaf, biar gampang kebaca)
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // public function Dashboard(){
-    //     $path = "";
-    //     $anggaran_tahun     = $this->M_SJP->anggaran();
-    //     $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
-    //     $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+    public function Dashboard(){
+        $path = "";
+        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
-    //     $d = [
-    //         'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
-    //         'tahun'             => $this->M_SJP->tahun(),
-    //         'bulan'             => $this->M_SJP->bulan(),
-    //         'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-    //         'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
-    //         'sisa_anggaran'     => $sisa_anggaran,
-    //         'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
-    //         'total_pasien'       => $this->M_SJP->total_pasien(),
-    //         'distribusi'         => $this->M_SJP->distribusi(),
-    //         'jumlah_kunjungan_bulan' => $this->M_SJP->jumlah_kunjungan_bulan(),
-    //         'trend_pasien'      => $this->M_SJP->trend_pasien(),
-    //         'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-    //         'chartJenisRawat'   => $this->M_SJP->chartJenisRawat()
-    //     ];
+        $d = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+            'tahun'             => $this->M_SJP->tahun(),
+            // 'bulan'             => $this->M_SJP->bulan(),
+            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
+            // 'sisa_anggaran'     => $sisa_anggaran,
+            'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
+            'trend_pasien'      => $this->M_SJP->trend_pasien(),
+            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
+            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
+            'controller'        => $this->instansi()
+        ];
 
-    //     // var_dump( $d['jumlah_kunjungan_bulan'] ); die;
+        // var_dump($d['distribusi']);
+        // die;
+        // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
-    //     $data = [
-    //         "page"    => $this->load("Dashboard", $path) ,
-    //         "content" => $this->load->view('dashboard', $d, true)
-    //     ];
+        $data = array(
+            "page"    => $this->load("Dashboard", $path),
+            "content" => $this->load->view('dashboard', $d, true)
+        );
 
-    //     $this->load->view('template/default_template', $data);
-    // }
+        $this->load->view('template/default_template', $data);
+    }
 
 
-    // public function Filter(){
-    //     $bulan      = $this->input->post('bulan');
-    //     $tahun      = $this->input->post('tahun');
-    //     $kecamatan  = $this->input->post('kecamatan');
-    //     $kelurahan  = $this->input->post('kelurahan');
-    //     $orderDistribusi = $this->input->post('orderDistribusi');
+    public function Filter(){
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        
+        $orderDistribusi = $this->input->post('orderDistribusi');
 
-    //     $anggaran_tahun     = $this->M_SJP->anggaran($bulan,$tahun,$kecamatan,$kelurahan);
-    //     $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan,$tahun,$kecamatan,$kelurahan);
-    //     // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
+        $anggaran_tahun     = $this->M_SJP->anggaran($bulan,$tahun,$kecamatan,$kelurahan);
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan,$tahun,$kecamatan,$kelurahan);
+        // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
-    //     $data = [
-    //         'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'anggaran_tahun'        => $anggaran_tahun,
-    //         // 'sisa_anggaran'         => $sisa_anggaran,
-    //         'nominal_pembiayaan'    => $nominal_pembiayaan,
-    //         'total_pasien'          => $this->M_SJP->total_pasien($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'distribusi'            => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi),
-    //         'jumlah_kunjungan_bulan'=> $this->M_SJP->jumlah_kunjungan_bulan($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'trend_pasien'          => $this->M_SJP->trend_pasien($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan,$tahun,$kecamatan,$kelurahan),
-    //         'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan,$tahun,$kecamatan,$kelurahan)
-    //     ];
+        $data = [
+            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan,$tahun,$kecamatan,$kelurahan),
+            'anggaran_tahun'        => $anggaran_tahun,
+            // 'sisa_anggaran'         => $sisa_anggaran,
+            'nominal_pembiayaan'    => $nominal_pembiayaan,
+            'total_pasien'          => $this->M_SJP->total_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'distribusi'            => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi),
+            'jumlah_kunjungan_bulan'=> $this->M_SJP->jumlah_kunjungan_bulan($bulan,$tahun,$kecamatan,$kelurahan),
+            'trend_pasien'          => $this->M_SJP->trend_pasien($bulan,$tahun,$kecamatan,$kelurahan),
+            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan,$tahun,$kecamatan,$kelurahan),
+            'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan,$tahun,$kecamatan,$kelurahan)
+        ];
 
-    //     // var_dump($data["jumlah_kunjungan_bulan"]);die;
-    //     // header('Content-Type: application/json');
-    //     echo json_encode($data);
-    // }
+        // var_dump($data["jumlah_kunjungan_bulan"]);die;
+        // header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 
-    // public function orderDistribusi(){
-    //     $bulan      = $this->input->post('bulan');
-    //     $tahun      = $this->input->post('tahun');
-    //     $kecamatan  = $this->input->post('kecamatan');
-    //     $kelurahan  = $this->input->post('kelurahan');
-    //     $orderDistribusi = $this->input->post('orderDistribusi');
-    //     $data = [
-    //         'distribusi' => $this->M_SJP->distribusi($bulan,$tahun,$kecamatan,$kelurahan, $orderDistribusi)
-    //     ];
-    //     echo json_encode($data);
-    // }
-
+    public function orderDistribusi()
+    {
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+        $orderDistribusi = $this->input->post('orderDistribusi');
+        $data = [
+            'distribusi' => json_encode($this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi))
+        ];
+        echo $data["distribusi"];
+    }
     public function UserManagement()
     {
         if ($this->session->userdata('level') != 1) {
@@ -1147,6 +1188,9 @@ class Home extends CI_Controller
             case 6:
                 $controller = "Home/";
                 break;
+            case 7:
+                $controller = "Home/";
+                break;
             default:
                 $controller = "Auth/";
         }
@@ -1226,7 +1270,7 @@ class Home extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $id_join = Null, $id_instansi = Null, $mulai = Null);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1239,6 +1283,7 @@ class Home extends CI_Controller
             // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
+        die;
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -1592,7 +1637,7 @@ class Home extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(6, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $id_join = Null, $id_instansi = Null, $mulai = Null);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(6, Null, Null, 6);
         }
@@ -1605,6 +1650,7 @@ class Home extends CI_Controller
             'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
+        die;
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1695,7 +1741,6 @@ class Home extends CI_Controller
 
     public function CetakTest($id_sjp)
     {
-        // setlocale(LC_ALL, 'in_ID');
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         // var_dump($sjp);
         // die;
@@ -1706,24 +1751,20 @@ class Home extends CI_Controller
         // $ttd = base_url('assets/images/ettd.jpeg');
         $ttd = './assets/images/ettd.jpeg';
 
-        // print_r($idtest);
-        // $this->load->view('dinkes/cetak');
-        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
-        // die;
-
         $this->load->library('dompdf_gen');
         $option = new Options();
 
         $paper_size = 'A4';
         $orientation = 'portrait';
-        $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+        $html = $this->drawpdf_tte($img, $img_kop, $ttd, $diag, $sjp);
         $option->set('defaultFont', 'Arial');
         // $this->dompdf->set_paper($paper_size, $orientation);
         $this->dompdf->load_html($html);
         $this->dompdf->set_option('isRemoteEnabled', TRUE);
         $this->dompdf->render();
 
-        $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
+        // Kalo mau pake tte di comment
+        // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
         $location = './pdfTemporary/sjp_'.$time.'.pdf';
@@ -1732,8 +1773,8 @@ class Home extends CI_Controller
         
 
 
-        $username = 'esign';
-        $password = 'qwerty';
+        $username = 'test';
+        $password = 'test#2023';
         $url = "103.113.30.81/api/sign/pdf";
         $file = './pdfTemporary/sjp_'.$time.'.pdf';
 
@@ -1744,15 +1785,15 @@ class Home extends CI_Controller
             'file' => curl_file_create($file,'application/pdf'),
             'imageTTD' => curl_file_create($ttd,'image/jpeg'),
             'nik' => '0803202100007062',
-            'passphrase' => '!Bsre1221*',
+            'passphrase' => 'Hantek1234.!',
             'page' => '1',
             'tampilan' => 'visible',
             'image' => 'true',
             'linkQR' => 'https://google.com',
-            'xAxis' => '800',
-            'yAxis' => '100',
-            'width' => '300',
-            'height' => '250'
+            'xAxis' => '600',
+            'yAxis' => '117',
+            'width' => '277',
+            'height' => '227'
             );
         $ch = curl_init();
         $options = array(
@@ -1768,36 +1809,63 @@ class Home extends CI_Controller
         $resp = curl_exec($ch);
         $error = curl_error($ch);
 
-        // var_dump($resp);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+
+        // var_dump($error);
         // die();
-
         curl_close($ch);
-        //////////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
-        // if($error != ""){
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
-        //     $tte_gagal = array(
-        //         'pesan'          => 'Gagal',
-        //     );
-        //     $this->db->insert('log_tte', $tte_gagal);
+        //////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
+        if($httpCode != 200){
 
-        //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
-        //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
-        // }else{
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	$responseData = json_decode($resp);
+
+
+        	$response = array(
+                'pesan'          => 'Gagal',
+	            'status_code' => $responseData->status,
+	            'deskripsi_status' => $responseData->error
+	        );
+
+            if ($responseData != null) {
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($response));
+
+            } else {
+                echo json_encode(['error' => 'Error decoding JSON response.']);
+            }
+
+            $this->db->insert('log_tte', $response);
+
+            // $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
+            // redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
+        }else{
             
-        //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        	
+        	$response = array(
+                'pesan'          => 'Berhasil',
+	            'status_code' => 200,
+	            'deskripsi_status' => 'OK (Sucessful)'
+	        );
+            $this->db->insert('log_tte', $response);
 
-        //     $tte_berhasil = array(
-        //         'pesan'          => 'Berhasil',
-        //     );
-        //     $this->db->insert('log_tte', $tte_berhasil);
+            // Set the filename for the download
+            $filename = 'cetakSJP_signed.pdf';
 
-        //     header("Content-Type: application/pdf");
-        //     echo $resp;
-        // }
+            // Send the appropriate headers
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $filename . '"');
+            echo $resp;
+
+        }
         
     }
 
+    //Ketika blm ada akun tte//
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
     {
 
@@ -2025,17 +2093,6 @@ class Home extends CI_Controller
       <div class="info">
       <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
       </div>
-      <img src=' . $ttd . ' alt="" id="kop" width="310" height="140" align="right">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br><br><br><br><br><br>
-      <div class="footer" style="margin-bottom:0">
-      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
-      </div>
 
       </body></html>';
         return $html;
@@ -2058,28 +2115,1420 @@ class Home extends CI_Controller
 
     }
 
-    public function ValidasiDTKSbyNIK($nik)
-    {
-        $gettoken = $this->getToken();
+    // public function ValidasiDTKSbyNIK($nik)
+    // {
+    //     $gettoken = $this->getToken();
 
-        $auth = $gettoken->token;
+    //     $auth = $gettoken->token;
         
-        $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
-        $data_api = array(
-            "Auth" => $auth,
-            "JenisApi" => 'Cek Nik Dtks'
+    //     $url = "http://192.168.19.9/api/Kependudukan/CekNik?Nik=" . $nik;
+    //     $data_api = array(
+    //         "Auth" => $auth,
+    //         "JenisApi" => 'Cek Nik Dtks'
+    //     );
+    //     $fields_string = http_build_query($data_api);
+    //     $curl = curl_init();
+    //     curl_setopt($curl, CURLOPT_URL, $url);
+    //     curl_setopt($curl, CURLOPT_POST, 1);
+    //     curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
+    //     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //     $response = curl_exec($curl);
+    //     $error_msg = curl_error($curl);
+    //     curl_close($curl);
+    //     $json_response = json_decode($response);
+    //     echo json_encode($json_response);
+    // }
+
+
+    public function getTokenApi() {
+
+        date_default_timezone_set('Asia/Jakarta');
+        $timestamp = time();
+        $url = 'http://sitpas.depok.go.id/kds/Decrypt';
+        
+        $data = array(
+            'cid' => 'admin-kds',
+            'client_name' => 'kartu-depok',
+            'timestamp' => $timestamp
         );
-        $fields_string = http_build_query($data_api);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($curl);
-        $error_msg = curl_error($curl);
-        curl_close($curl);
-        $json_response = json_decode($response);
-        echo json_encode($json_response);
+        
+        $payload = json_encode($data);
+
+        $ch = curl_init($url);
+        
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload))
+        );
+
+        $result = curl_exec($ch);
+
+        return $result;
+
     }
 
+    public function getSitpasApi() {
+
+        $token = $this->getTokenApi();
+
+        // Initialize cURL
+        $ch = curl_init();
+
+        $nik = $_GET["nik"];
+    
+        curl_setopt($ch, CURLOPT_URL, 'http://sitpas.depok.go.id/kds/KDSApi/DTKSWilayah?nik='. $nik .'&kecamatan=&kelurahan=&tahun=&bulan=&nama=&layanan&status=&limit=1&offset=');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'cid: admin-kds',
+            'signature: ' . $token
+        ]);
+
+        $response = curl_exec($ch);
+        $decodedResponse = json_decode($response, true);
+
+        if ($decodedResponse["message"] == "No Content") {
+            $decodedData = "Nik Tidak Terdaftar";
+            curl_close($ch);
+            print_r($decodedData);
+            die;
+        } else {
+            $decodedResponse = json_decode($response, true);
+
+            if ($decodedResponse !== null && isset($decodedResponse['data'])) {
+                $jwtKey = 'Th15!15@53cr9t#K3y';
+                $decodedData = JWT::decode($decodedResponse['data'], new Key($jwtKey, 'HS256'));
+
+                curl_close($ch);
+
+                echo '<pre>';
+                print_r($decodedData);
+                print_r($decodedData->{0}->nama);
+                echo '<pre>';
+                die;
+            }
+        }
+
+        echo json_encode($decodedData);
+    }
+
+    public function draft_klaim_puskesmas($id_status_klaim = Null)
+    {
+        // $id_rumah_sakit = 1;
+        $datay = array(
+            'status_klaim'      => $id_status_klaim,
+            'dataklaim'         => $this->M_SJP->getdatapengajuanklaim_puskesmas(),
+            'statusklaim'       => $this->M_data->getStatusKlaim(),
+            //'dataklaim'         => $this->M_SJP->view_permohonanklaim_rs($id_rumah_sakit),
+            'penyakit'          => $this->M_SJP->diagpasien(),
+            'controller'        => $this->instansi(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+        );
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Draft klaim", $path),
+            "content" => $this->load->view('draft_klaim_puskesmas', $datay, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_permohonanklaim_pkm()
+    {
+
+        // $id_rumah_sakit = 1;
+        // echo $id_instansi;die;
+        if ($this->input->post() !== Null) {
+            $id_instansi = $this->session->userdata("instansi");
+            $id_join     = $this->session->userdata("id_join");
+            // echo $id_instansi;die;
+            $mulai           = $this->input->post("mulai");
+            $akhir           = $this->input->post("akhir");
+            $pkm              = $this->input->post("pkm");
+            $status          = $this->input->post("status");
+            $cari            = $this->input->post("cari");
+            $data            = $this->M_SJP->view_permohonanklaim_pkm($mulai, $akhir, $pkm, $status, $cari, $id_instansi, $id_join, null);
+            // echo $data;die;
+            // $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim,$mulai,$akhir,$rs,$status,$cari);
+        } else {
+            $data            = $this->M_SJP->view_permohonanklaim_pkm($id_rumah_sakit);
+        }
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function edit_claim()
+    {
+        // var_dump($this->input->post());
+        // die;
+        $idsjp = explode(",", $this->input->post('result'));
+        $tanggal_tagihan = $this->input->post('tanggal_tagihan');
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = explode(",", $this->input->post('nominal_klaim'));
+        $catatan_klaim = explode(",", $this->input->post('catatan_klaim'));
+        $claimData = array();
+        $index = 0;
+        // var_dump($idsjp);
+        // die;
+        foreach ($idsjp as $key) {
+            array_push($claimData, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomor_tagihan,
+                'tanggal_tagihan' => $tanggal_tagihan,
+                'nominal_klaim'   => $nominal_klaim[$index],
+                'catatan_klaim'   => $catatan_klaim[$index],
+                'status_klaim'    => null,
+                'status_edit'    => 0,
+            ));
+            $index++;
+        }
+
+        $this->db->update_batch('sjp', $claimData, 'id_sjp');
+
+        $dataImage      = array();
+        for ($i = 0; $i < 1; $i++) {
+
+            for ($j = 0; $j < 3; $j++) {
+
+                $_FILES['file']['name']     = $_FILES['files']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['files']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['files']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['files']['size'][$j];
+                $uploadPath = 'uploads/dokumen/';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                $config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('file')) {
+
+                    $fileData      = $this->upload->data();
+
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+                    // $this->db->set('namafile', $fileData['file_name']);
+                    // $this->db->where('id_sjp', $idsjp[$i]);
+                    // $this->db->update('sjp');
+
+                    // $this->db->update('sjp', $dataImage, 'id_sjp');
+                    if ($j == $file1) {
+                        $dataImage[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file2) {
+                        $dataImage[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    } elseif ($j == $file3) {
+                        $dataImage[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $idsjp[$i]
+                        );
+                    }
+                }
+                $this->db->update_batch('sjp', $dataImage, 'id_sjp');
+            }
+        }
+    }
+
+    public function proses_entry_klaim()
+    {
+        $id_sjp = $this->input->post('id_sjp');
+        $tanggaltagihan = $this->input->post('tanggal_tagihan');
+        $nomortagihan   = $this->input->post('nomor_tagihan');
+        $nominalklaim   = $this->input->post('nominal_klaim');
+        $catatanklaim   = $this->input->post('catatan_klaim');
+        $dataklaim = array();
+        $index = 0; // Set index array awal dengan 0
+        foreach ($id_sjp as $key) { // Kita buat perulangan berdasarkan nis sampai data terakhir
+            array_push($dataklaim, array(
+                'id_sjp'      => $key,
+                'nomor_tagihan'   => $nomortagihan,
+                'tanggal_tagihan' => $tanggaltagihan,
+                'nominal_klaim'   => $nominalklaim[$index],
+                'catatan_klaim'   => $catatanklaim[$index],
+                'status_klaim'    => 2,
+                'status_edit'     => 1
+            ));
+            $index++;
+        }
+        $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
+
+
+        $dok = count($_FILES['dokumen']['name']);
+        $persyaratan      = array();
+        for ($i = 0; $i < count($id_sjp); $i++) {
+
+            for ($j = 0; $j < $dok; $j++) {
+
+                $getInfoPasien = $this->db->get_where('sjp', ['id_sjp' => $id_sjp[$i]])->row_array();
+                $nik = $getInfoPasien['nik'];
+                $nama_pasien = strtolower(preg_replace('/\s+/', '', $getInfoPasien['nama_pasien']));
+
+                $_FILES['file']['name']     = $_FILES['dokumen']['name'][$j];
+                $_FILES['file']['type']     = $_FILES['dokumen']['type'][$j];
+                $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                $_FILES['file']['error']    = $_FILES['dokumen']['error'][$j];
+                $_FILES['file']['size']     = $_FILES['dokumen']['size'][$j];
+
+                $name_file = $_FILES['file']['name'];
+                $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+                $new_name_image = $nik . '' . $nama_pasien . '' . $file_name_pieces;
+
+                // File upload configuration
+                $uploadPath = 'uploads/dokumen/';
+                $config['file_name'] = $new_name_image;
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                // $config['encrypt_name'] = TRUE;
+
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                //var_dump($this->upload->initialize($config));die;
+                if ($this->upload->do_upload('file')) {
+                    // Uploaded file data
+
+                    $fileData      = $this->upload->data();
+
+                    $file1 = 3 * $i + 0;
+                    $file2 = 3 * $i + 0 + 1;
+                    $file3 = 3 * $i + 0 + 2;
+                    $file4 = 3 * $i + 0 + 3;
+
+                    if ($j == $file1) {
+                        $persyaratan[] = array(
+                            'namafile' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file2) {
+                        $persyaratan[] = array(
+                            'file_resume' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file3) {
+                        $persyaratan[] = array(
+                            'other_files' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    } elseif ($j == $file4) {
+                        $persyaratan[] = array(
+                            'ket_pasien' => $fileData['file_name'],
+                            'id_sjp'   => $id_sjp[$i],
+                        );
+                    }
+                }
+                $this->db->update_batch('sjp', $persyaratan, 'id_sjp');
+            }
+        }
+
+
+        redirect('Home/daftar_klaim_pkm', 'refresh');
+    }
+
+    public function daftar_klaim_pkm($id_status_klaim = null)
+    {
+
+        //$id_status_klaim = 3;
+        $datay = array(
+            'status_klaim'      => $id_status_klaim,
+            'dataklaim' => $this->M_SJP->getdatapengajuanklaim_puskesmas(),
+            'penyakit' => $this->M_SJP->diagpasien(),
+            'controller' => $this->instansi(),
+            'rs'                => $this->M_data->getRS(),
+            'statusklaim'       => $this->M_data->getStatusKlaim()
+        );
+        //var_dump($datay['dataklaim']);die;
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Daftar klaim", $path),
+            "content" => $this->load->view('daftar_klaim_pkm', $datay, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getdatapengajuanklaim()
+    {
+        if ($this->input->post() !== Null) {
+            $id_status_klaim = $this->input->post('status_klaim');
+            $mulai           = $this->input->post("mulai");
+            $akhir           = $this->input->post("akhir");
+            $pkm              = $this->input->post("pkm");
+            $status          = $this->input->post("status");
+            $cari            = $this->input->post("cari");
+            $data            = $this->M_SJP->getdatapengajuanklaim_puskesmas($id_status_klaim, $mulai, $akhir, $pkm, $status, $cari);
+        } else {
+            $data            = $this->M_SJP->getdatapengajuanklaim_puskesmas($id_status_klaim);
+        }
+
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function Edit_klaim_pengajuan($idsjp, $id_pengajuan)
+    {
+        $this->db->select('nik');
+        $this->db->from('sjp');
+        $this->db->where('id_sjp', $idsjp);
+        $nik = $this->db->get()->row();
+        $path = "";
+        $dataKlaim = [
+            'id_sjp' => $idsjp,
+            'id_pengajuan' => $id_pengajuan,
+            'riwayatpengajuan' => $this->M_SJP->riwayatsjpasien($idsjp),
+        ];
+        // var_dump($dataKlaim['riwayatpengajuan']);
+        // die;
+        $data = array(
+            "page" => $this->load("Edit Klaim Pengajuan", $path),
+            "content" => $this->load->view('edit_klaim_pengajuan', $dataKlaim, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function proses_edit_klaim_pengajuan($id_sjp, $id_pengajuan)
+    {
+        $nomor_tagihan = $this->input->post('nomor_tagihan');
+        $nominal_klaim = $this->input->post('nominal_klaim');
+        $data = [
+            'nomor_tagihan' => $nomor_tagihan,
+            'nominal_klaim' => $nominal_klaim
+        ];
+        $this->M_SJP->editSJP($id_sjp, $data);
+
+        $dokumen = $this->input->post('dokumen_hidden');
+        $countfiles = count($dokumen);
+        $dataFiles = [];
+        for ($i = 0; $i < $countfiles; $i++) {
+            for ($j = 0; $j < 4; $j++) {
+                if (!empty($_FILES['dokumen']['name'][$j])) {
+                    $_FILES['file']['name'] = $_FILES['dokumen']['name'][$j];
+                    $_FILES['file']['type'] = $_FILES['dokumen']['type'][$j];
+                    $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$j];
+                    $_FILES['file']['error'] = $_FILES['dokumen']['error'][$j];
+                    $_FILES['file']['size'] = $_FILES['dokumen']['size'][$j];
+
+                    // Set preference
+                    $config['upload_path'] = 'uploads/dokumen/';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+                    $config['max_size'] = '50000'; // max_size in kb
+                    $config['file_name'] = $_FILES['dokumen']['name'][$j];
+
+                    //Load upload library
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+
+                    // File upload
+                    if ($this->upload->do_upload('file')) {
+
+                        $filename      = $this->upload->data();
+                        if ($j == 0) {
+                            $dataFiles[] = array(
+                                'namafile' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 1) {
+                            $dataFiles[] = array(
+                                'file_resume' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 2) {
+                            $dataFiles[] = array(
+                                'other_files' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        } elseif ($j == 3) {
+                            $dataFiles[] = array(
+                                'ket_pasien' => $filename['file_name'],
+                                'id_sjp'   => $id_sjp
+                            );
+                        }
+                        $this->db->update_batch('sjp', $dataFiles, 'id_sjp');
+                    }
+                }
+            }
+        }
+
+        redirect('Home/daftar_klaim_pkm');
+    }
+
+    public function pengajuan_ulang($idsjp, $id_pengajuan)
+    {
+        $id_instansi = $this->session->userdata("instansi");
+        $id_join     = $this->session->userdata("id_join");
+        if (empty($idsjp) || empty($id_pengajuan)) {
+            redirect($this->instansi() . 'UserManagement', 'refresh');
+        }
+        $this->load->library('encryption');
+        $data = [
+            "level"      => $this->M_data->getLevel(),
+            'instansi'   => $this->M_data->getInstansi(),
+            'controller' => $this->instansi(),
+            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            // test
+            'topik'      => $this->M_SJP->diagnosa(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+
+            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
+            // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            // test
+            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'id_pengajuan' => $id_pengajuan,
+            'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
+        ];
+
+        // var_dump($data['topik']);
+        // var_dump($data['diagnosa']);
+        // die;
+
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Pengajuan Ulang", $path),
+            "content" => $this->load->view('pengajuan_ulang', $data, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+
+    // Sementara hide upload gambar Rifqy 2 November 2023
+    // public function input_pengajuan_ulang()
+    // {
+    //     $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+    //     $nama_pemohon    = $this->input->post('nama_pemohon');
+    //     $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+    //     $alamat1         = $this->input->post('alamat_pemohon');
+    //     $rt1             = $this->input->post('rt_pemohon');
+    //     $rw1             = $this->input->post('rw_pemohon');
+    //     $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+    //     $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+    //     $telepon1        = $this->input->post('telepon_pemohon');
+    //     $whatsapp1       = $this->input->post('whatsapp_pemohon');
+    //     $email1          = $this->input->post('email_pemohon');
+    //     $statushubungan  = $this->input->post('status_hubungan');
+    //     $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+    //     $jenisizin       = 1; //jenis izin sjp dibuat default 
+    //     $datapermohonan  = array(
+    //         'nama_pemohon'  => $nama_pemohon,
+    //         'jenis_kelamin' => $jeniskelamin1,
+    //         'alamat'        => $alamat1,
+    //         'rt'            => $rt1,
+    //         'rw'            => $rw1,
+    //         'kd_kelurahan'  => $kelurahan1,
+    //         'kd_kecamatan'  => $kecamatan1,
+    //         'telepon'       => $telepon1,
+    //         'whatsapp'      => $whatsapp1,
+    //         'email'         => $email1,
+    //         'status_hubungan'       => $statushubungan,
+    //         'jenis_izin'            => $jenisizin,
+    //         'pemohon_pengajuan'            => $pemohonpengajuan,
+
+    //     );
+
+    //     $this->db->insert('permohonan_pengajuan', $datapermohonan);
+    //     $id_pengajuan = $this->db->insert_id();
+
+    //     $nik           = $this->input->post('nik');
+    //     $status_jkn    = $this->input->post('status_jkn');
+    //     $nama_pasien   = $this->input->post('nama_pasien');
+    //     $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+    //     $tempatlahir   = $this->input->post('tempat_lahir');
+    //     $tanggallahir  = $this->input->post('tanggal_lahir');
+    //     $pekerjaan     = $this->input->post('pekerjaan');
+    //     $golongandarah = $this->input->post('golongan_darah');
+    //     $alamat        = $this->input->post('alamat_pasien');
+    //     $rt            = $this->input->post('rt_pasien');
+    //     $rw            = $this->input->post('rw_pasien');
+    //     $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+    //     $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+    //     $telepon       = $this->input->post('telepon_pasien');
+    //     $whatsapp      = $this->input->post('whatsapp_pasien');
+    //     $email         = $this->input->post('email_pasien');
+    //     $jenisrawat    = $this->input->post('jenis_rawat');
+    //     $rumahsakit    = $this->input->post('nama_rumah_sakit');
+    //     $kelas_rawat     = $this->input->post('kelas_rawat');
+    //     $jenisjaminan    = $this->input->post('jenisjaminan');
+    //     $domisili       = $this->input->post('domisili');
+    //     $mulairawat      = $this->input->post('mulairawat');
+    //     $akhirrawat      = $this->input->post('akhirrawat');
+    //     $feedback      = $this->input->post('feedback');
+    //     $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+    //     // test 02-05-2021
+    //     $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+    //     $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+    //     $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+    //     // test 02-05-2021
+    //     $datasjp       = array(
+    //         'id_pengajuan'     => $id_pengajuan,
+    //         'id_puskesmas'     => $id_puskesmas,
+    //         'id_rumah_sakit'   => $rumahsakit,
+    //         'nik'              => $nik,
+    //         'status_jkn'       => $status_jkn,
+    //         'nama_pasien'      => $nama_pasien,
+    //         'jenis_kelamin'    => $jeniskelamin,
+    //         'tempat_lahir'     => $tempatlahir,
+    //         'tanggal_lahir'    => $tanggallahir,
+    //         'pekerjaan'        => $pekerjaan,
+    //         'golongan_darah'   => $golongandarah,
+    //         'alamat'           => $alamat,
+    //         'rt'               => $rt,
+    //         'rw'               => $rw,
+    //         'kd_kelurahan'     => $kelurahan,
+    //         'kd_kecamatan'     => $kecamatan,
+    //         'telepon'          => $telepon,
+    //         'whatsapp'         => $whatsapp,
+    //         'email'            => $email,
+    //         'jenis_rawat'      => $jenisrawat,
+    //         'jenis_sjp'         => $jenisjaminan,
+    //         'domisili'          => $domisili,
+    //         'kelas_rawat'      => $kelas_rawat,
+    //         'mulai_rawat'      => $mulairawat,
+    //         'selesai_rawat'    => $akhirrawat,
+    //         'feedback'         => $feedback,
+    //         'feedback_dinkes'  => $feedback_dinkes,
+    //     );
+
+    //     $this->db->insert('sjp', $datasjp);
+    //     $id_sjp = $this->db->insert_id();
+        
+    //     $kd_diagnosa = $this->input->post('repeater-group'); 
+
+    //     $dataDiagnosa = array();
+    //     $diagnosaLainnya = '';
+    //     $penyakit = '';
+    //     foreach ($kd_diagnosa as $key) {
+    //         if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         } else {
+    //             $penyakit = $key['diagnosa'];
+    //             $diagnosaLainnya = $key['diagnosalainnya'];
+    //         }
+    //         $dataDiagnosa[] = array(
+    //             'id_sjp'      => $id_sjp,
+    //             'id_penyakit' => $penyakit,
+    //             'penyakit' => $diagnosaLainnya
+    //         );
+    //     }
+    //     $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+    //     $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+    //     $dokumen          = $this->input->post('dokumen');
+    //     $file_old          = $this->input->post('file_old');
+
+    //     $pasien = $this->input->post('nama_pasien');
+    //     $persyaratan      = array();
+    //     for ($i = 0; $i < count($nama_persyaratan); $i++) {
+
+    //         $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
+    //         $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+    //         $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
+    //         $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
+    //         $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+
+    //         $name_file = $_FILES['file']['name'];
+    //         $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
+    //         $new_nama_pasien = strtolower(preg_replace('/\s+/', '', $pasien));
+    //         $new_name_image = time() . '_' . $nik . '_' . $new_nama_pasien . '_' . $file_name_pieces;
+            
+    //         // File upload configuration
+    //         $uploadPath = 'uploads/dokumen/';
+    //         $config['upload_path'] = $uploadPath;
+    //         $config['file_name'] = $new_name_image;
+    //         // $config['encrypt_name'] = TRUE;
+    //         $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+
+    //         // Load and initialize upload library
+
+    //         $this->load->library('image_lib');
+    //         $this->load->library('upload', $config);
+    //         $this->upload->initialize($config);
+    //         if ($this->upload->do_upload('file')) {
+    //             // Uploaded file data
+    //             $fileData      = $this->upload->data();
+    //             // if ($fileData['file_name'] == null) {
+    //             //     $file = $file_old[$i];
+    //             // }else{
+    //             //     $file = $fileData['file_name'];
+    //             // }
+
+    //             // var_dump($file);
+    //             // die();
+
+                
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => $fileData['file_name'],
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+
+    //             $configer =  array(
+    //                 'image_library'   => 'gd2',
+    //                 'source_image'    =>  $fileData['full_path'],
+    //                 'maintain_ratio'  =>  TRUE,
+    //                 'width'           =>  750,
+    //                 'height'          =>  750,
+    //                 'quality'         =>  80
+    //             );
+    //             $this->image_lib->clear();
+    //             $this->image_lib->initialize($configer);
+    //             $this->image_lib->resize();
+
+    //         }else {
+    //             // Uploaded file data
+
+    //             $fileData      = $this->upload->data();
+    //             $persyaratan[] = array(
+    //                 'id_jenis_izin'  => $jenisizin,
+    //                 'attachment'     => '',
+    //                 //'feedback'       => $feedback,
+    //                 'id_pengajuan'   => $id_pengajuan,
+    //                 'id_persyaratan' => $nama_persyaratan[$i],
+    //             );
+    //         }
+    //     }
+    //     if (!empty($persyaratan)) {
+    //         $this->db->insert_batch('attachment', $persyaratan);
+    //     }
+    //     redirect(site_url('Home/permohonan_baru'));
+
+    // }
+
+     public function input_pengajuan_ulang()
+    {
+        $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        $nama_pemohon    = $this->input->post('nama_pemohon');
+        $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
+        $alamat1         = $this->input->post('alamat_pemohon');
+        $rt1             = $this->input->post('rt_pemohon');
+        $rw1             = $this->input->post('rw_pemohon');
+        $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
+        $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
+        $telepon1        = $this->input->post('telepon_pemohon');
+        $whatsapp1       = $this->input->post('whatsapp_pemohon');
+        $email1          = $this->input->post('email_pemohon');
+        $statushubungan  = $this->input->post('status_hubungan');
+        $pemohonpengajuan  = $this->input->post('pemohon_pengajuan');
+        $jenisizin       = 1; //jenis izin sjp dibuat default 
+        $datapermohonan  = array(
+            'nama_pemohon'  => $nama_pemohon,
+            'jenis_kelamin' => $jeniskelamin1,
+            'alamat'        => $alamat1,
+            'rt'            => $rt1,
+            'rw'            => $rw1,
+            'kd_kelurahan'  => $kelurahan1,
+            'kd_kecamatan'  => $kecamatan1,
+            'telepon'       => $telepon1,
+            'whatsapp'      => $whatsapp1,
+            'email'         => $email1,
+            'status_hubungan'       => $statushubungan,
+            'jenis_izin'            => $jenisizin,
+            'pemohon_pengajuan'            => $pemohonpengajuan,
+
+        );
+
+        $this->db->insert('permohonan_pengajuan', $datapermohonan);
+        $id_pengajuan = $this->db->insert_id();
+
+        $nik           = $this->input->post('nik');
+        $status_jkn    = $this->input->post('status_jkn');
+        $nama_pasien   = $this->input->post('nama_pasien');
+        $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
+        $tempatlahir   = $this->input->post('tempat_lahir');
+        $tanggallahir  = $this->input->post('tanggal_lahir');
+        $pekerjaan     = $this->input->post('pekerjaan');
+        $golongandarah = $this->input->post('golongan_darah');
+        $alamat        = $this->input->post('alamat_pasien');
+        $rt            = $this->input->post('rt_pasien');
+        $rw            = $this->input->post('rw_pasien');
+        $kelurahan     = $this->input->post('kd_kelurahan_pasien');
+        $kecamatan     = $this->input->post('kd_kecamatan_pasien');
+        $telepon       = $this->input->post('telepon_pasien');
+        $whatsapp      = $this->input->post('whatsapp_pasien');
+        $email         = $this->input->post('email_pasien');
+        $jenisrawat    = $this->input->post('jenis_rawat');
+        $rumahsakit    = $this->input->post('nama_rumah_sakit');
+        $kelas_rawat     = $this->input->post('kelas_rawat');
+        $jenisjaminan    = $this->input->post('jenisjaminan');
+        $domisili       = $this->input->post('domisili');
+        $mulairawat      = $this->input->post('mulairawat');
+        $akhirrawat      = $this->input->post('akhirrawat');
+        $feedback      = $this->input->post('feedback');
+        $feedback_dinkes  = $this->input->post('feedback_dinkes');
+
+        // test 02-05-2021
+        $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
+        $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
+        $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
+        // test 02-05-2021
+        $datasjp       = array(
+            'id_pengajuan'     => $id_pengajuan,
+            'id_puskesmas'     => $id_puskesmas,
+            'id_rumah_sakit'   => $rumahsakit,
+            'nik'              => $nik,
+            'status_jkn'       => $status_jkn,
+            'nama_pasien'      => $nama_pasien,
+            'jenis_kelamin'    => $jeniskelamin,
+            'tempat_lahir'     => $tempatlahir,
+            'tanggal_lahir'    => $tanggallahir,
+            'pekerjaan'        => $pekerjaan,
+            'golongan_darah'   => $golongandarah,
+            'alamat'           => $alamat,
+            'rt'               => $rt,
+            'rw'               => $rw,
+            'kd_kelurahan'     => $kelurahan,
+            'kd_kecamatan'     => $kecamatan,
+            'telepon'          => $telepon,
+            'whatsapp'         => $whatsapp,
+            'email'            => $email,
+            'jenis_rawat'      => $jenisrawat,
+            'jenis_sjp'         => $jenisjaminan,
+            'domisili'          => $domisili,
+            'kelas_rawat'      => $kelas_rawat,
+            'mulai_rawat'      => $mulairawat,
+            'selesai_rawat'    => $akhirrawat,
+            'feedback'         => $feedback,
+            'feedback_dinkes'  => $feedback_dinkes,
+        );
+
+        $this->db->insert('sjp', $datasjp);
+        $id_sjp = $this->db->insert_id();
+        
+        $kd_diagnosa = $this->input->post('repeater-group'); 
+
+        $dataDiagnosa = array();
+        $diagnosaLainnya = '';
+        $penyakit = '';
+        foreach ($kd_diagnosa as $key) {
+            if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            } else {
+                $penyakit = $key['diagnosa'];
+                $diagnosaLainnya = $key['diagnosalainnya'];
+            }
+            $dataDiagnosa[] = array(
+                'id_sjp'      => $id_sjp,
+                'id_penyakit' => $penyakit,
+                'penyakit' => $diagnosaLainnya
+            );
+        }
+        $this->db->insert_batch('diagnosa', $dataDiagnosa);
+
+        $nama_persyaratan = $this->input->post('id_persyaratan');
+        
+        $dokumen          = $this->input->post('dokumen');
+        $file_old          = $this->input->post('file_old');
+
+        $pasien = $this->input->post('nama_pasien');
+        $persyaratan      = array();
+        for ($i = 0; $i < count($nama_persyaratan); $i++) {        
+            
+            $persyaratan[] = array(
+                'id_jenis_izin'  => $jenisizin,
+                'attachment'     => $dokumen[$i],
+                //'feedback'       => $feedback,
+                'id_pengajuan'   => $id_pengajuan,
+                'id_persyaratan' => $nama_persyaratan[$i],
+            );
+        }
+        if (!empty($persyaratan)) {
+            $this->db->insert_batch('attachment', $persyaratan);
+        }
+        redirect(site_url('Home/permohonan_baru'));
+
+    }
+
+    public function CetakPreview($id_sjp)
+    {
+        // setlocale(LC_ALL, 'in_ID');
+        $sjp = $this->M_SJP->detail_cetak($id_sjp);
+        // var_dump($sjp);
+        // die;
+        $diagpasien = $this->M_SJP->diagpasien($id_sjp);
+        $diag = implode(', ', array_column($diagpasien, 'namadiag'));
+        $img = base_url('/assets/uploads/cap.png');
+        $img_kop = base_url('/assets/images/kop_surat.png');
+        // $ttd = base_url('assets/images/ettd.jpeg');
+        $ttd = './assets/images/ettd.jpeg';
+
+        // print_r($idtest);
+        // $this->load->view('dinkes/cetak');
+        // var_dump(date('d M Y', strtotime($sjp[0]->tanggal_surat)));
+        // die;
+
+        $this->load->library('dompdf_gen');
+        $option = new Options();
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->drawpdf($img, $img_kop, $ttd, $diag, $sjp);
+        $option->set('defaultFont', 'Arial');
+        // $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->set_option('isRemoteEnabled', TRUE);
+        $this->dompdf->render();
+
+        // Kalo mau pake tte di comment
+        $this->dompdf->stream("cetakSJP_Preview.pdf", ['Attachment' => 0]);
+        $output = $this->dompdf->output();
+    }
+
+    public function drawpdf_tte($img, $img_kop, $ttd, $diag, $sjp)
+    {
+
+        $html =
+            '<html><head>
+        <meta charset="utf-8">
+        <title>Surat Jaminan Pelayanan</title>
+        <style>
+        @font-face 
+        {
+            font-family: Arial;
+            font-style: normal;
+            font-weight: normal;
+            src: url(/application/third_party/dompdf/lib/fonts/arial.ttf) format("truetype"));
+        }
+        body {
+          font-family: Arial;
+          font-size: 14px;
+          margin-top:0px;
+          margin-left:10px;
+        }
+        
+        #kop {
+          margin-bottom:30px;
+        }
+        .a { display: inline-block; width: 70px; font-size:14px;}
+        .b { display: inline-block; width: 20px; font-size:14px;}
+        .c { display: inline-block; width: 300px; font-size:14px;}
+
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+        th, td {
+        text-align: left;
+        padding: 5px;
+        }
+
+        .content {
+            font-family: Arial !important;
+            font-size: 14px;
+            text-align:justify;
+            margin-left: 100px;
+            margin-right: 30px;
+        }
+        .right{
+        float:right;
+        }
+        .left{
+        float:left;
+        }
+        table {
+            border-collapse:separate; 
+            border-spacing: 0 0.6em;
+          }
+
+        .a, .b, .c
+        {
+            font-size:14px;
+        }
+
+        .tanggal
+        {
+            margin-left: 490px;
+        }
+
+        .keterangan
+        {
+            position: relative;
+            width: 700px;
+            height: 70px;
+        }
+
+        .kiri
+        {
+            position: absolute;
+            width: 390px;
+            height: auto;
+        }
+        .kanan
+        {
+            position: absolute;
+            top: 5px;
+            left: 490px;
+            width: 200px;
+            height: 60px;
+        }
+
+        .breakword
+        {
+            overflow-wrap:break-word !important;
+            word-wrap:break-word;
+        }
+
+        #hal
+        {
+            margin-top: 14px;
+        }
+        .info
+        {
+            text-indent: 50px;
+        }
+        .footer
+        {
+            font-style: italic;
+            text-align: center;
+        }
+
+
+    
+        </style>
+      </head>
+      <body>
+        <img src=' . $img_kop . ' alt="" id="kop" width="100%">
+           
+        <div class="tanggal">Depok, ' . format_indo(date("Y-m-d", strtotime($sjp[0]->tanggal_surat))) . '</div>
+        <br><br>
+
+        <div class="keterangan">
+            <div class="kiri">
+                <span class="a">Nomor</span> <span class="b">:</span><span class="c">' . $sjp[0]->nomor_surat . '</span><br>
+                <span class="a">Lamp</span> <span class="b">:</span><span class="c">1 (satu) berkas</span><br>
+                <div id="hal"><span class="a">Hal</span> <span class="b">:</span> <span class="c">Surat Jaminan Pelayanan</span></div>
+            </div>
+            
+            
+            <div class="kanan">
+                Kepada :<br>
+                <span class="breakword">Yth. Direktur ' . wordwrap($sjp[0]->nama_rumah_sakit, 18, "<br>\n") . '</span><br>
+                Di Tempat
+            </div>
+        </div>
+  
+      <br><br>
+      <div class="row">
+        <div class="col-lg-12">
+
+          Dari hasil penelitian kami atas surat-surat dari :
+          <br>
+            <table class="table table-borderless table-sm">
+              <tbody>
+                <tr>
+                  <td style="width: 30%">Nama Pasien</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->nama_pasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tanggal Lahir</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->tanggal_lahir), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Jenis Kelamin</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . strtoupper($sjp[0]->jkpasien) . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Tgl. Mulai Rawat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . '</td>
+                </tr>
+                
+                <tr>
+                  <td style="width: 30%">Alamat</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->alamatpasien . '</td>
+                </tr>
+                <tr>
+                  <td style="width: 30%">Domisili</td>
+                  <td style="width: 5%">:</td>
+                  <td>' . $sjp[0]->domisili . '</td>
+                </tr>
+              </tbody>
+            </table><br>
+      
+          Ternyata pasien tersebut memenuhi syarat :
+          <br>
+           <table class="table table-borderless table-sm">
+            <tbody>
+              <tr>
+                <td  style="width: 30%">Dirawat di</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->nama_kelas . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Dilakukan</td>
+                <td style="width: 5%">:</td>
+                <td>' . $sjp[0]->jenis_rawat . '</td>
+              </tr>
+              
+              <tr>
+                <td  style="width: 30%">Diagnosa sementara</td>
+                <td style="width: 5%">:</td>
+                <td>' . $diag . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Diberikan jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ($sjp[0]->jenis_rawat == 'Rawat Inap' ? ' s/d Selesai Perawatan' : ($sjp[0]->jenis_rawat == 'Rawat Jalan' ? ' s/d Dua Minggu' : '-')) . '</td>
+              </tr>
+              <tr>
+                <td  style="width: 30%">Lain-lain</td>
+                <td style="width: 5%">:</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Jaminan</td>
+                <td style="width: 5%">:</td>
+                <td>' . wordwrap($sjp[0]->nama_jenis, 55, "<br>\n") . '</td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Batas Maksimal Pagu</td>
+                <td style="width: 5%">:</td>
+                <td>'.
+                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+                 . '</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="info">
+      <p>Atas biaya Pemerintah Kota Depok dengan ketentuan yang berlaku. Biaya tersebut agar diajukan oleh<br> Rumah Sakit secara kolektif sebelum tanggal 10 pada bulan berikutnya.</p>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br><br><br><br><br><br>
+      <div class="footer" style="margin-bottom:0">
+      <center><p><em>Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai<br> Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.</em></p></center>
+      </div>
+
+      </body></html>';
+        return $html;
+    }
+
+    public function inputStatusPassphrase()
+    {
+        // Prepare a response
+        $response = array(
+            'pesan' => 'Gagal',
+            'status_code' => 2031,
+            'deskripsi_status' => 'Passphrase anda salah'
+        );
+
+        $this->db->insert('log_tte', $response);
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+    public function cekPassphraseTTE($id_sjp)
+    {
+        $sjp = $this->M_SJP->cek_logTTE($id_sjp);
+
+        if (empty($sjp)) {
+            $response = array(
+                'pesan' => 'File belum ditandatangani',
+                'code' => '400'
+            );
+        }else{
+            $response = array(
+                'pesan' => 'File sudah ditandatangani',
+                'code' => '200'
+            );
+        }
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+
 }
+
+
+
+
+
+
+// <?php
+
+// namespace App\Http\Controllers;
+
+// use Firebase\JWT\JWT;
+// use Firebase\JWT\Key;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Http;
+// use Illuminate\Routing\Controller as BaseController;
+
+// class UserController extends BaseController
+// {
+
+//     private $baseurl = 'http://sitpas.depok.go.id/kds/';
+
+//     private function getJumlahDataByLayanan($token, $layanan)
+//     {
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'KDSApi/DTKSWilayah');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//             'cid: admin-kds',
+//             'signature: '.$token
+//         ]);
+
+//         $response = curl_exec($ch);
+//         $decodedResponse = json_decode($response, true);
+
+//         if ($decodedResponse !== null) {
+//             $jwtKey = 'Th15!15@53cr9t#K3y';
+//             $decodedData = JWT::decode($decodedResponse["data"], new Key($jwtKey, 'HS256'));
+//             return collect($decodedData)->where('layanan', $layanan)->count();
+//         }
+
+//         return 0;
+//     }
+
+//     private function getTanggalPengajuanTerbaruDanTerlama($token)
+//     {
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'KDSApi/DTKSWilayah');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//             'cid: admin-kds',
+//             'signature: '.$token
+//         ]);
+
+//         $response = curl_exec($ch);
+//         $decodedResponse = json_decode($response, true);
+
+//         if ($decodedResponse !== null) {
+//             $jwtKey = 'Th15!15@53cr9t#K3y';
+//             $decodedData = JWT::decode($decodedResponse["data"], new Key($jwtKey, 'HS256'));
+
+//             $dataByLayanan = collect($decodedData);
+
+//             $tanggalPengajuanTerbaru = $dataByLayanan->max('tanggal_pengajuan');
+//             $tanggalPengajuanTerlama = $dataByLayanan->min('tanggal_pengajuan');
+
+//             return [
+//                 'tanggal_pengajuan_terbaru' => $tanggalPengajuanTerbaru,
+//                 'tanggal_pengajuan_terlama' => $tanggalPengajuanTerlama
+//             ];
+//         }
+
+//         return [
+//             'tanggal_pengajuan_terbaru' => null,
+//             'tanggal_pengajuan_terlama' => null
+//         ];
+//     }
+
+
+
+//     public function home()
+//     {
+//         // Mengatur zona waktu menjadi Asia/Jakarta
+//         date_default_timezone_set('Asia/Jakarta');
+//         $timestamp = time();
+
+//         $ch = curl_init();
+
+//         curl_setopt($ch, CURLOPT_URL, $this->baseurl . 'Decrypt');
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_POST, true);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+//             'cid' => 'admin-kds',
+//             'client_name' => 'kartu-depok',
+//             'timestamp' => $timestamp
+//         ]));
+
+//         $response = curl_exec($ch);
+//         $token = $response;
+
+        
+//         $tanggalterbaru = $this->getTanggalPengajuanTerbaruDanTerlama($token);
+
+//         $tanggal = ($tanggalterbaru != null) ? date("d M Y", strtotime($tanggalterbaru['tanggal_pengajuan_terbaru'])) : '-';
+
+//         // Pelayanan Kesehatan Gratis
+//         $jmlpbi = $this->getJumlahDataByLayanan($token, 'Pelayanan Kesehatan Gratis');
+
+//         // Santunan Kematian
+//         $jmlsk = $this->getJumlahDataByLayanan($token, 'Santunan Kematian');
+
+//         // Beasiswa Berprestasi
+//         $jmlpendidikan = $this->getJumlahDataByLayanan($token, 'Bantuan Sosial Siswa Miskin');
+
+//         // Bantuan Rumah Tidak Layak Huni
+//         $jml = $this->getJumlahDataByLayanan($token, 'Bantuan Rumah Tidak Layak Huni');
+
+//         return view('home', compact('Berita', 'galeri', 'exlink', 'jml', 'jmlsk','jmlpbi', 'jmlpendidikan', 'tanggal'));
+//     }
+
+//     public function cek_dtks_single(){
+
+//         $key = 'Th15!15@53cr9t#K3y';
+
+//         $snik = '';
+//         $snama = '';
+//         $slayanan = '';
+
+//         if (isset($_GET['layanan'])) {
+//             $slayanan = rawurlencode($_GET['layanan']);
+//         }
+        
+//         if (isset($_GET['nik'])){
+//             $snik = $_GET['nik'];
+//         }
+
+//             if (isset($_GET['kt'])){
+//                 if($_GET['cari'] != ''){
+//                     if($_GET['kt'] == 'nama'){
+//                     $snama = $_GET['cari'];
+//                 }
+                
+//                 if($_GET['kt'] == 'nik'){
+//                     $snik = $_GET['cari'];
+//                 }
+//             }
+//         }
+
+//         // Mengatur zona waktu menjadi Asia/Jakarta
+//         date_default_timezone_set('Asia/Jakarta');
+//         $timestamp = time();
+//         $tanggal = date('d M Y', $timestamp);
+
+//         $response = Http::post($this->baseurl . 'Decrypt', [
+//             'cid' => 'admin-kds',
+//             'client_name' => 'kartu-depok',
+//             'timestamp' => $timestamp
+//         ]);
+
+//         $token = $response->body();
+
+//         // Pencarian NIK
+//         $response = Http::withHeaders([
+//             'cid' => 'admin-kds',
+//             'signature' => $token
+//         ])->get($this->baseurl . "KDSApi/DTKSWilayah?nama=$snama&nik=$snik&kecamatan=&kelurahan=&tahun=&bulan=&limit=&offset=&layanan=$slayanan&status=");
+
+
+//         $jumlahtotal = 0;
+//         $disetujui = 0;
+//         $diproses = 0;
+        
+//         if (isset($response['data']) && $response['data'] != null) {
+//             // $key = 'Th15!15@53cr9t#K3y';
+//             $result = JWT::decode($response['data'], new Key($key, 'HS256'));
+
+//             $kecamatan = $result;
+//             $result = !empty($result) ? json_encode($result) : '';
+
+//             if ($slayanan != '') {
+//                 $responseData = ($result != null) ? json_decode($result, true) : [];
+
+//                 $filteredDataDisetujui = array_filter($responseData, function ($item) {
+//                     return $item['status'] === 'Disetujui';
+//                 });
+
+//                 $filteredDataDiproses = array_filter($responseData, function ($item) {
+//                     return $item['status'] !== 'Disetujui' && $item['status'] !== 'Ditolak';
+//                 });
+            
+//                 $diproses = count($filteredDataDiproses);
+
+//                 $disetujui = count($filteredDataDisetujui);
+
+//                 $jumlahtotal = $response['total_records'] ?? 0;
+//             }
+            
+
+//             // Membuat collection dari data kecamatan
+//             $kecamatanCollection = collect($kecamatan);
+
+//             // Menghapus duplikat berdasarkan kecamatan
+//             $uniqueKecamatanCollection = $kecamatanCollection->unique('kecamatan');
+
+//             // Mengubah kembali ke array
+//             $kecamatan = $uniqueKecamatanCollection->values()->toArray();
+//         } else {
+//             $result = [];
+//             $jumlahtotal = 0;
+//             $disetujui = $diproses = '-';
+//             $kecamatan = $result;
+//             $uniqueKecamatan = [];
+//         }
+
+//         $resultArray = json_decode($result, true);
+
+//         $groupedData = [];
+
+//         foreach ($resultArray as $res) {
+//             $kecamatanresult = $res['kecamatan'];
+//             $kelurahanresult = $res['kelurahan'];
+
+//             if (!isset($groupedData[$kecamatanresult])) {
+//                 $groupedData[$kecamatanresult] = [];
+//             }
+
+//             if (!isset($groupedData[$kecamatanresult][$kelurahanresult])) {
+//                 $groupedData[$kecamatanresult][$kelurahanresult] = [
+//                     'jumlah_disetujui' => 0,
+//                     'jumlah_diproses' => 0,
+//                 ];
+//             }
+
+//             if ($res['status'] === 'Disetujui') {
+//                 $groupedData[$kecamatanresult][$kelurahanresult]['jumlah_disetujui']++;
+//             } elseif ($res['status'] !== 'Disetujui' && $res['status'] !== 'Ditolak') {
+//                 $groupedData[$kecamatanresult][$kelurahanresult]['jumlah_diproses']++;
+//             }
+//         }
+
+//         return view('informasi-dtks.cek-dtks-single',compact('snik', 'slayanan','kecamatan','result', 'jumlahtotal', 'disetujui', 'diproses', 'groupedData'));
+//     }
+// }

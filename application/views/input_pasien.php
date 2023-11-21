@@ -108,7 +108,7 @@
               <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
               <fieldset class="mt-2">
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/Domisili*</label>
+                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/Domisili/Status JKN*</label>
                   <div class="col-lg-3">
                     <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
@@ -129,23 +129,29 @@
                       <option value="Luar Depok">Luar Depok</option>
                     </select>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="nik">NIK/Status JKN*</label>
-                  <div class="col-lg-3">
-                    <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
-                  </div>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="status_jkn" id="status_jkn" class="form-control" required>
                       <option value="">Pilih Status JKN</option>
-                      <option value="Tunggak Bayar">Tunggak Bayar</option>
-                      <option value="Belum JKN">Belum JKN</option>
-                      <option value="Bukan Manfaat JKN">Bukan Manfaat JKN</option>
+                      <?php if (!empty($jkn)) {
+                        foreach ($jkn as $key) { ?>
+                          <option value="<?= $key['nama_jkn'] ?>"><?= $key['nama_jkn'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group row">
+                      <label class="col-lg-3 label-control" for="nik">NIK*</label>
+                      <div class="col-lg-3">
+                          <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
+                      </div>
+                      <div class="col-lg-3">
+                          <button id="checkNikBtn" class="btn btn-primary">Periksa NIK</button>
+                      </div>
+                  </div>
+
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
 
@@ -690,4 +696,59 @@
     });
 });
 
+</script>
+
+
+
+<!-- Periksa NIK -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('checkNikBtn').addEventListener('click', function() {
+        const nik = document.getElementById('nik').value;
+
+        if (nik.trim() === '') {
+            alert('Silakan isi NIK terlebih dahulu.');
+            return;
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
+            data: {
+                nik: nik
+            },
+            success: function(response) {
+                console.log(response)
+                if (response == "Nik Tidak Terdaftar") {
+                    alert('Nik Tidak Terdaftar di aplikasi SITPAS');
+                } else {
+                    alert('NIK terdaftar di aplikasi SITPAS');
+                }
+            },
+
+            error: function() {
+                alert('Terjadi kesalahan saat memeriksa NIK.');
+            }
+        });
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url:"<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
+        //     data: { nik: nik },
+        //     success: function(response) {
+        //         console.log(response)
+        //         if (response == "Nik Tidak Terdaftar") {
+        //             alert('Nik Tidak Terdaftar.');
+        //         } else {
+        //             alert('NIK terdaftar.');
+        //         }
+        //     },
+
+
+        //     error: function() {
+        //         alert('Terjadi kesalahan saat memeriksa NIK.');
+        //     }
+        // });
+    });
+});
 </script>

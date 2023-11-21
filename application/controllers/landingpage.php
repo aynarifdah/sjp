@@ -40,20 +40,19 @@ class landingpage extends CI_Controller
 
         $this->load->view('landingpage/template/master', $data);
     }
-
     public function TentangKami()
     {
-        $path = "";
-        $data = array(
-            "page"    => $this->load("Index", $path),
-            "content" => $this->load->view('landingpage/TentangKami', false, true)
-        );
+       $path = "";
+       $data = array(
+         "page"    => $this->load("Index", $path) ,
+         "content" => $this->load->view('landingpage/TentangKami', false, true)
+     );
 
-        $this->load->view('landingpage/template/master', $data);
-    }
+       $this->load->view('landingpage/template/master', $data);
+   }
 
-    public function galeri()
-    {
+   public function galeri()
+   {
         $path = "";
         $data = array(
             "page"    => $this->load("Index", $path),
@@ -158,7 +157,30 @@ class landingpage extends CI_Controller
             "page"    => $this->load("Index", $path),
             "content" => $this->load->view('landingpage/manfaat', false, true)
         );
+        $this->load->view('landingpage/template/master', $data);
+    }
+
+    public function peraturan()
+    {
+    	$path = "";
+        $data = array(
+            "page"    => $this->load("Index", $path) ,
+            "content" => $this->load->view('landingpage/peraturan', false, true)
+        );
 
         $this->load->view('landingpage/template/master', $data);
     }
+
+    public function download_no01(){
+        force_download('assets-web/img/dokumen/22. PETUNJUK TEKNIS PEMBIAYAAN JAMINAN KESEHATAN BAGI MASYARAKAT.pdf', NULL);
+    }
+
+    public function download_no02(){
+        force_download('assets-web/img/dokumen/39. PERUBAHAN PERWAL NO 22 TAHUN 2021 TENTANG PETUNJUK TEKNIS PEMBIAYAAN JAMKES BAGI MASYARAKAT.pdf', NULL);
+    }
+
+    public function download_no03(){
+        force_download('assets-web/img/dokumen/Perwa 31 2022 Parameter kemiskinan.pdf', NULL);
+    }
+
 }

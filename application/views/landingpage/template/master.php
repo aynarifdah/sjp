@@ -13,9 +13,10 @@
     <!--/#app -->
     <?php echo $page['main_js']; ?>
     <script type="text/javascript">
-        <?php if (isset($javascript)) {
+        < ? php
+        if (isset($javascript)) {
             echo $javascript;
-        } ?>
+        } ? >
     </script>
 </body>
 

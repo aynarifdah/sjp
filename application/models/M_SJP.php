@@ -425,7 +425,13 @@ class M_SJP extends CI_Model
   {
     $this->db->select('*');
     $this->db->from('jenis_sjp');
-    $this->db->where('status =', Null);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  public function jkn()
+  {
+    $this->db->select('*');
+    $this->db->from('jkn');
     $query = $this->db->get()->result_array();
     return $query;
   }
@@ -789,7 +795,16 @@ class M_SJP extends CI_Model
     $this->db->select('sjp.nama_pasien, pp.tanggal_pengajuan');
     $this->db->from('sjp');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+    
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
 
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -817,8 +832,18 @@ class M_SJP extends CI_Model
     $this->db->from('`rumah_sakit` rs');
     $this->db->join('sjp', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+
     $this->db->group_by("rs.nama_rumah_sakit");
 
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
+    
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -864,7 +889,11 @@ class M_SJP extends CI_Model
     $this->db->select('sp.status_pengajuan nama, count(pp.id_status_pengajuan) as jumlah');
     $this->db->from('`status_pengajuan` sp');
     $this->db->join('permohonan_pengajuan pp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     // $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+
     $this->db->group_by("sp.status_pengajuan");
     if (!empty($bulan)) {
       $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -873,10 +902,17 @@ class M_SJP extends CI_Model
       $this->db->where('YEAR(pp.tanggal_pengajuan)', date("Y", strtotime($tahun)));
     }
     if (!empty($kecamatan)) {
-      $this->db->where('kd_kecamatan', $kecamatan);
+      $this->db->where('sjp.kd_kecamatan', $kecamatan);
     }
     if (!empty($kelurahan)) {
-      $this->db->where('kd_kelurahan', $kelurahan);
+      $this->db->where('sjp.kd_kelurahan', $kelurahan);
+    }
+
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
     }
     return $this->db->get()->result_array();
   }
@@ -970,6 +1006,12 @@ class M_SJP extends CI_Model
       $this->db->from('sjp');
       $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
       $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+      $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+
+      if ($this->session->userdata('instansi') == 3){
+        $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+      }
+      
       // $this->db->group_by('pp.tanggal_pengajuan');
 
       if (!empty($bulan)) {
@@ -1008,8 +1050,19 @@ class M_SJP extends CI_Model
     $this->db->select('sjp.jenis_rawat, count(*) as jumlah');
     $this->db->from('sjp');
     $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+
     $this->db->group_by("jenis_rawat");
 
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+    
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
+    
     if (!empty($bulan) or !empty($tahun) or !empty($kecamatan) or !empty($kelurahan)) {
       if (!empty($bulan)) {
         $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
@@ -1159,7 +1212,7 @@ class M_SJP extends CI_Model
     return $this->db->get()->result_array();
   }
 
-  function select_pengajuan_sjp_all($id_status_pengajuan = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
+  function select_pengajuan_sjp_all($id_status_pengajuan = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs');
     $this->db->from('permohonan_pengajuan pp');
@@ -1171,7 +1224,10 @@ class M_SJP extends CI_Model
       $this->db->where('pus.id_puskesmas =', $puskesmas);
     }
     if (!empty($mulai)) {
-      $this->db->like('pp.tanggal_pengajuan', $mulai);
+      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
     }
     if (!empty($rumahsakit)) {
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
@@ -1204,14 +1260,14 @@ class M_SJP extends CI_Model
 
   function select_pengajuan_sjp_kelurahan($id_status_pengajuan = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
   {
-    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs,att.id_attachment');
+    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs');
     $this->db->from('permohonan_pengajuan pp');
     $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
     $this->db->join('puskesmas pus', 'sjp.id_puskesmas = pus.id_puskesmas', 'left');
     $this->db->join('kelurahan kel', 'sjp.kd_kelurahan = kel.kelurahan AND sjp.kd_kecamatan = kel.kecamatan', 'left');
-    $this->db->join('attachment att', 'att.id_pengajuan = pp.id_pengajuan AND att.attachment = ""  ', 'left');
+    // $this->db->join('attachment att', 'att.id_pengajuan = pp.id_pengajuan AND att.attachment = ""  ', 'left');
     ;
     if (!empty($kelurahan)) {
       $this->db->where('kel.key_wilayah =', $kelurahan);
@@ -1255,7 +1311,7 @@ class M_SJP extends CI_Model
 
 
 
-  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
+  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');
@@ -1270,7 +1326,10 @@ class M_SJP extends CI_Model
       $this->db->where('ps.id_puskesmas =', $puskesmas);
     }
     if (!empty($mulai)) {
-      $this->db->like('pp.tanggal_pengajuan', $mulai);
+      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
     }
     if (!empty($rumahsakit)) {
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
@@ -1546,7 +1605,7 @@ class M_SJP extends CI_Model
   // return $query;
   // }
 
-  public function view_permohonanklaim_rs($mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null, $id_sjp)
+  public function view_permohonanklaim_rs($id_sjp,$mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null )
   {
     $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
@@ -1622,7 +1681,7 @@ class M_SJP extends CI_Model
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
     // $this->db->where('pp.id_status_pengajuan =', 4);
 
-
+    $this->db->where('nik !=', '');
     $this->db->where('nik =', $nik);
 
 
@@ -1813,7 +1872,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null)
+  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');
@@ -1828,7 +1887,10 @@ class M_SJP extends CI_Model
       $this->db->where('ps.id_puskesmas =', $puskesmas);
     }
     if (!empty($mulai)) {
-      $this->db->like('pp.tanggal_pengajuan', $mulai);
+      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
     }
     if (!empty($rumahsakit)) {
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
@@ -1863,6 +1925,95 @@ class M_SJP extends CI_Model
     $hasil = $this->db->get('kelurahan');
     $result = $hasil->result();
     return $result[0]->key_wilayah;
+  }
+
+  public function getdatapengajuanklaim_puskesmas($id_status_klaim = null, $mulai = Null, $akhir = Null, $pkm = Null, $status = Null, $jenis_rawat = null, $cari = Null)
+  {
+    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, sjp.*, rs.nama_rumah_sakit as nm_rs, sk.*');
+    $this->db->from('sjp');
+    $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
+    $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+    if (!empty($id_status_klaim)) {
+      $this->db->where('sjp.status_klaim', $id_status_klaim);
+    }
+    if (!empty($mulai)) {
+      $this->db->where('sjp.tanggal_tagihan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('sjp.tanggal_tagihan <=', $akhir);
+    }
+    if (!empty($pkm)) {
+      $this->db->where('sjp.id_puskesmas =', $pkm);
+    }
+    if (!empty($status)) {
+      $this->db->where('sk.id_statusklaim =', $status);
+    }
+    if (!empty($jenis_rawat)) {
+      $this->db->where('sjp.jenis_rawat =', $jenis_rawat);
+    }
+    if (!empty($cari)) {
+      $this->db->like('CONCAT(sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sk.nama_statusklaim,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan,sjp.nomor_tagihan)', $cari);
+    }
+    $this->db->where('status_klaim !=', null);
+    // $this->db->where('status_edit', 1);
+    $this->db->order_by('sjp.tanggal_tagihan', 'desc');
+
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+  public function view_permohonanklaim_pkm($mulai = Null, $akhir = Null, $pkm = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null, $id_sjp)
+  {
+    $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
+    $this->db->from('permohonan_pengajuan pp');
+    $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
+    $this->db->join('status_klaim sk', 'sjp.status_klaim = sk.id_statusklaim', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+    $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    // echo $id_instansi;die;
+    if ($id_instansi == 2) {
+      $this->db->where('sjp.id_rumah_sakit', $id_join);
+    }
+
+    // $this->db->where('pp.id_status_pengajuan =', 4);
+    if (!empty($id_sjp)) {
+      $this->db->where_in('id_sjp', $id_sjp);
+    }
+
+    if (!empty($mulai)) {
+      $this->db->like('pp.tanggal_pengajuan', $mulai);
+      // $this->db->where('pp.tanggal_pengajuan', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
+    }
+    if (!empty($pkm)) {
+      $this->db->where('sjp.id_puskesmas =', $pkm);
+    }
+    if (!empty($status)) {
+      $this->db->where('sk.id_statusklaim =', $status);
+    }
+    if (!empty($cari)) {
+      $this->db->like('CONCAT(pp.nama_pemohon)', $cari);
+    }
+
+    $this->db->where('id_status_pengajuan', 6);
+    // $this->db->where('tanggal_tagihan', null);
+    $this->db->where('status_klaim', null);
+    // $this->db->where('status_edit', 0);
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+  function cek_logTTE($id_sjp)
+  {
+    $this->db->select('*');
+    $this->db->from('log_tte');
+    $this->db->where('log_tte.id_sjp', $id_sjp);
+    $this->db->where('log_tte.pesan', 'Berhasil');
+
+    $query = $this->db->get()->row_array();
+    return $query;
   }
 
 

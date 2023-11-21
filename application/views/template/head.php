@@ -36,6 +36,11 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/icheck/custom.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/plugins/forms/checkboxes-radios.css">
 
-  <!-- View PDF -->
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/photoswipee.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/js/gallery/photo-swipe/default-skin/default-skin.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/pages/gallery.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/css/bootstrap-select.css">
+
+  <meta name="google-site-verification" content="mxkbhJfBHvmOPdA4_MWZzpSy3hLaNnBJgdd-ZodLrUM" />
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/dflip.min.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo base_url() ?>assets/viewerPdf/css/themify-icons.min.css" rel="stylesheet" type="text/css" />

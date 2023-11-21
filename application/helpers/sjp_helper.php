@@ -36,6 +36,9 @@ function auth_menu(){
 		    case 6:
 		        $controller = "Kelurahan";
 		        break;
+		    case 7:
+		        $controller = "Home";
+		        break;
 		    default:
 		        $controller = "Auth";
 		}		

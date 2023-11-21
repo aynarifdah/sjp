@@ -40,99 +40,89 @@
   <div class="card-content">
     <div class="card-body">
       <div class="table-responsive">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="element mb-1 p-r-15">
-              <?php if ($this->uri->segment(3) == '') : ?>
-                <a href="<?php echo base_url('Exportexcel/pengajuan_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
-              <?php elseif ($this->uri->segment(3) == 2) : ?>
-                <a href="<?php echo base_url('Exportexcel/persetujuan_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
-              <?php elseif ($this->uri->segment(3) == 3) : ?>
-                <a href="<?php echo base_url('Exportexcel/pembayaran_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
-              <?php elseif ($this->uri->segment(3) == 4) : ?>
-                <a href="<?php echo base_url('Exportexcel/sudah_bayar_klaim') ?>" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</a>
-              <?php endif; ?>
+        <?php if ($this->uri->segment(3) == '') : ?>
+          <form action="<?= base_url(''); ?>Exportexcel/pengajuan_klaim" method="POST">
+        <?php elseif ($this->uri->segment(3) == 2) : ?>
+          <form action="<?= base_url(''); ?>Exportexcel/persetujuan_klaim" method="POST">
+        <?php elseif ($this->uri->segment(3) == 3) : ?>
+          <form action="<?= base_url(''); ?>Exportexcel/pembayaran_klaim" method="POST">
+        <?php elseif ($this->uri->segment(3) == 4) : ?>
+          <form action="<?= base_url(''); ?>Exportexcel/sudah_bayar_klaim" method="POST">
+        <?php endif; ?>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="element mb-1 p-r-15">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</button>
 
 
-              <?php if ($status_klaim == 3) { ?>
-                <button type="button" class="btn btn-secondary btn-sm" id="updatestatbayar"><i class="ft-credit-card"></i>&nbsp; Update Status Bayar</button>
-              <?php } ?>
+                  <?php if ($status_klaim == 3) { ?>
+                    <button type="button" class="btn btn-secondary btn-sm" id="updatestatbayar"><i class="ft-credit-card"></i>&nbsp; Update Status Bayar</button>
+                  <?php } ?>
 
-              <button type="button" id="nominal" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Nominal Pembiayaan</button>
+                  <button type="button" id="nominal" aria-expanded="true" class="btn btn-primary btn-sm"><i class="ft-plus"></i>Nominal Pembiayaan</button>
 
-            </div>
-          </div>
-        </div>
-
-        <div class="row" style="padding-left: 15px; padding-right: 15px;">
-          <div class="col-lg-3 filter">
-            <label>Tanggal mulai :</label>
-            <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-          </div>
-          <div class="col-lg-3 filter">
-            <label>Tanggal akhir :</label>
-            <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Akhir Referensi">
-          </div>
-          <div class="col-lg-3 filter">
-            <label>Rumah Sakit</label>
-            <select name="rs" id="rs" class="form-control">
-              <option value="" selected>Semua Rumah Sakit</option>
-              <?php if (!empty($rs)) : ?>
-                <?php foreach ($rs as $rsu) : ?>
-                  <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
-                <?php endforeach ?>
-              <?php endif ?>
-            </select>
-          </div>
-          <div class="col-lg-3 filter">
-            <label>Cari</label>
-            <div class="position-relative has-icon-left">
-              <input type="text" class="form-control" name="cari" id="cari" placeholder="Cari Nama, No Referensi, No SJP">
-              <div class="form-control-position">
-                <i class="ft-search"></i>
+                </div>
               </div>
             </div>
-          </div>
-          <?php if ($status_klaim <= 0) : ?>
-            <div class="col-lg-4 filter mt-1 mb-1">
-              <label>Status Klaim</label>
-              <select name="status" id="status" class="form-control">
-                <option value="" selected>Semua Status</option>
-                <?php if (!empty($statusklaim)) : ?>
-                  <?php foreach ($statusklaim as $sk) : ?>
-                    <option value="<?= $sk['id_statusklaim'] ?>"><?= $sk['nama_statusklaim'] ?></option>
-                  <?php endforeach ?>
-                <?php endif ?>
-              </select>
+
+            <div class="row" style="padding-left: 15px; padding-right: 15px;">
+              <div class="col-lg-3 filter">
+                <label>Tanggal mulai :</label>
+                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+              </div>
+              <div class="col-lg-3 filter">
+                <label>Tanggal akhir :</label>
+                <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Akhir Referensi">
+              </div>
+              <div class="col-lg-3 filter">
+                <label>Rumah Sakit</label>
+                <select name="rs" id="rs" class="form-control">
+                  <option value="" selected>Semua Rumah Sakit</option>
+                  <?php if (!empty($rs)) : ?>
+                    <?php foreach ($rs as $rsu) : ?>
+                      <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
+              <div class="col-lg-3 filter">
+                <label>Cari</label>
+                <div class="position-relative has-icon-left">
+                  <input type="text" class="form-control" name="cari" id="cari" placeholder="Cari Nama, No Referensi, No SJP">
+                  <div class="form-control-position">
+                    <i class="ft-search"></i>
+                  </div>
+                </div>
+              </div>
+              <?php if ($status_klaim <= 0) : ?>
+                <div class="col-lg-4 filter mt-1 mb-1">
+                  <label>Status Klaim</label>
+                  <select name="status" id="status" class="form-control">
+                    <option value="" selected>Semua Status</option>
+                    <?php if (!empty($statusklaim)) : ?>
+                      <?php foreach ($statusklaim as $sk) : ?>
+                        <option value="<?= $sk['id_statusklaim'] ?>"><?= $sk['nama_statusklaim'] ?></option>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                  </select>
+                </div>
+              <?php else : ?>
+                <input type="hidden" name="status" id="status" value="">
+              <?php endif ?>
+
+              <div class="col-lg-4 filter mt-1 mb-1">
+                <label>Jenis Rawat</label>
+                <select name="jenis_rawat" id="jenis_rawat" class="form-control">
+                  <option value="" selected>Semua Jenis Rawat</option>
+                      <option value="Rawat Inap">Rawat Inap</option>
+                      <option value="Rawat Jalan">Rawat Jalan</option>
+                </select>
+              </div>
             </div>
-          <?php else : ?>
-            <input type="hidden" name="status" id="status" value="">
-          <?php endif ?>
+          </form>
 
-          <div class="col-lg-4 filter mt-1 mb-1">
-            <label>Jenis Rawat</label>
-            <select name="jenis_rawat" id="jenis_rawat" class="form-control">
-              <option value="" selected>Semua Jenis Rawat</option>
-                  <option value="Rawat Inap">Rawat Inap</option>
-                  <option value="Rawat Jalan">Rawat Jalan</option>
-            </select>
-          </div>
-        </div>
-
-        <!--    <div class="row mt-2">
-          <div class="col-lg-3 offset-lg-9">
-            <?php if ($this->uri->segment(3) == '') : ?>
-              <a href="<?php echo base_url('Exportexcel/pengajuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Excel</a>
-            <?php elseif ($this->uri->segment(3) == 2) : ?>
-              <a href="<?php echo base_url('Exportexcel/persetujuan_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Excel</a>
-            <?php elseif ($this->uri->segment(3) == 3) : ?>
-              <a href="<?php echo base_url('Exportexcel/pembayaran_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Excel</a>
-            <?php elseif ($this->uri->segment(3) == 4) : ?>
-              <a href="<?php echo base_url('Exportexcel/sudah_bayar_klaim') ?>" class="btn btn-primary" style="width: 100%;"><i class="ft-printer"></i> Excel</a>
-            <?php endif; ?>
-          </div>
-        </div> -->
-
+      
         <section id="configuration" style="padding: 10px;">
           <table id="datatable" class="table table-bordered" style="width: 100%;">
             <thead>
