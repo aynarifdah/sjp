@@ -1187,22 +1187,24 @@ class Kelurahan extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
+            $datasjp    = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan=NULL, $rs=NULL, $status=NULL, $cari=NULL, $mulai=NULL);
         } else {
-            $datasjp = $this->M_SJP->select_pengajuan_sjp_kelurahan();
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_kelurahan($id_status_pengajuan);
         }
         // $total = $this->total();
 
         $result = [
+            'data' => $datasjp,
             'draw' => '', // $_POST['draw']
             'recordsFiltered' => '',
             'recordsTotal' => '',
             // 'query' => $this->db->last_query(),
-            'data' => $datasjp
+          
         ];
         // var_dump($result);
         // die;
         echo json_encode($result);
+        die;
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -1552,7 +1554,7 @@ class Kelurahan extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, $kelurahan, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_kelurahan($id_jenissjp = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = null);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, Null, Null, 6);
         }
@@ -1566,6 +1568,7 @@ class Kelurahan extends CI_Controller
             'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
+        die;
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
