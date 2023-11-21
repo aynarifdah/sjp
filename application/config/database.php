@@ -141,7 +141,7 @@ $db['default'] = array(
 
 $db['default'] = array(
 	'dsn'	=> '',
-    'hostname' => 'localhost',
+'hostname' => 'localhost',
 	'username' => 'sjpuser',
 	'password' => 'GzGqa)f)87]@u{)^?+9}arL',
 	'database' => 'sjp',

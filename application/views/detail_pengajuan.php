@@ -739,25 +739,26 @@
                          <div class="row">
 
                            <?php if (!empty($getdokumenpersyaratan)) {
-                              $i = 1;
-                              foreach ($getdokumenpersyaratan as $att) { ?>
-
-                               <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
-                                $ext = $path_parts['extension'];
-                                if ($ext == "pdf") :
-                                ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
-                                   <a href="<?= base_url($controller) . 'view_pdf/' . $att['id_pengajuan'] . '/' . $att['id_persyaratan'] . '/' . $att['attachment'] ?> " target="_blank">
-                                     <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                     <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
-                                   </a>
-                                 </div>
-                               <?php endif; ?>
-
-
-
-                           <?php }
+                                $i = 1;
+                                foreach ($getdokumenpersyaratan as $att) {
+                                    if (!empty($att['attachment'])) {
+                                        $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
+                                        if (isset($path_parts['extension'])) {
+                                            $ext = $path_parts['extension'];
+                                            if ($ext == "pdf") : ?>
+                                                <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                              <a class="pdfPage" data-idpengajuan="<?= $att['id_pengajuan'] ?>" data-idpersyaratan="<?= $att['id_persyaratan'] ?>" data-attachment="<?= $att['attachment'] ?>" href="#" target="_blank">
+                                                  <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                                  <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
+                                              </a>
+                                                </div>
+                                        <?php
+                                            endif;
+                                        }
+                                    }
+                                }
                             } ?>
+
 
                          </div>
 
@@ -978,6 +979,17 @@
    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
    <script type="text/javascript">
+
+    $('.pdfPage').click(function() {
+        var idPengajuan = $(this).data('idpengajuan');
+        var idPersyaratan = $(this).data('idpersyaratan');
+        var attachment = $(this).data('attachment');
+        
+        var href = '<?= base_url($controller) . 'view_pdf/' ?>' + idPengajuan + '/' + idPersyaratan + '/' + attachment;
+        
+        window.location.href = href;
+    });
+
      function logCetak() {
        $.ajax({
          url: '<?= base_url($controller); ?>logCetak',
