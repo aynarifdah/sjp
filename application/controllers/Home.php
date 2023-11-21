@@ -3175,5 +3175,27 @@ class Home extends CI_Controller
             ->set_output(json_encode($response));
     }
 
+    public function cekPassphraseTTE($id_sjp)
+    {
+        $sjp = $this->M_SJP->cek_logTTE($id_sjp);
+
+        if (empty($sjp)) {
+            $response = array(
+                'pesan' => 'File belum ditandatangani',
+                'code' => '400'
+            );
+        }else{
+            $response = array(
+                'pesan' => 'File sudah ditandatangani',
+                'code' => '200'
+            );
+        }
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
 
 }

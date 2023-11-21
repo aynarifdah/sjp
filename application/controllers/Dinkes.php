@@ -301,6 +301,8 @@ class Dinkes extends CI_Controller
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
+        $data['cektte'] = $this->M_SJP->cek_logTTE($idsjp);
+
 
         // var_dump($data['feedback']);
         // die;
@@ -1263,7 +1265,7 @@ class Dinkes extends CI_Controller
         }
     }
 
-    public function CetakTest($id_sjp)
+    public function CetakTest($id_sjp, $status = null)
     {
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         // var_dump($sjp);
@@ -1350,7 +1352,8 @@ class Dinkes extends CI_Controller
         	$response = array(
                 'pesan'          => 'Gagal',
 	            'status_code' => $responseData->status,
-	            'deskripsi_status' => $responseData->error
+	            'deskripsi_status' => $responseData->error,
+                'id_sjp' => $id_sjp
 	        );
 
             if ($responseData != null) {
@@ -1369,14 +1372,20 @@ class Dinkes extends CI_Controller
         }else{
             
             unlink('./pdfTemporary/sjp_'.$time.'.pdf');
-        	
-        	$response = array(
-                'pesan'          => 'Berhasil',
-	            'status_code' => 200,
-	            'deskripsi_status' => 'OK (Sucessful)'
-	        );
-            $this->db->insert('log_tte', $response);
 
+
+        	if($status != 1){
+                $response = array(
+                    'pesan'          => 'Berhasil',
+                    'status_code' => 200,
+                    'deskripsi_status' => 'OK (Sucessful)',
+                    'id_sjp' => $id_sjp
+                );
+
+                $this->db->insert('log_tte', $response);
+            }
+            // var_dump($response);
+            // die();
             // Set the filename for the download
             $filename = 'cetakSJP_signed.pdf';
 
@@ -2117,13 +2126,14 @@ class Dinkes extends CI_Controller
         echo json_encode($result);
     }
 
-    public function inputStatusPassphrase()
+    public function inputStatusPassphrase($id_sjp)
     {
         // Prepare a response
         $response = array(
             'pesan' => 'Gagal',
             'status_code' => 2031,
-            'deskripsi_status' => 'Passphrase anda salah'
+            'deskripsi_status' => 'Passphrase anda salah',
+            'id_sjp' => $id_sjp
         );
 
         $this->db->insert('log_tte', $response);
@@ -2198,5 +2208,27 @@ class Dinkes extends CI_Controller
     //         }
     //     }
     // }
+
+    public function cekPassphraseTTE($id_sjp)
+    {
+        $sjp = $this->M_SJP->cek_logTTE($id_sjp);
+
+        if (empty($sjp)) {
+            $response = array(
+                'pesan' => 'File belum ditandatangani',
+                'code' => '400'
+            );
+        }else{
+            $response = array(
+                'pesan' => 'File sudah ditandatangani',
+                'code' => '200'
+            );
+        }
+
+        // Send the response as JSON
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
 
 }

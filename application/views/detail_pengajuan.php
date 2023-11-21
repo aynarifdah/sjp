@@ -360,9 +360,20 @@
                      </div>
                    </div>
                  </div>
-               <?php } elseif ($this->session->userdata('instansi') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 1 || $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <!-- RUMAH SAKIT -->
+               <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
                  <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
-                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
+
+                 <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button>
+
+                <!-- DINKES -->
+               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
+                  <?php if($cektte){ ?>
+                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                  <?php }else{ ?>
+                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
+                  <?php } ?>
                <?php } ?>
                </div>
              </div>
@@ -1241,7 +1252,7 @@
        if (passphrase != 'Hantek1234.!') {
           $.ajax({
               type: 'POST',
-              url: '<?php echo site_url($controller . "inputStatusPassphrase"); ?>',
+              url: '<?php echo site_url($controller . "inputStatusPassphrase"); ?>/' + id_sjp,
               dataType: 'json',
               success: function(response) {
                   $('#response').html('<p class="btn btn-danger btn-sm mt-1">Error Status: ' + response.status_code + ' ' + response.deskripsi_status + '</p>');
@@ -1255,7 +1266,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp,  
+            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp + 1,  
             dataType: 'json',
             success: function(response) {
               if (response.status != 200) {
@@ -1265,11 +1276,30 @@
             error: function() {
                 alert('Tanda Tangan Elektronik berhasil');
 
-                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp;   
+                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp ;   
             }
         }); 
        }
      });
+
+      // Menangani klik pada tautan
+      $("#cetak_rs").click(function(event){
+        event.preventDefault(); // Mencegah tautan dari berpindah ke halaman lain
+        var id_sjp = $(this).data("id_sjp");
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= site_url($controller . 'cekPassphraseTTE'); ?>/' + id_sjp,  
+            dataType: 'json',
+            success: function(response) {
+              if (response.code != 200) {
+                alert(response.pesan);
+              }else{
+                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp; 
+              }
+            }
+        }); 
+      });
    </script>
 
 

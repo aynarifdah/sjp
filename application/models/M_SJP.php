@@ -1999,5 +1999,16 @@ class M_SJP extends CI_Model
     return $query;
   }
 
+  function cek_logTTE($id_sjp)
+  {
+    $this->db->select('*');
+    $this->db->from('log_tte');
+    $this->db->where('log_tte.id_sjp', $id_sjp);
+    $this->db->where('log_tte.pesan', 'Berhasil');
+
+    $query = $this->db->get()->row_array();
+    return $query;
+  }
+
 
 }
