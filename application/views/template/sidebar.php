@@ -17,8 +17,8 @@
         <li class="nav-item"><a href="<?php echo base_url('Kelurahan/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
         </li>
         <?php }else{ ?>
-        <li class=" nav-item"><a href="<?php echo base_url('Home/Dashboard'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
-        </li>
+        <!-- <li class=" nav-item"><a href="<?php echo base_url('Home/Dashboard'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
+        </li> -->
         <li class=" nav-item"><a href="<?php echo base_url('Home/pengajuan'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
         </li>
         <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span></a>
