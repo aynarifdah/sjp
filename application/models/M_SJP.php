@@ -69,6 +69,60 @@ class M_SJP extends CI_Model
     return $query;
   }
 
+  function getSinglePengajuan($id_sjp, $id_pengajuan){
+    $this->db->select('*');
+    $this->db->from('permohonan_pengajuan');
+    $this->db->join('sjp', 'sjp.id_pengajuan = permohonan_pengajuan.id_pengajuan');
+    $this->db->where_in('permohonan_pengajuan.id_pengajuan', $id_pengajuan, 'permohonan_pengajuan.id_sjp', $id_sjp);
+    // $this->db->where('id_sjp', $id_sjp);
+    // $this->db->group_by('permohonan_pengajuan.id_pengajuan');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+  function getSingleSjpRs($id_pengajuan) {
+      $this->db->select('*');
+      $this->db->from('sjp');
+      $this->db->join('permohonan_pengajuan', 'permohonan_pengajuan.id_pengajuan = sjp.id_pengajuan');
+      $this->db->where('permohonan_pengajuan.id_pengajuan', $id_pengajuan);
+
+      $query = $this->db->get()->result_array();
+      return $query;
+  }
+
+  function getSingleSjpRsNamaFile($id_pengajuan, $file) {
+      $this->db->select('*');
+      $this->db->from('sjp');
+      $this->db->join('permohonan_pengajuan', 'permohonan_pengajuan.id_pengajuan = sjp.id_pengajuan');
+      $this->db->where('permohonan_pengajuan.id_pengajuan', $id_pengajuan);
+      $this->db->where('sjp.namafile', $file);
+
+      $query = $this->db->get()->result_array();
+      return $query;
+  }
+
+  function getSingleSjpRsFileResume($id_pengajuan, $file) {
+      $this->db->select('*');
+      $this->db->from('sjp');
+      $this->db->join('permohonan_pengajuan', 'permohonan_pengajuan.id_pengajuan = sjp.id_pengajuan');
+      $this->db->where('permohonan_pengajuan.id_pengajuan', $id_pengajuan);
+      $this->db->where('sjp.file_resume', $file);
+
+      $query = $this->db->get()->result_array();
+      return $query;
+  }
+
+  function getSingleSjpRsOtherFiles($id_pengajuan, $file) {
+      $this->db->select('*');
+      $this->db->from('sjp');
+      $this->db->join('permohonan_pengajuan', 'permohonan_pengajuan.id_pengajuan = sjp.id_pengajuan');
+      $this->db->where('permohonan_pengajuan.id_pengajuan', $id_pengajuan);
+      $this->db->where('sjp.other_files', $file);
+
+      $query = $this->db->get()->result_array();
+      return $query;
+  }
+
   function select_disetujui_sjp()
   {
 
@@ -1640,10 +1694,10 @@ class M_SJP extends CI_Model
       $this->db->like('CONCAT(pp.nama_pemohon)', $cari);
     }
 
-    $this->db->where('id_status_pengajuan', 6);
+    // $this->db->where('id_status_pengajuan', 6);
     // $this->db->where('tanggal_tagihan', null);
-    $this->db->where('status_klaim', null);
-    // $this->db->where('status_edit', 0);
+    // $this->db->where('status_klaim', null);
+    // $this->db->where('status_edit', null);
     $query = $this->db->get()->result_array();
     return $query;
   }

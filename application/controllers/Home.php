@@ -1283,7 +1283,7 @@ class Home extends CI_Controller
             // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
-        die;
+        // die;
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -1589,22 +1589,40 @@ class Home extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
-    public function view_pdf($id_pengajuan, $id_persyaratan)
+    public function view_pdf($id_pengajuan, $id_persyaratan, $id_sjp)
     {
-        // $id_jenis_izin = 1;
-        // $id_pengajuan = 1;
-        // $id_persyaratan = 2;
 
         $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
-        // var_dump($data['getdokumenpersyaratan']);die;
         
         $level = $this->session->userdata('level');
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
+        $data['pengajuan_sjp'] = $this->M_SJP->getSinglePengajuan($id_sjp, $id_pengajuan);
+        // var_dump($data['pengajuan_sjp']);die;
         
         $path = "";
         $data['page'] = $this->load("View PDF", $path);
         $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_pdfRs($id_pengajuan, $file)
+    {
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+        
+        $data['pengajuan_sjp'] = $this->M_SJP->getSingleSjpRs($id_pengajuan);
+        $data['pengajuan_sjpNamaFile'] = $this->M_SJP->getSingleSjpRsNamaFile($id_pengajuan, $file);
+        $data['pengajuan_sjpFileResume'] = $this->M_SJP->getSingleSjpRsFileResume($id_pengajuan, $file);
+        $data['pengajuan_sjpOtherFiles'] = $this->M_SJP->getSingleSjpRsOtherFiles($id_pengajuan, $file);
+
+        // var_dump($data['pengajuan_sjp']);die;
+        // $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
+        
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdfRs', $data, true, false);
         $this->load->view('template/default_template', $data);
     }
 

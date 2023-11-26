@@ -449,13 +449,16 @@ class Rs extends CI_Controller
         // Tanggal Menyetujui
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join);
-        $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
+        if (!empty($data['datapermohonan']) && isset($data['datapermohonan'][0])) {
+            $id_puskesmas = $data['datapermohonan'][0]['id_puskesmas'];
+            // Your code that uses $id_puskesmas
+        }
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
-        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp); //$nik->nik
+        $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
         $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
         $data['id_sjp'] = $idsjp;
-        $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp, $id_puskesmas);
+        $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
@@ -466,19 +469,40 @@ class Rs extends CI_Controller
         // die;
     }
 
-    public function view_pdf($id_pengajuan, $id_persyaratan)
+        public function view_pdf($id_pengajuan, $id_persyaratan, $id_sjp)
     {
 
         $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
-        // var_dump($data['getdokumenpersyaratan']);die;
-
+        
         $level = $this->session->userdata('level');
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
-
+        $data['pengajuan_sjp'] = $this->M_SJP->getSinglePengajuan($id_sjp, $id_pengajuan);
+        // var_dump($data['pengajuan_sjp']);die;
+        
         $path = "";
         $data['page'] = $this->load("View PDF", $path);
         $data['content'] = $this->load->view('view_pdf', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function view_pdfRs($id_pengajuan, $file)
+    {
+        $level = $this->session->userdata('level');
+        $data['level'] = $level;
+        $data['controller'] = $this->instansi();
+        
+        $data['pengajuan_sjp'] = $this->M_SJP->getSingleSjpRs($id_pengajuan);
+        $data['pengajuan_sjpNamaFile'] = $this->M_SJP->getSingleSjpRsNamaFile($id_pengajuan, $file);
+        $data['pengajuan_sjpFileResume'] = $this->M_SJP->getSingleSjpRsFileResume($id_pengajuan, $file);
+        $data['pengajuan_sjpOtherFiles'] = $this->M_SJP->getSingleSjpRsOtherFiles($id_pengajuan, $file);
+
+        // var_dump($data['pengajuan_sjp']);die;
+        // $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
+        
+        $path = "";
+        $data['page'] = $this->load("View PDF", $path);
+        $data['content'] = $this->load->view('view_pdfRs', $data, true, false);
         $this->load->view('template/default_template', $data);
     }
 
