@@ -764,8 +764,12 @@
                                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
                                               </a>
                                                 </div>
-                                        <?php
-                                            endif;
+                                        <?php else : ?>
+                                          <figure class="col-lg-6 col-md-6 col-12">
+                                            <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
+                                              <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
+                                          </figure>
+                                        <?php endif;
                                         }
                                     }
                                 }
