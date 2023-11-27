@@ -621,7 +621,6 @@
                    </div>
                  </div>
                  <div class="tab-pane paneldetail" id="tabIcon6" aria-labelledby="baseIcon-tab6">
-
                    <section id="image-gallery" class="card">
                      <div class="card-content">
                        <div class="card-body  my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
@@ -635,22 +634,28 @@
                                 $extensions_other_files = pathinfo(base_url('uploads/dokumen/') . $val['other_files'], PATHINFO_EXTENSION);
                                 ?>
                                <?php if ($extensions_nama_file == "pdf") : ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
-                                   <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                   <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['namafile'] ?></p>
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                  <a class="pdfRs" id="namafile" data-file="namafile" data-idpengajuan="<?= $val['id_pengajuan'] ?>" data-attachment="<?= $val['namafile'] ?>" target="_blank">
+                                    <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                    <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['namafile'] ?></p>
+                                  </a>
                                  </div>
                                <?php endif; ?>
                                <?php if ($extensions_file_resume == "pdf") : ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                  <a class="pdfRs" id="file_resume" data-file="file_resume" data-idpengajuan="<?= $val['id_pengajuan'] ?>" data-attachment="<?= $val['file_resume'] ?>" target="_blank">
                                    <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
                                    <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['file_resume'] ?></p>
-                                 </div>
+                                  </a>
+                                  </div>
                                <?php endif; ?>
                                <?php if ($extensions_other_files == "pdf") : ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>" onclick="getNamePdf(this.id);">
+                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                  <a class="pdfRs" id="other_files" data-file="other_files" data-idpengajuan="<?= $val['id_pengajuan'] ?>" data-attachment="<?= $val['other_files'] ?>" target="_blank">
                                    <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
                                    <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $val['other_files'] ?></p>
-                                 </div>
+                                  </a>
+                                  </div>
                                <?php endif; ?>
                                <?php if ($extensions_nama_file !== "pdf") : ?>
                                  <figure class="col-lg-6 col-md-6 col-12" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
@@ -739,30 +744,26 @@
                          <div class="row">
 
                            <?php if (!empty($getdokumenpersyaratan)) {
-                              $i = 1;
-                              foreach ($getdokumenpersyaratan as $att) { ?>
-
-                               <?php $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
-                                $ext = $path_parts['extension'];
-                                if ($ext == "pdf") :
-                                ?>
-                                 <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
-                                   <a href="<?= base_url($controller) . 'view_pdf/' . $att['id_pengajuan'] . '/' . $att['id_persyaratan'] . '/' . $att['attachment'] ?> " target="_blank">
-                                     <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
-                                     <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
-                                   </a>
-                                 </div>
-                               <?php else : ?>
-                                 <figure class="col-lg-6 col-md-6 col-12">
-                                   <a class="example-image-link" href="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" data-lightbox="Dokumen Pesyaratan">
-                                     <img class="example-image" style="width: 80%; height: auto;" src="<?php echo base_url() ?>uploads/dokumen/<?php echo $att['attachment'] ?>" alt="" /></a>
-                                 </figure>
-                               <?php endif; ?>
-
-
-
-                           <?php }
+                                $i = 1;
+                                foreach ($getdokumenpersyaratan as $att) {
+                                    if (!empty($att['attachment'])) {
+                                        $path_parts = pathinfo(base_url('uploads/dokumen/') . $att['attachment']);
+                                        if (isset($path_parts['extension'])) {
+                                            $ext = $path_parts['extension'];
+                                            if ($ext == "pdf") : ?>
+                                                <div class="pdfButton col-lg-6 col-md-6 col-12" id="pdfButton-<?= $i++; ?>">
+                                              <a class="pdfPage" data-idpengajuan="<?= $att['id_pengajuan'] ?>" data-idpersyaratan="<?= $att['id_persyaratan'] ?>" data-attachment="<?= $att['attachment'] ?>" target="_blank">
+                                                  <img class="mx-auto d-block" style="width: 50%; height: auto;" src="<?php echo base_url() ?>assets/images/pdf.png" alt="" />
+                                                  <p class="mt-1 text-sm text-center" style="font-size: 12px;" id="name_file_pdf"><?= $att['attachment'] ?></p>
+                                              </a>
+                                                </div>
+                                        <?php
+                                            endif;
+                                        }
+                                    }
+                                }
                             } ?>
+
 
                          </div>
 
@@ -983,6 +984,52 @@
    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
    <script type="text/javascript">
+
+
+    $('.pdfPage').click(function() {
+        var idPengajuan = $(this).data('idpengajuan');
+        var idPersyaratan = $(this).data('idpersyaratan');
+        var attachment = $(this).data('attachment');
+
+        
+        var href = '<?= base_url($controller) . 'view_pdf/' ?>' + idPengajuan + '/' + idPersyaratan + '/' + attachment;
+        
+        window.location.href = href;
+    });
+
+    $('#file_resume').click(function() {
+      
+        var idPengajuan = $(this).data('idpengajuan');
+        var attachment = $(this).data('attachment');
+        var file = $(this).data('file');
+
+        var href = '<?= base_url($controller) . 'view_pdfRs/' ?>' + idPengajuan + '/' + attachment + '?file=' + file;
+        
+        window.location.href = href;
+    });
+    
+    $('#namafile').click(function() {
+      
+        var idPengajuan = $(this).data('idpengajuan');
+        var attachment = $(this).data('attachment');
+        var file = $(this).data('file');
+
+        var href = '<?= base_url($controller) . 'view_pdfRs/' ?>' + idPengajuan + '/' + attachment + '?file=' + file;
+        
+        window.location.href = href;
+    });
+
+    $('#other_files').click(function() {
+      
+        var idPengajuan = $(this).data('idpengajuan');
+        var attachment = $(this).data('attachment');
+        var file = $(this).data('file');
+
+        var href = '<?= base_url($controller) . 'view_pdfRs/' ?>' + idPengajuan + '/' + attachment + '?file=' + file;
+        
+        window.location.href = href;
+    });
+
      function logCetak() {
        $.ajax({
          url: '<?= base_url($controller); ?>logCetak',

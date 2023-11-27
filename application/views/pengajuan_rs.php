@@ -358,11 +358,6 @@
       }
     });
 
-
-
-
-
-
     $('#datatable').on('click', 'tr', function() {
       var data = dtable.row(this).data();
       var id_sjp = data.id_sjp;

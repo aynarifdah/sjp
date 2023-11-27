@@ -304,7 +304,7 @@
             if (data == '' || data == null) {
               return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
             } else {
-              return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey </button>'
+            return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey</button>'
             }
 
           },

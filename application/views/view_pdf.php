@@ -8,15 +8,13 @@
 <body>
     <div class="card">
         <div class="card-header">
+                <?php foreach ($pengajuan_sjp as $key) { ?>
+                    <a href="<?php echo base_url($controller); ?>/detail_pengajuan/<?= $key['id_sjp'] ?>/<?= $key['id_pengajuan'] ?>" data-action="collapse" class="btn btn-danger text-white" style="padding: 8px 10px;
+                    margin-bottom: 20px;">Kembali</a>
+                <?php } ?>
             <h4 class="card-title">Tampilan PDF </h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
             <div class="heading-elements">
-                <ul class="list-inline mb-0">
-                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                    <li><a data-action="close"><i class="ft-x"></i></a></li>
-                </ul>
             </div>
         </div>
         <div class="card-content collapse show">
@@ -48,22 +46,16 @@
             const clickedElement = event.target;
             const flipbookElement = document.getElementById('pdf_collections');
 
-            // Periksa apakah elemen yang diklik berada dalam elemen flipbook
             if (flipbookElement.contains(clickedElement)) {
 
-                // Periksa apakah elemen yang diklik adalah elemen <a> atau elemen turunannya
                 let linkElement = clickedElement.closest('a');
 
-                // Periksa apakah elemen yang diklik memiliki class "ti-download" dan href menuju file PDF
                 if (linkElement && linkElement.classList.contains('ti-download') && linkElement.getAttribute('href')
                     .endsWith('.pdf')) {
-                    // Membatalkan aksi default dari tautan untuk mencegah navigasi ke halaman baru
                     event.preventDefault();
 
-                    // Ambil URL file PDF dari atribut 'href'
                     const pdfURL = linkElement.getAttribute('href');
 
-                    // Fungsi untuk mengunduh file PDF
                     function downloadFile(pdfURL) {
                         return fetch(pdfURL)
                             .then(response => {
