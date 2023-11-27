@@ -1659,7 +1659,7 @@ class M_SJP extends CI_Model
   // return $query;
   // }
 
-  public function view_permohonanklaim_rs($id_sjp,$mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null )
+  public function view_permohonanklaim_rs($mulai = Null, $akhir = Null, $rs = Null, $status = Null, $cari = Null,  $id_instansi = null, $id_join = null, $id_sjp)
   {
     $this->db->select('pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
     $this->db->from('permohonan_pengajuan pp');
