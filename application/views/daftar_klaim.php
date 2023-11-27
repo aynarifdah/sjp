@@ -315,7 +315,7 @@
 
       ],
       ajax: {
-        url: ' <?php echo base_url($controller . "  "); ?>',
+        url: ' <?php echo base_url($controller . "getdatapengajuanklaim"); ?>',
         method: 'POST',
         "data": function(d) {
           d.status_klaim = '<?php echo $status_klaim ?>';
