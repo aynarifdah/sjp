@@ -147,9 +147,9 @@
                       <div class="col-lg-3">
                           <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
                       </div>
-                      <div class="col-lg-3">
+                      <!-- <div class="col-lg-3">
                           <button id="checkNikBtn" class="btn btn-primary">Periksa NIK</button>
-                      </div>
+                      </div> -->
                   </div>
 
                 <div class="form-group row">
