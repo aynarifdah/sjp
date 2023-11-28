@@ -1270,7 +1270,7 @@ class Home extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $id_join = Null, $id_instansi = Null, $mulai = Null);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1283,7 +1283,7 @@ class Home extends CI_Controller
             // 'query' => $this->db->last_query(),
         ];
         echo json_encode($result);
-        // die;
+
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
