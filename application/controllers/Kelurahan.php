@@ -1187,9 +1187,9 @@ class Kelurahan extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan=NULL, $rs=NULL, $status=NULL, $cari=NULL, $mulai=NULL);
+            $datasjp    = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
         } else {
-            $datasjp = $this->M_SJP->select_pengajuan_sjp_kelurahan($id_status_pengajuan);
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_kelurahan();
         }
         // $total = $this->total();
 
@@ -1554,7 +1554,7 @@ class Kelurahan extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan($id_jenissjp = null, $kelurahan = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = null);
+            $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, $kelurahan, $rs, $status, $cari, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, Null, Null, 6);
         }
