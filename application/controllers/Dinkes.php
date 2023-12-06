@@ -1287,6 +1287,7 @@ class Dinkes extends CI_Controller
 
     public function CetakTest($id_sjp, $status = null)
     {
+        $id_join = $this->session->userdata("id_user");
         $sjp = $this->M_SJP->detail_cetak($id_sjp);
         // var_dump($sjp);
         // die;
@@ -1373,7 +1374,8 @@ class Dinkes extends CI_Controller
                 'pesan'          => 'Gagal',
 	            'status_code' => $responseData->status,
 	            'deskripsi_status' => $responseData->error,
-                'id_sjp' => $id_sjp
+                'id_sjp' => $id_sjp,
+                'id_user' => $id_join
 	        );
 
             if ($responseData != null) {
@@ -1393,27 +1395,32 @@ class Dinkes extends CI_Controller
             
             unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
+            $lok = './pdfTTE/cetaksjpSigned_'.$time.'.pdf';
 
         	if($status != 1){
                 $response = array(
                     'pesan'          => 'Berhasil',
                     'status_code' => 200,
                     'deskripsi_status' => 'OK (Sucessful)',
-                    'id_sjp' => $id_sjp
+                    'id_sjp' => $id_sjp,
+                    'id_user' => $id_join,
+                    'url_file' => $lok
                 );
 
                 $this->db->insert('log_tte', $response);
+            
+                // var_dump($response);
+                // die();
+                // Set the filename for the download
+                $filename = 'cetakSJP_signed.pdf';
+
+                // Send the appropriate headers
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline; filename="' . $filename . '"');
+                
+                file_put_contents($lok, $resp);
+                echo $resp;
             }
-            // var_dump($response);
-            // die();
-            // Set the filename for the download
-            $filename = 'cetakSJP_signed.pdf';
-
-            // Send the appropriate headers
-            header('Content-Type: application/pdf');
-            header('Content-Disposition: inline; filename="' . $filename . '"');
-            echo $resp;
-
         }
         
     }
@@ -2250,5 +2257,6 @@ class Dinkes extends CI_Controller
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
     }
+
 
 }

@@ -457,6 +457,7 @@ class Rs extends CI_Controller
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
         $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
         $data['datapasien'] = $this->M_SJP->datapasien($nik->nik);
+        $data['cektte'] = $this->M_SJP->cek_logTTE($idsjp);
         $data['id_sjp'] = $idsjp;
         $data['kethasilsurvey'] = $this->M_SJP->kethasilsurvey($idsjp);
         $data['getdokumenpersyaratan'] = $this->M_SJP->getdokumenpersyaratan($id_pengajuan, $id_jenis_izin);

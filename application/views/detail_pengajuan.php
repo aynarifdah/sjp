@@ -360,17 +360,11 @@
                      </div>
                    </div>
                  </div>
-                 <!-- RUMAH SAKIT -->
-                  <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <!-- RUMAH SAKIT Dan Dinkes-->
+                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 || $this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
                     <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
 
-                    <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button>
-
-                  <!-- DINKES -->
-                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
-
-                    <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP RS</i></button>
 
                   <!-- Yankesru -->
                   <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
@@ -1325,7 +1319,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp + 1,  
+            url: '<?= site_url($controller . 'CetakTest'); ?>/' + id_sjp + '/' + 1,  
             dataType: 'json',
             success: function(response) {
               if (response.status != 200) {
@@ -1354,7 +1348,7 @@
               if (response.code != 200) {
                 alert(response.pesan);
               }else{
-                window.location.href = "<?= base_url($controller . 'CetakTest'); ?>/" + id_sjp; 
+                window.location.href = '<?= base_url($cektte["url_file"]) ?>';
               }
             }
         }); 
