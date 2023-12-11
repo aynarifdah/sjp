@@ -630,13 +630,14 @@ class Dinkes extends CI_Controller
     public function getalldatapermohonan()
     {
         if ($this->input->post() !== Null) {
+            $uhc    = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $uhc);
         } else {
             $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
         }
@@ -668,10 +669,11 @@ class Dinkes extends CI_Controller
         return 0;
     }
 
-    public function pengajuanall()
+    public function pengajuanall($uhc = null)
     {
         $level = $this->session->userdata('level');
         $datax = array(
+            'uhc'               => $uhc,
             'level'             => $level,
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
@@ -688,11 +690,12 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
-    public function pengajuan_sjp()
+    public function pengajuan_sjp($uhc = null)
     {
         // $id_status_pengajuan = 3;
         $path = "";
         $datax = array(
+            'uhc'           => $uhc,
             'datapermohonan' => $this->M_SJP->select_pengajuan_sjp(),
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
@@ -709,13 +712,14 @@ class Dinkes extends CI_Controller
     public function getpersetujuansjpdinas()
     {
         if ($this->input->post() !== Null) {
+            $uhc  = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $uhc);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas();
         }
@@ -2117,11 +2121,12 @@ class Dinkes extends CI_Controller
         redirect('Dinkes/pengajuan_klaim','refresh');
     }
 
-    public function ditolak_sjp()
+    public function ditolak_sjp($uhc)
     {
         // $id_status_pengajuan = 3;
         $path = "";
         $datax = array(
+            'uhc'       => $uhc,
             'datapermohonan' => $this->M_SJP->select_ditolak_sjp(),
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
@@ -2138,13 +2143,14 @@ class Dinkes extends CI_Controller
     public function getditolaksjpdinas()
     {
         if ($this->input->post() !== Null) {
+            $uhc    = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $uhc);
         } else {
             $data       = $this->M_SJP->getditolaksjpdinas();
         }

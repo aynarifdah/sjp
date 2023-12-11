@@ -351,6 +351,7 @@
         url: ' <?php echo base_url("Dinkes/getpersetujuansjpdinas"); ?>',
         method: 'POST',
         "data": function(d) {
+          d.uhc = '<?= $uhc;?>';
           d.puskesmas = $("#puskesmas").val();
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
