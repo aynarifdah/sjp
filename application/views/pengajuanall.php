@@ -381,6 +381,7 @@
         url: ' <?php echo base_url("Dinkes/getalldatapermohonan"); ?>',
         method: 'POST',
         "data": function(d) {
+          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
           d.puskesmas = $("#puskesmas").val();
