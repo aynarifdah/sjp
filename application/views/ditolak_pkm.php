@@ -27,12 +27,13 @@
   </style>
 
   <div class="card">
+    <?= $this->session->flashdata('pesan'); ?>
+    <?php unset($_SESSION['pesan']); ?>
     <div class="card-head">
       <div class="card-header">
-        <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Ditolak <?php echo ($uhc == 4) ? 'UHC' : 'SJP'; ?> Baru</h4>
+            <h4 class="card-title">Data Pengajuan <?php echo ($uhc == 4) ? 'UHC' : 'SJP'; ?> Ditolak</h4>
           </div>
         </div>
         <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
@@ -41,93 +42,78 @@
     <div class="card-content">
       <div class="card-body">
         <div class="table-responsive">
-          <form action="<?= base_url(''); ?>Exportexcel/ditolak_sjp" method="POST">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="element mb-1 p-r-15">
 
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="element mb-1 p-r-15">
+                <a href="<?php echo base_url('Home/permohonan_sjp') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Tambah Pengajuan</button></a>
 
-                  <button id="btnSearchDrop2" type="submit" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button>
+                <a href="<?php echo base_url('Exportexcel/pkm_pengajuan_baru') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-plus"></i>Export Excel</button></a>
 
+              </div>
+
+            </div>
+          </div>
+          <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
+
+          </div>
+          <div class="row" style="padding-left: 15px; padding-right: 15px;">
+            <!--   <?php if ($this->session->userdata('level') == 1) : ?>
+            <div class="col-lg-3 filter">
+              <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
+                <option value="" selected>Semua Puskesmas</option>
+                <?php if (!empty($puskesmas)) : ?>
+                  <?php foreach ($puskesmas as $puskes) : ?>
+                    <option value="<?= $puskes['id_puskesmas'] ?>" ><?= $puskes['nama_puskesmas'] ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+          <?php endif ?> -->
+            <div class="col-lg-3 filter">
+              <select name="rs" id="rs" class="form-control select2">
+                <option value="" selected>Semua Rumah Sakit</option>
+                <?php if (!empty($rs)) : ?>
+                  <?php foreach ($rs as $rsu) : ?>
+                    <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+            <div class="col-lg-3 filter">
+              <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
+            </div>
+            <div class="col-lg-3 filter">
+              <div class="position-relative has-icon-left">
+                <input type="text" class="form-control" id="cari" placeholder="Cari NIK, Nama Pasien">
+                <div class="form-control-position">
+                  <i class="ft-search"></i>
                 </div>
               </div>
             </div>
-            <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
 
-            </div>
-            <div class="row" style="padding-left: 15px; padding-right: 15px;">
-              <div class="col-lg-4 filter">
-                <label>Puskesmas</label>
-
-                <select name="puskesmas" id="puskesmas" class="form-control" style="width: 100%">
-                  <option value="" selected>Semua Puskesmas</option>
-                  <?php if (!empty($puskesmas)) : ?>
-                    <?php foreach ($puskesmas as $puskes) : ?>
-                      <option value="<?= $puskes['id_puskesmas'] ?>"><?= $puskes['nama_puskesmas'] ?></option>
-                    <?php endforeach ?>
-                  <?php endif ?>
-                </select>
-              </div>
-              <div class="col-lg-4 filter">
-                <label>Rumah Sakit</label>
-
-                <select name="rs" id="rs" class="select2 form-control">
-                  <option value="" selected>Semua RS</option>
-                  <?php if (!empty($rs)) : ?>
-                    <?php foreach ($rs as $rsu) : ?>
-                      <option value="<?= $rsu['id_rumah_sakit'] ?>"><?= $rsu['nama_rumah_sakit'] ?></option>
-                    <?php endforeach ?>
-                  <?php endif ?>
-                </select>
-              </div>
-              
-              <div class="col-lg-4 filter">
-                <label>Cari</label>
-
-                <div class="position-relative has-icon-left">
-                  <input type="text" class="form-control" id="cari" name="search" placeholder="Cari NIK, Nama Pasien">
-                  <div class="form-control-position">
-                    <i class="ft-search"></i>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-3 filter mt-1">
-                <label>Tanggal Mulai</label>
-                <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
-              </div>
-              <div class="col-lg-3 filter mt-1">
-                <label>Tanggal Akhir</label>
-                <input type="date" name="akhir" id="akhir" class="form-control" placeholder="Tanggal Mulai Referensi">
-              </div>
-            </div>
-
-          </form>
-          <section id="configuration" style="padding: 10px;">
-            <div class="table-responsive">
-              <table id="datatable" class="table table-bordered" style="width: 100%;">
-                <thead>
-                  <tr>
-                    <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                    <!-- <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th> -->
-                    <th style="width: 30px; color: #6B6F82!important;">No</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
-                    <th style="width: 30px;">Tanggal<br> Pengajuan</th>
-                    <!-- <th>Lama Pengajuan</th> -->
-                    <th>Jenis Rawat</th>
-                    <th>Jenis Jaminan</th>
-                    <th style="width: 30px;">Rumah <br>Sakit</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
-
-                    <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-          </section>
+          </div>
+          <section id="configuration">
+            <table id="datatable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
+                  <th style="width: 3px;">No</th>
+                  <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
+                  <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
+                  <th style="width: 30px;">Tanggal<br> Pengajuan</th>
+                  <!-- <th>Lama Pengajuan</th> -->
+                  <!-- <th>Puskesmas</th> -->
+                  <th style="width: 30px;">Rumah <br>Sakit</th>
+                  <!-- <th>Diagnosa</th> -->
+                  <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
+                  <th style="width: 30px;">Survey</th>
+                  <th style="width: 30px;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
         </div>
       </div>
     </div>
@@ -194,17 +180,27 @@
   <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
-
-  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+
+  <!-- tambahan -->
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/dataTables.fixedHeader.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/dataTables.responsive.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/vendors/js/tables/responsive.bootstrap.min.js"></script>
+  <script src="<?= base_url() ?>app-assets/js/scripts/tables/datatables/date-eu.js" type="text/javascript"></script>
 
   <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/fixedHeader.bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/responsive.bootstrap.min.css">
+  <!-- tambahan -->
 
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css"> -->
-  <!-- <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script> -->
-  <!-- <script type="text/javascript">
+  <!-- <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+  <script src="http://cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script> -->
+  <!-- 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.5/css/fixedHeader.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+
+<script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable( {
             responsive: true
@@ -238,6 +234,9 @@
             render: function(data, type, row, meta) {
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
+        },{
+          data: "nama_pemohon",
+          className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {
           data: "nama_pasien",
@@ -264,29 +263,8 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "jenis_rawat",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "nama_jenis",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "kd_kecamatan",
-          className: "dt-head-center dt-body-right bodyclick",
-          "render": function(data, type, row, meta) {
-            if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' || 
-              data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
-              domisili = '<p>Depok</p>'
-            }else{
-              domisili = '<p>Non Depok</p>'
-            }
-            return domisili;
-          }
         },
         {
           data: "id_status_pengajuan",
@@ -325,28 +303,39 @@
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
         },
         {
+          data: "tanggal_survey",
+          "render": function(data, type, row, meta) {
+            if (data == '' || data == null) {
+              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+            } else {
+              return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
+            }
+
+          },
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "id_sjp",
           "render": function(data, type, row, meta) {
-            var pengajuan = row.id_pengajuan;
-            var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_disetujui_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            
-            return hapus;
+            return `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+
+
           },
           className: "dt-head-center dt-body-right"
-        }
+        },
       ],
       ajax: {
-        url: ' <?php echo base_url("Dinkes/getditolaksjpdinas"); ?>',
+        url: ' <?php echo base_url("Home/getditolakdatauhc"); ?>',
         method: 'POST',
         "data": function(d) {
-          d.uhc = '<?= $uhc;?>';
-          d.puskesmas = $("#puskesmas").val();
+
+          d.puskesmas = <?= $this->session->userdata('id_join') ?>;
+
+          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
-          d.akhir = $("#akhir").val();
           d.rs = $("#rs").val();
-          d.status = 7;
+          d.status = 2;
           d.cari = $("#cari").val();
-          // console.log(d);
         }
       },
       lengthMenu: [
@@ -360,6 +349,8 @@
     dtable
       .order([2, 'desc'])
       .draw();
+
+
 
     $(".filter").on('change', function() {
       dtable.ajax.reload();
@@ -381,7 +372,9 @@
       var data = dtable.row(this).data();
       var id_sjp = data.id_sjp;
       var id_pengajuan = data.id_pengajuan;
-      window.location.href = "<?php echo base_url('Dinkes/detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
+      //console.log(data.id);
+      //console.log("<?php echo base_url('Html/detail_harga/'); ?>" + komoditi);
+      window.location.href = "<?php echo base_url($controller . 'detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
     })
     $(document).ready(function() {
       $('#advancedfilterform').hide();
@@ -485,8 +478,6 @@
       }
     });
   </script>
-
-  <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 </body>
 

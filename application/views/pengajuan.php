@@ -333,7 +333,7 @@
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
 
-
+          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();

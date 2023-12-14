@@ -2116,7 +2116,7 @@ class Dinkes extends CI_Controller
         redirect('Dinkes/pengajuan_klaim','refresh');
     }
 
-    public function ditolak_sjp($uhc)
+    public function ditolak_sjp($uhc = null)
     {
         // $id_status_pengajuan = 3;
         $path = "";

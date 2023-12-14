@@ -1240,9 +1240,10 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function pengajuan()
+    public function pengajuan($uhc = null)
     {
         $data = array(
+            'uhc'               => $uhc,
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
@@ -1265,12 +1266,13 @@ class Home extends CI_Controller
         $id_jenissjp = 3;
 
         if ($this->input->post() !== Null) {
+            $uhc  = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai, $uhc);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1296,10 +1298,11 @@ class Home extends CI_Controller
         redirect('Home/pengajuan');
     }
 
-    public function permohonan_baru()
+    public function permohonan_baru($uhc = null)
     {
         $path = "";
         $data = array(
+            'uhc'               => $uhc,
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
@@ -1316,12 +1319,13 @@ class Home extends CI_Controller
         $id_instansi = $this->input->post("id_instansi");
         $id_join     = $this->input->post("id_join");
         if ($this->input->post() !== Null) {
+            $uhc  = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus(2, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai, $uhc);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(2, Null, Null, 2);
         }
@@ -3303,6 +3307,93 @@ class Home extends CI_Controller
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
     }
+
+    public function permohonan_diajukan($uhc = null)
+    {
+        $path = "";
+        $data = array(
+            'uhc'               => $uhc,
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
+            'controller'        => $this->instansi()
+        );
+        $data['page'] = $this->load("UHC Diajukan", $path);
+        //$d['pengajuan'] = $this->M_SJP->select_all_new();
+        $data['content'] = $this->load->view('diajukan_pkm', $data, true);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getdiajukandatauhc()
+    {
+        $id_instansi = $this->input->post("id_instansi");
+        $id_join     = $this->input->post("id_join");
+        if ($this->input->post() !== Null) {
+            $uhc  = $this->input->post("uhc");
+            $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
+            $rs         = $this->input->post("rs");
+            $status     = $this->input->post("status");
+            $cari       = $this->input->post("cari");
+            $data       = $this->M_SJP->view_permohonansjp_pus(4, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai, $uhc);
+        } else {
+            $data       = $this->M_SJP->view_permohonansjp_pus(4, Null, Null, 2);
+        }
+
+        // $datapus = $this->M_SJP->select_all_new($id_puskesmas, $id_jenissjp);
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
+    public function ditolak_uhc($uhc = null)
+    {
+        $path = "";
+        $data = array(
+            'uhc'               => $uhc,
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
+            'controller'        => $this->instansi()
+        );
+        $data['page'] = $this->load("UHC Diajukan", $path);
+        //$d['pengajuan'] = $this->M_SJP->select_all_new();
+        $data['content'] = $this->load->view('ditolak_pkm', $data, true);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getditolakdatauhc()
+    {
+        $id_instansi = $this->input->post("id_instansi");
+        $id_join     = $this->input->post("id_join");
+        if ($this->input->post() !== Null) {
+            $uhc  = $this->input->post("uhc");
+            $puskesmas  = $this->input->post("puskesmas");
+            $mulai  = $this->input->post("mulai");
+            $rs         = $this->input->post("rs");
+            $status     = $this->input->post("status");
+            $cari       = $this->input->post("cari");
+            $data       = $this->M_SJP->view_permohonansjp_pus(7, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai, $uhc);
+        } else {
+            $data       = $this->M_SJP->view_permohonansjp_pus(7, Null, Null, 2);
+        }
+
+        // $datapus = $this->M_SJP->select_all_new($id_puskesmas, $id_jenissjp);
+        $result = [
+            'data' => $data,
+            'draw' => '',
+            'recordsFiltered' => '',
+            'recordsTotal' => '',
+            'query' => $this->db->last_query(),
+        ];
+        echo json_encode($result);
+    }
+
 
 
 }
