@@ -32,32 +32,35 @@ class Rs extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Rs/pengajuan_rs');
-        } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-                'puskesmas'  => $this->M_data->getPuskesmas(),
-            );
+        $jam_pengajuan = $this->M_data->getJamPengajuan();
+        foreach ($jam_pengajuan as $key) {
+            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_buka"])) . ' - ' . date('H:i', strtotime($key["waktu_tutup"])) . ' WIB)!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                redirect('Rs/pengajuan_rs');
+            } else {
+                $data = array(
+                    'topik'      => $this->M_SJP->diagnosa(),
+                    'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+                    'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                    'rumahsakit' => $this->M_SJP->rumahsakit(),
+                    'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                    'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                    'puskesmas'  => $this->M_data->getPuskesmas(),
+                );
 
-            // var_dump($data['rumahsakit']);
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien_rs', $data, true)
-            );
+                // var_dump($data['rumahsakit']);
+                $path = "";
+                $data = array(
+                    "page" => $this->load("Input Pasien", $path),
+                    "content" => $this->load->view('input_pasien_rs', $data, true)
+                );
 
-            $this->load->view('template/default_template', $data);
+                $this->load->view('template/default_template', $data);
+            }
         }
     }
     public function hapussjp($id_sjp)
