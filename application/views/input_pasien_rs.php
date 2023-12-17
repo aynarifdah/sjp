@@ -27,7 +27,7 @@
                     <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pemohon" id="namapemohon" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required>
+                    <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control">
                       <option value="">Pilih Jenis Kelamin</option>
                       <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
@@ -50,7 +50,7 @@
                   <label class="col-lg-3 label-control" for="namalengkap">Status Hubungan Dengan Pasien*</label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="status_hubungan" id="status_hubungan" class="form-control" required>
+                    <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
                       <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
@@ -212,7 +212,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Sakit</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" required style="width: 100%">
+                    <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" style="width: 100%">
                       <option value="">Pilih Rumah Sakit</option>
 
                       <?php if (!empty($rumahsakit)) {
@@ -316,8 +316,13 @@
                     <div class="form-group row" id="modalwal">
                       <label class="col-lg-3 label-control" for="modal"><?= $key['nama_persyaratan'] ?></label>
                       <div class="col-lg-9">
-                        <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
-                        <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;">
+                        <?php if ($key["id_persyaratan"] == 2 || $key["id_persyaratan"] == 5 || $key["id_persyaratan"] == 4) { ?>
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;" required>
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" required value="">
+                        <?php } else { ?>
+                          <input type="hidden" value="<?= $key['id_persyaratan'] ?>" class="form-control" name="nama_persyaratan[]" style="height: 40px;">
+                          <input type="file" id="dokumen" class="form-control" name="dokumen[]" style="height: 40px;" value="">
+                        <?php } ?>
                       </div>
                     </div>
 
