@@ -229,6 +229,21 @@
                    <?php endif ?>
                  <?php endforeach; ?>
 
+                 <!-- Tombol -->
+                 <?php foreach ($riwayatpengajuan as $rp) : ?>
+                   <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
+                     <?php if ($rp['id_status_pengajuan'] == 4 || $rp['id_status_pengajuan'] == 2 && $key['nama_jenis'] == 'UHC') : ?>
+                       <div class="float-right mt-2 ml-1">
+                         <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
+                           <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Pilih</option>
+                           <option value="4" <?= ($rp['status_pengajuan'] == 'Diajukan') ? 'selected' : '' ?>>Diajukan</option>
+                           <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
+                         </select>
+                       </div>
+                     <?php endif ?>
+                   <?php endif ?>
+                 <?php endforeach; ?>
+
                  <div class="float-right mt-2 ml-1">
                    <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
                      <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
@@ -282,7 +297,7 @@
                    <!-- </div> -->
 
                    <!-- <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4) { ?>
+                   <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4 && $key['nama_jenis'] != 'UHC') { ?>
                      <button type="button" class="btn btn-dark btn-sm float-right proses_sjp ml-1" data-toggle="modal" data-target="#default"> Proses SJP</button>
                  </div>
                  <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -324,7 +339,7 @@
                      </div>
                    </div>
                  </div>
-               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5) { ?>
+               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5 && $key['nama_jenis'] != 'UHC') { ?>
                  <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
 
                  <div class="modal fade text-left" id="setujuipengajuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
