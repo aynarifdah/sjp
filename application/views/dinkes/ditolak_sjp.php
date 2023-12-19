@@ -93,6 +93,20 @@
               </div>
 
               <div class="col-lg-3 filter mt-1">
+                <label>Jenis Jaminan</label>
+
+                <select name="jaminan" id="jaminan" class="form-control" style="width: 100%">
+                  <option value="" selected>Semua Jaminan</option>
+                  <?php if (!empty($jenisjaminan)) : ?>
+                    <?php foreach ($jenisjaminan as $j) : ?>
+                      <option value="<?= $j['id_jenissjp'] ?>"><?= $j['nama_jenis'] ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
+
+
+              <div class="col-lg-3 filter mt-1">
                 <label>Tanggal Mulai</label>
                 <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
               </div>
@@ -340,6 +354,7 @@
         method: 'POST',
         "data": function(d) {
           d.puskesmas = $("#puskesmas").val();
+          d.jaminan = $("#jaminan").val();
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
           d.rs = $("#rs").val();

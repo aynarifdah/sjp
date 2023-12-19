@@ -1374,7 +1374,7 @@ class M_SJP extends CI_Model
 
 
 
-  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null)
+  public function getpersetujuansjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null, $jaminan = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');
@@ -1388,6 +1388,9 @@ class M_SJP extends CI_Model
     
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
+    }
+    if (!empty($jaminan)) {
+      $this->db->where('sjp.jenis_sjp =', $jaminan);
     }
     if (!empty($mulai)) {
       $this->db->where('pp.tanggal_pengajuan >=', $mulai);
@@ -1937,7 +1940,7 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null)
+  public function getditolaksjpdinas($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null, $jaminan = Null)
   {
     $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
     $this->db->from('sjp');
@@ -1950,6 +1953,9 @@ class M_SJP extends CI_Model
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
       $this->db->where('ps.id_puskesmas =', $puskesmas);
+    }
+    if (!empty($jaminan)) {
+      $this->db->where('sjp.jenis_sjp =', $jaminan);
     }
     if (!empty($mulai)) {
       $this->db->where('pp.tanggal_pengajuan >=', $mulai);

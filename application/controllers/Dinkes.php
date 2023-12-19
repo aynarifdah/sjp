@@ -699,6 +699,7 @@ class Dinkes extends CI_Controller
             'datapermohonan' => $this->M_SJP->select_pengajuan_sjp(),
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
         );
         $data = array(
@@ -713,12 +714,13 @@ class Dinkes extends CI_Controller
     {
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $jaminan  = $this->input->post("jaminan");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas();
         }
@@ -738,6 +740,7 @@ class Dinkes extends CI_Controller
         $path = "";
         $datax = array(
             'datapermohonan' => $this->M_SJP->select_disetujui_sjp(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
@@ -754,12 +757,13 @@ class Dinkes extends CI_Controller
     {
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $jaminan  = $this->input->post("jaminan");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas();
         }
@@ -2123,6 +2127,7 @@ class Dinkes extends CI_Controller
             'datapermohonan' => $this->M_SJP->select_ditolak_sjp(),
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
         );
         $data = array(
@@ -2137,12 +2142,13 @@ class Dinkes extends CI_Controller
     {
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $jaminan  = $this->input->post("jaminan");
             $mulai  = $this->input->post("mulai");
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir);
+            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
             $data       = $this->M_SJP->getditolaksjpdinas();
         }
