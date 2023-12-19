@@ -16,7 +16,7 @@
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/ditolak_sjp'); ?>"><i class="ft-x-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">SJP Ditolak</span></a>
       </li>
 
-      <li class=" nav-item"><a href="#"><i class="ft-file"></i><span class="menu-title" data-i18n="nav.page_headers.main">Pengajuan UHC</span></a>
+      <!-- <li class=" nav-item"><a href="#"><i class="ft-file"></i><span class="menu-title" data-i18n="nav.page_headers.main">Pengajuan UHC</span></a>
         <ul class="menu-content">
           <li><a href="<?php echo base_url('Dinkes/pengajuanall/4'); ?>" class="menu-item">Semua UHC</a>
           <li><a href="<?php echo base_url('Dinkes/pengajuan_sjp/4'); ?>" class="menu-item">Pengajuan UHC</a>
@@ -25,7 +25,7 @@
           </li>
         </ul>
       </li>
-
+ -->
 
       <li class=" nav-item"><a href="#"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.page_headers.main">Proses Klaim</span></a>
         <ul class="menu-content">

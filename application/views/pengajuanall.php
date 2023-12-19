@@ -104,6 +104,18 @@
                   </div>
                 </div>
               </div>
+              <div class="col-lg-3 filter mt-1">
+                <label>Jenis Jaminan</label>
+
+                <select name="jaminan" id="jaminan" class="form-control" style="width: 100%">
+                  <option value="" selected>Semua Jaminan</option>
+                  <?php if (!empty($jenisjaminan)) : ?>
+                    <?php foreach ($jenisjaminan as $j) : ?>
+                      <option value="<?= $j['id_jenissjp'] ?>"><?= $j['nama_jenis'] ?></option>
+                    <?php endforeach ?>
+                  <?php endif ?>
+                </select>
+              </div>
 
               <div class="col-lg-3 filter mt-1">
                 <label>Tanggal Mulai</label>
@@ -135,6 +147,7 @@
                     <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
+                    <th style="width: 30px;">Jenis<br> Jaminan</th>
                     <!-- <th>Lama Pengajuan</th> -->
                     <!-- <th>Puskesmas</th> -->
                     <th style="width: 30px;">Rumah <br>Sakit</th>
@@ -309,6 +322,10 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+          data: "nama_jenis",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -381,10 +398,10 @@
         url: ' <?php echo base_url("Dinkes/getalldatapermohonan"); ?>',
         method: 'POST',
         "data": function(d) {
-          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
           d.puskesmas = $("#puskesmas").val();
+          d.jaminan = $("#jaminan").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();
           d.cari = $("#cari").val();

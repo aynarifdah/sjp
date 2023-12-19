@@ -32,7 +32,7 @@
         <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Ditolak <?php echo ($uhc == 4) ? 'UHC' : 'SJP'; ?> Baru</h4>
+            <h4 class="card-title">Data Ditolak SJP Baru</h4>
           </div>
         </div>
         <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
@@ -339,7 +339,6 @@
         url: ' <?php echo base_url("Dinkes/getditolaksjpdinas"); ?>',
         method: 'POST',
         "data": function(d) {
-          d.uhc = '<?= $uhc;?>';
           d.puskesmas = $("#puskesmas").val();
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
