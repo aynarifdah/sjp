@@ -33,7 +33,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Pengajuan <?php echo ($uhc == 4) ? 'UHC' : 'SJP'; ?> Diajukan</h4>
+            <h4 class="card-title">Data Pengajuan SJP Diajukan</h4>
           </div>
         </div>
         <!--  <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a> -->
@@ -102,13 +102,14 @@
                   <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
                   <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                   <th style="width: 30px;">Tanggal<br> Pengajuan</th>
+                  <th style="width: 30px;">Jenis<br> Jaminan</th>
                   <!-- <th>Lama Pengajuan</th> -->
                   <!-- <th>Puskesmas</th> -->
                   <th style="width: 30px;">Rumah <br>Sakit</th>
                   <!-- <th>Diagnosa</th> -->
                   <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
                   <th style="width: 30px;">Survey</th>
-                  <th style="width: 30px;">Aksi</th>
+                  <!-- <th style="width: 30px;">Aksi</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -263,6 +264,10 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+          data: "nama_jenis",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -305,36 +310,39 @@
         {
           data: "tanggal_survey",
           "render": function(data, type, row, meta) {
-            if (data == '' || data == null) {
-              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
-            } else {
-              return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
+            var jaminan = row.nama_jenis;
+            if(jaminan != 'UHC'){
+              if (data == '' || data == null) {
+                return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+              } else {
+                return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey</button>'
+              }
+            }else{
+              return '<button class="btn btn-primary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Tidak Melalui Survey</button>'
             }
 
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            return `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
+        // {
+        //   data: "id_sjp",
+        //   "render": function(data, type, row, meta) {
+        //     return `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + `" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');"><i class="ft-trash"></i></a>`
 
 
-          },
-          className: "dt-head-center dt-body-right"
-        },
+        //   },
+        //   className: "dt-head-center dt-body-right"
+        // },
       ],
       ajax: {
-        url: ' <?php echo base_url("Home/getdiajukandatauhc"); ?>',
+        url: ' <?php echo base_url("Home/getdiajukandata"); ?>',
         method: 'POST',
         "data": function(d) {
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
-
-          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
-          d.status = 2;
+          d.status = 4;
           d.cari = $("#cari").val();
         }
       },

@@ -25,11 +25,12 @@
           <ul class="menu-content">
 
             <li><a class="menu-item" href="<?php echo base_url('Home/permohonan_baru'); ?>" data-i18n="nav.templates.horz.main">Pengajuan Baru</a></li>
+            <li><a class="menu-item" href="<?php echo base_url('Home/diajukan_sjp'); ?>" data-i18n="nav.templates.horz.main">Diajukan SJP</a></li>
             <li><a class="menu-item" href="<?php echo base_url('Home/persetujuan_sjp'); ?>" data-i18n="nav.templates.horz.main">Persetujuan SJP</a></li>
 
           </ul>
         </li>
-        <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Pengajuan UHC</span></a>
+        <!-- <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Pengajuan UHC</span></a>
           <ul class="menu-content">
 
             <li><a class="menu-item" href="<?php echo base_url('Home/pengajuan/4'); ?>" data-i18n="nav.templates.horz.main">Semua UHC</a></li>
@@ -38,7 +39,7 @@
             <li><a class="menu-item" href="<?php echo base_url('Home/ditolak_uhc/4'); ?>" data-i18n="nav.templates.horz.main">Ditolak UHC</a></li>
 
           </ul>
-        </li>
+        </li> -->
         <?php if ($this->session->userdata('instansi') == 7) { ?>
 
           <li class=" nav-item"><a href="<?php echo base_url('Home/draft_klaim_puskesmas'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">List SJP</span></a>

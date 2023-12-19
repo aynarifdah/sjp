@@ -112,6 +112,7 @@
                   <th style="color: #6B6F82!important;">Pemohon</th>
                   <th style="color: #6B6F82!important;">Pasien</th>
                   <th>Tanggal<br> Pengajuan</th>
+                  <th>Jenis<br> Jaminan</th>
                   <!-- <th>Lama Pengajuan</th> -->
                   <!-- <th>Puskesmas</th> -->
                   <th>Rumah <br>Sakit</th>
@@ -259,6 +260,10 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+          data: "nama_jenis",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -301,12 +306,16 @@
         {
           data: "tanggal_survey",
           "render": function(data, type, row, meta) {
-            if (data == '' || data == null) {
-              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
-            } else {
-            return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey</button>'
+            var jaminan = row.nama_jenis;
+            if(jaminan != 'UHC'){
+              if (data == '' || data == null) {
+                return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+              } else {
+                return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey</button>'
+              }
+            }else{
+              return '<button class="btn btn-primary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Tidak Melalui Survey</button>'
             }
-
           },
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -315,7 +324,7 @@
           "render": function(data, type, row, meta) {
             var pengajuan = row.id_pengajuan;
             var hapus = `<a href="<?php echo base_url('/Home/hapussjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            if (row.id_status_pengajuan != 6 && row.id_status_pengajuan != 7) {
+            if (row.id_status_pengajuan == 2) {
               return hapus
             } else {
               // return `<a href="#" class="btn btn-danger btn-sm"><i class="ft-trash"></i></a>`
@@ -332,8 +341,6 @@
         "data": function(d) {
 
           d.puskesmas = <?= $this->session->userdata('id_join') ?>;
-
-          d.uhc = '<?= $uhc; ?>';
           d.mulai = $("#mulai").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();

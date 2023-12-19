@@ -102,6 +102,7 @@
                   <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
                   <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                   <th style="width: 30px;">Tanggal<br> Pengajuan</th>
+                  <th style="width: 30px;">Jenis<br> Jaminan</th>
                   <!-- <th>Lama Pengajuan</th> -->
                   <!-- <th>Puskesmas</th> -->
                   <th style="width: 30px;">Rumah <br>Sakit</th>
@@ -263,6 +264,10 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+          data: "nama_jenis",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -305,10 +310,15 @@
         {
           data: "tanggal_survey",
           "render": function(data, type, row, meta) {
-            if (data == '' || data == null) {
-              return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
-            } else {
-              return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled">Survey <i class="ft-check-circle"></i></button>'
+            var jaminan = row.nama_jenis;
+            if(jaminan != 'UHC'){
+              if (data == '' || data == null) {
+                return '<a class="btn btn-secondary btn-sm" href="<?php echo base_url(); ?>Home/siap_survey/' + row.id_sjp + '/' + row.id_pengajuan + '"><i class="ft-zoom-in"></i>Survey Tempat Tinggal</a>';
+              } else {
+                return '<button class="btn btn-secondary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Sudah Survey</button>'
+              }
+            }else{
+              return '<button class="btn btn-primary btn-sm" style=" color: #fff" disabled="disabled"><i class="ft-check-circle"></i>Tidak Melalui Survey</button>'
             }
 
           },

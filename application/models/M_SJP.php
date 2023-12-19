@@ -1460,13 +1460,14 @@ class M_SJP extends CI_Model
   }
 
   //menampilkan data permohonan sjp di puskesmas
-  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_join = null, $id_instansi = null, $mulai = null)
+  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_instansi = null, $id_join = null, $mulai = null)
   {
-    $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohion, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
+    $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohion, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan, js.nama_jenis');
     $this->db->from('permohonan_pengajuan pp');
     $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
     
     // var_dump($id_join);die;
 
@@ -1506,7 +1507,7 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
 
-    $this->db->where('jenis_sjp !=', $id_jenissjp);
+    // $this->db->where('jenis_sjp !=', $id_jenissjp);
     // $this->db->where('user !=', $id_join, $id_instansi);
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();

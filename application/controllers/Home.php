@@ -1240,10 +1240,9 @@ class Home extends CI_Controller
         echo json_encode($result);
     }
 
-    public function pengajuan($uhc = null)
+    public function pengajuan()
     {
         $data = array(
-            'uhc'               => $uhc,
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
@@ -1266,13 +1265,12 @@ class Home extends CI_Controller
         $id_jenissjp = 3;
 
         if ($this->input->post() !== Null) {
-            $uhc  = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai, $uhc);
+            $data       = $this->M_SJP->view_permohonansjp_pus(null, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }
@@ -1627,6 +1625,23 @@ class Home extends CI_Controller
         $path = "";
         $data['page'] = $this->load("View PDF", $path);
         $data['content'] = $this->load->view('view_pdfRs', $data, true, false);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function diajukan_sjp()
+    {
+        $path = "";
+        $data = array(
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
+            'controller'        => $this->instansi()
+        );
+        $data = array(
+            "page"    => $this->load("Diajukan SJP", $path),
+            "content" => $this->load->view('diajukan_pkm', $data, true)
+        );
+
         $this->load->view('template/default_template', $data);
     }
 
@@ -3324,18 +3339,17 @@ class Home extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
-    public function getdiajukandatauhc()
+    public function getdiajukandata()
     {
         $id_instansi = $this->input->post("id_instansi");
         $id_join     = $this->input->post("id_join");
         if ($this->input->post() !== Null) {
-            $uhc  = $this->input->post("uhc");
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus(4, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai, $uhc);
+            $data       = $this->M_SJP->view_permohonansjp_pus(4, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai);
         } else {
             $data       = $this->M_SJP->view_permohonansjp_pus(4, Null, Null, 2);
         }
