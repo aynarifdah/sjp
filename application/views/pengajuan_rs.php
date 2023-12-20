@@ -122,6 +122,16 @@
                     </select>
                   </div>
                   <div class="col-lg-3 filter">
+                    <select name="jaminan" id="jaminan" class="form-control">
+                      <option value="" selected>Jenis Jaminan</option>
+                      <?php if (!empty($jenisjaminan)) : ?>
+                        <?php foreach ($jenisjaminan as $j) : ?>
+                          <option value="<?= $j['id_jenissjp'] ?>"><?= $j['nama_jenis'] ?></option>
+                        <?php endforeach ?>
+                      <?php endif ?>
+                    </select>
+                  </div>
+                  <div class="col-lg-3 filter">
                     <div class="position-relative has-icon-left">
                       <input type="text" class="form-control" id="cari" placeholder="Cari Nama Pasien, Pemohon, Rumah sakit, Status Pengajuan">
                       <div class="form-control-position">
@@ -138,6 +148,7 @@
                           <th style="color: #6B6F82!important;">Pemohon</th>
                           <th style="color: #6B6F82!important;">Pasien</th>
                           <th>Tanggal<br> Pengajuan</th>
+                          <th>Jenis<br> Jaminan</th>
                           <!-- <th>Lama Pengajuan</th> -->
                           <!-- <th>Puskesmas</th> -->
                           <th>Rumah <br>Sakit</th>
@@ -271,6 +282,10 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
+          data: "nama_jenis",
+          className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
         },
@@ -330,6 +345,7 @@
 
 
           d.mulai = $("#mulai").val();
+          d.jaminan = $("#jaminan").val();
           d.rs = $("#rs").val();
           d.status = $("#status").val();
           d.cari = $("#cari").val();

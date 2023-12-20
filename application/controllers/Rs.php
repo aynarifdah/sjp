@@ -77,6 +77,7 @@ class Rs extends CI_Controller
         $data = array(
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan()
         );
         $path = "";
@@ -364,11 +365,12 @@ class Rs extends CI_Controller
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
+            $jaminan  = $this->input->post("jaminan");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rumahsakit");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai, $jaminan);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }

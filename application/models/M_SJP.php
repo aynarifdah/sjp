@@ -1460,7 +1460,7 @@ class M_SJP extends CI_Model
   }
 
   //menampilkan data permohonan sjp di puskesmas
-  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_instansi = null, $id_join = null, $mulai = null)
+  public function view_permohonansjp_pus($id_jenissjp = null, $puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $id_instansi = null, $id_join = null, $mulai = null, $jaminan = null)
   {
     $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohion, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan, js.nama_jenis');
     $this->db->from('permohonan_pengajuan pp');
@@ -1473,6 +1473,9 @@ class M_SJP extends CI_Model
 
     if ($id_jenissjp) {
       $this->db->where('pp.id_status_pengajuan =', $id_jenissjp);
+    }
+    if (!empty($jaminan)) {
+      $this->db->where('sjp.jenis_sjp =', $jaminan);
     }
     if ($id_instansi == 3) {
       $this->db->where('sjp.id_puskesmas =', $id_join);

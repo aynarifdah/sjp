@@ -83,7 +83,7 @@
                   <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatan_pemohon" style="width: 100%">
+                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatan_pemohon" style="width: 100%" required>
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
@@ -93,7 +93,7 @@
                     </select>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahan_pemohon" style="width: 100%">
+                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahan_pemohon" style="width: 100%" required>
                       <option>Pilih Kelurahan</option>
 
                     </select>
@@ -206,7 +206,7 @@
                   <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpasien" name="kd_kecamatan_pasien" style="width: 100%">
+                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpasien" name="kd_kecamatan_pasien" style="width: 100%" required>
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
@@ -216,7 +216,7 @@
                     </select>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpasien" name="kd_kelurahan_pasien" style="width: 100%">
+                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpasien" name="kd_kelurahan_pasien" style="width: 100%" required>
                       <option>Pilih Kelurahan</option>
                     </select>
                   </div>
