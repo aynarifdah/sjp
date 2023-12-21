@@ -187,8 +187,7 @@
           <div class="count-box">
             <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <h2 data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-                class="purecounter"></h2>
+              <h2><?php echo number_format($total_pasien); ?></h2>
               <p>Jumlah Pasien</p>
             </div>
           </div>
@@ -198,8 +197,7 @@
           <div class="count-box">
             <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <h2 data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
-                class="purecounter"></h2>
+              <h2><?php echo number_format($total_pasien); ?></h2>
               <p>Jumlah Pengajuan SJP</p>
             </div>
           </div>
@@ -209,8 +207,7 @@
           <div class="count-box">
             <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 20%" alt="" class="icon-bg">
             <div class="text-ke">
-              <h2 data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
-                class="purecounter"></h2>
+              <h2><?php echo number_format($disetujui); ?></h2>
               <p>Jumlah SJP di Setujui</p>
             </div>
           </div>

@@ -882,6 +882,16 @@ class M_SJP extends CI_Model
     return $query;
   }
 
+  public function total_disetujui()
+  {
+    $this->db->select('*');
+    $this->db->from('permohonan_pengajuan');
+    $this->db->where('id_status_pengajuan =', 6);
+
+    $query = $this->db->get()->num_rows();
+    return $query;
+  }
+
   public function distribusi($bulan = Null, $tahun = Null, $kecamatan = Null, $kelurahan = Null, $pilih = 0)
   {
     // Pilih all = Null, pilih 1 = Ten, pilih 2 = five

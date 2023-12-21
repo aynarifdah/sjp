@@ -232,10 +232,10 @@
                  <!-- Tombol -->
                  <?php foreach ($riwayatpengajuan as $rp) : ?>
                    <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
-                     <?php if ($rp['id_status_pengajuan'] == 4 || $rp['id_status_pengajuan'] == 2 && $key['nama_jenis'] == 'UHC') : ?>
+                     <?php if (($rp['id_status_pengajuan'] == 4 || $rp['id_status_pengajuan'] == 2) && $key['nama_jenis'] == 'UHC') : ?>
                        <div class="float-right mt-2 ml-1">
                          <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
-                           <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Pilih</option>
+                           <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Proses UHC</option>
                            <option value="4" <?= ($rp['status_pengajuan'] == 'Diajukan') ? 'selected' : '' ?>>Diajukan</option>
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                          </select>

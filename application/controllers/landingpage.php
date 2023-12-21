@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class landingpage extends CI_Controller
+class Landingpage extends CI_Controller
 {
 
     public function __construct()
@@ -33,9 +33,14 @@ class landingpage extends CI_Controller
     {
 
         $path = "";
+        $data = [
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'disetujui'       => $this->M_SJP->total_disetujui(),
+        ];
+        
         $data = array(
             "page"    => $this->load("Index", $path),
-            "content" => $this->load->view('landingpage/index', false, true)
+            "content" => $this->load->view('landingpage/index', $data, true)
         );
 
         $this->load->view('landingpage/template/master', $data);
