@@ -6,7 +6,7 @@
                 <nav style="--bs-breadcrumb-divider: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&quot;);"
                     aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo site_url('landingpage/index') ?>">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo site_url('Landing/index') ?>">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Kota Depok</li>
                     </ol>
                 </nav>
@@ -19,7 +19,7 @@
                     aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="<?php echo site_url('landingpage/index') ?>">Home</a>
+                            <a href="<?php echo site_url('Landing/index') ?>">Home</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Peraturan Wali Kota Depok</li>
                     </ol>
@@ -41,7 +41,7 @@
                                     TENTANG
                                     PETUNJUK TEKNIS PEMBIAYAAN JAMINAN KESEHATAN BAGI MASYARAKAT.</h3>
                                 <a class="nav-link scrollto"
-                                    href="<?= base_url('landingpage/download_no01') ?>">Download </a>
+                                    href="<?= base_url('Landing/download_no01') ?>">Download </a>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                     PERUBAHAN PERATURAN WALI KOTA NOMOR 22 TAHUN 2021 TENTANG
                                     PETUNJUK TEKNIS PEMBIAYAAN JAMINAN KESEHATAN BAGI MASYARAKAT</h3>
                                 <a class="nav-link scrollto"
-                                    href="<?= base_url('landingpage/download_no02') ?>">Download </a>
+                                    href="<?= base_url('Landing/download_no02') ?>">Download </a>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                                     NOMOR 31 TAHUN 2022
                                     TENTANG Parameter Penetapan Penduduk Miskin <br> Kota Depok</h3>
                                 <a class="nav-link scrollto"
-                                    href="<?= base_url('landingpage/download_no03') ?>">Download </a>
+                                    href="<?= base_url('Landing/download_no03') ?>">Download </a>
                             </div>
                         </div>
                     </div>

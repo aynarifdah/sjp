@@ -218,7 +218,7 @@
       <div class="row mb-3">
         <div class="col-12 justify-content-end">
           <div class="readmore d-flex justify-content-end">
-            <a href="<?php echo site_url('landingpage/statistik') ?>"> Selengkapnya <i
+            <a href="<?php echo site_url('Landing/statistik') ?>"> Selengkapnya <i
                 class='bx bxs-chevron-right-circle bx-tada'></i></a>
           </div>
         </div>
@@ -388,7 +388,7 @@
           <div class="row mt-3">
             <div class="col-12 justify-content-end">
               <div class="readmore d-flex justify-content-end">
-                <a href="<?php echo site_url('landingpage/pengumuman') ?>"> Selengkapnya <i
+                <a href="<?php echo site_url('Landing/pengumuman') ?>"> Selengkapnya <i
                     class='bx bxs-chevron-right-circle bx-tada'></i></a>
               </div>
             </div>
@@ -477,7 +477,7 @@
           <div class="row mt-3">
             <div class="col-12 justify-content-end">
               <div class="readmore d-flex justify-content-end">
-                <a href="<?php echo site_url('landingpage/agenda') ?>"> Selengkapnya <i
+                <a href="<?php echo site_url('Landing/agenda') ?>"> Selengkapnya <i
                     class='bx bxs-chevron-right-circle bx-tada'></i></a>
               </div>
             </div>
@@ -557,7 +557,7 @@
               <div class="row mt-3">
                 <div class="col-12 justify-content-end">
                   <div class="readmore d-flex justify-content-end">
-                    <a href="<?php echo site_url('landingpage/knowledge') ?>"> Selengkapnya <i
+                    <a href="<?php echo site_url('Landing/knowledge') ?>"> Selengkapnya <i
                         class='bx bxs-chevron-right-circle bx-tada'></i></a>
                   </div>
                 </div>
