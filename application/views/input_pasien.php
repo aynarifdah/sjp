@@ -59,6 +59,8 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
+                      <option value="Ayah">Ayah</option>
+                      <option value="Ibu">Ibu</option> 
                       <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
                       <option value="Suami">Suami</option>
