@@ -34,33 +34,33 @@
           
           <li class="dropdown"><a href=""><span>Profil</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/TentangKami') ?>">Tentang SJP Kota
+                <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/TentangKami') ?>">Tentang SJP Kota
                 Depok</a></li>
-                <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/tujuan') ?>">Tujuan SJP</a></li>
-                <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/manfaat') ?>">Manfaat SJP</a></li>
+                <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/tujuan') ?>">Tujuan SJP</a></li>
+                <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/manfaat') ?>">Manfaat SJP</a></li>
             </ul>
         </li>
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/galeri') ?>">Galeri</a></li>
+        <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/galeri') ?>">Galeri</a></li>
         <li class="dropdown"><a href="#"><span>Informasi</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/agenda') ?>">Agenda Kegiatan</a>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/agenda') ?>">Agenda Kegiatan</a>
             </li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/knowledge') ?>">Knowladge</a></li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengumuman') ?>">Pengumuman</a></li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/peraturan ') ?>">Peraturan Wali kota
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/knowledge') ?>">Knowladge</a></li>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/pengumuman') ?>">Pengumuman</a></li>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/peraturan ') ?>">Peraturan Wali kota
                 Depok</a></li>
           </ul>
         </li>
         <li class="dropdown"><a href="#"><span>Layanan</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <!-- {{-- <li><a href="https://sipetrea.depok.go.id/">SIPETREA</a></li> --}} -->
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/syarat') ?>">Syarat sjp</a></li>
-            <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/pengajuan') ?>">Status Pengajuan
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/syarat') ?>">Syarat sjp</a></li>
+            <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/pengajuan') ?>">Status Pengajuan
                 SJP</a></li>
           </ul>
         </li>
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/statistik') ?>">Statistik</a></li>
-        <li><a class="nav-link scrollto" href="<?php echo site_url('landingpage/kontak') ?>">Hubungi Kami</a></li>
+        <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/statistik') ?>">Statistik</a></li>
+        <li><a class="nav-link scrollto" href="<?php echo site_url('Landing/kontak') ?>">Hubungi Kami</a></li>
         <!-- <li><a href="blog.html">Blog</a></li> -->
 
 <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
