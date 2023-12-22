@@ -61,6 +61,8 @@
                               echo '<div class="badge bg-success bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
                             } elseif ($key['id_status_pengajuan'] == 7) {
                               echo '<div class="badge bg-danger bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
+                            } elseif ($key['id_status_pengajuan'] == 8) {
+                              echo '<div class="badge bg-primary bg-darken-1" style="font-size: 14px;">' . $key['status_pengajuan'] . ' </div>';
                             } ?>
 
                            <?php
@@ -362,6 +364,7 @@
                              <select name="status_pengajuan" class="form-control" required="">
                                <option value="">Status Pengajuan</option>
                                <option value="6">Disetujui</option>
+                               <option value="8">Diajukan PBPUBP</option>
                                <option value="7">Ditolak</option>
                              </select>
                            </div>

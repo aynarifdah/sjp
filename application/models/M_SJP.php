@@ -1412,7 +1412,12 @@ class M_SJP extends CI_Model
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
     }
     if (!empty($status)) {
-      $this->db->where('pp.id_status_pengajuan =', $status);
+      if($status == 6){
+        $pbpubp = array(8, $status);
+        $this->db->where_in('pp.id_status_pengajuan', $pbpubp);
+      }else{
+        $this->db->where('pp.id_status_pengajuan =', $status);
+      }
     }
     if (!empty($cari)) {
       $this->db->like('CONCAT(pp.nama_pemohon,sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sjp.kd_kecamatan,pp.email,pp.status_hubungan,sp.status_pengajuan,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);

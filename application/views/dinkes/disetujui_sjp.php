@@ -343,6 +343,10 @@
               // $('.statuspengajuan').addClass('bg-success');
               // return row.status_pengajuan;
               return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+            }else if (data == 8) {
+              // $('.statuspengajuan').addClass('bg-success');
+              // return row.status_pengajuan;
+              return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
             }
 
           },
