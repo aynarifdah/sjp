@@ -274,7 +274,7 @@
 
 
                  <div class="float-right mt-2">
-                   <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey'])) { ?>
+                   <?php if ($this->session->userdata('instansi') == 3 && empty($key['tanggal_survey']) && $key['nama_jenis'] != 'UHC') { ?>
                      <a href="<?php echo base_url($controller . 'siap_survey/' . $key['id_sjp'] . '/' . $key['id_pengajuan']); ?>" class="btn btn-secondary btn-sm float-right" style="margin-left: 5px; color: #fff; "><i class="ft-zoom-in"></i>&nbsp;Survey Tempat Tinggal</a>
                    <?php } ?>
 

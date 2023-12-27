@@ -92,9 +92,13 @@ class Landing extends CI_Controller
     public function statistik()
     {
         $path = "";
+        $data = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+        ];
+
         $data = array(
             "page"    => $this->load("Index", $path),
-            "content" => $this->load->view('landingpage/statistik', false, true)
+            "content" => $this->load->view('landingpage/statistik', $data, true)
         );
 
         $this->load->view('landingpage/template/master', $data);
@@ -186,6 +190,27 @@ class Landing extends CI_Controller
 
     public function download_no03(){
         force_download('assets-web/img/dokumen/Perwa 31 2022 Parameter kemiskinan.pdf', NULL);
+    }
+
+    public function all_statistik()
+    {
+        $kecamatan = $this->input->post('kecamatan');
+        $kelurahan = $this->input->post('kelurahan');
+
+        $data = [
+            'jumlah_pasien' => $this->statis->count_data_kekerasan($kecamatan, $kelurahan),
+            'jumlah_pengajuan' => $this->statis->count_data_perempuan_dewasa($kecamatan, $kelurahan),
+            'pengajuan_disetujui' => $this->statis->count_data_anak($kecamatan, $kelurahan),
+        ];
+        
+        echo json_encode($data);
+    }
+
+    public function getKelurahan()
+    {
+        $KecId = $this->input->post('id');
+        $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
+        echo json_encode($kel);
     }
 
 }

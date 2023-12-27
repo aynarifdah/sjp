@@ -18,62 +18,19 @@
         <div class="container">
             <div class="filter mb-3" data-aos="fade-up">
                 <div class="row">
-                    <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Kecamatan</option>
-                            <option value="1">Beji</option>
-                            <option value="2">Bojongsari</option>
-                            <option value="3">Cilodong</option>
-                            <option value="3">Cimanggis</option>
-                            <option value="3">Cinere</option>
-                            <option value="3">Cipayung</option>
-                            <option value="3">Limo</option>
-                            <option value="3">Pancoranmas</option>
-                            <option value="3">Sawangan</option>
-                            <option value="3">Sukmajaya</option>
-                            <option value="3">Tapos</option>
+                    <div class="col-md-6">
+                        <select class="form-control statistik-filter" id="kecamatan" name="kecamatan">
+                            <option value="" selected>Semua Kecamatan</option>
+                            <?php if (!empty($kecamatan)) {
+                                foreach ($kecamatan as $key) { ?>
+                                <option value="<?= $key['kecamatan'] ?>"><?= $key['kecamatan'] ?></option>
+                            <?php }
+                            } ?>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Kelurahan</option>
-                            <option value="1">Abdi Jaya</option>
-                            <option value="2">beji</option>
-                            <option value="3">bojongsari</option>
-                            <option value="3">Cinere</option>
-                            <option value="3">cisalak</option>
-                            <option value="3">Curug(Cimanggis)</option>
-                            <option value="3">Duren Mekar</option>
-                            <option value="3">Grogol</option>
-                            <option value="3">Jatimulya</option>
-                            <option value="3">Kedaung</option>
-                            <option value="3">Kukusan</option>
-                            <option value="3">Luar Depok</option>
-                            <option value="3">Mekar Sari</option>
-                            <option value="3">Pangkalan Jati</option>
-                            <option value="3">Pasir Putih</option>
-                            <option value="3">Pondok Petir</option>
-                            <option value="3">Ratu Jaya</option>
-                            <option value="3">Sawangan Lama</option>
-                            <option value="3">Sukamaju Baru</option>
-                            <option value="3">Tanah Baru</option>
-                            <option value="3">Tugu</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>RW</option>
-                            <option value="1">01</option>
-                            <option value="2">02</option>
-                            <option value="3">03</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>RT</option>
-                            <option value="1">01</option>
-                            <option value="2">02</option>
-                            <option value="3">03</option>
+                    <div class="col-md-6">
+                        <select class="form-control statistik-filter" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon">
+                            <option value="" selected>Semua Kelurahan</option>
                         </select>
                     </div>
                 </div>
@@ -95,8 +52,7 @@
                             <div class="count-box">
                                 <img src="<?= base_url('assets-web') ?>/img/icon/icon3.png" style="width: 20%" alt="">
                                 <div class="text-ke">
-                                    <h2 data-purecounter-start="0" data-purecounter-end="521"
-                                        data-purecounter-duration="1" class="purecounter"></h2>
+                                    <h2><span id="jumlah_pasien"></span></h2>
                                     <p>Jumlah Pasien</p>
                                 </div>
                             </div>
@@ -106,8 +62,7 @@
                             <div class="count-box">
                                 <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="">
                                 <div class="text-ke">
-                                    <h2 data-purecounter-start="0" data-purecounter-end="1463"
-                                        data-purecounter-duration="1" class="purecounter"></h2>
+                                    <h2><span id="jumlah_pengajuan"></span></h2>
                                     <p>Jumlah Pengajuan SJP</p>
                                 </div>
                             </div>
@@ -117,8 +72,7 @@
                             <div class="count-box">
                                 <img src="<?= base_url('assets-web') ?>/img/icon/icon5.png" style="width: 20%" alt="">
                                 <div class="text-ke">
-                                    <h2 data-purecounter-start="0" data-purecounter-end="15"
-                                        data-purecounter-duration="1" class="purecounter"></h2>
+                                    <h2><span id="pengajuan_disetujui"></span></h2>
                                     <p>Jumlah SJP di Setujui</p>
                                 </div>
                             </div>
