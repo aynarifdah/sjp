@@ -32,7 +32,7 @@
         <?= $this->session->flashdata('message'); ?>
         <div class="row">
           <div class="col-lg-12">
-            <h4 class="card-title">Data Semua Pengajuan</h4>
+            <h4 class="card-title">Data Semua Pengajuan <?php if ($uhc == 4) echo "UHC"; ?></h4>
           </div>
         </div>
       </div>
@@ -106,15 +106,17 @@
               </div>
               <div class="col-lg-3 filter mt-1">
                 <label>Jenis Jaminan</label>
-
-                <select name="jaminan" id="jaminan" class="form-control" style="width: 100%">
-                  <option value="" selected>Semua Jaminan</option>
+                <select name="jaminan" id="jaminan" class="form-control" style="width: 100%" <?php if ($uhc == 4) echo 'disabled'; ?>>
+                  <option value="" >Semua Jaminan</option>
                   <?php if (!empty($jenisjaminan)) : ?>
                     <?php foreach ($jenisjaminan as $j) : ?>
-                      <option value="<?= $j['id_jenissjp'] ?>"><?= $j['nama_jenis'] ?></option>
+                      <option value="<?= $j['id_jenissjp'] ?>" <?php if ($uhc == 4 && $j['id_jenissjp'] == 4) echo 'selected'; ?>>
+                        <?= $j['nama_jenis'] ?>
+                      </option>
                     <?php endforeach ?>
                   <?php endif ?>
                 </select>
+
               </div>
 
               <div class="col-lg-3 filter mt-1">

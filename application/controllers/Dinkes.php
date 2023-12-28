@@ -669,7 +669,7 @@ class Dinkes extends CI_Controller
         return 0;
     }
 
-    public function pengajuanall()
+    public function pengajuanall($uhc = null)
     {
         $level = $this->session->userdata('level');
         $datax = array(
@@ -679,6 +679,7 @@ class Dinkes extends CI_Controller
             'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
             'controller'        => $this->instansi(),
             'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
+            'uhc'      => $uhc,
 
         );
 

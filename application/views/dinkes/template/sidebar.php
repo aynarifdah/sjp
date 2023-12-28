@@ -36,6 +36,8 @@
           </li>
           <li><a href="<?php echo base_url('Dinkes/pengajuan_klaim/4'); ?>" class="menu-item">Sudah Bayar</a>
           </li>
+          <li><a href="<?php echo base_url('Dinkes/pengajuanall/4'); ?>" class="menu-item">List UHC</a>
+          </li>
 
       </li>
     </ul>

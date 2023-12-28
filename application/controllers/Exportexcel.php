@@ -17,6 +17,9 @@ class Exportexcel extends CI_Controller
     public function data_semua_pengajuan()
     {
         $puskesmas = $this->input->post('puskesmas');
+        $jaminan = $this->input->post('jaminan');
+        var_dump($jaminan);
+        die();
         $rs = $this->input->post('rs');
         $status = $this->input->post('status');
         $search = $this->input->post('search');
@@ -26,7 +29,7 @@ class Exportexcel extends CI_Controller
 
         $data = array(
             'title' => 'data_semua_pengajuan',
-            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $mulai, $akhir)
+            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $mulai, $akhir, $jaminan)
         );
         $this->load->view('exportexcel/data_semua_pengajuan', $data);
     }
