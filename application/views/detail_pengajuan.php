@@ -110,31 +110,32 @@
                          </tr>
                        <?php } ?>
 
+                      <?php if($key['nama_jenis'] != 'UHC') : ?>
+                        <tr>
+                          <th scope="row">Anggaran</th>
+                          <td class="text"><span class="angggaran"><?php if ($anggaran) {
+                                                                      foreach ($anggaran as $keyanggaran) { ?>
+                                  <!-- <?= number_format($keyanggaran['nominal_anggaran']); ?> -->
+                                  <?php if ($key['domisili'] == 'Depok') { ?>
+                                    <strong>75.000.000</strong>
+                                  <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                                    <strong>25.000.000</strong>
+                                  <?php } else { ?>
+                                    KK Depok <strong>75.000.000</strong><br>
+                                    KK Luar Depok <strong>25.000.000</strong>
+                                  <?php } ?>
+                              <?php }
+                                                                    } ?></span>&nbsp;&nbsp;
+                            <?php if ($key['domisili'] == 'Depok') { ?>
+                              <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">75.000.000</span></span>
+                            <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
+                              <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">25.000.000</span></span>
+                            <?php } else { ?>
 
-                       <tr>
-                         <th scope="row">Anggaran</th>
-                         <td class="text"><span class="angggaran"><?php if ($anggaran) {
-                                                                    foreach ($anggaran as $keyanggaran) { ?>
-                                 <!-- <?= number_format($keyanggaran['nominal_anggaran']); ?> -->
-                                 <?php if ($key['domisili'] == 'Depok') { ?>
-                                   <strong>75.000.000</strong>
-                                 <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
-                                   <strong>25.000.000</strong>
-                                 <?php } else { ?>
-                                   KK Depok <strong>75.000.000</strong><br>
-                                   KK Luar Depok <strong>25.000.000</strong>
-                                 <?php } ?>
-                             <?php }
-                                                                  } ?></span>&nbsp;&nbsp;
-                           <?php if ($key['domisili'] == 'Depok') { ?>
-                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">75.000.000</span></span>
-                           <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
-                             <span class="limit badge bg-success bg-darken-1 round" style="font-size: 14px;">Limit : <span class="nomlimit">25.000.000</span></span>
-                           <?php } else { ?>
-
-                           <?php } ?>
-                         </td>
-                       </tr>
+                            <?php } ?>
+                          </td>
+                        </tr>
+                      <?php endif ; ?>
                        <?php if (!empty($key['tanggal_survey'])) { ?>
                          <tr>
                            <th scope="row">Hasil Survey</th>
@@ -299,8 +300,8 @@
                    <!-- </div> -->
 
                    <!-- <div class="float-right mt-2 ml-1"> -->
-                   <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4 && $key['nama_jenis'] != 'UHC') { ?>
-                     <button type="button" class="btn btn-dark btn-sm float-right proses_sjp ml-1" data-toggle="modal" data-target="#default"> Proses SJP</button>
+                   <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && $key['id_status_pengajuan'] == 4) { ?>
+                     <button type="button" class="btn btn-dark btn-sm float-right proses_sjp ml-1" data-toggle="modal" data-target="#default"> Proses <?php echo ($key['nama_jenis'] == 'UHC') ? "UHC" : "SJP"; ?></button>
                  </div>
                  <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                    <div class="modal-dialog" role="document">
