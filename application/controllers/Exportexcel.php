@@ -18,8 +18,8 @@ class Exportexcel extends CI_Controller
     {
         $puskesmas = $this->input->post('puskesmas');
         $jaminan = $this->input->post('jaminan');
-        var_dump($jaminan);
-        die();
+        // var_dump($jaminan);
+        // die();
         $rs = $this->input->post('rs');
         $status = $this->input->post('status');
         $search = $this->input->post('search');
