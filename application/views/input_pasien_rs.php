@@ -29,8 +29,8 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control">
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
                     </select>
                   </div>
                 </div>
@@ -52,12 +52,17 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
-                      <option value="Ayah">Ayah</option>
+                      <!-- <option value="Ayah">Ayah</option>
                       <option value="Ibu">Ibu</option> 
                       <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
                       <option value="Suami">Suami</option>
-                      <option value="Keluarga Lain">Keluarga Lain</option>
+                      <option value="Keluarga Lain">Keluarga Lain</option> -->
+                      <?php if (!empty($statushubungan)) {
+                        foreach ($statushubungan as $key) { ?>
+                          <option value="<?= $key['status_hubungan'] ?>"><?= $key['status_hubungan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -105,11 +110,23 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan*</label>
                   <div class="col-lg-3">
-                    <select name="jenisjaminan" class="form-control" required>
+                    <!-- <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
                       <?php if (!empty($jenisjaminan)) {
                         foreach ($jenisjaminan as $key) { ?>
                           <option value="<?= $key['id_jenissjp'] ?>"><?= $key['nama_jenis'] ?></option>
+                      <?php }
+                      } ?>
+                    </select> -->
+                    <input type="text" class="form-control" readonly value="UHC">
+                  </div>
+
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="status_jkn" id="status_jkn" class="form-control">
+                      <option value="">Pilih Status JKN</option>
+                      <?php if (!empty($jkn)) {
+                        foreach ($jkn as $key) { ?>
+                          <option value="<?= $key['nama_jkn'] ?>"><?= $key['nama_jkn'] ?></option>
                       <?php }
                       } ?>
                     </select>
@@ -126,9 +143,15 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="nik">NIK*</label>
+                  <label class="col-lg-3 label-control" for="nik">NIK/No KK/No KIS*</label>
                   <div class="col-lg-3">
                     <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
+                  </div>
+                  <div class="col-lg-3">
+                      <input type="text" class="form-control" placeholder="No NIK" name="kk" id="kk" required>
+                  </div>
+                  <div class="col-lg-3">
+                      <input type="text" class="form-control" placeholder="No KIS" name="kis" id="kis">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -139,8 +162,18 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pasien" id="jeniskelaminkpasien" class="form-control" required>
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="statuspernikahan" class="form-control" required>
+                      <option value="">Pilih Status Pernikahan</option>
+                      <?php if (!empty($statuspernikahan)) {
+                        foreach ($statuspernikahan as $key) { ?>
+                          <option value="<?= $key['id'] ?>"><?= $key['status_pernikahan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -222,8 +255,13 @@
                           <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
                       <?php }
                       } ?>
+                      <option value="999">Lainnya</option>
 
                     </select>
+                  </div>
+                  <div id="inputLainnya" style="display: none;">
+                    <!-- <label for="inputLainnyaText">Masukkan Nama Rumah Sakit</label> -->
+                    <input type="text" id="inputLainnyaText" name="rs_lainnya" class="form-control" placeholder="Rumah Sakit Lainnya">
                   </div>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
@@ -516,58 +554,58 @@
   //   var tes = $('.sjpform').serialize();
   //   console.log(decodeURIComponent(tes));
   // })
-  $('#nik').change(function() {
-    var nik = $(this).val();
-    $.ajax({
-      url: "getDataByNIK/" + nik,
-      type: 'GET',
-      beforeSend: function() {
-        $('#loader_form').show();
-      },
-      complete: function() {
-        $('#loader_form').hide();
-      },
-      success: function(data) {
-        var json_data = JSON.parse(data);
-        var api_data = json_data.content[0];
-        let jk = api_data.JENIS_KLMIN;
-        if (api_data.hasOwnProperty('RESPONSE_CODE')) {
-          alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
-        } else {
-          $('#namapasien').val(api_data.NAMA_LGKP);
-          // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
-          $('#tanggallahirpasien').val(api_data.TGL_LHR);
-          $('#tempatlahirpasien').val(api_data.TMPT_LHR);
-          $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
-          $('#alamatpasien').val(api_data.ALAMAT);
-          $('#rtpasien').val(api_data.NO_RT);
-          $('#rwpasien').val(api_data.NO_RW);
-          $("#" + api_data.AGAMA).attr('selected', true);
-          // $("#jeniskelaminkpasien" + api_data.JENIS_KLMIN).attr('checked', true);
-          $('#jeniskelaminkpasien').val(jk);
-          $('#Kecamatan').remove();
-          $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
-          var kelurahan = '';
-          kelurahan += '<div class="form-group row kecamatan_value">';
-          kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
-          kelurahan += '<div class="col-sm-9">';
-          kelurahan += '<div class="input-group mb-2">';
-          kelurahan += '<div class="input-group-prepend">';
-          kelurahan += '<div class="input-group-text">';
-          kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          kelurahan += '</div>';
-          $('#kecamatan_value').append(kelurahan);
-        }
-        console.log(api_data);
-      },
-    });
+  // $('#nik').change(function() {
+  //   var nik = $(this).val();
+  //   $.ajax({
+  //     url: "getDataByNIK/" + nik,
+  //     type: 'GET',
+  //     beforeSend: function() {
+  //       $('#loader_form').show();
+  //     },
+  //     complete: function() {
+  //       $('#loader_form').hide();
+  //     },
+  //     success: function(data) {
+  //       var json_data = JSON.parse(data);
+  //       var api_data = json_data.content[0];
+  //       let jk = api_data.JENIS_KLMIN;
+  //       if (api_data.hasOwnProperty('RESPONSE_CODE')) {
+  //         alert(api_data.RESPONSE_DESC + '. Masukkan data secara manual');
+  //       } else {
+  //         $('#namapasien').val(api_data.NAMA_LGKP);
+  //         // $('#nama_kepala_keluarga').val(api_data.NAMA_LGKP_AYAH);
+  //         $('#tanggallahirpasien').val(api_data.TGL_LHR);
+  //         $('#tempatlahirpasien').val(api_data.TMPT_LHR);
+  //         $('#pekerjaanpasien').val(api_data.JENIS_PKRJN);
+  //         $('#alamatpasien').val(api_data.ALAMAT);
+  //         $('#rtpasien').val(api_data.NO_RT);
+  //         $('#rwpasien').val(api_data.NO_RW);
+  //         $("#" + api_data.AGAMA).attr('selected', true);
+  //         // $("#jeniskelaminkpasien" + api_data.JENIS_KLMIN).attr('checked', true);
+  //         $('#jeniskelaminkpasien').val(jk);
+  //         $('#Kecamatan').remove();
+  //         $('#kec_section').append('<input type="text" name="kecamatan" id="kecamatan" class="form-control" value="' + api_data.KEC_NAME + '">');
+  //         var kelurahan = '';
+  //         kelurahan += '<div class="form-group row kecamatan_value">';
+  //         kelurahan += '<label class="col-sm-3 col-form-label">Kelurahan</label>';
+  //         kelurahan += '<div class="col-sm-9">';
+  //         kelurahan += '<div class="input-group mb-2">';
+  //         kelurahan += '<div class="input-group-prepend">';
+  //         kelurahan += '<div class="input-group-text">';
+  //         kelurahan += '<i class="fa fa-map-marker" aria-hidden="true"></i>';
+  //         kelurahan += '</div>';
+  //         kelurahan += '</div>';
+  //         kelurahan += '<input type="text" name="kelurahan" id="kelurahan" class="form-control" value="' + api_data.KEL_NAME + '">';
+  //         kelurahan += '</div>';
+  //         kelurahan += '</div>';
+  //         kelurahan += '</div>';
+  //         $('#kecamatan_value').append(kelurahan);
+  //       }
+  //       console.log(api_data);
+  //     },
+  //   });
 
-  });
+  // });
 
 
   // UPDATE TERBARU
@@ -626,6 +664,13 @@
 
 <script>
   $(document).ready(function() {
-    //$('.js-example-basic-multiple').select2({placeholder: "Pilih Diagnosa"});
+    $('#nama_rumahsakit').change(function() {
+      var selectedValue = $(this).val();
+      if (selectedValue === '999') {
+        $('#inputLainnya').show();
+      } else {
+        $('#inputLainnya').hide();
+      }
+    });
   });
 </script>

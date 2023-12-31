@@ -55,10 +55,11 @@
                       <select name="status_hubungan" id="status_hubungan" class="form-control" style="width: 100%" required readonly>
                         <option value="">Pilih Status</option>
 
-                        <option value="Anak" <?= $detail[0]['status_hubungan'] == "Anak" ? 'selected' : '' ?>>Anak</option>
-                        <option value="Istri" <?= $detail[0]['status_hubungan'] == "Istri" ? 'selected' : '' ?>>Istri</option>
+                        <option value="Peserta" <?= $detail[0]['status_hubungan'] == "Peserta" ? 'selected' : '' ?>>Peserta</option>
                         <option value="Suami" <?= $detail[0]['status_hubungan'] == "Suami" ? 'selected' : '' ?>>Suami</option>
-                        <option value="Keluarga Lain" <?= $detail[0]['status_hubungan'] == "Keluarga Lain" ? 'selected' : '' ?>>Keluarga Lain</option>
+                        <option value="Istri" <?= $detail[0]['status_hubungan'] == "Istri" ? 'selected' : '' ?>>Istri</option>
+                        <option value="Anak" <?= $detail[0]['status_hubungan'] == "Anak" ? 'selected' : '' ?>>Anak</option>
+                        <option value="Famili lain" <?= $detail[0]['status_hubungan'] == "Famili lain" ? 'selected' : '' ?>>Famili lain</option>
                       </select>
 
                       <!-- <input type="status" class="form-control" placeholder="Status Hubungan" name="status_hubungan" id="status_hubungan" required value="<?= $detail[0]['status_hubungan'] ?>"> -->
@@ -343,10 +344,11 @@
                       <select name="status_hubungan" id="status_hubungan" class="form-control" style="width: 100%" required>
                         <option value="">Pilih Status</option>
 
-                        <option value="Anak" <?= $detail[0]['status_hubungan'] == "Anak" ? 'selected' : '' ?>>Anak</option>
-                        <option value="Istri" <?= $detail[0]['status_hubungan'] == "Istri" ? 'selected' : '' ?>>Istri</option>
+                        <option value="Peserta" <?= $detail[0]['status_hubungan'] == "Peserta" ? 'selected' : '' ?>>Peserta</option>
                         <option value="Suami" <?= $detail[0]['status_hubungan'] == "Suami" ? 'selected' : '' ?>>Suami</option>
-                        <option value="Keluarga Lain" <?= $detail[0]['status_hubungan'] == "Keluarga Lain" ? 'selected' : '' ?>>Keluarga Lain</option>
+                        <option value="Istri" <?= $detail[0]['status_hubungan'] == "Istri" ? 'selected' : '' ?>>Istri</option>
+                        <option value="Anak" <?= $detail[0]['status_hubungan'] == "Anak" ? 'selected' : '' ?>>Anak</option>
+                        <option value="Famili lain" <?= $detail[0]['status_hubungan'] == "Famili lain" ? 'selected' : '' ?>>Famili lain</option>
                       </select>
 
                       <!-- <input type="status" class="form-control" placeholder="Status Hubungan" name="status_hubungan" id="status_hubungan" required value="<?= $detail[0]['status_hubungan'] ?>"> -->

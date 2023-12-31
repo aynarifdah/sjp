@@ -50,6 +50,9 @@ class Rs extends CI_Controller
                     'kelas_rawat' => $this->M_SJP->kelas_rawat(),
                     'jenisjaminan' => $this->M_SJP->jenisjaminan(),
                     'puskesmas'  => $this->M_data->getPuskesmas(),
+                    'statuspernikahan' => $this->M_SJP->statuspernikahan(),
+                    'statushubungan' => $this->M_SJP->statushubungan(),
+                    'jkn' => $this->M_SJP->jkn(),
                 );
 
                 // var_dump($data['rumahsakit']);
@@ -156,6 +159,11 @@ class Rs extends CI_Controller
         // }
         $id_puskesmas           = $this->input->post('puskesmas');
         $nik           = $this->input->post('nik');
+        $kk           = $this->input->post('kk');
+        $kis           = $this->input->post('kis');
+        $statuspernikahan  = $this->input->post('statuspernikahan');
+        $rs_lainnya  = $this->input->post('rs_lainnya');
+        $status_jkn    = $this->input->post('status_jkn');
         $nama          = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
         $tempatlahir   = $this->input->post('tempat_lahir');
@@ -173,7 +181,9 @@ class Rs extends CI_Controller
         $jenisrawat    = $this->input->post('jenis_rawat');
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
-        $jenisjaminan    = $this->input->post('jenisjaminan');
+        // $jenisjaminan    = $this->input->post('jenisjaminan');
+        $jenisjaminan    = 4;
+        $jkn            = $this->input->post('status_jkn');
         $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
         $akhirrawat      = $this->input->post('akhirrawat');
@@ -188,6 +198,12 @@ class Rs extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'no_kk'            => $kk,
+            'no_kis'           => $kis,
+            'id_pernikahan'    => $statuspernikahan,
+            'rs_lainnya'       => $rs_lainnya,
+            'id_jkn'           => $jkn,
+            'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
