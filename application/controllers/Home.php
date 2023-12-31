@@ -172,15 +172,15 @@ class Home extends CI_Controller
         $hari = date('H:i:s');
 
         $jam_pengajuan = $this->M_data->getJamPengajuan();
-        foreach ($jam_pengajuan as $key) {
-            if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                        Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_buka"])) . ' - ' . date('H:i', strtotime($key["waktu_tutup"])) . ' WIB)!
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button></div>');
-                redirect('Home/pengajuan');
-            } else {
+        // foreach ($jam_pengajuan as $key) {
+        //     if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= $key["waktu_tutup"] || $jam < $key["waktu_buka"]) {
+        //         $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        //                 Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (' . date('H:i', strtotime($key["waktu_buka"])) . ' - ' . date('H:i', strtotime($key["waktu_tutup"])) . ' WIB)!
+        //                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //                 <span aria-hidden="true">&times;</span>
+        //             </button></div>');
+        //         redirect('Home/pengajuan');
+        //     } else {
                 $data = array(
                     'topik'      => $this->M_SJP->diagnosa(),
                     'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
@@ -200,8 +200,8 @@ class Home extends CI_Controller
                 );
 
                 $this->load->view('template/default_template', $data);
-            }
-        }
+        //     }
+        // }
     }
     public function getKelurahan()
     {
