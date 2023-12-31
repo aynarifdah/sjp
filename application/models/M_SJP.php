@@ -485,6 +485,20 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
+  public function statuspernikahan()
+  {
+    $this->db->select('*');
+    $this->db->from('status_pernikahan');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+  public function statushubungan()
+  {
+    $this->db->select('*');
+    $this->db->from('status_hubungan');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
   public function jkn()
   {
     $this->db->select('*');

@@ -29,8 +29,8 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control">
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
                     </select>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
@@ -59,12 +59,17 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
-                      <option value="Ayah">Ayah</option>
+                      <!-- <option value="Ayah">Ayah</option>
                       <option value="Ibu">Ibu</option> 
                       <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
                       <option value="Suami">Suami</option>
-                      <option value="Keluarga Lain">Keluarga Lain</option>
+                      <option value="Keluarga Lain">Keluarga Lain</option> -->
+                      <?php if (!empty($statushubungan)) {
+                        foreach ($statushubungan as $key) { ?>
+                          <option value="<?= $key['status_hubungan'] ?>"><?= $key['status_hubungan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -112,14 +117,15 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/Domisili/Status JKN*</label>
                   <div class="col-lg-3">
-                    <select name="jenisjaminan" class="form-control" required>
+                    <!-- <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
                       <?php if (!empty($jenisjaminan)) {
                         foreach ($jenisjaminan as $key) { ?>
                           <option value="<?= $key['id_jenissjp'] ?>"><?= $key['nama_jenis'] ?></option>
                       <?php }
                       } ?>
-                    </select>
+                    </select> -->
+                    <input type="text" class="form-control" readonly value="UHC">
                   </div>
 
 
@@ -145,14 +151,20 @@
                 </div>
 
                 <div class="form-group row">
-                      <label class="col-lg-3 label-control" for="nik">NIK*</label>
+                      <label class="col-lg-3 label-control" for="nik">NIK/No KK/No KIS*</label>
                       <div class="col-lg-3">
                           <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
                       </div>
                       <!-- <div class="col-lg-3">
                           <button id="checkNikBtn" class="btn btn-primary">Periksa NIK</button>
                       </div> -->
-                  </div>
+                      <div class="col-lg-3">
+                          <input type="text" class="form-control" placeholder="No NIK" name="kk" id="kk" required>
+                      </div>
+                      <div class="col-lg-3">
+                          <input type="text" class="form-control" placeholder="No KIS" name="kis" id="kis">
+                      </div>
+                </div>
 
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
@@ -163,8 +175,18 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pasien" id="jeniskelaminkpasien" class="form-control" required>
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="statuspernikahan" class="form-control" required>
+                      <option value="">Pilih Status Pernikahan</option>
+                      <?php if (!empty($statuspernikahan)) {
+                        foreach ($statuspernikahan as $key) { ?>
+                          <option value="<?= $key['id'] ?>"><?= $key['status_pernikahan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -246,8 +268,12 @@
                           <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
                       <?php }
                       } ?>
-
+                      <option value="999">Lainnya</option>
                     </select>
+                  </div>
+                  <div id="inputLainnya" style="display: none;">
+                    <!-- <label for="inputLainnyaText">Masukkan Nama Rumah Sakit</label> -->
+                    <input type="text" id="inputLainnyaText" name="rs_lainnya" class="form-control" placeholder="Rumah Sakit Lainnya">
                   </div>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
@@ -704,6 +730,18 @@
 
 <!-- Periksa NIK -->
 <script>
+$(document).ready(function() {
+  $('#nama_rumahsakit').change(function() {
+    var selectedValue = $(this).val();
+    if (selectedValue === '999') {
+      $('#inputLainnya').show();
+    } else {
+      $('#inputLainnya').hide();
+    }
+  });
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('checkNikBtn').addEventListener('click', function() {
         const nik = document.getElementById('nik').value;

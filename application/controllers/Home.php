@@ -188,6 +188,8 @@ class Home extends CI_Controller
                     'rumahsakit' => $this->M_SJP->rumahsakit(),
                     'kelas_rawat' => $this->M_SJP->kelas_rawat(),
                     'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                    'statuspernikahan' => $this->M_SJP->statuspernikahan(),
+                    'statushubungan' => $this->M_SJP->statushubungan(),
                     'jkn' => $this->M_SJP->jkn(),
                 );
 
@@ -272,6 +274,10 @@ class Home extends CI_Controller
         // }
 
         $nik           = $this->input->post('nik');
+        $kk           = $this->input->post('kk');
+        $kis           = $this->input->post('kis');
+        $statuspernikahan  = $this->input->post('statuspernikahan');
+        $rs_lainnya  = $this->input->post('rs_lainnya');
         $status_jkn    = $this->input->post('status_jkn');
         $nama_pasien   = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
@@ -290,7 +296,8 @@ class Home extends CI_Controller
         $jenisrawat    = $this->input->post('jenis_rawat');
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
-        $jenisjaminan    = $this->input->post('jenisjaminan');
+        // $jenisjaminan    = $this->input->post('jenisjaminan');
+        $jenisjaminan    = 4;
         $jkn            = $this->input->post('status_jkn');
         $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
@@ -308,6 +315,10 @@ class Home extends CI_Controller
             'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'no_kk'            => $kk,
+            'no_kis'           => $kis,
+            'id_pernikahan'    => $statuspernikahan,
+            'rs_lainnya'       => $rs_lainnya,
             'id_jkn'           => $jkn,
             'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama_pasien,
