@@ -386,7 +386,7 @@ class Rs extends CI_Controller
             $rs         = $this->input->post("rumahsakit");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_join, $id_instansi, $mulai, $jaminan);
+            $data       = $this->M_SJP->view_permohonansjp_pus($id_jenissjp, $puskesmas, $rs, $status, $cari, $id_instansi, $id_join, $mulai, $jaminan);
         } else {
             $data       = $this->M_SJP->getpersetujuansjpdinas($id_jenissjp);
         }

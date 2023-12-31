@@ -101,7 +101,7 @@
                   <div class="form-control-position">
                     <i class="ft-search"></i>
                   <?php endif ?> -->
-                  <div class="col-lg-3 filter">
+                  <!-- <div class="col-lg-3 filter">
                     <select name="rs" id="rs" class="form-control">
                       <option value="" selected>Semua Rumah Sakit</option>
                       <?php if (!empty($rs)) : ?>
@@ -110,7 +110,7 @@
                         <?php endforeach ?>
                       <?php endif ?>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="col-lg-3 filter">
                     <select name="status" id="status" class="form-control">
                       <option value="" selected>Semua Status</option>
