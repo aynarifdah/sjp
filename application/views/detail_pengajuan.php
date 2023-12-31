@@ -506,8 +506,14 @@
                          <td class="border-top-0"><?php echo strtoupper($key['nama_puskesmas']); ?></td>
                        </tr>
                        <tr>
-                         <th scope="row">Rumah Sakit</th>
-                         <td class="border-top-0"><?php echo strtoupper($key['nm_rs']); ?></td>
+                          <th scope="row">Rumah Sakit</th>
+                          <td class="border-top-0">
+                            <?php if($key['id_rumah_sakit'] == 999) { ?>
+                              <?php echo strtoupper($key['rs_lainnya']); ?>
+                            <?php }else{ ?>
+                              <?php echo strtoupper($key['nm_rs']); ?>
+                            <?php } ?>
+                          </td>
                        </tr>
                        <tr>
                          <th scope="row">Mulai/Selesai Rawat</th>

@@ -296,8 +296,16 @@
           className: "dt-head-center dt-body-right bodyclick"
         },
         {
-          data: "nm_rs",
-          className: "dt-head-center dt-body-right bodyclick"
+          data: "id_rumah_sakit",
+          className: "dt-head-center dt-body-right bodyclick",
+          "render": function(data, type, row, meta) {
+            if(data == 999){
+              rs = '<p>' + row.rs_lainnya + '</p>'
+            }else{
+              rs = '<p>' + row.nm_rs + '</p>'
+            }
+            return rs;
+          }
         },
         {
           data: "kd_kecamatan",
