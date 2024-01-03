@@ -117,15 +117,15 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/Domisili/Status JKN*</label>
                   <div class="col-lg-3">
-                    <!-- <select name="jenisjaminan" class="form-control" required>
+                    <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
                       <?php if (!empty($jenisjaminan)) {
                         foreach ($jenisjaminan as $key) { ?>
                           <option value="<?= $key['id_jenissjp'] ?>"><?= $key['nama_jenis'] ?></option>
                       <?php }
                       } ?>
-                    </select> -->
-                    <input type="text" class="form-control" readonly value="UHC">
+                    </select>
+                    <!-- <input type="text" class="form-control" readonly value="UHC"> -->
                   </div>
 
 

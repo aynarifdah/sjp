@@ -296,8 +296,8 @@ class Home extends CI_Controller
         $jenisrawat    = $this->input->post('jenis_rawat');
         $rumahsakit    = $this->input->post('nama_rumah_sakit');
         $kelas_rawat     = $this->input->post('kelas_rawat');
-        // $jenisjaminan    = $this->input->post('jenisjaminan');
-        $jenisjaminan    = 4;
+        $jenisjaminan    = $this->input->post('jenisjaminan');
+        // $jenisjaminan    = 4;
         $jkn            = $this->input->post('status_jkn');
         $domisili       = $this->input->post('domisili');
         $mulairawat      = $this->input->post('mulairawat');
