@@ -117,11 +117,11 @@
                                                                       foreach ($anggaran as $keyanggaran) { ?>
                                   <!-- <?= number_format($keyanggaran['nominal_anggaran']); ?> -->
                                   <?php if ($key['domisili'] == 'Depok') { ?>
-                                    <strong>75.000.000</strong>
+                                    <strong>50.000.000</strong>
                                   <?php } elseif ($key['domisili'] == 'Luar Depok') { ?>
                                     <strong>25.000.000</strong>
                                   <?php } else { ?>
-                                    KK Depok <strong>75.000.000</strong><br>
+                                    KK Depok <strong>50.000.000</strong><br>
                                     KK Luar Depok <strong>25.000.000</strong>
                                   <?php } ?>
                               <?php }
