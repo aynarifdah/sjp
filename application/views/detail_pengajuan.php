@@ -379,22 +379,28 @@
                      </div>
                    </div>
                  </div>
-                 <!-- RUMAH SAKIT Dan Dinkes-->
-                  <?php } elseif ((($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) || 
-    ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6)) && $key['id_status_pengajuan'] == 6) { ?>
-                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
+                 <!-- RUMAH SAKIT -->
+                 <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                    <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a> -->
+                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
 
-                    <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP RS & Dinkes</i></button>
+                    <!-- Sementara -->
 
-                  <!-- Yankesru -->
-                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
-                    <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a>
-                      <?php if($cektte){ ?>
-                        <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
-                      <?php }else{ ?>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
-                      <?php } ?>
+                    <!-- <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button> -->
+
+                  <!-- DINKES -->
+                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                    <!-- Sementara -->
+                      <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a> -->
+                      <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+
+                    <!-- <?php if($cektte){ ?>
+                      <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakTest/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
+                    <?php }else{ ?>
+                      <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#Modalcetaksjp"><i class="ft-printer">Cetak SJP</i></button>
+                    <?php } ?> -->
                   <?php } ?>
+
 
 
                </div>
