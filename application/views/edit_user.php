@@ -91,14 +91,27 @@
                   <input type="hidden" name="id_join" value="<?= $this->session->userdata('id_join') ?>">
                 <?php endif  ?>
                   </div>
+                  <div class="form-group row">
+                    <label class="col-lg-2 label-control" for="level">Status Akun*</label>
+                    <div class="col-lg-3">
+                      <select class="select2 form-control block kecamatan" name="is_active" style="width: 100%" required>
+                         <option value="">Pilih Status</option>
+                         <option value="1" <?= $user[0]['is_active'] == "1" ? 'selected' : '' ?>>Aktif</option>
+                        <option value="0" <?= $user[0]['is_active'] == "0" ? 'selected' : '' ?>>Non Aktif</option>
+                      </select>
+                    </div>
+                  </div>
 
         </fieldset>
-        <div class="row">
-          <div class="col-md-3 offset-md-8">
-            <a href="<?= base_url($controller.'UserManagement?delete=') . $user[0]['id_user'] ?>" onclick="return confirm('Yakin Hapus User ini?')" class="btn btn-danger btn-md">Hapus User ini</a>
+        <div class="row mt-2">
+          <div class="col-md-3">
             <button type="submit" class="btn btn-primary btn-md" id="simpanpengajuan" name="btnedit">
               <i class="ft-check-square"></i> Ubah
             </button>
+            
+          </div>
+          <div class="col-md-3 offset-md-6">
+            <a href="<?= base_url($controller.'UserManagement?delete=') . $user[0]['id_user'] ?>" onclick="return confirm('Yakin Hapus User ini?')" class="btn btn-danger btn-md">Hapus User ini</a>
             
           </div>
         </div>

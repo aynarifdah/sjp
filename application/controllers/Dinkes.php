@@ -884,6 +884,8 @@ class Dinkes extends CI_Controller
             $level      = $this->input->post("level");
             $instansi   = $this->input->post("instansi");
             $id_join    = $this->input->post("id_join");
+            $is_active    = $this->input->post("is_active");
+
 
             $this->db->where("id_user =", $id_user);
             $data = [
@@ -893,6 +895,7 @@ class Dinkes extends CI_Controller
                 'password'  => $password,
                 'level'     => $level,
                 'id_instansi'  => $instansi,
+                'is_active'     => $is_active,
                 'id_join'   => $id_join
             ];
             $this->db->set($data);
