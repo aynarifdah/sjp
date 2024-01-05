@@ -17,10 +17,10 @@ header("Expires: 0");
             <th>No.</th>
             <th>Nama</th>
             <th>Username</th>
-            <th>Password</th>
-            <!-- <th>Level</th>
+            <!-- <th>Password</th> -->
+            <th>Level</th>
             <th>Instansi</th>
-            <th>Domisili</th> -->
+            <th>Domisili</th>
         </tr>
     </thead>
     <tbody>
@@ -31,14 +31,14 @@ header("Expires: 0");
                     <td><?php echo $no; ?>.</td>
                     <td><?php echo $key['nama']; ?></td>
                     <td><?php echo $key['username']; ?></td>
-                    <td>
+                    <!-- <td>
                         <?php $encrypted_password = $key['password']; ?>
                         <?php $decrypted_password = $this->encryption->decrypt($encrypted_password); ?>
                         <?php echo $decrypted_password;?>
-                    </td>
-                    <!-- <td><?php echo $key['nama_level']; ?></td>
+                    </td> -->
+                    <td><?php echo $key['nama_level']; ?></td>
                     <td><?php echo $key['nama_instansi']; ?></td>
-                    <td><?php echo $key['nama_join']; ?></td> -->
+                    <td><?php echo $key['nama_join']; ?></td>
                 </tr>
         <?php $no++;
             }
