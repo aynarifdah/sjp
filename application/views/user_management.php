@@ -40,87 +40,90 @@
     <div class="card-content">
       <div class="card-body">
         <div class="table-responsive">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="element mb-1 p-r-15">
-                <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi') == 1) : ?>
-                  <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalLevel" style="margin: 10px;"><i class="ft-plus"> </i>Tambah Level</a>
-                  <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalInstansi"><i class="ft-plus"> </i>Tambah Instansi</a>
-                  <a href="<?= base_url('Dinkes/AddPejabat') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-secondary btn-sm"> <i class="ft-plus"> </i>Tambah Pejabat</button></a>
-                <?php endif ?>
-                <a href="<?= base_url($controller . 'AddUser') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"> </i>Tambah User</button></a>
-                <!-- Excel -->
-                <a href="<?php echo base_url('Exportexcel/user_management') ?>" class="btn btn-sm btn-success"><i class="ft-printer"></i> Export Excel</a>
-                <!-- Excel -->
-              </div>
-            </div>
-          </div>
-          <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
+          <form action="<?= base_url(''); ?>Exportexcel/user_management" method="POST">
 
-          </div>
-          <?php if ($this->session->userdata('instansi') == 1) : ?>
-            <div class="row" style="padding-left: 15px; padding-right: 15px;">
-              <div class="col-lg-3 filter">
-                <select name="level" id="level" class="form-control" style="width: 100%">
-                  <option value="" selected>Semua Level</option>
-                  <?php if (!empty($level)) : ?>
-                    <?php foreach ($level as $l) : ?>
-                      <?php if ($this->session->userdata('instansi') != 1 && $l['id_level'] == 2) {
-                        continue;
-                      } ?>
-                      <option value="<?= $l['id_level'] ?>"><?= $l['nama_level'] ?></option>
-                    <?php endforeach ?>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="element mb-1 p-r-15">
+                  <?php if ($this->session->userdata('level') == 1 && $this->session->userdata('instansi') == 1) : ?>
+                    <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalLevel" style="margin: 10px;"><i class="ft-plus"> </i>Tambah Level</a>
+                    <a href="#" aria-expanded="true" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalInstansi"><i class="ft-plus"> </i>Tambah Instansi</a>
+                    <a href="<?= base_url('Dinkes/AddPejabat') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-secondary btn-sm"> <i class="ft-plus"> </i>Tambah Pejabat</button></a>
                   <?php endif ?>
-                </select>
-              </div>
-              <div class="col-lg-3 filter">
-                <select name="instansi" id="instansi" class="form-control">
-                  <option value="" selected>Semua Instansi</option>
-                  <?php if (!empty($instansi)) : ?>
-                    <?php foreach ($instansi as $ins) : ?>
-                      <option value="<?= $ins['id_instansi'] ?>"><?= $ins['nama_instansi'] ?></option>
-                    <?php endforeach ?>
-                  <?php endif ?>
-                </select>
-              </div>
-              <input type="hidden" class="form-control" id="level" value="">
-              <input type="hidden" class="form-control" id="instansi" value="<?= $this->session->userdata('instansi'); ?>">
-              <input type="hidden" class="form-control" id="status" value="">
-            <?php endif ?>
-
-            <div class="col-lg-3 filter">
-              <div class="position-relative has-icon-left">
-                <input type="text" class="form-control" id="cari" placeholder="Cari Nama, Username">
-                <div class="form-control-position">
-                  <i class="ft-search"></i>
+                  <a href="<?= base_url($controller . 'AddUser') ?>"><button id="btnSearchDrop2" type="button" aria-expanded="true" class="btn btn-primary btn-sm"> <i class="ft-plus"> </i>Tambah User</button></a>
+                  <!-- Excel -->
+                  <button type="submit" class="btn btn-sm btn-success"><i class="ft-printer"></i> Export Excel</button>
+                  <!-- Excel -->
                 </div>
               </div>
             </div>
-            <?= $this->session->flashdata('message'); ?>
+            <div class="row mb-1" style="padding-left: 15px; padding-right: 15px;" id="advancedfilterform">
+
             </div>
-            <section id="configuration" style="padding: 10px;">
-              <div class="table-responsive">
-                <table id="datatable" class="table table-bordered" style="width: 100%;">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px !important; color: #6B6F82!important;">No</th>
-                      <th style="width: 10px !important; color: #6B6F82!important;">Nama</th>
-                      <th style="width: 30px; color: #6B6F82!important;">Username</th>
-                      <!-- <th style="width: 30px;max-width: 50px; color: #6B6F82!important;">Password</th> -->
-                      <th style="width: 30px;color: #6B6F82!important;">Level</th>
-                      <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
-                        <th style="width: 30px;color: #6B6F82!important;">Instansi</th>
-                      <?php endif ?>
-                      <?php if (($this->session->userdata('instansi') == 2) || ($this->session->userdata('instansi') == 3) || ($this->session->userdata('instansi') == 1)) : ?>
-                        <th style="width: 30px;color: #6B6F82!important;">Domisili</th>
-                      <?php endif ?>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
+            <?php if ($this->session->userdata('instansi') == 1) : ?>
+              <div class="row" style="padding-left: 15px; padding-right: 15px;">
+                <div class="col-lg-3 filter">
+                  <select name="level" id="level" class="form-control" style="width: 100%">
+                    <option value="" selected>Semua Level</option>
+                    <?php if (!empty($level)) : ?>
+                      <?php foreach ($level as $l) : ?>
+                        <?php if ($this->session->userdata('instansi') != 1 && $l['id_level'] == 2) {
+                          continue;
+                        } ?>
+                        <option value="<?= $l['id_level'] ?>"><?= $l['nama_level'] ?></option>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                  </select>
+                </div>
+                <div class="col-lg-3 filter">
+                  <select name="instansi" id="instansi" class="form-control">
+                    <option value="" selected>Semua Instansi</option>
+                    <?php if (!empty($instansi)) : ?>
+                      <?php foreach ($instansi as $ins) : ?>
+                        <option value="<?= $ins['id_instansi'] ?>"><?= $ins['nama_instansi'] ?></option>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                  </select>
+                </div>
+                <input type="hidden" class="form-control" id="level" value="">
+                <input type="hidden" class="form-control" id="instansi" value="<?= $this->session->userdata('instansi'); ?>">
+                <input type="hidden" class="form-control" id="status" value="">
+              <?php endif ?>
+
+              <div class="col-lg-3 filter">
+                <div class="position-relative has-icon-left">
+                  <input type="text" class="form-control" id="cari" placeholder="Cari Nama, Username">
+                  <div class="form-control-position">
+                    <i class="ft-search"></i>
+                  </div>
+                </div>
               </div>
-            </section>
+              <?= $this->session->flashdata('message'); ?>
+              </div>
+              <section id="configuration" style="padding: 10px;">
+                <div class="table-responsive">
+                  <table id="datatable" class="table table-bordered" style="width: 100%;">
+                    <thead>
+                      <tr>
+                        <th style="width: 10px !important; color: #6B6F82!important;">No</th>
+                        <th style="width: 10px !important; color: #6B6F82!important;">Nama</th>
+                        <th style="width: 30px; color: #6B6F82!important;">Username</th>
+                        <!-- <th style="width: 30px;max-width: 50px; color: #6B6F82!important;">Password</th> -->
+                        <th style="width: 30px;color: #6B6F82!important;">Level</th>
+                        <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
+                          <th style="width: 30px;color: #6B6F82!important;">Instansi</th>
+                        <?php endif ?>
+                        <?php if (($this->session->userdata('instansi') == 2) || ($this->session->userdata('instansi') == 3) || ($this->session->userdata('instansi') == 1)) : ?>
+                          <th style="width: 30px;color: #6B6F82!important;">Domisili</th>
+                        <?php endif ?>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </form>
         </div>
       </div>
     </div>

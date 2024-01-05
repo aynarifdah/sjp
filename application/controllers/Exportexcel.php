@@ -10,6 +10,7 @@ class Exportexcel extends CI_Controller
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->library('custom_upload');
+        $this->load->library('encryption');
     }
 
 
@@ -161,9 +162,12 @@ class Exportexcel extends CI_Controller
 
     public function user_management()
     {
+        $level          = $this->input->post("level");
+        $instansi       = $this->input->post("instansi");
+
         $data = array(
             'title' => 'user_management',
-            'dataexcel' => $this->M_SJP->getAllUserDinkes()
+            'dataexcel' => $this->M_SJP->getAllUserDinkes($level, $instansi)
         );
         $this->load->view('exportexcel/excel_user_management', $data);
     }

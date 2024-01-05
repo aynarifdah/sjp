@@ -481,6 +481,11 @@ class M_SJP extends CI_Model
     $this->db->from('jenis_sjp');
     if($all != 'all'){
       $this->db->where('active = ', 1);
+      if($this->session->userdata('instansi') == 4){
+        $this->db->where('id_jenissjp !=', 5);
+      }else{
+        $this->db->where('id_jenissjp !=', 3);
+      }
     }
     $query = $this->db->get()->result_array();
     return $query;

@@ -26,10 +26,10 @@
                     <input type="text" class="form-control kontrakform" placeholder="Nama Lengkap" name="nama_pemohon" id="namapemohon" required>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="jenis_kelamin" id="jeniskelaminkpemohon" class="form-control" required>
+                    <select name="jenis_kelamin" id="jeniskelaminkpemohon" class="form-control">
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
                     </select>
                   </div>
                 </div>
@@ -48,12 +48,17 @@
                 <div class="form-group row" id="modalwal">
                   <label class="col-lg-3 label-control" for="modal">Status Hubungan Dengan Pasien</label>
                   <div class="col-lg-3">
-                    <select name="status_hubungan" id="status_hubungan" class="form-control" required>
+                    <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
-                      <option value="Anak">Anak</option>
+                      <!-- <option value="Anak">Anak</option>
                       <option value="Istri">Istri</option>
                       <option value="Suami">Suami</option>
-                      <option value="Keluarga Lain">Keluarga Lain</option>
+                      <option value="Keluarga Lain">Keluarga Lain</option> -->
+                      <?php if (!empty($statushubungan)) {
+                        foreach ($statushubungan as $key) { ?>
+                          <option value="<?= $key['status_hubungan'] ?>"><?= $key['status_hubungan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -61,7 +66,7 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamatpemohon">
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamatpemohon" required>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rt" name="rt" id="rtpemohon">
@@ -74,7 +79,7 @@
                   <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatanpemohon" style="width: 100%">
+                    <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatanpemohon" style="width: 100%" required>
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
@@ -84,7 +89,7 @@
                     </select>
                   </div>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%">
+                    <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%" required>
                       <option>Pilih Kelurahan</option>
 
                     </select>
@@ -96,7 +101,7 @@
               <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
               <fieldset class="mt-2">
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan*</label>
+                  <label class="col-lg-3 label-control" for="notelp">Jenis Jaminan/ Status JKN/ Domisili*</label>
                   <div class="col-lg-3">
                     <select name="jenisjaminan" class="form-control" required>
                       <option value="">Pilih Jenis Jaminan</option>
@@ -107,9 +112,18 @@
                       } ?>
                     </select>
                   </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="domisili">Domisili*</label>
+
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="status_jkn" id="status_jkn" class="form-control">
+                      <option value="">Pilih Status JKN</option>
+                      <?php if (!empty($jkn)) {
+                        foreach ($jkn as $key) { ?>
+                          <option value="<?= $key['nama_jkn'] ?>"><?= $key['nama_jkn'] ?></option>
+                      <?php }
+                      } ?>
+                    </select>
+                  </div>
+
                   <div class="col-lg-3">
                     <select name="domisili" class="form-control" required>
                       <option value="">Pilih Domisili</option>
@@ -117,11 +131,20 @@
                       <option value="Luar Depok">Luar Depok</option>
                     </select>
                   </div>
+                  
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="nik">NIK</label>
+                  <label class="col-lg-3 label-control" for="nik">NIK/No KK/No KIS</label>
                   <div class="col-lg-3">
                     <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik">
+                  </div>
+
+                  <div class="col-lg-3">
+                    <input type="text" class="form-control" placeholder="No NIK" name="kk" id="kk" required>
+                  </div>
+
+                  <div class="col-lg-3">
+                    <input type="text" class="form-control" placeholder="No KIS" name="nik" id="nik">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -132,8 +155,18 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_kelamin_pasien" id="" class="form-control" required>
                       <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Perempuan">Perempuan</option>
                       <option value="Laki-Laki">Laki - Laki</option>
+                      <option value="Perempuan">Perempuan</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                    <select name="statuspernikahan" class="form-control" required>
+                      <option value="">Pilih Status Pernikahan</option>
+                      <?php if (!empty($statuspernikahan)) {
+                        foreach ($statuspernikahan as $key) { ?>
+                          <option value="<?= $key['id'] ?>"><?= $key['status_pernikahan'] ?></option>
+                      <?php }
+                      } ?>
                     </select>
                   </div>
                 </div>
@@ -214,8 +247,15 @@
                           <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
                       <?php }
                       } ?>
+                      <option value="999">Lainnya</option>
                     </select>
                   </div>
+
+                  <div id="inputLainnya" style="display: none;">
+                    <!-- <label for="inputLainnyaText">Masukkan Nama Rumah Sakit</label> -->
+                    <input type="text" id="inputLainnyaText" name="rs_lainnya" class="form-control" placeholder="Rumah Sakit Lainnya">
+                  </div>
+
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="jenis_rawat" id="jenisrawat" class="form-control" style="width: 100%" required>
                       <option value="">Pilih Jenis Rawat</option>
@@ -625,6 +665,13 @@
 
 <script>
   $(document).ready(function() {
-    //$('.js-example-basic-multiple').select2({placeholder: "Pilih Diagnosa"});
+    $('#nama_rumahsakit').change(function() {
+      var selectedValue = $(this).val();
+      if (selectedValue === '999') {
+        $('#inputLainnya').show();
+      } else {
+        $('#inputLainnya').hide();
+      }
+    });
   });
 </script>

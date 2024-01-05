@@ -236,20 +236,22 @@ class Dinsos extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button></div>');
-            redirect('Dinsos/pengajuan_dinsos');
-        } else {
+        // if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+        //             Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
+        //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //             <span aria-hidden="true">&times;</span>
+        //         </button></div>');
+        //     redirect('Dinsos/pengajuan_dinsos');
+        // } else {
             $data = array(
                 'topik'      => $this->M_SJP->diagnosa(),
                 'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
                 'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
                 'rumahsakit' => $this->M_SJP->rumahsakit(),
                 'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+                'statushubungan' => $this->M_SJP->statushubungan(),
+                'statuspernikahan' => $this->M_SJP->statuspernikahan(),
                 'jenisjaminan' => $this->M_SJP->jenisjaminan(),
             );
 
@@ -262,7 +264,7 @@ class Dinsos extends CI_Controller
 
             $this->load->view('template/default_template', $data);
             //$this->load->view('input_pasien_dinsos', false);
-        }
+        // }
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -352,10 +354,13 @@ class Dinsos extends CI_Controller
         $whatsapp1       = $this->input->post('whatsapp');
         $email1          = $this->input->post('email');
         $statushubungan  = $this->input->post('status_hubungan');
+        $jkn             = $this->input->post('status_jkn');
+
         $jenisizin       = 1; //jenis izin sjp dibuat default 
         $datapermohonan           = array(
             'nama_pemohon'    => $nama,
             'jenis_kelamin'   => $jeniskelamin1,
+            'nama_jkn'        => $jkn,
             'alamat'          => $alamat1,
             'rt'              => $rt1,
             'rw'              => $rw1,
@@ -376,7 +381,13 @@ class Dinsos extends CI_Controller
         //     $id_pengajuan = $value['id_pengajuan'];
         // }
 
-        $nik           = $this->input->post('nik');
+        $nik            = $this->input->post('nik');
+        $kk             = $this->input->post('kk');
+        $kis            = $this->input->post('kis');
+        $statuspernikahan  = $this->input->post('statuspernikahan');
+        $rs_lainnya  = $this->input->post('rs_lainnya');
+        $status_jkn    = $this->input->post('status_jkn');
+        $jkn            = $this->input->post('status_jkn');
         $nama          = $this->input->post('nama_pasien');
         $jeniskelamin  = $this->input->post('jenis_kelamin');
         $tempatlahir   = $this->input->post('tempat_lahir');
@@ -405,6 +416,12 @@ class Dinsos extends CI_Controller
             //'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
+            'no_kk'            => $kk,
+            'no_kis'           => $kis,
+            'id_pernikahan'    => $statuspernikahan,
+            'rs_lainnya'       => $rs_lainnya,
+            'id_jkn'           => $jkn,
+            'status_jkn'       => $status_jkn,
             'nama_pasien'      => $nama,
             'jenis_kelamin'    => $jeniskelamin,
             'tempat_lahir'     => $tempatlahir,
