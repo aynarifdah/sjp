@@ -42,25 +42,32 @@
 
     function allcart() {
 		$.ajax({
-			url: "<?php echo site_url('Landing/all_chart'); ?>",
+			url: "<?php echo site_url('Landing/all_statistik'); ?>",
 			method: "POST",
 			data: {
-				bulan: $("#bulan").val(),
-				tahun: $("#tahun").val(),
 				kecamatan: $("#kecamatan").val(),
+				kelurahan: $("#kd_kelurahanpemohon").val(),
 			},
 			dataType: 'json',
 			success: function(data) {
+                // console_log(data);
 
-				$('#total_kekerasan').text(data.count_data_kekerasan);
-				$('#total_kekerasan_perempuan_dewasa').text(data.count_data_perempuan_dewasa);
-				$('#total_kekerasan_anak').text(data.count_data_anak);
-				$('#total_kekerasan_anak_perempuan').text(data.count_data_anak_perempuan);
-				$('#total_kekerasan_anak_laki').text(data.count_data_anak_laki);
-				// count_data_kekerasan__berdasarkan_kecamatan_ktp
+				$('#jumlah_pasien').text(data.count_jumlah_pasien);
+                $('#pengajuan_disetujui').text(data.count_pengajuan_disetujui);
+                // $('#pengajuan_berdasarkan_kecamatan').text(data.count_pengajuan_berdasarkan_kecamatan);
 
 				// TREND KEKERASAN PADA DAERAH
+                let k = []
+				let jumlahKec = []
+				let oJml3 = ``
+				for (i = 0; i < data.count_pengajuan_berdasarkan_kecamatan.length; i++) {
+					oK = data.count_pengajuan_berdasarkan_kecamatan[i].kecamatan
 
+					oJml3 = parseInt(data.count_pengajuan_berdasarkan_kecamatan[i].jumlahKec)
+					jumlahKec.push(oJml3)
+					k.push(oK)
+				}
+                
                 Highcharts.chart('pasien-daerah', {
                     chart: {
                         type: 'column'
@@ -90,9 +97,9 @@
                     legend: {
                         enabled: false
                     },
-                    tooltip: {
-                        pointFormat: 'Population in 2021: <b>{point.y:.1f} millions</b>'
-                    },
+                    // tooltip: {
+                    //     pointFormat: 'Population in 2021: <b>{point.y:.1f} millions</b>'
+                    // },
                     colors: [
                         '#4caefe',
                         '#3fbdf3',
@@ -107,18 +114,14 @@
                         '#00eeaf'
                     ],
                     xAxis: {
-                        categories: ['Beji', 'Bojongsari', 'Cilodong', 'Cimanggis', 'Cinere', 'Cipayung', 'Limo',
-                            'Pancoranmas', 'Sawangan', 'Sukmajaya', 'Tapos'
-                        ]
+                        categories: k
                     },
                     series: [{
                         type: 'column',
-                        name: 'Unemployed',
+                        name: 'Jumlah',
                         borderRadius: 5,
                         colorByPoint: true,
-                        data: [5412, 4977, 4730, 4437, 3947, 3707, 4143, 3609,
-                            3311, 3072, 2899
-                        ],
+                        data: jumlahKec,
                         showInLegend: false
                     }]
                 });
@@ -126,7 +129,17 @@
 
 
                 // TREND KEKERASAN PADA DAERAH
+                let kel = []
+				let jumlahKel = []
+				let oJml2 = ``
+				for (i = 0; i < data.count_pengajuan_berdasarkan_kelurahan.length; i++) {
+					oK = data.count_pengajuan_berdasarkan_kelurahan[i].kelurahan
 
+					oJml2 = parseInt(data.count_pengajuan_berdasarkan_kelurahan[i].jumlahKel)
+					jumlahKel.push(oJml2)
+					kel.push(oK)
+				}
+                
                 Highcharts.chart('pasien-kelurahan', {
                     chart: {
                         type: 'column'
@@ -156,9 +169,9 @@
                     legend: {
                         enabled: false
                     },
-                    tooltip: {
-                        pointFormat: 'Population in 2021: <b>{point.y:.1f} millions</b>'
-                    },
+                    // tooltip: {
+                    //     pointFormat: 'Population in 2021: <b>{point.y:.1f} millions</b>'
+                    // },
                     colors: [
                         '#4caefe',
                         '#3fbdf3',
@@ -184,40 +197,14 @@
                         '#00eeaf'
                     ],
                     xAxis: {
-                        categories: [
-                            'Abdi Jaya',
-                            'beji',
-                            'bojongsari',
-                            'Cilodong',
-                            'Cinere',
-                            'cisalak',
-                            'Curug(Cimanggis)',
-                            'Duren Mekar',
-                            'Grogol',
-                            'Jatimulya',
-                            'Kedaung',
-                            'Kukusan',
-                            'Luar Depok',
-                            'Mekar Sari',
-                            'Pangkalan Jati',
-                            'Pasir Putih',
-                            'Pondok Petir',
-                            'Ratu Jaya',
-                            'Sawangan Lama',
-                            'Sukamaju Baru',
-                            'Tanah Baru',
-                            'Tugu'
-                        ]
+                        categories: kel
                     },
                     series: [{
                         type: 'column',
-                        name: 'Unemployed',
+                        name: 'Jumlah',
                         borderRadius: 5,
                         colorByPoint: true,
-                        data: [5412, 4977, 4730, 4437, 3947, 3707, 4143, 3609,
-                            3311, 3072, 2899, 5412, 4977, 4730, 4437, 3947, 3707, 4143, 3609,
-                            3311, 3072, 2899
-                        ],
+                        data: jumlahKel,
                         showInLegend: false
                     }]
                 });
@@ -294,7 +281,7 @@
 
                 });
                 // END CHART KEKERASAN PERTAHUN
-
+                
                 Highcharts.chart('pasien-keseluruhan', {
                     chart: {
                         plotBackgroundColor: null,
@@ -305,9 +292,9 @@
                     title: {
                         text: 'Pasien SJP Pada Perempuan dan Laki-laki',
                     },
-                    subtitle: {
-                        text: '<b>hari ini</b>'
-                    },
+                    // subtitle: {
+                    //     text: '<b>hari ini</b>'
+                    // },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
@@ -327,7 +314,7 @@
                         }
                     },
                     series: [{
-                        name: 'Brands',
+                        name: 'Jumlah',
                         colorByPoint: true,
                         data: [
                             // {
@@ -338,10 +325,11 @@
                             // },
                             {
                                 name: 'Laki-Laki',
-                                y: 12.82
-                            }, {
+                                y: parseInt(data.count_pengajuan_berdasarkan_laki[0].jumlah_laki),
+                            },
+                            {
                                 name: 'Perempuan',
-                                y: 16.63
+                                y: parseInt(data.count_pengajuan_berdasarkan_perempuan[0].jumlah_perempuan),
                             },
                         ],
                     }]
@@ -368,7 +356,7 @@
         async: false,
         dataType: 'json',
         success: function(data) {
-            var html = '<option>Pilih Kelurahan</option>';
+            var html = '<option value="" selected>Pilih Kelurahan</option>';
             var i;
             for (i = 0; i < data.length; i++) {
             html += '<option value = "' + data[i].kelurahan + '">' + data[i].kelurahan + '</option>';

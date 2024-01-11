@@ -11,6 +11,7 @@ class Landing extends CI_Controller
         $this->load->helper('text');
         $this->load->model('M_SJP');
         $this->load->model('M_data');
+        $this->load->model('M_Landing');
         // auth_menu();
         // is_login();
     }
@@ -196,11 +197,16 @@ class Landing extends CI_Controller
     {
         $kecamatan = $this->input->post('kecamatan');
         $kelurahan = $this->input->post('kelurahan');
+        
 
         $data = [
-            'jumlah_pasien' => $this->statis->count_data_kekerasan($kecamatan, $kelurahan),
-            'jumlah_pengajuan' => $this->statis->count_data_perempuan_dewasa($kecamatan, $kelurahan),
-            'pengajuan_disetujui' => $this->statis->count_data_anak($kecamatan, $kelurahan),
+            'count_jumlah_pasien' => $this->M_Landing->count_data_jumlah_pasien($kecamatan, $kelurahan),
+            'count_pengajuan_disetujui' => $this->M_Landing->count_data_jumlah_pasien_disetujui($kecamatan, $kelurahan),
+            'count_pengajuan_berdasarkan_kecamatan' => $this->M_Landing->count_data_jumlah_pasien_berdasarkan_kecamatan($kecamatan, $kelurahan),
+            'count_pengajuan_berdasarkan_kelurahan' => $this->M_Landing->count_data_jumlah_pasien_berdasarkan_kelurahan($kecamatan, $kelurahan),
+            // 'count_pengajuan_berdasarkan_jenis_kelamin' => $this->M_Landing->count_data_jumlah_pasien_berdasarkan_jenis_kelamin($kecamatan, $kelurahan),
+            'count_pengajuan_berdasarkan_laki' => $this->M_Landing->count_data_jumlah_pasien_berdasarkan_laki_laki($kecamatan, $kelurahan),
+            'count_pengajuan_berdasarkan_perempuan' => $this->M_Landing->count_data_jumlah_pasien_berdasarkan_perempuan($kecamatan, $kelurahan),
         ];
         
         echo json_encode($data);

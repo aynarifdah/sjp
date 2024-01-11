@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-6">
+                        <!-- <div class="col-lg-3 col-md-6">
                             <div class="count-box">
                                 <img src="<?= base_url('assets-web') ?>/img/icon/icon6.png" style="width: 20%" alt="">
                                 <div class="text-ke">
@@ -66,7 +66,7 @@
                                     <p>Jumlah Pengajuan SJP</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-3 col-md-6 end">
                             <div class="count-box">
@@ -90,20 +90,6 @@
                     <div class="col-md-6">
                         <div class="shadow-sm p-3 mb-3 rounded">
                             <figure class="highcharts-figure">
-                                <div id="pasien-keseluruhan"></div>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="shadow-sm p-3 mb-3 rounded">
-                            <figure class="highcharts-figure">
-                                <div id="pasien-pertahun"></div>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="shadow-sm p-3 mb-3 rounded">
-                            <figure class="highcharts-figure">
                                 <div id="pasien-daerah"></div>
                             </figure>
                         </div>
@@ -112,6 +98,20 @@
                         <div class="shadow-sm p-3 mb-3 rounded">
                             <figure class="highcharts-figure">
                                 <div id="pasien-kelurahan"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="shadow-sm p-3 mb-3 rounded">
+                            <figure class="highcharts-figure">
+                                <div id="pasien-keseluruhan"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="shadow-sm p-3 mb-3 rounded">
+                            <figure class="highcharts-figure">
+                                <div id="pasien-pertahun"></div>
                             </figure>
                         </div>
                     </div>
