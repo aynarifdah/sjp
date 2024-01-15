@@ -342,8 +342,8 @@
                      </div>
                    </div>
                  </div>
-               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5 && $key['nama_jenis'] != 'UHC') { ?>
-                 <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses SJP</button>
+               <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 2  && $key['id_status_pengajuan'] == 5) { ?>
+                 <button type="button" class="btn btn-dark btn-sm float-right" data-toggle="modal" data-target="#setujuipengajuan"><i class="ft-check"></i>&nbsp;Proses <?php echo ($key['nama_jenis'] == 'UHC') ? "UHC" : "SJP"; ?></button>
 
                  <div class="modal fade text-left" id="setujuipengajuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                    <div class="modal-dialog" role="document">
@@ -364,7 +364,9 @@
                              <label for="">Status Pengajuan</label>
                              <select name="status_pengajuan" class="form-control" required="">
                                <option value="">Status Pengajuan</option>
-                               <option value="6">Disetujui</option>
+                               <?php if($key['nama_jenis'] != 'UHC') : ?>
+                                  <option value="6">Disetujui</option>
+                                <?php endif; ?>
                                <option value="8">Diajukan PBPUBP</option>
                                <option value="7">Ditolak</option>
                              </select>
