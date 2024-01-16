@@ -148,7 +148,7 @@
                     <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
                   </div>
                   <div class="col-lg-3">
-                      <input type="text" class="form-control" placeholder="No NIK" name="kk" id="kk" required>
+                      <input type="text" class="form-control" placeholder="No KK" name="kk" id="kk" required>
                   </div>
                   <div class="col-lg-3">
                       <input type="text" class="form-control" placeholder="No KIS" name="kis" id="kis">
