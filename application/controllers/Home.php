@@ -954,7 +954,7 @@ class Home extends CI_Controller
 
         $data = array(
             "page"    => $this->load("Dashboard", $path),
-            "content" => $this->load->view('dashboard', $d, true)
+            "content" => $this->load->view('dashboard_pkm', $d, true)
         );
 
         $this->load->view('template/default_template', $data);

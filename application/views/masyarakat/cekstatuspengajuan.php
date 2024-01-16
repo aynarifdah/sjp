@@ -163,7 +163,15 @@ function loaddata(nik){
         // $('.statuspengajuan').addClass('bg-success');
         // return row.status_pengajuan;
         return '<div class="badge bg-danger " style="font-size: 14px;">'+row.status_pengajuan+'</div>'
-      } 
+      }  else if (data == 8){
+        // $('.statuspengajuan').addClass('bg-success');
+        // return row.status_pengajuan;
+        return '<div class="badge bg-primary " style="font-size: 14px;">'+row.status_pengajuan+'</div>'
+      }  else {
+        // $('.statuspengajuan').addClass('bg-success');
+        // return row.status_pengajuan;
+        return '<div class="badge bg-danger " style="font-size: 14px;">' + 'Unknown' + '</div>'
+      }
 
     },className : "dt-head-center dt-body-right bodyclick statuspengajuan text-white"},
     //   {data: "id_sjp", "render": function ( data, type, row, meta ) {
