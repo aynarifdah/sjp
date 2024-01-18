@@ -33,13 +33,13 @@
                       <option value="Perempuan">Perempuan</option>
                     </select>
                   </div>
-                  <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
+                  <!-- <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="pemohon_pengajuan" id="pemohon_pengajuan" class="form-control">
                       <option value="">Pilih Pemohon</option>
                       <option value="Relawan">Relawan</option>
                       <option value="Kader">Kader</option>
                     </select>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
