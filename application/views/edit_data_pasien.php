@@ -225,6 +225,7 @@
 
                         <option value="Rawat Inap" <?= $detail[0]['jenis_rawat'] == "Rawat Inap" ? 'selected' : '' ?>>Rawat Inap</option>
                         <option value="Rawat Jalan" <?= $detail[0]['jenis_rawat'] == "Rawat Jalan" ? 'selected' : '' ?>>Rawat Jalan</option>
+                        <option value="IGD" <?= $detail[0]['jenis_rawat'] == "IGD" ? 'selected' : '' ?>>IGD</option>
                       </select>
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
@@ -514,6 +515,7 @@
 
                         <option value="Rawat Inap" <?= $detail[0]['jenis_rawat'] == "Rawat Inap" ? 'selected' : '' ?>>Rawat Inap</option>
                         <option value="Rawat Jalan" <?= $detail[0]['jenis_rawat'] == "Rawat Jalan" ? 'selected' : '' ?>>Rawat Jalan</option>
+                        <option value="IGD" <?= $detail[0]['jenis_rawat'] == "IGD" ? 'selected' : '' ?>>IGD</option>
                       </select>
                     </div>
                     <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">

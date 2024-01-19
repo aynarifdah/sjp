@@ -747,6 +747,8 @@ class M_SJP extends CI_Model
     $this->db->from('persyaratan');
     $this->db->join('attachment', 'attachment.id_persyaratan = persyaratan.id_persyaratan', 'left');
     $this->db->where('id_pengajuan ', $id_pengajuan);
+    $this->db->where('persyaratan.id_jenis_izin = ', 1);
+    $this->db->where('persyaratan.active = ', 1);
     // $this->db->where('id_jenis_izin', $id_jenis_izin);
     $query = $this->db->get()->result_array();
     return $query;
