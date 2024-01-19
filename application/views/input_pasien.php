@@ -692,6 +692,7 @@
 
     }
   });
+  
 
   // TEST 04-02-2021
 
@@ -733,6 +734,23 @@
     });
 });
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Add an event listener for file input change
+        $('input[type="file"]').change(function () {
+            var fileInput = $(this);
+            var allowedExtensions = /(\.png|\.jpg|\.jpeg)$/i;
+
+            // Check if the selected file has a valid extension
+            if (!allowedExtensions.exec(fileInput.val())) {
+                alert('Jenis berkas tidak valid! Silakan unggah file PNG, JPG, atau JPEG.');
+                fileInput.val(''); // Clear the file input
+                return false;
+            }
+        });
+    });
 </script>
 
 
