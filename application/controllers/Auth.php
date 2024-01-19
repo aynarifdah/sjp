@@ -70,40 +70,45 @@ class Auth extends CI_Controller
 		} else {
 			if ($password == $this->encryption->decrypt($user->password)) {
 				if($user->is_active == 1){
-					$this->session->set_userdata('authenticated', true);
-					$this->session->set_userdata('id_user', $user->id_user);
-					$this->session->set_userdata('username', $user->username);
-					$this->session->set_userdata('nama', $user->nama);
-					$this->session->set_userdata('password', $user->nama);
-					$this->session->set_userdata('level', $user->level);
-					$this->session->set_userdata('instansi', $user->id_instansi);
-					$this->session->set_userdata('id_join', $user->id_join);
+					if($user->id_instansi != 6){
+						$this->session->set_userdata('authenticated', true);
+						$this->session->set_userdata('id_user', $user->id_user);
+						$this->session->set_userdata('username', $user->username);
+						$this->session->set_userdata('nama', $user->nama);
+						$this->session->set_userdata('password', $user->nama);
+						$this->session->set_userdata('level', $user->level);
+						$this->session->set_userdata('instansi', $user->id_instansi);
+						$this->session->set_userdata('id_join', $user->id_join);
 
-					helper_log("login", "Berhasil Login", $user->id_instansi);
-					switch ($user->id_instansi) {
-						case "1":
-							redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
-							break;
-						case "2":
-							redirect('Rs/', 'refresh');
-							break;
-						case "3":
-							redirect('Home/', 'refresh');
-							break;
-						case "4":
-							redirect('Dinsos/', 'refresh');
-							break;
-						case "6":
-							redirect('Kelurahan/', 'refresh');
-							break;
-						case "7":
-							redirect('Home/', 'refresh');
-							break;
-							// case "5":
-							//     redirect('Masyarakat/', 'refresh'); 
-							//     break;
-						default:
-							echo "Error!";
+						helper_log("login", "Berhasil Login", $user->id_instansi);
+						switch ($user->id_instansi) {
+							case "1":
+								redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
+								break;
+							case "2":
+								redirect('Rs/', 'refresh');
+								break;
+							case "3":
+								redirect('Home/', 'refresh');
+								break;
+							case "4":
+								redirect('Dinsos/', 'refresh');
+								break;
+							case "6":
+								redirect('Kelurahan/', 'refresh');
+								break;
+							case "7":
+								redirect('Home/', 'refresh');
+								break;
+								// case "5":
+								//     redirect('Masyarakat/', 'refresh'); 
+								//     break;
+							default:
+								echo "Error!";
+						}
+					}else{
+						$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Akun anda sudah Tidak Memiliki Akses</div>');
+						redirect('Auth/', 'refresh');
 					}	
 				}else{
 					$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Akun anda sudah Tidak Aktif</div>');
