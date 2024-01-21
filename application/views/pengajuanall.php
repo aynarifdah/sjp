@@ -108,13 +108,17 @@
                 <label>Jenis Jaminan</label>
                 <select name="jaminan" id="jaminan" class="form-control" style="width: 100%" <?php if ($uhc == 4) echo 'disabled'; ?>>
                   <option value="" >Semua Jaminan</option>
-                  <?php if (!empty($jenisjaminan)) : ?>
-                    <?php foreach ($jenisjaminan as $j) : ?>
-                      <option value="<?= $j['id_jenissjp'] ?>" <?php if ($uhc == 4 && $j['id_jenissjp'] == 4) echo 'selected'; ?>>
-                        <?= $j['nama_jenis'] ?>
-                      </option>
-                    <?php endforeach ?>
-                  <?php endif ?>
+                  <?php if($uhc != 4) { ?>
+                    <?php if (!empty($jenisjaminan)) : ?>
+                      <?php foreach ($jenisjaminan as $j) : ?>
+                        <option value="<?= $j['id_jenissjp'] ?>">
+                          <?= $j['nama_jenis'] ?>
+                        </option>
+                      <?php endforeach ?>
+                    <?php endif ?>
+                  <?php }else{?>
+                    <option value="4" selected>UHC</option>
+                  <?php } ?>
                 </select>
 
               </div>
