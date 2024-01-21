@@ -7,7 +7,7 @@
 
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuanall'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Semua Pengajuan</span></a>
       </li>
-      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuanall/4'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Semua UHC</span></a>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuanuhc'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Semua UHC</span></a>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuan_sjp'); ?>"><i class="ft-book"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Pengajuan SJP</span></a>
       </li>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/persetujuan_sjp_kayankesru'); ?>"><i class="ft-check-square"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Persetujuan SJP</span></a>

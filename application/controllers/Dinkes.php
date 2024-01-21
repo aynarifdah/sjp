@@ -692,6 +692,28 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
+    public function pengajuanuhc()
+    {
+        $level = $this->session->userdata('level');
+        $datax = array(
+            'level'             => $level,
+            'puskesmas'         => $this->M_data->getPuskesmas(),
+            'rs'                => $this->M_data->getRS(),
+            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
+            'controller'        => $this->instansi(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all')
+
+        );
+
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Pengajuan", $path),
+            "content" => $this->load->view('dinkes/pengajuan_uhc', $datax, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
     public function pengajuan_sjp()
     {
         // $id_status_pengajuan = 3;
