@@ -423,7 +423,11 @@
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
           d.puskesmas = $("#puskesmas").val();
-          d.jaminan = $("#jaminan").val();
+          <?php if($uhc == 4) { ?>
+            d.jaminan = 4;
+          <?php }else{?>
+            d.jaminan = $("#jaminan").val();
+          <?php }?>
           d.rs = $("#rs").val();
           d.status = $("#status").val();
           d.cari = $("#cari").val();
