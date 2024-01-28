@@ -1311,7 +1311,8 @@ class M_SJP extends CI_Model
     $this->db->join('puskesmas pus', 'sjp.id_puskesmas = pus.id_puskesmas', 'left');
     $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
     $this->db->join('status_hubungan sh', 'pp.status_hubungan = sh.status_hubungan', 'left');
-    
+    // var_dump($akhir);
+    // die();
     if (!empty($puskesmas)) {
       $this->db->where('pus.id_puskesmas =', $puskesmas);
     }
@@ -1322,7 +1323,15 @@ class M_SJP extends CI_Model
       $this->db->where('pp.tanggal_pengajuan >=', $mulai);
     }
     if (!empty($akhir)) {
-      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
+      // Mendapatkan tanggal dari $akhir
+      $tanggal = date('Y-m-d', strtotime($akhir));
+      
+      // Mengatur waktu menjadi 23:59:59
+      $waktuSekarang = '23:59:59';
+      
+      // Menggabungkan tanggal dan waktu
+      $formattedDate = $tanggal . ' ' . $waktuSekarang;
+      $this->db->where('pp.tanggal_pengajuan <=', $formattedDate);
     }
     if (!empty($rumahsakit)) {
       $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
