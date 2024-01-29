@@ -157,7 +157,7 @@ class Rs extends CI_Controller
         // foreach ($id_pengajuan1 as $key => $value) {
         //     $id_pengajuan = $value['id_pengajuan'];
         // }
-        $id_puskesmas           = $this->input->post('puskesmas');
+        // $id_puskesmas           = $this->input->post('puskesmas');
         $nik           = $this->input->post('nik');
         $kk           = $this->input->post('kk');
         $kis           = $this->input->post('kis');
@@ -195,7 +195,7 @@ class Rs extends CI_Controller
 
         $datasjp       = array(
             'id_pengajuan'     => $id_pengajuan,
-            'id_puskesmas'     => $id_puskesmas,
+            // 'id_puskesmas'     => $id_puskesmas,
             'id_rumah_sakit'   => $rumahsakit,
             'nik'              => $nik,
             'no_kk'            => $kk,

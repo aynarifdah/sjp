@@ -249,11 +249,14 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select name="nama_rumah_sakit" id="nama_rumahsakit" class="select2 form-control" style="width: 100%">
                       <option value="">Pilih Rumah Sakit</option>
-
+                      <?php $id_rs = $this->session->userdata('id_join');?>
+                      
                       <?php if (!empty($rumahsakit)) {
-                        foreach ($rumahsakit as $key) { ?>
-                          <option value="<?= $key['id_rumah_sakit'] ?>"><?= $key['nama_rumah_sakit'] ?></option>
-                      <?php }
+                          foreach ($rumahsakit as $key) {
+                              $selected = ($id_rs == $key['id_rumah_sakit']) ? 'selected' : '';
+                              ?>
+                              <option value="<?= $key['id_rumah_sakit'] ?>" <?= $selected ?>><?= $key['nama_rumah_sakit'] ?></option>
+                          <?php }
                       } ?>
                       <option value="999">Lainnya</option>
 
@@ -283,7 +286,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Puskesmas</label>
                   <?php if ($this->session->userdata('instansi') == 2) : ?>
                     <div class="col-lg-3 filter">
@@ -297,7 +300,7 @@
                       </select>
                     </div>
                   <?php endif ?>
-                </div>
+                </div> -->
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="notelp">Mulai/Akhir Rawat</label>
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
