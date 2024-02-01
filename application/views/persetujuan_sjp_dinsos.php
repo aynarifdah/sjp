@@ -95,6 +95,7 @@
                   <th style="width: 5px;">No</th>
                   <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
                   <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
+                  <th style="width: 30px; color: #6B6F82!important;">Jenis Jaminan</th>
                   <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                   <!-- <th>Lama Pengajuan</th> -->
                   <!-- <th>Puskesmas</th> -->
@@ -192,7 +193,7 @@
       "info": true,
       "bFilter": true,
       "columnDefs": [{
-        "targets": 3,
+        "targets": 4,
         "type": "date-eu"
       }],
       columns: [{
@@ -207,6 +208,10 @@
         },
         {
           data: "nama_pasien",
+          className: "text-info dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "nama_jenis",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {

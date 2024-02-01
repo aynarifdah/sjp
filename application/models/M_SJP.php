@@ -482,9 +482,9 @@ class M_SJP extends CI_Model
     if($all != 'all'){
       $this->db->where('active = ', 1);
       if($this->session->userdata('instansi') == 4){
-        $this->db->where('id_jenissjp !=', 5);
+        $this->db->where('id_jenissjp =', 5);
       }else{
-        $this->db->where('id_jenissjp !=', 3);
+        $this->db->where('id_jenissjp =', 4);
       }
     }
     $query = $this->db->get()->result_array();
@@ -1624,12 +1624,13 @@ class M_SJP extends CI_Model
 
   public function view_permohonansjp_dinsos($id_jenissjp, $puskesmas = Null, $rs = Null, $status = Null, $cari = Null, $mulai = Null)
   {
-    $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan');
+    $this->db->select('rs.nama_rumah_sakit as nm_rs, pp.tanggal_pengajuan, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan, js.nama_jenis');
     $this->db->from('permohonan_pengajuan pp');
     $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
     $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
     $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
 
     // $this->db->where('id_status_pengajuan =', 4);
     if (!empty($puskesmas)) {
@@ -1650,7 +1651,8 @@ class M_SJP extends CI_Model
     // $this->db->where('pp.id_status_pengajuan =', 4);
     // $this->db->where_not_in('jenis_sjp', [1,3,5,7]);
     if ($this->session->userdata('nama') != 'Dinsos View') {
-      $this->db->where('jenis_sjp =', $id_jenissjp);
+      // $this->db->where('jenis_sjp =', $id_jenissjp);
+      $this->db->where_in('jenis_sjp', $id_jenissjp);
     }
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();

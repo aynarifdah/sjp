@@ -253,6 +253,7 @@ class Dinsos extends CI_Controller
                 'statushubungan' => $this->M_SJP->statushubungan(),
                 'statuspernikahan' => $this->M_SJP->statuspernikahan(),
                 'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+                'jkn' => $this->M_SJP->jkn(),
             );
 
             // var_dump($data['rumahsakit']);
@@ -1310,7 +1311,7 @@ class Dinsos extends CI_Controller
 
     public function getalldatapermohonan_dinsos()
     {
-        $id_jenissjp = 3;
+        $id_jenissjp = [3,5];
 
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
