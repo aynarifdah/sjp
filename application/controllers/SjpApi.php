@@ -19,8 +19,8 @@ class SjpApi extends RestController
 
     public function AuthLogin_post()
     {
-        $username = $this->post('Username');
-        $password = $this->post('Password');
+        $username = $this->post('username');
+        $password = $this->post('password');
 
         $user = $this->M_login->readBy($username);
 
@@ -77,7 +77,7 @@ class SjpApi extends RestController
 
     public function StatusPengajuan_post()
     {
-        $nik = $this->input->post('Nik');
+        $nik = $this->input->post('nik');
 
         $authorization_header = $this->input->get_request_header('Authorization');
 
