@@ -58,7 +58,7 @@ data-open="click" data-menu="vertical-menu" data-col="2-columns">
   </div>
    
   </nav>
-  <script type="text/javascript" src="https://dummy.smartcity.co.id/sso-library/logout.js" name="tf-login-button" data-client_id="gZk3QRbfIu944YZd"></script>
+  <!-- <script type="text/javascript" src="https://dummy.smartcity.co.id/sso-library/logout.js" name="tf-login-button" data-client_id="gZk3QRbfIu944YZd"></script> -->
 
  
 
