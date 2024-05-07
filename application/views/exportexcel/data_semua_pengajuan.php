@@ -29,6 +29,7 @@ header("Expires: 0");
             <th>Jenis Kelamin</th>
             <th>Hubungan</th>
             <th>Status Pernikahan</th>
+            <th>Telepon Pasien</th>
         </tr>
     </thead>
     <tbody>
@@ -59,6 +60,7 @@ header("Expires: 0");
                     </td>
                     <td><?php echo $key['id_hubungan']; ?></td>
                     <td><?php echo $key['id_pernikahan']; ?></td>
+                    <td><?php echo $key['telepon']; ?></td>
                     <!-- <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td> -->
                     <!-- <td>
                         <?php 
