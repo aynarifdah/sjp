@@ -26,7 +26,7 @@
         <div class="col-lg-3 col-sm-3 col-md-3 col-xs-12">
           <a href="<?php echo site_url('Masyarakat/cekkds') ?>" class="box_cat_home">
             <img src="<?php echo base_url('assets/images/icons/safe.png')?>" width="150" height="150" alt="Simpus Depok">
-            <h3>Cek KDS</h3>
+            <h3>Cek Status SITPAS</h3>
           </a>
         </div>
 

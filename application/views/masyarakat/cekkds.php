@@ -2,7 +2,7 @@
 <div class="container" style="padding-top: 60px; padding-bottom: 50px;">
 
   <div class="main_title">
-    <h2>Silahkan Cek <strong>KDS</strong> dibawah ini</h2>
+    <h2>Silahkan Cek <strong>Status Sitpas</strong> dibawah ini</h2>
     <!-- <p>Sistem Pendaftaran Online SJP Kota Depok.</p> -->
   </div>
 
