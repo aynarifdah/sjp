@@ -77,11 +77,12 @@ class Exportexcel extends CI_Controller
         $search = $this->input->post('search');
         $mulai = $this->input->post('mulai');
         $akhir = $this->input->post('akhir');
+        $jaminan = $this->input->post('jaminan');
 
 
         $data = array(
             'title' => 'disetujui_sjp',
-            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 6, $search, $mulai, $akhir)
+            'dataexcel' => $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, 6, $search, $mulai, $akhir, $jaminan)
         );
         $this->load->view('exportexcel/excel_disetujui_sjp', $data);
     }
