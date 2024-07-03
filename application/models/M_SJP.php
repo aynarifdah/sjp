@@ -484,6 +484,8 @@ class M_SJP extends CI_Model
       if($this->session->userdata('instansi') == 4){
         $this->db->where('id_jenissjp', 5);
         $this->db->or_where('id_jenissjp', 3);
+      }if($this->session->userdata('instansi') == 8){
+        $this->db->where('id_jenissjp', 5);
       }else{
         $this->db->where('id_jenissjp =', 4);
       }

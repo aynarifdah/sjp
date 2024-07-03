@@ -100,6 +100,9 @@ class Auth extends CI_Controller
 							case "7":
 								redirect('Home/', 'refresh');
 								break;
+							case "8":
+								redirect('Dinsos/', 'refresh');
+								break;
 								// case "5":
 								//     redirect('Masyarakat/', 'refresh'); 
 								//     break;
