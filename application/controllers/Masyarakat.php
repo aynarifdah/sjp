@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class Masyarakat extends CI_Controller {
 	
@@ -148,6 +150,17 @@ private function load($title = '', $datapath = '')
     $data = array(
        "page"    => $this->load("Index", $path) ,
        "content" => $this->load->view('masyarakat/cekstatuspengajuan', false, true)
+   );
+
+    $this->load->view('masyarakat/default_template', $data);
+   }
+	
+   public function cekkds()
+	{
+	$path = "";
+    $data = array(
+       "page"    => $this->load("Index", $path) ,
+       "content" => $this->load->view('masyarakat/cekkds', false, true)
    );
 
     $this->load->view('masyarakat/default_template', $data);
@@ -784,6 +797,87 @@ public function update_datapasien($idsjp, $id_pengajuan){
     );
 
     $this->load->view('masyarakat/default_template', $data);
+}
+
+private function gettokenkds(){
+    $timestamp = date(time());
+    
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://sitpas.depok.go.id/kds/Decrypt',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+        "cid": "admin-kds",
+        "client_name": "kartu-depok",
+        "timestamp": '.$timestamp.'
+    }',
+    CURLOPT_HTTPHEADER => array(
+        'Content-Type: text/plain',
+        'Cookie: TS01c14442=01c87e53a1726ccd787bbd744b0373b2b2820fdf47309a02eda66cb29bf44c0c4c5e31f82e7cba01fb50a5a9f3690559dcc523a35a5042ecf2123be4b3d0e341bd6aa61d91; ci_session=e9csskie6r6dckto5qhijluofcdq4a3l'
+    ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    return $response;
+}
+
+public function getkds(){
+    $token = $this->gettokenkds();
+    $nik = $this->input->post('nik');
+
+    $curl = curl_init();
+    
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://sitpas.depok.go.id/kds/KDSApi/DTKSWilayah?nik='.$nik,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+          'cid: admin-kds',
+          'signature: '.$token,
+          'Cookie: TS01c14442=01c87e53a1726ccd787bbd744b0373b2b2820fdf47309a02eda66cb29bf44c0c4c5e31f82e7cba01fb50a5a9f3690559dcc523a35a5042ecf2123be4b3d0e341bd6aa61d91; ci_session=e9csskie6r6dckto5qhijluofcdq4a3l'
+        ),
+    ));
+      
+    $response = curl_exec($curl);
+    
+    curl_close($curl);
+    $data = json_decode($response, true);
+
+    $dt = [];
+
+    if ($data && isset($data['data'])) {
+        try {
+            $decoded = JWT::decode($data['data'], new Key('Th15!15@53cr9t#K3y', 'HS256'));
+        } catch (\Exception $e) {
+            echo "Error: " . $e->getMessage();
+        };
+        
+        // Mengonversi objek JWT menjadi array
+        $decodedArray = (array) $decoded;
+    
+        // Menghapus indeks dari array
+        $dt = array_values($decodedArray);
+    }
+    
+    $data = [
+        'data' => $dt,
+    ];
+
+    echo json_encode($data);
 }
 
 }
