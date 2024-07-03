@@ -117,7 +117,7 @@
           </div>
           <div class="col-xl-12 col-12 col-sm-12">
             <div class="card">
-              <div class="card-header pb-0">
+              <!-- <div class="card-header pb-0">
                 <div class="form-group col-md-12">
                   <select class="form-control" id="orderDistribusi">
                     <option value="0" selected>ALL DISTRIBUSI SJP</option>
@@ -125,10 +125,30 @@
                     <option value="2">TOP FIVE DISTRIBUSI SJP</option>
                   </select>
                 </div>
-              </div>
-              <div class="card-content">
+              </div> -->
+              <!-- <div class="card-content">
                 <div class="card-body pb-1">
                   <div id="distribusi"></div>
+                </div>
+              </div> -->
+              <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+                <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan SJP</h4>
+              </div>
+              <div class="card-content collapse show" style="padding: 10px;">
+                <div class="card-body p-0">
+                  <table class="table mb-0">
+                    <tbody id="sjp">
+                      <?php
+                      if (!empty($jumlah_sjp)) {
+                        foreach ($jumlah_sjp as $sjp) : ?>
+                          <tr>
+                            <th scope="row" class="border-top-0"><?= $sjp["nama"] ?></th>
+                            <td class="border-top-0"><?= $sjp["jumlah"] ?></td>
+                          </tr>
+                      <?php endforeach;
+                      } ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -159,36 +179,36 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-12 col-12 col-sm-12">
-      <div class="card">
-      <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
-        <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan SJP</h4>
-      </div>
-      <div class="card-content collapse show" style="padding: 10px;">
-        <div class="card-body p-0">
-          <table class="table mb-0">
-            <tbody id="sjp">
-              <?php
-              if (!empty($jumlah_sjp)) {
-                foreach ($jumlah_sjp as $sjp) : ?>
-                  <tr>
-                    <th scope="row" class="border-top-0"><?= $sjp["nama"] ?></th>
-                    <td class="border-top-0"><?= $sjp["jumlah"] ?></td>
-                  </tr>
-              <?php endforeach;
-              } ?>
-            </tbody>
-          </table>
+      <!-- <div class="col-xl-12 col-12 col-sm-12">
+        <div class="card">
+          <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
+            <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan SJP</h4>
+          </div>
+          <div class="card-content collapse show" style="padding: 10px;">
+            <div class="card-body p-0">
+              <table class="table mb-0">
+                <tbody id="sjp">
+                  <?php
+                  if (!empty($jumlah_sjp)) {
+                    foreach ($jumlah_sjp as $sjp) : ?>
+                      <tr>
+                        <th scope="row" class="border-top-0"><?= $sjp["nama"] ?></th>
+                        <td class="border-top-0"><?= $sjp["jumlah"] ?></td>
+                      </tr>
+                  <?php endforeach;
+                  } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-xl-6 col-sm-6 col-12">
     <div class="card">
       <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
@@ -213,7 +233,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 </section>
 

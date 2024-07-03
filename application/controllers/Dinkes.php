@@ -554,11 +554,11 @@ class Dinkes extends CI_Controller
             // 'sisa_anggaran'     => $sisa_anggaran,
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
             'total_pasien'       => $this->M_SJP->total_pasien(),
-            'distribusi'         => json_encode($this->M_SJP->distribusi()),
-            'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
-            'trend_pasien'      => $this->M_SJP->trend_pasien(),
+            // 'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            // 'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
+            // 'trend_pasien'      => $this->M_SJP->trend_pasien(),
             'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
+            // 'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
             'controller'        => $this->instansi()
         ];
 
