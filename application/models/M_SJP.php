@@ -987,6 +987,42 @@ class M_SJP extends CI_Model
     $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
 
     $this->db->group_by("sp.status_pengajuan");
+    $this->db->where('sjp.jenis_sjp !=', 4);
+    if (!empty($bulan)) {
+      $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
+    }
+    if (!empty($tahun)) {
+      $this->db->where('YEAR(pp.tanggal_pengajuan)', date("Y", strtotime($tahun)));
+    }
+    if (!empty($kecamatan)) {
+      $this->db->where('sjp.kd_kecamatan', $kecamatan);
+    }
+    if (!empty($kelurahan)) {
+      $this->db->where('sjp.kd_kelurahan', $kelurahan);
+    }
+
+    if ($this->session->userdata('instansi') == 3){
+      $this->db->where('ps.id_puskesmas =', $this->session->userdata('id_join'));
+    }
+    if ($this->session->userdata('instansi') == 2) {
+      $this->db->where('rs.id_rumah_sakit =', $this->session->userdata('id_join'));
+    }
+    return $this->db->get()->result_array();
+  }
+
+  public function jumlah_uhc($bulan = Null, $tahun = Null, $kecamatan = Null, $kelurahan = Null)
+  {
+
+    $this->db->select('sp.status_pengajuan nama, count(pp.id_status_pengajuan) as jumlah');
+    $this->db->from('`status_pengajuan` sp');
+    $this->db->join('permohonan_pengajuan pp', 'sp.id_statuspengajuan = pp.id_status_pengajuan', 'left');
+    $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
+    // $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('rumah_sakit rs', 'sjp.id_rumah_sakit = rs.id_rumah_sakit', 'left');
+
+    $this->db->group_by("sp.status_pengajuan");
+    $this->db->where('sjp.jenis_sjp =', 4);
     if (!empty($bulan)) {
       $this->db->where('MONTH(pp.tanggal_pengajuan)', date("m", strtotime(str_replace('/', '-', $bulan))));
     }

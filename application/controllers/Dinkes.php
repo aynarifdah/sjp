@@ -584,6 +584,7 @@ class Dinkes extends CI_Controller
             'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
             'tahun'             => $this->M_SJP->tahun(),
             'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            'jumlah_uhc'        => $this->M_SJP->jumlah_uhc(),
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
             'total_pasien'       => $this->M_SJP->total_pasien(),
             'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
@@ -612,6 +613,7 @@ class Dinkes extends CI_Controller
 
         $data = [
             'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
+            'jumlah_uhc'            => $this->M_SJP->jumlah_uhc($bulan, $tahun, $kecamatan, $kelurahan),
             'anggaran_tahun'        => $anggaran_tahun,
             // 'sisa_anggaran'         => $sisa_anggaran,
             'nominal_pembiayaan'    => $nominal_pembiayaan,

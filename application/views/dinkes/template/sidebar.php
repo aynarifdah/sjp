@@ -2,7 +2,7 @@
   <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
       <!-- <li class=" nav-item"><a href="<?php echo base_url('Dinkes/index'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a> -->
-      <li class=" nav-item"><a href="#"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
+      <li class=" nav-item"><a href="<?php echo base_url('Dinkes/dashboard'); ?>"><i class="ft-home"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Dashboard</span></a>
       </li>
 
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/pengajuanall'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.support_raise_support.main">Semua Pengajuan</span></a>

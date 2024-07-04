@@ -162,21 +162,21 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-xl-12 col-12 col-sm-12">
+      <div class="col-xl-12 col-12 col-sm-12">
         <div class="card">
             <div class="card-header" style="background-color: #1E9FF2; border-radius: 5px 5px 0px 0px;">
-                <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan SJP</h4>
+                <h4 style="color: white; font-weight: bold;">Jumlah Pengajuan UHC</h4>
             </div>
             <div class="card-content collapse show" style="padding: 10px;">
                 <div class="card-body p-0">
                 <table class="table mb-0">
-                    <tbody id="sjp">
+                    <tbody id="uhc">
                     <?php
-                    if (!empty($jumlah_sjp)) {
-                        foreach ($jumlah_sjp as $sjp) : ?>
+                    if (!empty($jumlah_uhc)) {
+                        foreach ($jumlah_uhc as $uhc) : ?>
                         <tr>
-                            <th scope="row" class="border-top-0"><?= $sjp["nama"] ?></th>
-                            <td class="border-top-0"><?= $sjp["jumlah"] ?></td>
+                            <th scope="row" class="border-top-0"><?= $uhc["nama"] ?></th>
+                            <td class="border-top-0"><?= $uhc["jumlah"] ?></td>
                         </tr>
                     <?php endforeach;
                     } ?>
@@ -185,7 +185,7 @@
                 </div>
             </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
@@ -307,11 +307,18 @@
         var obj = JSON.parse(json);
         // sjp || OK!
         $("#sjp").html('');
+        $("#uhc").html('');
         const sjp = Object.entries(obj["jumlah_sjp"]);
+        const uhc = Object.entries(obj["jumlah_uhc"]);
         // console.log(sjp);
         // alert(sjp);
         for (const [key, value] of sjp) {
           $("#sjp").append(`<tr><th scope="row" class="border-top-0">${obj["jumlah_sjp"][key[0]]["nama"]} </th><td class="border-top-0"> ${value["jumlah"]} </td></tr>`);
+          console.log(`There are ${key} ${value["jumlah"]}`);
+        }
+
+        for (const [key, value] of uhc) {
+          $("#uhc").append(`<tr><th scope="row" class="border-top-0">${obj["jumlah_uhc"][key[0]]["nama"]} </th><td class="border-top-0"> ${value["jumlah"]} </td></tr>`);
           console.log(`There are ${key} ${value["jumlah"]}`);
         }
 
