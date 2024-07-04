@@ -574,6 +574,56 @@ class Dinkes extends CI_Controller
         $this->load->view('template/default_template', $data);
     }
 
+    public function dashboard()
+    {
+        $path = "";
+        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
+
+        $d = [
+            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
+            'tahun'             => $this->M_SJP->tahun(),
+            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
+            'total_pasien'       => $this->M_SJP->total_pasien(),
+            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
+            'controller'        => $this->instansi()
+        ];
+        // var_dump($d['kecamatan']);
+        // die;
+
+        $data = array(
+            "page"    => $this->load("Dashboard", $path),
+            "content" => $this->load->view('dashboard_perbaikan', $d, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function Filter_perbaikan()
+    {
+        $bulan      = $this->input->post('bulan');
+        $tahun      = $this->input->post('tahun');
+        $kecamatan  = $this->input->post('kecamatan');
+        $kelurahan  = $this->input->post('kelurahan');
+
+        $anggaran_tahun     = $this->M_SJP->anggaran($bulan, $tahun, $kecamatan, $kelurahan);
+        $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan, $tahun, $kecamatan, $kelurahan);
+
+        $data = [
+            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
+            'anggaran_tahun'        => $anggaran_tahun,
+            // 'sisa_anggaran'         => $sisa_anggaran,
+            'nominal_pembiayaan'    => $nominal_pembiayaan,
+            'total_pasien'          => $this->M_SJP->total_pasien($bulan, $tahun, $kecamatan, $kelurahan),
+            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan, $tahun, $kecamatan, $kelurahan)
+        ];
+
+        // var_dump($data["jumlah_kunjungan_bulan"]);die;
+        // header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
 
     public function Filter()
     {
