@@ -718,7 +718,15 @@
     }).change();
 
     $('#nik').change(function() {
-        var nik = $(this).val();
+    var nik = $(this).val();
+
+        // Validate that the NIK is 16 digits long
+        if (nik.length !== 16 || isNaN(nik)) {
+            alert('NIK harus 16 digit');
+            $(this).val(''); // Clear the input field
+            return;
+        }
+
         $.ajax({
             url: "ValidasiDTKSbyNIK/" + nik,
             type: 'POST',
@@ -732,6 +740,7 @@
             },
         });
     });
+
 });
 
 </script>
