@@ -139,7 +139,7 @@
                   </div>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                    <select name="status_jkn" id="status_jkn" class="form-control">
+                    <select name="status_jkn" id="status_jkn" class="form-control" required>
                       <option value="">Pilih Status JKN</option>
                       <?php if (!empty($jkn)) {
                         foreach ($jkn as $key) { ?>
