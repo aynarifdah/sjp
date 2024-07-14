@@ -231,7 +231,7 @@
                             <?php endif; ?>
                             <?php if($key['nama_jenis'] == 'UHC') : ?>
                               <option value="8" <?= ($rp['status_pengajuan'] == 'Diajukan PBPUBP') ? 'selected' : '' ?>>Diajukan PBPUBP</option>
-                              <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
+                              <!-- <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option> -->
                             <?php endif; ?>
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                          </select>
@@ -248,7 +248,7 @@
                          <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajFuan="<?= $this->uri->segment(4); ?>">
                            <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Proses UHC</option>
                            <option value="8" <?= ($rp['status_pengajuan'] == 'Diajukan PBPUBP') ? 'selected' : '' ?>>Diajukan PBPUBP</option>
-                           <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
+                           <!-- <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option> -->
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                          </select>
                        </div>
