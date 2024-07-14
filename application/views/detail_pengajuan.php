@@ -245,7 +245,7 @@
                    <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
                      <?php if (($rp['id_status_pengajuan'] == 2 || $rp['id_status_pengajuan'] == 8 || $rp['id_status_pengajuan'] == 9) && $key['nama_jenis'] == 'UHC') : ?>
                        <div class="float-right mt-2 ml-1">
-                         <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajFuan="<?= $this->uri->segment(4); ?>">
+                         <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
                            <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Proses UHC</option>
                            <option value="8" <?= ($rp['status_pengajuan'] == 'Diajukan PBPUBP') ? 'selected' : '' ?>>Diajukan PBPUBP</option>
                            <!-- <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option> -->
