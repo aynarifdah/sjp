@@ -437,7 +437,7 @@
   function getkelurahan() {
     var data = $('#kd_kecamatanpemohon').val();
     $.ajax({
-      url: "<?= base_url(); ?>/Rs/getKelurahan",
+      url: "<?= base_url(); ?>Rs/getKelurahan",
       method: "POST",
       data: {
         id: data
@@ -478,7 +478,7 @@
       }).eq(index).on('select2:select', function(evt) {
         var data = $(this).val();
         $.ajax({
-          url: "<?= base_url(); ?>/Rs/getDiagnosa",
+          url: "<?= base_url(); ?>Rs/getDiagnosa",
           method: "POST",
           data: {
             id: data
@@ -511,7 +511,7 @@
   function getdiagnosa() {
     var data = $('#kd_topik').val();
     $.ajax({
-      url: "<?= base_url(); ?>/Rs/getDiagnosa",
+      url: "<?= base_url(); ?>Rs/getDiagnosa",
       method: "POST",
       data: {
         id: data
@@ -536,7 +536,7 @@
   function getkelurahanpasien() {
     var data = $('#kd_kecamatanpasien').val();
     $.ajax({
-      url: "<?= base_url(); ?>/Rs/getKelurahan",
+      url: "<?= base_url(); ?>Rs/getKelurahan",
       method: "POST",
       data: {
         id: data
