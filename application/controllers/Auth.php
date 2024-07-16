@@ -107,7 +107,8 @@ class Auth extends CI_Controller
 								//     redirect('Masyarakat/', 'refresh'); 
 								//     break;
 							default:
-								echo "Error!";
+								// echo "Error!";
+								redirect('Dinsos/', 'refresh');
 						}
 					}else{
 						$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Akun anda sudah Tidak Memiliki Akses</div>');

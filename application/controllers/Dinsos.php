@@ -1444,15 +1444,17 @@ class Dinsos extends CI_Controller
 
     public function getditolaksjpdinas()
     {
+        $jaminan = [3,5];
+
         if ($this->input->post() !== Null) {
             $puskesmas  = $this->input->post("puskesmas");
             $mulai  = $this->input->post("mulai");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->getditolaksjpdinsos($puskesmas, $rs, $status, $cari, $mulai, null, $jaminan);
         } else {
-            $data       = $this->M_SJP->getditolaksjpdinas();
+            $data       = $this->M_SJP->getditolaksjpdinsos();
         }
         $result = [
             'data' => $data,

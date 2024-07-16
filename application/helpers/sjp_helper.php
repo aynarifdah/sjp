@@ -43,7 +43,7 @@ function auth_menu(){
 				$controller = "Dinsos";
 				break;
 		    default:
-		        $controller = "Auth";
+		        $controller = "Dinsos";
 		}		
 		if ($CI->uri->segment(1) != $controller) {
 			redirect('Auth/blocked');

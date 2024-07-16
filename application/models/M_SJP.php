@@ -484,10 +484,10 @@ class M_SJP extends CI_Model
       if($this->session->userdata('instansi') == 4){
         $this->db->where('id_jenissjp', 5);
         $this->db->or_where('id_jenissjp', 3);
-      }if($this->session->userdata('instansi') == 8){
-        $this->db->where('id_jenissjp', 5);
-      }else{
+      }if($this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 3){
         $this->db->where('id_jenissjp =', 4);
+      }else{
+        $this->db->where('id_jenissjp', 5);
       }
     }
     $query = $this->db->get()->result_array();
@@ -2180,6 +2180,55 @@ class M_SJP extends CI_Model
     $this->db->where('log_tte.pesan', 'Berhasil');
 
     $query = $this->db->get()->row_array();
+    return $query;
+  }
+
+  public function getditolaksjpdinsos($puskesmas = Null, $rumahsakit = Null, $status = Null, $cari = Null, $mulai = Null, $akhir = Null, $jaminan = Null)
+  {
+    $this->db->select('CONCAT(sjp.alamat, ",", " RT. ", sjp.rt, " RW. ", sjp.rw, " Kel. ", sjp.kd_kelurahan, " Kec. ", sjp.kd_kecamatan) AS alamatpasien, pp.tanggal_pengajuan, pp.tanggal_selesai, pp.nama_pemohon, pp.jenis_kelamin as jkpemohon, pp.telepon as telpemohon, pp.whatsapp as wapemohon, pp.email as email, pp.alamat as alamatpemohon, pp.kd_kelurahan as kelpemohon, pp.kd_kecamatan as kecpemohon, pp.rt as rtpemohon, pp.rw as rwpemohon, pp.status_hubungan, pp.nama_pejabat_satu, pp.nip_pejabat_satu, sjp.*, sp.status_pengajuan, pp.id_status_pengajuan ,rs.nama_rumah_sakit as nm_rs, js.nama_jenis');
+    $this->db->from('sjp');
+    $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+    $this->db->join('status_pengajuan sp', 'sp.id_statuspengajuan  = pp.id_status_pengajuan', 'left');
+    $this->db->join('rumah_sakit rs', 'rs.id_rumah_sakit = sjp.id_rumah_sakit', 'left');
+    $this->db->join('puskesmas ps', 'ps.id_puskesmas = sjp.id_puskesmas', 'left');
+    $this->db->join('jenis_sjp js', 'sjp.jenis_sjp = js.id_jenissjp', 'left');
+    
+    // $this->db->where('id_status_pengajuan =', 4);
+    if (!empty($puskesmas)) {
+      $this->db->where('ps.id_puskesmas =', $puskesmas);
+    }
+    if (!empty($jaminan)) {
+      $this->db->where_in('jenis_sjp', $jaminan);
+    }
+    if (!empty($mulai)) {
+      $this->db->where('pp.tanggal_pengajuan >=', $mulai);
+    }
+    if (!empty($akhir)) {
+      $this->db->where('pp.tanggal_pengajuan <=', $akhir);
+    }
+    if (!empty($rumahsakit)) {
+      $this->db->where('rs.id_rumah_sakit =', $rumahsakit);
+    }
+    if (!empty($status)) {
+      $this->db->where('pp.id_status_pengajuan =', $status);
+    }    
+    if (!empty($cari)) {
+      $this->db->like('CONCAT(pp.nama_pemohon,sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sjp.kd_kecamatan,pp.email,pp.status_hubungan,sp.status_pengajuan,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
+      // $this->db->or_like('sjp.nama_pasien', $cari);
+      // $this->db->or_like('sjp.nik', $cari);
+      // $this->db->or_like('sjp.kd_kelurahan', $cari);
+      // $this->db->or_like('sjp.kd_kecamatan', $cari);
+      // $this->db->or_like('pp.email', $cari);
+      // $this->db->or_like('pp.status_hubungan', $cari);
+      // $this->db->or_like('sp.status_pengajuan', $cari);
+      // $this->db->or_like('rs.nama_rumah_sakit', $cari);
+      // $this->db->or_like('sjp.email', $cari);
+      // $this->db->or_like('sjp.pekerjaan', $cari);
+    }
+    // TEST 18-02-2021
+    $this->db->order_by('pp.tanggal_pengajuan', 'desc');
+    // TEST 18-02-2021
+    $query = $this->db->get()->result_array();
     return $query;
   }
 
