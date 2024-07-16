@@ -444,6 +444,7 @@ class Dinsos extends CI_Controller
             'mulai_rawat'      => $mulairawat,
             'selesai_rawat'      => $akhirrawat,
             'feedback'        => $feedback,
+            'create_by'  => $this->session->userdata('id_user'),
             // 'nama_rumah_sakit' => $rumahsakit,
         );
         // var_dump($datasjp);                    

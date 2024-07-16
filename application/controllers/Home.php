@@ -343,6 +343,7 @@ class Home extends CI_Controller
             'selesai_rawat'    => $akhirrawat,
             'feedback'         => $feedback,
             'feedback_dinkes'  => $feedback_dinkes,
+            'create_by'  => $this->session->userdata('id_user'),
             // 'nama_rumah_sakit' => $rumahsakit,
         );
         // var_dump($datasjp);
