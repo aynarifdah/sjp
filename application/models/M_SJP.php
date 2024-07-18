@@ -1687,7 +1687,7 @@ class M_SJP extends CI_Model
     if (!empty($cari)) {
       $this->db->like('CONCAT(pp.nama_pemohon,sjp.nama_pasien,sjp.nik,sjp.kd_kelurahan,sjp.kd_kecamatan,pp.email,pp.status_hubungan,sp.status_pengajuan,rs.nama_rumah_sakit,sjp.email,sjp.pekerjaan)', $cari);
     }
-    if($this->session->userdata('instansi') != 'Dinsos'){
+    if($this->session->userdata('instansi') != 4){
       $this->db->where('sjp.create_by =', $this->session->userdata('id_user'));
     }
     // $this->db->where('pp.id_status_pengajuan =', 4);
@@ -2228,7 +2228,7 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.email', $cari);
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
-    if($this->session->userdata('instansi') != 'Dinsos'){
+    if($this->session->userdata('instansi') != 4){
       $this->db->where('sjp.create_by =', $this->session->userdata('id_user'));
     }
     // TEST 18-02-2021

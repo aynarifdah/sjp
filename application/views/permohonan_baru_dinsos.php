@@ -344,7 +344,9 @@
       var id_pengajuan = data.id_pengajuan;
       //console.log(data.id);
       //console.log("<?php echo base_url('Html/detail_harga/'); ?>" + komoditi);
-      window.location.href = "<?php echo base_url($controller . 'detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
+      //sementara
+      // window.location.href = "<?php echo base_url($controller . 'detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
+      window.location.href = "<?php echo base_url('Dinsos/detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
     })
     $(document).ready(function() {
       $('#advancedfilterform').hide();
