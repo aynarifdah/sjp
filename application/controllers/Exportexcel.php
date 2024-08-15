@@ -173,6 +173,18 @@ class Exportexcel extends CI_Controller
         $this->load->view('exportexcel/excel_user_management', $data);
     }
 
+    public function user_management_with_password()
+    {
+        $level          = $this->input->post("level");
+        $instansi       = $this->input->post("instansi");
+
+        $data = array(
+            'title' => 'user_management',
+            'dataexcel' => $this->M_SJP->getAllUserDinkes($level, $instansi)
+        );
+        $this->load->view('exportexcel/excel_user_management_psw', $data);
+    }
+
 
     // Dinkes
 
