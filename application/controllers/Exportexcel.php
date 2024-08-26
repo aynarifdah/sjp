@@ -26,11 +26,12 @@ class Exportexcel extends CI_Controller
         $search = $this->input->post('search');
         $mulai = $this->input->post('mulai');
         $akhir   = $this->input->post("akhir");
+        $status_jkn   = $this->input->post("status_jkn");
 
 
         $data = array(
             'title' => 'data_semua_pengajuan',
-            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $mulai, $akhir, $jaminan)
+            'dataexcel' => $this->M_SJP->select_pengajuan_sjp_all(null, $puskesmas, $rs, $status, $search, $mulai, $akhir, $jaminan, $status_jkn)
         );
         $this->load->view('exportexcel/data_semua_pengajuan', $data);
     }

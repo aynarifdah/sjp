@@ -33,6 +33,7 @@ header("Expires: 0");
             <th>Email Pasien</th>
             <th>Rumah Sakit</th>
             <th>Puskesmas</th>
+            <th>Status JKN</th>
         </tr>
     </thead>
     <tbody>
@@ -67,6 +68,7 @@ header("Expires: 0");
                     <td><?php echo $key['email']; ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
                     <td><?php echo $key['nama_puskesmas']; ?></td>
+                    <td><?php echo $key['status_jkn']; ?></td>
                     <!-- <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td> -->
                     <!-- <td>
                         <?php 

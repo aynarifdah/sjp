@@ -111,6 +111,18 @@
                 </select>
 
               </div>
+              <div class="col-lg-3 filter mt-1">
+                <label>Status JKN</label>
+
+                <select name="status_jkn" id="status_jkn" class="form-control">
+                  <option value="">Semua Status JKN</option>
+                      <?php if (!empty($jkn)) {
+                        foreach ($jkn as $key) { ?>
+                          <option value="<?= $key['nama_jkn'] ?>"><?= $key['nama_jkn'] ?></option>
+                      <?php }
+                      } ?>
+                </select>
+              </div>
 
               <div class="col-lg-3 filter mt-1">
                 <label>Tanggal Mulai</label>
@@ -419,6 +431,7 @@
           d.jaminan = 4;
           d.rs = $("#rs").val();
           d.status = $("#status").val();
+          d.status_jkn = $("#status_jkn").val();
           d.cari = $("#cari").val();
         }
       },

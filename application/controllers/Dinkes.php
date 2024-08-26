@@ -688,8 +688,9 @@ class Dinkes extends CI_Controller
             $akhir  = $this->input->post("akhir");
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
+            $status_jkn     = $this->input->post("status_jkn");
             $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
         } else {
             $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
         }
@@ -753,7 +754,8 @@ class Dinkes extends CI_Controller
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
             'controller'        => $this->instansi(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all')
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
+            'jkn'                  => $this->M_SJP->jkn()
 
         );
 
