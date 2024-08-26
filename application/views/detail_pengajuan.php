@@ -257,9 +257,11 @@
                  <?php endforeach; ?>
 
                  <div class="float-right mt-2 ml-1">
-                   <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
-                     <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
-                   <?php endif ?>
+                    <?php if ($rp['id_status_pengajuan'] == 2) : ?>
+                      <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
+                        <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
+                      <?php endif ?>
+                    <?php endif ?>
                    <?php if ($this->session->userdata('instansi') == 6) : ?>
                      <?php
 
