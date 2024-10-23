@@ -148,6 +148,8 @@ class Dinsos extends CI_Controller
 
     public function detail_pengajuan($idsjp, $id_pengajuan)
     {
+        // var_dump($this->input->post());
+        // die;
         $level = $this->session->userdata('level');
 
         $id_jenis_izin = 1;
@@ -208,7 +210,7 @@ class Dinsos extends CI_Controller
             "level"      => $this->M_data->getLevel(),
             'instansi'   => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'kecamatan'  => $this->M_SJP->wilayah_kecamatan(),
             // test
             'topik'      => $this->M_SJP->diagnosa(),
             'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
