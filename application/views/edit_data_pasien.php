@@ -664,7 +664,7 @@
                 <?php } ?>
 
 
-                <button type="submit" class="btn btn-primary btn-md" name="btnEditInfo" id="btnEditInfo" style="float: right;">
+                <button type="submit" class="btn btn-primary btn-md"  id="btnEditInfo" style="float: right;">
                   <i class="ft-check-square"></i> Update
                 </button>
               </fieldset>
