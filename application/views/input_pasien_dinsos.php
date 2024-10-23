@@ -50,10 +50,6 @@
                   <div class="col-lg-3">
                     <select name="status_hubungan" id="status_hubungan" class="form-control">
                       <option value="">Pilih Status</option>
-                      <!-- <option value="Anak">Anak</option>
-                      <option value="Istri">Istri</option>
-                      <option value="Suami">Suami</option>
-                      <option value="Keluarga Lain">Keluarga Lain</option> -->
                       <?php if (!empty($statushubungan)) {
                         foreach ($statushubungan as $key) { ?>
                           <option value="<?= $key['status_hubungan'] ?>"><?= $key['status_hubungan'] ?></option>
@@ -83,7 +79,7 @@
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
-                          <option value="<?= $key['kecamatan'] ?>"><?= $key['kecamatan'] ?></option>
+                          <option value="<?= $key['kecamatan'] ?>" data-kode="<?= $key['kd_kecamatan']; ?>"><?= $key['kecamatan'] ?></option>
                       <?php }
                       } ?>
                     </select>
@@ -91,7 +87,7 @@
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%" required>
                       <option>Pilih Kelurahan</option>
-
+                      
                     </select>
                   </div>
                 </div>
@@ -214,7 +210,7 @@
                       <option>Pilih Kecamatan</option>
                       <?php if (!empty($kecamatan)) {
                         foreach ($kecamatan as $key) { ?>
-                          <option value="<?= $key['kecamatan'] ?>"><?= $key['kecamatan'] ?></option>
+                          <option value="<?= $key['kecamatan'] ?>" data-kode="<?= $key['kd_kecamatan']; ?>"><?= $key['kecamatan'] ?></option>
                       <?php }
                       } ?>
                     </select>
@@ -252,7 +248,6 @@
                   </div>
 
                   <div id="inputLainnya" style="display: none;">
-                    <!-- <label for="inputLainnyaText">Masukkan Nama Rumah Sakit</label> -->
                     <input type="text" id="inputLainnyaText" name="rs_lainnya" class="form-control" placeholder="Rumah Sakit Lainnya">
                   </div>
 
@@ -307,17 +302,11 @@
                           } ?>
                         </select>
 
-
-
-
                         <span class="input-group-append" id="button-addon2">
                           <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
                         </span>
                         <br>
                         <div class="row" style="width: 100%;">
-                          <!-- <div class="col-lg-12">
-                <div class="skin skin-polaris"><input type="checkbox" class="checkbox">Lainnya</div>
-              </div> -->
                           <div class="col-lg-12 diagnosalainnya mt-1">
                             <input type="text" class="form-control" placeholder="Masukkan Diagnosa Lainnya" name="diagnosalainnya">
                           </div>
@@ -354,9 +343,6 @@
                 </button>
               </fieldset>
               <!-- Step 3 -->
-
-
-
             </form>
           </div>
         </div>
@@ -397,43 +383,34 @@
   }
   $(".select2").select2();
   $(document).ready(function() {
-    //getkelurahan();
     diagnosapenyakit();
     diagnosa2();
-    // $('.diagnosalainnya').hide();
   });
-  $('#kd_kecamatanpemohon').change(function() {
-    getkelurahan();
-  })
 
-  function getkelurahan() {
-    var data = $('#kd_kecamatanpemohon').val();
-    $.ajax({
-      url: "<?= base_url(); ?>Dinsos/getKelurahan",
-      method: "POST",
-      data: {
-        id: data
-      },
-      async: false,
-      dataType: 'json',
-      success: function(data) {
-        var html = '<option>Pilih Kelurahan</option>';
-        var i;
-        for (i = 0; i < data.length; i++) {
-          html += '<option value = "' + data[i].kelurahan + '">' + data[i].kelurahan + '</option>';
-        }
-        $('#kd_kelurahanpemohon').html(html);
+   function getKelurahan(kode,selectorSelect){
+    $(selectorSelect).html('');
+    let kelurahan=<?= json_encode($kelurahan); ?>;
+    
+    let html = '<option>Pilih Kelurahan</option>';
 
-      }
+    kelurahan.filter(kl => kl.kd_kecamatan ==  kode).map(kl => {
+       html += '<option value = "' + kl.kelurahan + '">' + kl.kelurahan + '</option>';
+
+        $(selectorSelect).html(html);
     });
   }
-  // $('.checkbox').on('ifChecked', function (event) {
-  //   $('.diagnosalainnya').show();
-  // });
 
-  // $('.checkbox').on('ifUnchecked', function (event) {
-  //   $('.diagnosalainnya').hide();
-  // });
+  $("#kd_kecamatanpemohon").change(function () {
+    let id=$(this).val();
+
+    let selectedOption = $(this).find('option:selected');
+    let kodeKecamatan = selectedOption.data('kode'); 
+    getKelurahan(kodeKecamatan,"#kd_kelurahanpemohon");
+  });
+
+ 
+
+  
   $('.add').click(function(argument) {
     diagnosapenyakit();
     diagnosa2();
@@ -448,14 +425,11 @@
       $('.kd_topik').select2({
         placeholder: "Pilih Topik"
       }).eq(index).on('select2:select', function(evt) {
-        var data = $(this).val();
+        let data = $(this).val();
         $.ajax({
-          url: "<?= base_url(); ?>Dinsos/getDiagnosa",
-          method: "POST",
-          data: {
-            id: data
-          },
-          async: false,
+          url: "<?= base_url(); ?>Dinsos/getDiagnosa?id="+data,
+          method: "GET",
+          async: true,
           dataType: 'json',
           success: function(data) {
             var html = '<option>Pilih Diagnosa</option>';
@@ -470,24 +444,12 @@
       });
     });
   }
-  //  $('.add').click(function() {
-  //       $('.kd_topik').each(function(index) {
-  //         //console.log(index)
-  //   $('.kd_topik').eq(index).change(function(){
-
-  // })
-  // })
-  //  })
-
 
   function getdiagnosa() {
     var data = $('#kd_topik').val();
     $.ajax({
-      url: "<?= base_url(); ?>Dinsos/getDiagnosa",
-      method: "POST",
-      data: {
-        id: data
-      },
+      url: "<?= base_url(); ?>Dinsos/getDiagnosa?=id="+data,
+      method: "GET",
       async: false,
       dataType: 'json',
       success: function(data) {
@@ -547,60 +509,18 @@
           kelurahan += '</div>';
           $('#kecamatan_value').append(kelurahan);
         }
-        console.log(api_data);
       },
     });
 
-  })
+  });
+
   $('#kd_kecamatanpasien').change(function() {
-    getkelurahanpasien();
+    let selectedOption = $(this).find('option:selected');
+    let kodeKecamatan = selectedOption.data('kode'); 
+    getKelurahan(kodeKecamatan, "#kd_kelurahanpasien");
   })
 
-  function getkelurahanpasien() {
-    var data = $('#kd_kecamatanpasien').val();
-    $.ajax({
-      url: "<?= base_url(); ?>Dinsos/getKelurahan",
-      method: "POST",
-      data: {
-        id: data
-      },
-      async: false,
-      dataType: 'json',
-      success: function(data) {
-        var html = '<option>Pilih Kelurahan</option>';
-        var i;
-        for (i = 0; i < data.length; i++) {
-          html += '<option value = "' + data[i].kelurahan + '">' + data[i].kelurahan + '</option>';
-        }
-        $('#kd_kelurahanpasien').html(html);
-
-      }
-    });
-  }
-  // $('#simpanpengajuan').click(function() {
-  //   var tes = $('.sjpform').serialize();
-  //   console.log(decodeURIComponent(tes));
-  // })
-  //   $( function() {
-
-  // 	var availableTags = [];
-  // 	$.ajax('<?= base_url(); ?>Dinsos/getDiagnosaa', {
-
-  // 		dataType: 'json',
-  // 		success: function(data){
-  // 			// console.log();
-  // 			$.each(data, function(k, v){
-  // 				availableTags.push(v.value);
-  // 			});
-  // 		}
-  // 	});
-  // 	console.log(availableTags);
-  // 	$('#form-tags-4').tagsInput({
-  // 		'autocomplete': {
-  // 			source: availableTags
-  // 		} 
-  // 	});
-  // } );
+  
   $("#form-tags-4").autocomplete({
     minLength: 2,
     source: function(request, response) {

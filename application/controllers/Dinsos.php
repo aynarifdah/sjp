@@ -236,36 +236,27 @@ class Dinsos extends CI_Controller
     {
         $jam = date('H');
         $hari = date('l');
-        // if ($hari == 'Saturday' || $hari == 'Sunday' || $jam >= 22 || $jam < 8) {
-        //     $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        //             Jadwal Tambah Pengajuan Dapat dilakukan Pada Hari Senin s/d Jumat (08.00 - 13.00 WIB)!
-        //             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //             <span aria-hidden="true">&times;</span>
-        //         </button></div>');
-        //     redirect('Dinsos/pengajuan_dinsos');
-        // } else {
-            $data = array(
-                'topik'      => $this->M_SJP->diagnosa(),
-                'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
-                'rumahsakit' => $this->M_SJP->rumahsakit(),
-                'kelas_rawat' => $this->M_SJP->kelas_rawat(),
-                'statushubungan' => $this->M_SJP->statushubungan(),
-                'statuspernikahan' => $this->M_SJP->statuspernikahan(),
-                'jenisjaminan' => $this->M_SJP->jenisjaminan(),
-                'jkn' => $this->M_SJP->jkn(),
-            );
+       
+        $data = array(
+            'topik'      => $this->M_SJP->diagnosa(),
+            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'kecamatan'  => $this->M_SJP->wilayah_kecamatan(),
+            'kelurahan' => $this->M_SJP->wilayah_kelurahan(),
+            'rumahsakit' => $this->M_SJP->rumahsakit(),
+            'kelas_rawat' => $this->M_SJP->kelas_rawat(),
+            'statushubungan' => $this->M_SJP->statushubungan(),
+            'statuspernikahan' => $this->M_SJP->statuspernikahan(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan(),
+            'jkn' => $this->M_SJP->jkn(),
+        );
 
-            // var_dump($data['rumahsakit']);
-            $path = "";
-            $data = array(
-                "page" => $this->load("Input Pasien", $path),
-                "content" => $this->load->view('input_pasien_dinsos', $data, true)
-            );
+        $path = "";
+        $data = array(
+            "page" => $this->load("Input Pasien", $path),
+            "content" => $this->load->view('input_pasien_dinsos', $data, true)
+        );
 
-            $this->load->view('template/default_template', $data);
-            //$this->load->view('input_pasien_dinsos', false);
-        // }
+        $this->load->view('template/default_template', $data);
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
@@ -295,6 +286,7 @@ class Dinsos extends CI_Controller
         $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
         echo json_encode($kel);
     }
+
     public function getDiagnosaa()
 
     {
@@ -330,10 +322,11 @@ class Dinsos extends CI_Controller
     public function getDiagnosa()
     {
 
-        $Kd_diagnosa = $this->input->post('id');
+        $Kd_diagnosa = $this->input->get('id');
         $diagnosa    = $this->M_SJP->diagnosa2($Kd_diagnosa);
         echo json_encode($diagnosa);
     }
+
     public function getDiagnosaall()
     {
 
@@ -343,6 +336,9 @@ class Dinsos extends CI_Controller
     }
     public function input_pasien()
     {
+        //   $all_input = $this->input->post(); 
+        //   print_r($all_input);
+        //   die;
         $id_statuspengajuan = 4; //status pengajuan dibuat default karena dinsos tidak ada proses survey
         $nama            = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin');

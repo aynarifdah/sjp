@@ -435,19 +435,23 @@ class M_SJP extends CI_Model
     return $query;
   }
 
-  public function diagnosa2($kd_topik = null)
+  public function diagnosa2($kd_topik)
   {
-    $this->db->select('key_penyakit,kd_diag,namadiag,kd_topik,topik');
+    $this->db->select('namadiag,topik');
     $this->db->from('d_penyakit');
-    if (!empty($kd_topik)) {
+
+     if (!empty($kd_topik)) {
       $this->db->where('topik', $kd_topik);
     }
     $this->db->limit(10);
+    $this->db->where('namadiag IS NOT NULL');
+    $this->db->where('topik IS NOT NULL');
 
-    // $this->db->group_by('kecamatan, kelurahan');
+   
     $query = $this->db->get()->result_array();
     return $query;
   }
+  
   public function diagnosatag($search)
   {
     $this->db->select('namadiag as text');
@@ -524,28 +528,24 @@ class M_SJP extends CI_Model
     $query = $this->db->get()->result_array();
     return $query;
   }
-  public function wilayah($param, $KecId = null)
+  public function wilayah_kecamatan()
   {
-    $this->db->select('kecamatan, kelurahan, kd_kecamatan, kd_kelurahan, jenis');
+    $this->db->select('kecamatan, kd_kecamatan, jenis');
     $this->db->from('d_wilayah');
-    $this->db->where('jenis', $param);
+    $this->db->where('jenis', 'kecamatan');
     $this->db->group_by('kecamatan');
-    if (!empty($KecId)) {
-      $this->db->where('kecamatan', $KecId);
-    }
-    // $this->db->group_by('kecamatan, kelurahan');
+    
     $query = $this->db->get()->result_array();
     return $query;
   }
-  public function wilayah_kelurahan($param, $KecId = null)
+
+  public function wilayah_kelurahan()
   {
-    $this->db->select('kecamatan, kelurahan, kd_kecamatan, kd_kelurahan, jenis');
+    $this->db->select('kelurahan, kd_kecamatan, jenis');
     $this->db->from('d_wilayah');
-    $this->db->where('jenis', $param);
-    if (!empty($KecId)) {
-      $this->db->where('kecamatan', $KecId);
-    }
-    // $this->db->group_by('kecamatan, kelurahan');
+    $this->db->where('jenis','kelurahan');
+    $this->db->where('kelurahan !=','');
+    
     $query = $this->db->get()->result_array();
     return $query;
   }

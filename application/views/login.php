@@ -47,5 +47,4 @@
    </div>
    <img src="<?php echo base_url("assets/images/logo_bsre.jpeg"); ?>" style="position: absolute; right: -10px; bottom: 0; width: 15%;">
 
-   <script type="text/javascript" src="https://dummy.smartcity.co.id/sso-library/api.js" name="tf-login-button" data-client_id="gZk3QRbfIu944YZd"></script>
  </section>
