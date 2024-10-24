@@ -2241,5 +2241,20 @@ class M_SJP extends CI_Model
     return $query;
   }
 
+  public function wilayah($param, $KecId = null)
+  {
+    $this->db->select('kecamatan, kelurahan, kd_kecamatan, kd_kelurahan, jenis');
+    $this->db->from('d_wilayah');
+    $this->db->where('jenis', $param);
+    $this->db->group_by('kecamatan');
+    if (!empty($KecId)) {
+      $this->db->where('kecamatan', $KecId);
+    }
+    // $this->db->group_by('kecamatan, kelurahan');
+    $query = $this->db->get()->result_array();
+    return $query;
+  }
+
+
 
 }
