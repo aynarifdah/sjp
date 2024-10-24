@@ -20,85 +20,7 @@
               <input type="hidden" name="id_sjp" value="<?= $detail[0]['id_sjp'] ?>">
               <input type="hidden" name="id_pp" value="<?= $this->uri->segment(4) ?>">
               <?php if ($this->session->userdata('instansi') == 6) { ?>
-                <!-- Step 1 -->
-                <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pemohon</strong></h4>
-                <fieldset class="mt-2">
-                  <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*</label>
-                    <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control kontrakform" placeholder="Nama" name="nama_pemohon" id="nama_pemohon" required value="<?= $detail[0]['nama_pemohon'] ?>" readonly>
-                    </div>
-                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select name="jenis_kelamin_pemohon" id="jeniskelaminkpemohon" class="form-control" required readonly>
-                        <option value="">Jenis Kelamin</option>
-                        <option value="Perempuan" <?= ($detail[0]['jkpemohon'] == 'Perempuan') ? 'selected' : '' ?>>Perempuan</option>
-                        <option value="Laki-Laki" <?= ($detail[0]['jkpemohon'] == 'Laki-Laki') ? 'selected' : '' ?>>Laki - Laki</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
-                    <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Telp" name="teleponpemohon" id="telepon_pemohon" required value="<?= $detail[0]['telpemohon'] ?>" readonly>
-                    </div>
-                    <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsappemohon" id="Whatsapp_pemohon" value="<?= $detail[0]['wapemohon'] ?>" readonly>
-                    </div>
-                    <div class="col-lg-4">
-                      <input type="email" class="form-control" placeholder="Email" name="emailpemohon" id="emailpemohon" value="<?= $detail[0]['emailpemohon'] ?>" readonly>
-                    </div>
-                  </div>
-                  <div class="form-group row" id="modalwal">
-                    <label class="col-lg-3 label-control" for="modal">Status Hubungan Dengan Pasien* </label>
-                    <div class="col-lg-3">
-
-                      <select name="status_hubungan" id="status_hubungan" class="form-control" style="width: 100%" required readonly>
-                        <option value="">Pilih Status</option>
-
-                        <option value="Peserta" <?= $detail[0]['status_hubungan'] == "Peserta" ? 'selected' : '' ?>>Peserta</option>
-                        <option value="Suami" <?= $detail[0]['status_hubungan'] == "Suami" ? 'selected' : '' ?>>Suami</option>
-                        <option value="Istri" <?= $detail[0]['status_hubungan'] == "Istri" ? 'selected' : '' ?>>Istri</option>
-                        <option value="Anak" <?= $detail[0]['status_hubungan'] == "Anak" ? 'selected' : '' ?>>Anak</option>
-                        <option value="Famili lain" <?= $detail[0]['status_hubungan'] == "Famili lain" ? 'selected' : '' ?>>Famili lain</option>
-                      </select>
-
-                      <!-- <input type="status" class="form-control" placeholder="Status Hubungan" name="status_hubungan" id="status_hubungan" required value="<?= $detail[0]['status_hubungan'] ?>"> -->
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat/Rt/Rw</label>
-                    <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Alamat" name="alamatpemohon" id="alamatpemohon" required value="<?= $detail[0]['alamatpemohon'] ?>" readonly>
-                    </div>
-                    <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rt" name="rtpemohon" id="rtpemohon" required value="<?= $detail[0]['rtpemohon'] ?>" readonly>
-                    </div>
-                    <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
-                      <input type="text" class="form-control" placeholder="Rw" name="rwpemohon" id="rwpemohon" required value="<?= $detail[0]['rwpemohon'] ?>" readonly>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-lg-3 label-control" for="tempat">Kec/Kel</label>
-
-                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatanpemohon" style="width: 100%" readonly>
-                        <option>Pilih Kecamatan</option>
-                        <?php if (!empty($kecamatan)) : $i = 0; ?>
-                          <?php foreach ($kecamatan as $key) : ?>
-                            <option value="<?= $key['kecamatan'] ?>" <?= ($key['kecamatan'] == $detail[0]["kecpemohon"]) ? 'selected' : '' ?>><?= $key['kecamatan'] ?></option>
-                          <?php endforeach ?>
-                        <?php endif ?>
-                      </select>
-                    </div>
-                    <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
-                      <select class="select2 form-control block kelurahan" id="kd_kelurahanpemohon" name="kd_kelurahanpemohon" style="width: 100%" readonly>
-                        <option>Pilih Kelurahan</option>
-
-                      </select>
-                    </div>
-                  </div>
-
-                </fieldset>
+              
                 <!-- Step 2 -->
                 <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pasien</strong></h4>
                 <fieldset class="mt-2">
@@ -664,7 +586,7 @@
                 <?php } ?>
 
 
-                <button type="submit" class="btn btn-primary btn-md"  id="btnEditInfo" style="float: right;">
+                <button type="submit" class="btn btn-primary btn-md" name="btnEditInfo"  id="btnEditInfo" style="float: right;">
                   <i class="ft-check-square"></i> Update
                 </button>
               </fieldset>
