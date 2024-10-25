@@ -141,7 +141,11 @@
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                    <th style="width: 10px !important; color: #6B6F82!important;">Aksi</th>
+
+                    <?php if($this->session->userdata('level') !== '7') : ?>
+                      <th style="width: 10px !important; color: #6B6F82!important;">Aksi</th>
+                    <?php endif;?>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -242,24 +246,18 @@
       increaseArea: '-10%'
     });
     $(".select2").select2();
-    var dtable = $("#datatable").DataTable({
-      // "responsive": true,
-      "processing": true,
-      "paging": true,
-      "ordering": false,
-      "info": true,
-      "bFilter": false,
-      "columnDefs": [{
-        "targets": 2,
-        "type": "date-eu"
-      }],
-      columns: [{
+
+    let level='<?= $this->session->userdata('level') ?>';
+
+    let columns=[
+       {
             data: "no",
             className: " dt-head-center dt-body-center bodyclick",
             render: function(data, type, row, meta) {
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
-        },{
+        },
+        {
           data: "nama_pemohon",
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
@@ -356,7 +354,12 @@
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
         },
-        {
+       
+    ];
+
+      if(level !== "7"){
+        columns.push(
+          {
           data: "id_sjp",
           "render": function(data, type, row, meta) {
             var pengajuan = row.id_pengajuan;
@@ -366,7 +369,21 @@
           },
           className: "dt-head-center dt-body-right"
         }
-      ],
+      );
+    }
+
+    var dtable = $("#datatable").DataTable({
+      // "responsive": true,
+      "processing": true,
+      "paging": true,
+      "ordering": false,
+      "info": true,
+      "bFilter": false,
+      "columnDefs": [{
+        "targets": 2,
+        "type": "date-eu"
+      }],
+      columns: columns,
       ajax: {
         url: ' <?php echo base_url("Dinkes/getpersetujuansjpdinas"); ?>',
         method: 'POST',

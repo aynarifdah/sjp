@@ -134,7 +134,11 @@
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
 
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
-                    <th style="width: 30px; color: #6B6F82!important;">Aksi</th>
+
+                    <?php if($this->session->userdata('level') !== '7') : ?>
+                      <th style="width: 30px; color: #6B6F82!important;">Aksi</th>
+                    <?php endif;?>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -235,18 +239,12 @@
       increaseArea: '-10%'
     });
     $(".select2").select2();
-    var dtable = $("#datatable").DataTable({
-      // "responsive": true,
-      "processing": true,
-      "paging": true,
-      "ordering": false,
-      "info": true,
-      "bFilter": false,
-      "columnDefs": [{
-        "targets": 2,
-        "type": "date-eu"
-      }],
-      columns: [{
+
+    let level='<?= $this->session->userdata('level') ?>';
+
+
+    let columns=[
+        {
             data: "no",
             className: " dt-head-center dt-body-center bodyclick",
             render: function(data, type, row, meta) {
@@ -360,17 +358,35 @@
           },
           className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
         },
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            var pengajuan = row.id_pengajuan;
-            var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_disetujui_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            
-            return hapus;
-          },
-          className: "dt-head-center dt-body-right"
-        }
-      ],
+    ];
+
+    if(level !== "7"){
+        columns.push(
+          {
+              data: "id_sjp",
+              "render": function(data, type, row, meta) {
+                var pengajuan = row.id_pengajuan;
+                var hapus = `<a href="<?php echo base_url('/Dinkes/hapus_pengajuan_sjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan +`" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
+                
+                return hapus;
+              },
+              className: "dt-head-center dt-body-right"
+          }
+        );
+    }
+
+    var dtable = $("#datatable").DataTable({
+      // "responsive": true,
+      "processing": true,
+      "paging": true,
+      "ordering": false,
+      "info": true,
+      "bFilter": false,
+      "columnDefs": [{
+        "targets": 2,
+        "type": "date-eu"
+      }],
+      columns:columns,
       ajax: {
         url: ' <?php echo base_url("Dinkes/getdisetujuisjpdinas"); ?>',
         method: 'POST',
@@ -407,11 +423,6 @@
         return false;
       }
     });
-
-
-
-
-
 
     $('#datatable').on('click', 'tr', function() {
       var data = dtable.row(this).data();

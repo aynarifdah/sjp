@@ -27,7 +27,7 @@
         </ul>
       </li>
  -->
-
+      <?php if($this->session->userdata('level') !== '7') : ?>
       <li class=" nav-item"><a href="#"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="nav.page_headers.main">Proses Klaim</span></a>
         <ul class="menu-content">
           <li><a href="<?php echo base_url('Dinkes/pengajuan_klaim'); ?>" class="menu-item">Semua Klaim</a>
@@ -39,10 +39,11 @@
           </li>
           <li><a href="<?php echo base_url('Dinkes/pengajuanall/4'); ?>" class="menu-item">List UHC</a>
           </li>
-
       </li>
+      <?php  endif; ?>
     </ul>
-    </li>
+  </li>
+  <?php if($this->session->userdata('level') !== '7') : ?>
     <li class=" nav-item"><a href="#"><i class="ft-printer"></i><span class="menu-title" data-i18n="nav.page_headers.main">Laporan Rekapitulasi</span></a>
       <ul class="menu-content">
 
@@ -52,6 +53,7 @@
     </li>
     <li class=" nav-item"><a href="<?php echo base_url('Dinkes/download_dokumen') ?>"><i class="ft-download"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Download Dokumen</span></a>
     </li>
+    <?php endif;?> 
     <?php if ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1) : ?>
       <li class=" nav-item"><a href="<?php echo base_url('Dinkes/UserManagement'); ?>"><i class="ft-user"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">User Management</span></a>
       </li>
