@@ -16,6 +16,7 @@ header("Expires: 0");
         <tr>
             <th>No.</th>
             <th>Nama Pasien</th>
+            <th>Tanggal Pengajuan</th>
             <th>No Kartu KIS</th>
             <th>NIK</th>
             <th>Nomor Kartu Keluarga</th>
@@ -43,6 +44,7 @@ header("Expires: 0");
                 <tr>
                     <td><?php echo $no; ?>.</td>
                     <td><?php echo $key['nama_pasien']; ?></td>
+                    <td><?php echo $key['tanggal_pengajuan']; ?></td>
                     <td style="mso-number-format:\@;"><?php echo $key['no_kis']; ?></td>
                     <td style="mso-number-format:\@;"><?php echo $key['nik']; ?></td>
                     <td style="mso-number-format:\@;"><?php echo $key['no_kk']; ?></td>
