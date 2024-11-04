@@ -220,6 +220,7 @@
 
 
                  <!-- Tombol -->
+                <?php if($this->session->userdata('level') !== '7') : ?>
                  <?php foreach ($riwayatpengajuan as $rp) : ?>
                    <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
                      <?php if ($rp['id_status_pengajuan'] == 6 || $rp['id_status_pengajuan'] == 7) : ?>
@@ -239,10 +240,11 @@
                      <?php endif ?>
                    <?php endif ?>
                  <?php endforeach; ?>
+                 <?php endif; ?>
 
                  <!-- Tombol -->
                  <?php foreach ($riwayatpengajuan as $rp) : ?>
-                   <?php if ($this->uri->segment(1) == 'Dinkes') : ?>
+                   <?php if ($this->uri->segment(1) == 'Dinkes' && $this->session->userdata('level') !== '7') : ?>
                      <?php if (($rp['id_status_pengajuan'] == 2 || $rp['id_status_pengajuan'] == 8 || $rp['id_status_pengajuan'] == 9) && $key['nama_jenis'] == 'UHC') : ?>
                        <div class="float-right mt-2 ml-1">
                          <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
@@ -257,11 +259,11 @@
                  <?php endforeach; ?>
 
                  <div class="float-right mt-2 ml-1">
-                    <?php if ($rp['id_status_pengajuan'] == 2) : ?>
+                    <?php if ($rp['id_status_pengajuan'] == 2 && $this->session->userdata('level') !== '7') : ?>
                       <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
                         <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
                       <?php endif ?>
-                    <?php elseif($this->session->userdata('instansi') == 4 || $this->session->userdata('instansi') == 1) : ?>
+                    <?php elseif($this->session->userdata('instansi') == 4 || $this->session->userdata('instansi') == 1 && $this->session->userdata('level') !== '7') : ?>
                         <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
                     <?php endif ?>
                     
