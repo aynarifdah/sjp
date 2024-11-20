@@ -36,12 +36,21 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-2 label-control" for="modal">Password* </label>
-                  <div class="col-lg-9">
-                    <input type="password" class="form-control" placeholder="Password"
-                    name="password" id="password" required value="<?= $this->encryption->decrypt($user[0]['password']) ?>">
-                  </div>
+                    <label class="col-lg-2 label-control" for="modal">Password* </label>
+                    <div class="col-lg-9">
+                        <div class="input-group">
+                            <input type="password" class="form-control" placeholder="Password"
+                                  name="password" id="password" required
+                                  value="<?= $this->encryption->decrypt($user[0]['password']) ?>">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="toggle-password">
+                                    <i class="ft-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                   <div class="form-group row">
                     <label class="col-lg-2 label-control" for="level">Level*</label>
                     <div class="col-lg-3">
@@ -139,6 +148,22 @@
 <script src="<?= base_url()?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
 <script src="<?= base_url()?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 <script>
+$(document).ready(function () {
+    $('#toggle-password').on('click', function () {
+        let passwordInput = $('#password');
+        let passwordType = passwordInput.attr('type');
+        
+        // Ubah tipe input
+        if (passwordType === 'password') {
+            passwordInput.attr('type', 'text');
+            $(this).find('i').removeClass('ft-eye').addClass('ft-eye-off');
+        } else {
+            passwordInput.attr('type', 'password');
+            $(this).find('i').removeClass('ft-eye-off').addClass('ft-eye');
+        }
+    });
+});
+
 <?php if ($this->session->userdata('level') == 1): ?>
   $("#instansi").on('change', function() {
     var instansi = $(this).val();
