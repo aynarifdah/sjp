@@ -310,6 +310,10 @@
               // $('.statuspengajuan').addClass('bg-success');
               // return row.status_pengajuan;
               return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+            } else if (data == 9) {
+              // $('.statuspengajuan').addClass('bg-success');
+              // return row.status_pengajuan;
+              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
             } else {
               // $('.statuspengajuan').addClass('bg-success');
               // return row.status_pengajuan;

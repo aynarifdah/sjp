@@ -227,13 +227,9 @@
                        <div class="float-right mt-2 ml-1">
                          <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
                            <option value="" disabled>Pilih</option>
-                            <?php if($key['nama_jenis'] != 'UHC') : ?>
                               <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
-                            <?php endif; ?>
-                            <?php if($key['nama_jenis'] == 'UHC') : ?>
                               <option value="8" <?= ($rp['status_pengajuan'] == 'Diajukan PBPUBP') ? 'selected' : '' ?>>Diajukan PBPUBP</option>
-                              <!-- <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option> -->
-                            <?php endif; ?>
+                              <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                          </select>
                        </div>
@@ -250,7 +246,8 @@
                          <select id="sp" name="status_pengajuan" class="btn btn-dark btn-sm float-right" data-pengajuan="<?= $this->uri->segment(4); ?>">
                            <option value="" <?= ($rp['status_pengajuan'] != 'Baru') ? 'disabled' : '' ?>>Proses UHC</option>
                            <option value="8" <?= ($rp['status_pengajuan'] == 'Diajukan PBPUBP') ? 'selected' : '' ?>>Diajukan PBPUBP</option>
-                           <!-- <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option> -->
+                           <option value="9" <?= ($rp['status_pengajuan'] == 'Ditangguhkan') ? 'selected' : '' ?>>Ditangguhkan</option>
+                           <option value="6" <?= ($rp['status_pengajuan'] == 'Disetujui') ? 'selected' : '' ?>>Disetujui</option>
                            <option value="7" <?= ($rp['status_pengajuan'] == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
                          </select>
                        </div>
@@ -259,7 +256,7 @@
                  <?php endforeach; ?>
 
                  <div class="float-right mt-2 ml-1">
-                    <?php if ($rp['id_status_pengajuan'] == 2 && $this->session->userdata('level') !== '7') : ?>
+                    <?php if ($rp['id_status_pengajuan'] == 2 || $rp['id_status_pengajuan'] == 9 && $this->session->userdata('level') !== '7') : ?>
                       <?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
                         <a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
                       <?php endif ?>
@@ -400,7 +397,7 @@
                    </div>
                  </div>
                  <!-- RUMAH SAKIT -->
-                 <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                 <?php } elseif ($this->session->userdata('instansi') == 2 && $this->session->userdata('level') == 6 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7 && $key['nama_jenis'] != 'UHC')) { ?>
                     <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a> -->
                     <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
 
@@ -409,7 +406,7 @@
                     <!-- <button type="button" class="btn btn-secondary btn-sm" id="cetak_rs" data-id_sjp="<?php echo $key['id_sjp']; ?>"><i class="ft-printer">Cetak SJP</i></button> -->
 
                   <!-- DINKES -->
-                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7)) { ?>
+                  <?php } elseif ($this->session->userdata('instansi') == 1 && $this->session->userdata('level') == 1 && ($key['id_status_pengajuan'] == 6 && $key['id_status_pengajuan'] != 7) && $key['nama_jenis'] != 'UHC') { ?>
                     <!-- Sementara -->
                       <!-- <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Preview Cetak</i></a> -->
                       <a class="btn btn-secondary btn-sm" href="<?php echo base_url($controller . 'CetakPreview/' . $key['id_sjp']); ?>"><i class="ft-printer">Cetak SJP</i></a>
