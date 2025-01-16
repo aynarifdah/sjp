@@ -1326,7 +1326,7 @@ class Dinkes extends CI_Controller
         $diagpasien = $this->M_SJP->diagpasien($id_sjp);
         $diag = implode(', ', array_column($diagpasien, 'namadiag'));
         $img = base_url('/assets/uploads/cap.png');
-        $img_kop = base_url('/assets/images/kop_surat.png');
+        $img_kop = './assets/images/kop_surat.png';
         // $ttd = base_url('assets/images/ettd.jpeg');
         $ttd = './assets/images/ettd.jpeg';
 
