@@ -3,7 +3,7 @@
 
 <?php echo $page["head"]; ?>
 
-<body>
+<body oncontextmenu="return false;">
 
 
 

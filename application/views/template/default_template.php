@@ -5,7 +5,7 @@
 <!-- <body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar"
 	data-open="click" data-menu="vertical-content-menu" data-col="2-columns"> -->
 
-<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns" oncontextmenu="return false;">
 	<?php echo $page["header"]; ?>
 	<?php echo $page["sidebar"]; ?>
 	<?php echo $page['main_js']; ?>

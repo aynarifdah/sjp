@@ -24,7 +24,7 @@
              <form class="form-horizontal form-simple" method="POST" action="<?php echo base_url('Auth/proses_login'); ?>" novalidate>
                <fieldset class="form-group position-relative has-icon-left mb-1">
                  <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" class="form-control" required>
-                 <input type="text" name="username" class="form-control form-control-lg input-lg" id="user-name" placeholder="Your Username" required>
+                 <input type="text" name="username" class="form-control form-control-lg input-lg" id="user-name" placeholder="Your Username" required autocomplete="off">
                  <div class="form-control-position">
                    <i class="ft-user"></i>
                  </div>
@@ -32,7 +32,9 @@
                <fieldset class="form-group position-relative has-icon-left">
                  <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" class="form-control" required>
 
-                 <input type="password" name="password" class="form-control form-control-lg input-lg" id="user-password" placeholder="Enter Password" required>
+                 <input type="password" name="password" class="form-control form-control-lg input-lg" id="user-password" placeholder="Enter Password" required autocomplete="new-password">
+
+                  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                  <div class="form-control-position">
                    <i class="ft-lock"></i>
                  </div>
@@ -48,3 +50,23 @@
    <img src="<?php echo base_url("assets/images/logo_bsre.jpeg"); ?>" style="position: absolute; right: -10px; bottom: 0; width: 15%;">
 
  </section>
+
+ <script src="https://www.google.com/recaptcha/api.js?render=6LeMo8UrAAAAAGMjgZe1flrg_xhwfcsaNLPhlHRB"></script>
+ <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute("6LeMo8UrAAAAAGMjgZe1flrg_xhwfcsaNLPhlHRB", {action: "login"}).then(function(token) {
+            document.getElementById("g-recaptcha-response").value = token;
+        });
+    });
+  </script>
+  <script>
+    <?php if ($this->session->flashdata('gagalcaptcha')): ?>
+      swal.fire({
+      title:'Captcha Gagal',
+      text:"Terdeteksi Bot",
+      icon:'error',
+      confirmButtonText:'Ok',
+      confirmButtonClass:'btn btn-danger',
+      })
+    <?php endif; ?>
+  </script>

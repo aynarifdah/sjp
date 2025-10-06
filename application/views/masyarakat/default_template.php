@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="en" data-textdirection="ltr" oncontextmenu="return false;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <?php echo $page["head"]; ?>
