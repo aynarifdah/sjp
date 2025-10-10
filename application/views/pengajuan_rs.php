@@ -145,7 +145,7 @@
                       <thead>
                         <tr>
                           <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
-                          <th style="color: #6B6F82!important;">Pemohon</th>
+                          <th style="color: #6B6F82!important;">Tanggal Masuk RS</th>
                           <th style="color: #6B6F82!important;">Pasien</th>
                           <th>Tanggal<br> Pengajuan</th>
                           <th>Jenis<br> Jaminan</th>
@@ -254,7 +254,23 @@
         "type": "date-eu"
       }],
       columns: [{
-          data: "nama_pemohon",
+          data: "mulai_rawat",
+          "render": function(data, type, row, meta) {
+            var date = new Date(data);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dt = date.getDate();
+
+            if (dt < 10) {
+              dt = '0' + dt;
+            }
+            if (month < 10) {
+              month = '0' + month;
+            }
+
+            var datenow = dt + '-' + month + '-' + year;
+            return datenow;
+          },
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {

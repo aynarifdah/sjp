@@ -678,29 +678,34 @@ class Dinkes extends CI_Controller
         echo json_encode($diagnosa);
     }
 
-    // From Function Lama
     public function getalldatapermohonan()
     {
         if ($this->input->post() !== Null) {
-            $puskesmas  = $this->input->post("puskesmas");
-            $jaminan  = $this->input->post("jaminan");
-            $mulai  = $this->input->post("mulai");
-            $akhir  = $this->input->post("akhir");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
+            $start          = $this->input->post("start");  
+            $length         = $this->input->post("length"); 
+            $draw           = $this->input->post("draw");
+            $puskesmas      = $this->input->post("puskesmas");
+            $jaminan        = $this->input->post("jaminan");
+            $mulai          = $this->input->post("mulai");
+            $akhir          = $this->input->post("akhir");
+            $rs             = $this->input->post("rs");
+            $status         = $this->input->post("status");
             $status_jkn     = $this->input->post("status_jkn");
-            $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all(Null, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
+            $cari           = $this->input->post("cari");
+            $datasjp        = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn, $start);
+            $total          = $this->total();
+            $filtered       = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
         } else {
-            $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all();
+            $draw       = 1;
+            $total      = $this->total();
+            $filtered   = $total;
         }
-        $total = $this->total();
 
         $result = [
-            'draw' => '', // $_POST['draw']
-            'recordsFiltered' => '',
-            'recordsTotal' => '',
-            // 'query' => $this->db->last_query(),
+            'draw' => intval($draw),
+            'recordsFiltered' => $total ,
+            'recordsTotal' => $filtered,
             'data' => $datasjp
         ];
         // var_dump($result);
@@ -2359,5 +2364,21 @@ class Dinkes extends CI_Controller
             ->set_output(json_encode($response));
     }
 
+    public function ckeditor_upload()
+    {
+        $config['upload_path']   = './uploads/ckeditor/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['max_size']      = 2048;
 
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('upload')) {
+            $data = $this->upload->data();
+            $url = base_url('uploads/ckeditor' . $data['file_name']);
+
+            echo "<script>window.parent.CKEDITOR.tools.callFunction({$_GET['CKEditorFuncNum']}, '{$url}', 'Upload sukses');</script>";
+        } else {
+            echo "<script>alert('Upload gagal: " . $this->upload->display_errors('', '') . "');</script>";
+        }
+    }
 }

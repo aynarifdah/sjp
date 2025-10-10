@@ -886,47 +886,52 @@
 													<th scope="row">Feedback untuk Puskesmas</th>
 													<td>
 														<div class="row">
-															<div class="col-md-9">
-																<textarea id="feedbackPuskesmasInput" rows="5" cols="50"></textarea>
-																<input type="hidden" id="id_sjpvalfeedback" value="<?= $key['id_sjp']; ?>">
+														<div class="form-group row">
+															<div class="col-lg-9">
+															<textarea id="feedbackPuskesmasInput" name="feedbackPuskesmas"></textarea>
 															</div>
-															<div class="col-md-3">
-																<?php if ($this->session->userdata('instansi') == 1) { ?>
-																	<button 
-																		type="button" 
-																		id="feedbackPuskesmasSubmit"
-																		class="btn btn-dark btn-sm float-right" 
-																		style="margin-top: 6px;"
-																	> 
-																		Submit feedback
-																	</button>
-																<?php } ?>
-															</div>
+														</div>
+														<div class="col-md-3">
+															<?php if ($this->session->userdata('instansi') == 1) { ?>
+															<button 
+																type="button" 
+																id="feedbackPuskesmasSubmit"
+																class="btn btn-dark btn-sm float-right" 
+																style="margin-top: 6px;"
+															> 
+																Submit feedback
+															</button>
+															<?php } ?>
+														</div>
 														</div>
 													</td>
 												</tr>
+
 												<tr>
 													<th scope="row">Feedback untuk Rumah Sakit</th>
 													<td>
 														<div class="row">
-															<div class="col-md-9">
-																<textarea id="feedbackRumahSakitInput" rows="5" cols="50"></textarea>
+														<div class="form-group row">
+															<div class="col-lg-9">
+															<textarea id="feedbackRumahSakitInput" name="feedbackRumahSakit"></textarea>
 															</div>
-															<div class="col-md-3">
-																<?php if ($this->session->userdata('instansi') == 1) { ?>
-																	<button 
-																		type="button" 
-																		id="feedbackRumahSakitSubmit"
-																		class="btn btn-dark btn-sm float-right" 
-																		style="margin-top: 6px;"
-																	> 
-																		Submit feedback
-																	</button>
-																<?php } ?>
-															</div>
+														</div>
+														<div class="col-md-3">
+															<?php if ($this->session->userdata('instansi') == 1) { ?>
+															<button 
+																type="button" 
+																id="feedbackRumahSakitSubmit"
+																class="btn btn-dark btn-sm float-right" 
+																style="margin-top: 6px;"
+															> 
+																Submit feedback
+															</button>
+															<?php } ?>
+														</div>
 														</div>
 													</td>
 												</tr>
+
 											<?php endif ?>
 											<tr>
 												<th scope="row" class="border-top-0">Feedback Dinkes untuk Puskesmas:</th>
@@ -1055,7 +1060,26 @@
 	<script src="<?= base_url() ?>app-assets/js/scripts/forms/form-repeater.js" type="text/javascript"></script>
 	<script src="<?= base_url() ?>app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
 	<script src="<?= base_url() ?>app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
-	<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+	<script src="//cdn.ckeditor.com/4.14.0/full-all/ckeditor.js"></script>
+	<script>
+		CKEDITOR.replace('feedbackPuskesmasInput', {
+			extraPlugins: 'uploadimage,image2',
+			filebrowserUploadUrl: '<?php echo base_url("Dinkes/ckeditor_upload"); ?>',
+			filebrowserUploadMethod: 'form',
+			removePlugins: 'easyimage,cloudservices',
+			height: 250
+		});
+
+		CKEDITOR.replace('feedbackRumahSakitInput', {
+			extraPlugins: 'uploadimage,image2',
+			filebrowserUploadUrl: '<?php echo base_url("Dinkes/ckeditor_upload"); ?>',
+			filebrowserUploadMethod: 'form',
+			removePlugins: 'easyimage,cloudservices',
+			height: 250
+		});
+	</script>
+
+
 	<link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
 	<script>
 		// Kirim feedback ke Puskesmas

@@ -150,7 +150,7 @@
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
                     <th style="width: 10px !important; color: #6B6F82!important;">No</th>
-                    <th style="width: 10px !important; color: #6B6F82!important;">Pemohon</th>
+                    <th style="width: 10px !important; color: #6B6F82!important;">Tanggal Masuk RS</th>
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <th style="width: 30px;">Jenis<br> Jaminan</th>
@@ -292,7 +292,25 @@
             }
         },
         {
-          data: "nama_pemohon",
+          data: "mulai_rawat",
+          "render": function(data, type, row, meta) {
+            var date = new Date(data);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dt = date.getDate();;
+
+            if (dt < 10) {
+              dt = '0' + dt;
+            }
+            if (month < 10) {
+              month = '0' + month;
+            }
+
+            var datenow = dt + '-' + month + '-' + year;
+            // console.log(datenow);
+
+            return datenow;
+          },
           className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {
@@ -421,6 +439,7 @@
     var dtable = $("#datatable").DataTable({
       // "responsive": true,
       "processing": true,
+      "serverSide": true,
       "paging": true,
       "ordering": false,
       "info": true,
