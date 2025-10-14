@@ -231,6 +231,33 @@ class Home extends CI_Controller
 
     public function input_pasien()
     {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('nama_pemohon', 'Nama Pemohon', 'required');
+        $this->form_validation->set_rules('nik', 'NIK', 'required|numeric');
+        $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
+        $this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required');
+        $this->form_validation->set_rules('alamat_pasien', 'Alamat Pasien', 'required');
+        $this->form_validation->set_rules('alamat_pemohon', 'Alamat Pemohon', 'required');
+        $this->form_validation->set_rules('email_pemohon', 'Email Pemohon', 'required');
+        $this->form_validation->set_rules('email_pasien', 'Email Pasien', 'required');
+        $this->form_validation->set_rules('kd_kecamatan_pasien', 'Kecamatan Pasien', 'required');
+        $this->form_validation->set_rules('nama_rumah_sakit', 'Rumah Sakit', 'required');
+        $this->form_validation->set_rules('jenisjaminan', 'Jenis Jaminan', 'required');
+        $this->form_validation->set_rules('kelas_rawat', 'Kelas Rawat', 'required');
+        $this->form_validation->set_rules('mulairawat', 'Mulai Rawat', 'required');
+        $this->form_validation->set_rules('akhirrawat', 'Akhir Rawat', 'required');
+        $this->form_validation->set_rules('diagnosa', 'Diagnosa', 'required');
+        $this->form_validation->set_rules('kd_topik', 'Diagnosa', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('message', 
+            '<div class="alert alert-danger text-center">Harap lengkapi semua kolom wajib diisi.</div>'
+        );
+        redirect('Home/permohonan_sjp'); 
+        return; 
+        }
+        
         $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
         $nama_pemohon            = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
@@ -359,29 +386,48 @@ class Home extends CI_Controller
         //     $id_sjp = $value['id_sjp'];
         // }
 
-        $kd_diagnosa = $this->input->post('repeater-group'); //echo $kd_diagnosa;die; 
-        // var_dump($kd_diagnosa[0]['kd_topik']);
-        // die;
-        // var_dump($kd_diagnosa['diagnosa']);
-        // die;
+        $kd_diagnosa = $this->input->post('repeater-group');
 
+        
+        $valid_diagnosa = true;
+        if (empty($kd_diagnosa) || !is_array($kd_diagnosa)) {
+            $valid_diagnosa = false;
+        } else {
+            foreach ($kd_diagnosa as $index => $item) {
+                
+                $kd_topik_val = isset($item['kd_topik']) ? trim($item['kd_topik']) : '';
+                $diagnosa_val = isset($item['diagnosa']) ? trim($item['diagnosa']) : '';
+                $diagnosa_lain = isset($item['diagnosalainnya']) ? trim($item['diagnosalainnya']) : '';
+
+                
+                if ($kd_topik_val === '' || $kd_topik_val === 'Pilih Topik' ||
+                    ($diagnosa_val === '' || $diagnosa_val === 'Pilih Diagnosa') &&
+                    $diagnosa_lain === '') {
+                    $valid_diagnosa = false;
+                    break;
+                }
+            }
+        }
+
+        if (!$valid_diagnosa) {
+            
+            $this->session->set_flashdata('error', 'Diagnosa dan Topik wajib diisi pada setiap baris. Pastikan setidaknya memilih Diagnosa atau mengisi Diagnosa Lainnya.');
+            redirect('Rs/permohonan_sjp');
+            return; 
+        }
+
+        // === kalau valid, jalankan proses penyimpanan seperti semula ===
         $dataDiagnosa = array();
-        $diagnosaLainnya = '';
-        $penyakit = '';
         foreach ($kd_diagnosa as $key) {
             if ($key['diagnosa'] == 'Pilih Diagnosa' || empty($key['diagnosa'])) {
-                $diagnosaLainnya = $key['diagnosalainnya'];
+                $penyakit = $key['diagnosalainnya'];
             } else {
                 $penyakit = $key['diagnosa'];
-                $diagnosaLainnya = $key['diagnosalainnya'];
             }
             $dataDiagnosa[] = array(
                 'id_sjp'      => $id_sjp,
-                'id_penyakit' => $penyakit,
-                'penyakit' => $diagnosaLainnya
+                'id_penyakit' => $penyakit
             );
-            // var_dump($dataDiagnosa);
-            // die;
         }
         $this->db->insert_batch('diagnosa', $dataDiagnosa);
         //helper_log("add", "Permohonan Dikirim" ,$id_pengajuan,  $jenisizin, $id_puskesmas); 

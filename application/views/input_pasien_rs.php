@@ -17,6 +17,15 @@
         <div class="card-content collapse show">
           <div class="card-body">
             <form action="<?php echo base_url('Rs/input_pasien'); ?>" method="POST" enctype="multipart/form-data" class="wpcf7-form sjpform" id="sjpform">
+              <?php if ($this->session->flashdata('error')): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Perhatian!</strong> <?= $this->session->flashdata('error'); ?>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php endif; ?>
+
               <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////-->
               <!-- ////////////////////INPUTAN DATA PEMOHON /////////////////////////-->
               <h4 class="text-left ml-3"><i class="ft-user"></i> <strong>Informasi Pemohon</strong></h4>
@@ -43,7 +52,8 @@
                     <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_pemohon" id="Whatsapp_pemohon">
                   </div>
                   <div class="col-lg-4" style="padding: 0px 15px 5px 15px;">
-                    <input type="email" class="form-control" placeholder="Email" name="email_pemohon" id="emailpemohon">
+                    <input type="email" class="form-control" placeholder="Email" name="email_pemohon" id="emailpemohon" value="<?= set_value('email_pemohon'); ?>">
+                    <small class="text-danger"><?= form_error('email_pemohon'); ?></small>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -70,7 +80,8 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat* /Rt* /Rw*</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required value="<?= set_value('alamat_pemohon'); ?>">
+                    <small class="text-danger"><?= form_error('alamat_pemohon'); ?></small>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rt" name="rt_pemohon" id="rtpemohon" required>
@@ -204,7 +215,8 @@
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="alamat_pasien">Alamat*/Rt*/Rw*</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pasien" id="alamatpasien" required>
+                    <input type="text" class="form-control" placeholder="Alamat" name="alamat_pasien" id="alamatpasien"  value="<?= set_value('alamat_pasien'); ?>">
+                    <small class="text-danger"><?= form_error('alamat_pasien'); ?></small>
                   </div>
                   <div class="col-lg-1" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Rt" name="rt_pasien" id="rtpasien" required>
@@ -241,7 +253,8 @@
                     <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_pasien" id="Whatsapppasien">
                   </div>
                   <div class="col-lg-5" style="padding: 0px 15px 5px 15px;">
-                    <input type="email" class="form-control" placeholder="Email" name="email_pasien" id="emailpasien">
+                    <input type="email" class="form-control" placeholder="Email" name="email_pasien" id="emailpasien" value="<?= set_value('email_pasien'); ?>">
+                    <small class="text-danger"><?= form_error('email_pasien'); ?></small>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -325,14 +338,20 @@
                           <?php }
                           } ?>
                         </select>
+                        <small class="text-danger small-topik" style="display:none;">Topik wajib diisi</small>
+
                         <select class="js-example-basic-multiple kd_diagnosa multiple sjpform" id="kd_diagnosa" name="diagnosa" style="width: 85%; ">
                           <option>Pilih Diagnosa</option>
                           <?php if (!empty($diagnosa)) {
                             foreach ($diagnosa as $key) { ?>
                               <option value="<?= $key['namadiag'] ?>"><?= $key['namadiag'] ?></option>
+                              <small class="text-danger">
+                                <?= form_error('diagnosa'); ?>
+                              </small>
                           <?php }
                           } ?>
                         </select>
+                        <small class="text-danger small-diagnosa" style="display:none;">Diagnosa atau Diagnosa Lainnya wajib diisi</small>
 
                         <span class="input-group-append" id="button-addon2">
                           <button class="btn btn-danger" type="submit" data-repeater-delete=""><i class="ft-x"></i></button>
@@ -677,4 +696,46 @@
       }
     });
   });
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#sjpform').on('submit', function(e) {
+    var isValid = true;
+    // reset pesan
+    $('.small-topik, .small-diagnosa').hide();
+
+    $('.diagnosapenyakit').each(function() {
+      var $item = $(this);
+      var topik = $item.find('select[name="kd_topik"], select[name^="repeater-group"]').first().val();
+      var diagnosa = $item.find('select[name="diagnosa"]').val();
+      var diagnosaLain = $item.find('input[name="diagnosalainnya"]').val();
+
+      if (topik === null) topik = '';
+      if (diagnosa === null) diagnosa = '';
+
+      var topikEmpty = (topik.trim() === '' || topik === 'Pilih Topik');
+      var diagnosaEmpty = (diagnosa.trim() === '' || diagnosa === 'Pilih Diagnosa') && (diagnosaLain.trim() === '');
+
+      if (topikEmpty || diagnosaEmpty) {
+        isValid = false;
+        if (topikEmpty) $item.find('.small-topik').show();
+        if (diagnosaEmpty) $item.find('.small-diagnosa').show();
+      }
+    });
+
+    if (!isValid) {
+      // tampilkan alert umum
+      if ($('.alert-diagnosa-client').length === 0) {
+        $('#sjpform').prepend('<div class="alert alert-danger alert-diagnosa-client">Periksa kembali: setiap baris Diagnosa & Topik harus diisi.</div>');
+      } else {
+        $('.alert-diagnosa-client').show();
+      }
+      $('html, body').animate({ scrollTop: $('#sjpform').offset().top - 100 }, 300);
+      e.preventDefault();
+      return false;
+    }
+  });
+});
+
 </script>
