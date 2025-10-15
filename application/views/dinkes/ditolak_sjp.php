@@ -398,15 +398,33 @@
       .order([2, 'desc'])
       .draw();
 
-    $(".filter").on('change', function() {
+   $(".filter").on('change', function() {
       dtable.ajax.reload();
     });
 
-    $('.filter > #cari').keypress(function(e) {
-      if (e.which == 13) {
-        dtable.ajax.reload();
-        return false;
+    let timer;
+
+    $('#cari').on('keyup', function(e) {
+      if (e.key !== 'Enter') {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          dtable.ajax.reload();
+        }, 300);
       }
+    });
+
+    $('#cari').on('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        clearTimeout(timer);  
+        dtable.ajax.reload(); 
+      }
+    });
+
+    $('form').on('submit', function(e) {
+      e.preventDefault();
+      return false;
     });
 
     $('#datatable').on('click', 'tr', function() {

@@ -96,14 +96,14 @@
 
               <div class="col-lg-3 filter">
                 <label>Cari</label>
-
                 <div class="position-relative has-icon-left">
-                  <input type="text" class="form-control" id="cari" name="search" placeholder="Cari NIK, Nama Pasien">
+                  <input type="text" class="form-control" id="cari" placeholder="Cari NIK , Nama Pasien">
                   <div class="form-control-position">
                     <i class="ft-search"></i>
                   </div>
                 </div>
               </div>
+
               <div class="col-lg-3 filter mt-1">
                 <label>Jenis Jaminan</label>
                 <select name="jaminan" id="jaminan" class="form-control" style="width: 100%" readonly>
@@ -484,12 +484,31 @@
       dtable.ajax.reload();
     });
 
-    $('.filter > #cari').keypress(function(e) {
-      if (e.which == 13) {
-        dtable.ajax.reload();
-        return false;
+    let timer;
+
+    $('#cari').on('keyup', function(e) {
+      if (e.key !== 'Enter') {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          dtable.ajax.reload();
+        }, 300);
       }
     });
+
+    $('#cari').on('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        clearTimeout(timer);  
+        dtable.ajax.reload(); 
+      }
+    });
+
+    $('form').on('submit', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
 
 
 
