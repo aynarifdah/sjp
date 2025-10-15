@@ -53,6 +53,7 @@ class M_data extends CI_Model {
 	  	if (!empty($id)) {
 	  		$this->db->where("id_puskesmas =", $id);
 	  	}
+		$this->db->order_by('nama_puskesmas', 'ASC');
 	  	return $this->db->get()->result_array();
 	}
 
@@ -62,6 +63,7 @@ class M_data extends CI_Model {
 	  	if (!empty($id)) {
 	  		$this->db->where("id_rumah_sakit =", $id);
 	  	}
+		$this->db->order_by('nama_rumah_sakit', 'ASC');
 	  	return $this->db->get()->result_array();
 	}
 
