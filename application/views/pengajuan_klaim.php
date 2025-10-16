@@ -233,6 +233,8 @@
 </script> -->
 
 <script>
+  var base_url = "<?= base_url(); ?>";
+
   $('#nominal').click(function(event) {
     // console.log($(".check:checked").val());
     var id_sjp = [];
@@ -311,9 +313,15 @@
           }
       },
       {
-        data: "nama_pasien",
-        className: "text-info dt-head-center dt-body-right bodyclick"
-      },
+          data: "nama_pasien",
+          render: function(data, type, row) {
+            return `<a href="${base_url}Dinkes/detail_pengajuan/${row.id_sjp}/${row.id_pengajuan}" 
+                      target="_blank" 
+                      class="link-detail"
+                      onclick="event.stopPropagation();">${data}</a>`;
+          },
+          className: "text-info dt-head-center dt-body-right"
+        },
       {
         data: "nomor_surat",
         className: "dt-head-center dt-body-right bodyclick"

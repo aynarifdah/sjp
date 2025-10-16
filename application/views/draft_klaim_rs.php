@@ -196,6 +196,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>app-assets/css/responsive.bootstrap.min.css">
 
   <script>
+    var base_url = "<?= base_url(); ?>";
     $('#entryklaim').click(function(event) {
       // console.log($(".check:checked").val());
       var id_sjp = [];
@@ -263,7 +264,13 @@
         },
         {
           data: "nama_pasien",
-          className: "text-info dt-head-center dt-body-right bodyclick"
+          render: function(data, type, row) {
+            return `<a href="${base_url}Rs/detail_pengajuan/${row.id_sjp}/${row.id_pengajuan}" 
+                      target="_blank" 
+                      class="link-detail"
+                      onclick="event.stopPropagation();">${data}</a>`;
+          },
+          className: "text-info dt-head-center dt-body-right"
         },
         {
           data: "mulai_rawat",

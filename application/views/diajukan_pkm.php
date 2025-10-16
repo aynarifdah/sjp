@@ -212,6 +212,7 @@
 </script> -->
 
   <script>
+    var  base_url = "<?= base_url(); ?>";
     // Polaris Checkbox & Radio
     $('.skin-polaris input').iCheck({
       checkboxClass: 'icheckbox_polaris',
@@ -257,7 +258,13 @@
         },
         {
           data: "nama_pasien",
-          className: "text-info dt-head-center dt-body-right bodyclick"
+          render: function(data, type, row) {
+            return `<a href="${base_url}Home/detail_pengajuan/${row.id_sjp}/${row.id_pengajuan}" 
+                      target="_blank" 
+                      class="link-detail"
+                      onclick="event.stopPropagation();">${data}</a>`;
+          },
+          className: "text-info dt-head-center dt-body-right"
         },
         {
           data: "tanggal_pengajuan",
