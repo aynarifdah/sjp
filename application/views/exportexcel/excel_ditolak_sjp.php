@@ -22,6 +22,7 @@ header("Expires: 0");
             <th>Rumah Sakit</th>
             <th>Jam</th>
             <th>Domisili</th>
+            <th>Jenis Rawat</th>
             <th>Status Pengajuan</th>
         </tr>
     </thead>
@@ -36,7 +37,6 @@ header("Expires: 0");
                     <td><?php echo date_format(date_create($key['tanggal_pengajuan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nama_jenis']; ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
-<<<<<<< HEAD
                     <td>
                         <?php
                         $now = date_format(date_create($key['tanggal_selesai']), "Y-m-d h:i:s");
@@ -58,9 +58,9 @@ header("Expires: 0");
                         Jam
                     </td>
                     <td>
-                        <?php 
-                        if ($key['kd_kecamatan'] == 'Bojongsari' || $key['kd_kecamatan'] == 'Beji' || $key['kd_kecamatan'] == 'Cimanggis' || $key['kd_kecamatan'] == 'Cinere' || $key['kd_kecamatan'] == 'Cipayung' || $key['kd_kecamatan'] == 'Limo' || $key['kd_kecamatan'] == 'Pancoran Mas' || $key['kd_kecamatan'] == 'Sawangan' || $key['kd_kecamatan'] == 'Sukmajaya' || $key['kd_kecamatan'] == 'Tapos' || $key['kd_kecamatan'] == 'Cilodong' || 
-                            
+                        <?php
+                        if ($key['kd_kecamatan'] == 'Bojongsari' || $key['kd_kecamatan'] == 'Beji' || $key['kd_kecamatan'] == 'Cimanggis' || $key['kd_kecamatan'] == 'Cinere' || $key['kd_kecamatan'] == 'Cipayung' || $key['kd_kecamatan'] == 'Limo' || $key['kd_kecamatan'] == 'Pancoran Mas' || $key['kd_kecamatan'] == 'Sawangan' || $key['kd_kecamatan'] == 'Sukmajaya' || $key['kd_kecamatan'] == 'Tapos' || $key['kd_kecamatan'] == 'Cilodong' ||
+
                             $key['kd_kecamatan'] == 'BOJONGSARI' || $key['kd_kecamatan'] == 'BEJI' || $key['kd_kecamatan'] == 'CIMANGGIS' || $key['kd_kecamatan'] == 'CINERE' || $key['kd_kecamatan'] == 'CIPAYUNG' || $key['kd_kecamatan'] == 'LIMO' || $key['kd_kecamatan'] == 'PANCORAN MAS' || $key['kd_kecamatan'] == 'SAWANGAN' || $key['kd_kecamatan'] == 'SUKMAJAYA' || $key['kd_kecamatan'] == 'TAPOS' || $key['kd_kecamatan'] == 'CILODONG') {
                                 echo 'Depok';
                             }else{
@@ -68,8 +68,7 @@ header("Expires: 0");
                             }
                          ?>
                     </td>
-=======
->>>>>>> origin/pengembanganv.1
+                    <td><?php echo $key['jenis_rawat']; ?></td>
                     <td><?php echo $key['status_pengajuan']; ?></td>
                 </tr>
         <?php $no++;

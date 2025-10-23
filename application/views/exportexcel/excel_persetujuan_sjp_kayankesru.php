@@ -21,6 +21,7 @@ header("Expires: 0");
             <th>Jenis Jaminan</th>
             <th>Rumah Sakit</th>
             <th>Domisili</th>
+            <th>Jenis Rawat</th>
             <th>Status Pengajuan</th>
         </tr>
     </thead>
@@ -46,6 +47,7 @@ header("Expires: 0");
                             }
                          ?>
                     </td>
+                    <td><?php echo $key['jenis_rawat']; ?></td>
                     <td><?php echo $key['status_pengajuan']; ?></td>
                 </tr>
         <?php $no++;

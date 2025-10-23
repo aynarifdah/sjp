@@ -47,7 +47,7 @@
               <div class="col-lg-12">
                 <div class="element mb-1 p-r-15">
 
-                  <button id="btnSearchDrop2" type="submit" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button>
+                  <button id="btnSearchDrop2" type="button" onclick="document.forms[0].submit();" aria-expanded="true" class="btn btn-primary btn-sm" style="border-radius: 8px; border: none;"> <i class="ft-printer"></i>Export Excel</button>
 
                 </div>
               </div>
@@ -373,6 +373,10 @@
               // $('.statuspengajuan').addClass('bg-success');
               // return row.status_pengajuan;
               return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+            } else if (data == 9) {
+              // $('.statuspengajuan').addClass('bg-success');
+              // return row.status_pengajuan;
+              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
             }
 
           },

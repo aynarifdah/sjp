@@ -53,7 +53,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="element mb-1 p-r-15">
-                    <button type="submit" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</button>
+                    <button type="button" onclick="document.forms[0].submit();" class="btn btn-primary btn-sm"><i class="ft-printer"></i> Export Excel</button>
 
 
                   <?php if ($status_klaim == 3) { ?>

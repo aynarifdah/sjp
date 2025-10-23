@@ -18,6 +18,7 @@ header("Expires: 0");
             <th>Nama</th>
             <th>Nomor SJP</th>
             <th>Rumah Sakit</th>
+            <th>Jenis Rawat</th>
             <th>Tanggal Tagihan</th>
             <th>Nominal Pengajuan</th>
             <th>Status</th>
@@ -32,6 +33,7 @@ header("Expires: 0");
                     <td><?php echo $key['nama_pasien']; ?></td>
                     <td><?php echo $key['nomor_surat']; ?></td>
                     <td><?php echo $key['nm_rs']; ?></td>
+                    <td><?php echo $key['jenis_rawat']; ?></td>
                     <td><?php echo date_format(date_create($key['tanggal_tagihan']), "d-m-Y"); ?></td>
                     <td><?php echo $key['nominal_klaim']; ?></td>
                     <td><?php echo $key['nama_statusklaim']; ?></td>
