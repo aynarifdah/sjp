@@ -255,7 +255,8 @@
 									<?php endif ?>
 								<?php endforeach; ?>
 
-								<div class="float-right mt-2 ml-1">
+					<!-- ------- ini halaman untuk edit profile pasien ------- -->
+								<!-- <div class="float-right mt-2 ml-1">
 									<?php if ($rp['id_status_pengajuan'] == 2 || $rp['id_status_pengajuan'] == 9 && $this->session->userdata('level') !== '7') : ?>
 										<?php if ($this->session->userdata('instansi') == 3 || $this->session->userdata('instansi') == 2 || $this->session->userdata('instansi') == 1) : ?>
 											<a href="<?php echo base_url($controller . 'edit_data_pasien/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>"><button type="button" class="btn btn-dark btn-sm float-right"><i class="ft-edit"></i>&nbsp;Edit Profile Pasien</button></a>
@@ -283,7 +284,7 @@
 										<?php } ?>
 
 									<?php endif ?>
-								</div>
+								</div> -->
 
 
 
