@@ -110,13 +110,13 @@
                   <tr>
                     <!-- <th><div class="skin skin-polaris check-all"><input type="checkbox" id="check-all"></div></th> -->
                     <th style="width: 10px !important; color: #6B6F82!important;">No</th>
-                    <th style="width: 10px !important; color: #6B6F82!important;">Tanggal Masuk RS</th>
                     <th style="width: 30px; color: #6B6F82!important;">Pasien</th>
                     <th style="width: 30px;">Tanggal<br> Pengajuan</th>
                     <!-- <th>Lama Pengajuan</th> -->
                     <th>Jenis Rawat</th>
                     <th>Jenis Jaminan</th>
                     <th style="width: 30px;">Rumah <br>Sakit</th>
+                    <th style="width: 10px !important; color: #6B6F82!important;">Tanggal Masuk RS</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
@@ -249,26 +249,6 @@
             }
         },
         {
-          data: "mulai_rawat",
-          "render": function(data, type, row, meta) {
-            var date = new Date(data);
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var dt = date.getDate();
-
-            if (dt < 10) {
-              dt = '0' + dt;
-            }
-            if (month < 10) {
-              month = '0' + month;
-            }
-
-            var datenow = dt + '-' + month + '-' + year;
-            return datenow;
-          },
-          className: "text-info dt-head-center dt-body-right bodyclick"
-        },
-        {
           data: "nama_pasien",
           render: function(data, type, row) {
             return `<a href="${base_url}Dinkes/detail_pengajuan/${row.id_sjp}/${row.id_pengajuan}" 
@@ -309,6 +289,26 @@
         {
           data: "nm_rs",
           className: "dt-head-center dt-body-right bodyclick"
+        },
+        {
+          data: "mulai_rawat",
+          "render": function(data, type, row, meta) {
+            var date = new Date(data);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dt = date.getDate();
+
+            if (dt < 10) {
+              dt = '0' + dt;
+            }
+            if (month < 10) {
+              month = '0' + month;
+            }
+
+            var datenow = dt + '-' + month + '-' + year;
+            return datenow;
+          },
+          className: "text-info dt-head-center dt-body-right bodyclick"
         },
         {
           data: "kd_kecamatan",

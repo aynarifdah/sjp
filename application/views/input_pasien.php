@@ -42,9 +42,9 @@
                   </div> -->
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="notelp">Informasi Kontak*</label>
+                  <label class="col-lg-3 label-control" for="notelp">Informasi Kontak</label>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
-                    <input type="text" class="form-control" placeholder="No Telp *" name="telepon_pemohon" id="telepon_pemohon" required>
+                    <input type="text" class="form-control" placeholder="No Telp" name="telepon_pemohon" id="telepon_pemohon" required>
                   </div>
                   <div class="col-lg-2" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="No Whatsapp" name="whatsapp_pemohon" id="Whatsapp_pemohon">
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat* /Rt* /Rw*</label>
+                  <label class="col-lg-3 label-control" for="alamat_pemohon">Alamat /Rt /Rw</label>
                   <div class="col-lg-6" style="padding: 0px 15px 5px 15px;">
                     <input type="text" class="form-control" placeholder="Alamat" name="alamat_pemohon" id="alamatpemohon" required value="<?= set_value('alamat_pemohon'); ?>">
                     <small class="text-danger"><?= form_error('alamat_pemohon'); ?></small>
@@ -89,7 +89,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 label-control" for="tempat">Kecamatan* /Kelurahan *</label>
+                  <label class="col-lg-3 label-control" for="tempat">Kecamatan /Kelurahan </label>
 
                   <div class="col-lg-3" style="padding: 0px 15px 5px 15px;">
                     <select class="select2 form-control block kecamatan" id="kd_kecamatanpemohon" name="kd_kecamatan_pemohon" style="width: 100%" required>
