@@ -153,20 +153,51 @@
                 </div>
 
                 <div class="form-group row">
-                      <label class="col-lg-3 label-control" for="nik">NIK*/No KK*/No KIS</label>
-                      <div class="col-lg-3">
-                          <input type="text" class="form-control" placeholder="NIK" name="nik" id="nik" required>
-                      </div>
-                      <!-- <div class="col-lg-3">
-                          <button id="checkNikBtn" class="btn btn-primary">Periksa NIK</button>
-                      </div> -->
-                      <div class="col-lg-3">
-                          <input type="text" class="form-control" placeholder="No KK" name="kk" id="kk" required>
-                      </div>
-                      <div class="col-lg-3">
-                          <input type="text" class="form-control" placeholder="No KIS" name="kis" id="kis">
-                      </div>
+                  <label class="col-lg-3 label-control" for="nik">
+                      NIK* / No KK* / No KIS
+                  </label>
+
+                  <!-- Kolom NIK + tombol cek -->
+                  <div class="col-lg-3">
+                      <input type="text" 
+                            class="form-control" 
+                            placeholder="NIK" 
+                            name="nik" 
+                            id="nik" 
+                            required>
+
+                      <button type="button" 
+                              id="btnCekNik" 
+                              class="btn btn-primary mt-2">
+                          Periksa NIK
+                      </button>
+                      <div id="alertNik" class="mt-2"></div>
+
+                      <input type="hidden" name="nik_status" id="nik_status">
+ 
+                      <input type="hidden" name="nik_category" id="nik_category">
+                  </div>
+
+                  <!-- Kolom KK -->
+                  <div class="col-lg-3">
+                      <input type="text" 
+                            class="form-control" 
+                            placeholder="No KK" 
+                            name="kk" 
+                            id="kk" 
+                            required>
+                  </div>
+
+                  <!-- Kolom KIS -->
+                  <div class="col-lg-3">
+                      <input type="text" 
+                            class="form-control" 
+                            placeholder="No KIS" 
+                            name="kis" 
+                            id="kis">
+                  </div>
                 </div>
+
 
                 <div class="form-group row">
                   <label class="col-lg-3 label-control" for="namalengkap">Nama Lengkap*/Jenis Kelamin*/Status Pernikahan*</label>
@@ -430,7 +461,7 @@
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>app-assets/vendors/css/forms/icheck/icheck.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>app-assets/vendors/css/forms/selects/select2.min.css">
-<script src="<?= base_url() ?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
+<!-- <script src="<?= base_url() ?>app-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script> -->
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
 <script src="<?= base_url() ?>app-assets/vendors/js/forms/repeater/jquery.repeater.min.js" type="text/javascript"></script>
@@ -716,40 +747,57 @@
         }
          
         if($(this).val() == "Rawat Inap"){
-        $("#kelas_rawat").attr('required', '');
-
-        }else{
-        $("#kelas_rawat").removeAttr('required');            
-
+            $("#kelas_rawat").attr('required', '');
+        } else {
+            $("#kelas_rawat").removeAttr('required');
         }
     }).change();
 
-    $('#nik').change(function() {
-    var nik = $(this).val();
 
-        // Validate that the NIK is 16 digits long
+    // tombol cek nik
+    $('#btnCekNik').click(function() {
+        let nik = $('#nik').val();
+
+        // validasi awal
         if (nik.length !== 16 || isNaN(nik)) {
-            alert('NIK harus 16 digit');
-            $(this).val(''); // Clear the input field
+            $('#alertNik').html('<div class="alert alert-danger">NIK harus 16 digit</div>');
+            $('#nik').css('border', '2px solid #d50000');
             return;
         }
 
         $.ajax({
-            url: "ValidasiDTKSbyNIK/" + nik,
+            url: '<?= base_url("ajax/cek_nik"); ?>',
             type: 'POST',
-            success: function(data) {
-                var json_data = JSON.parse(data);
-                if (!json_data.data) {
-                    alert('NIK Tidak Terdaftar pada DTKS');
-                } else {
-                    alert('NIK Terdaftar pada DTKS');
+            data: { nik: nik },
+            success: function(response) {
+                let res = JSON.parse(response);
+
+                // reset border
+                $('#nik').css("border", "2px solid #ced4da");
+
+                if (res.status === "valid") {
+                    // desil 1 - 5
+                    $('#alertNik').html('<div class="alert alert-success">'+res.message+'</div>');
+                    $('#nik').css('border', '2px solid #00c853');
+                    $('#status_nik').val('valid');
                 }
-            },
+                else if (res.status === "invalid") {
+                    // diluar desil / tunggakan
+                    $('#alertNik').html('<div class="alert alert-danger">'+res.message+'</div>');
+                    $('#nik').css('border', '2px solid #d50000');
+                    $('#status_nik').val('invalid');
+                }
+                else if (res.status === "not_found") {
+                    // tidak ditemukan
+                    $('#alertNik').html('<div class="alert alert-secondary">'+res.message+'</div>');
+                    $('#nik').css('border', '2px solid #9e9e9e');
+                    $('#status_nik').val('not_found');
+                }
+            }
         });
     });
 
 });
-
 </script>
 
 <script>
@@ -785,56 +833,56 @@ $(document).ready(function() {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('checkNikBtn').addEventListener('click', function() {
-        const nik = document.getElementById('nik').value;
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('checkNikBtn').addEventListener('click', function() {
+//         const nik = document.getElementById('nik').value;
 
-        if (nik.trim() === '') {
-            alert('Silakan isi NIK terlebih dahulu.');
-            return;
-        }
+//         if (nik.trim() === '') {
+//             alert('Silakan isi NIK terlebih dahulu.');
+//             return;
+//         }
 
-        $.ajax({
-            type: 'GET',
-            url: "<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
-            data: {
-                nik: nik
-            },
-            success: function(response) {
-                console.log(response)
-                if (response == "Nik Tidak Terdaftar") {
-                    alert('Nik Tidak Terdaftar di aplikasi SITPAS');
-                } else {
-                    alert('NIK terdaftar di aplikasi SITPAS');
-                }
-            },
+//         $.ajax({
+//             type: 'GET',
+//             url: "<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
+//             data: {
+//                 nik: nik
+//             },
+//             success: function(response) {
+//                 console.log(response)
+//                 if (response == "Nik Tidak Terdaftar") {
+//                     alert('Nik Tidak Terdaftar di aplikasi SITPAS');
+//                 } else {
+//                     alert('NIK terdaftar di aplikasi SITPAS');
+//                 }
+//             },
 
-            error: function() {
-                alert('Terjadi kesalahan saat memeriksa NIK.');
-            }
-        });
+//             error: function() {
+//                 alert('Terjadi kesalahan saat memeriksa NIK.');
+//             }
+//         });
 
-        // $.ajax({
-        //     type: 'GET',
-        //     url:"<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
-        //     data: { nik: nik },
-        //     success: function(response) {
-        //         console.log(response)
-        //         if (response == "Nik Tidak Terdaftar") {
-        //             alert('Nik Tidak Terdaftar.');
-        //         } else {
-        //             alert('NIK terdaftar.');
-        //         }
-        //     },
+//         // $.ajax({
+//         //     type: 'GET',
+//         //     url:"<?php echo base_url('Home/getSitpasApi'); ?>", // Replace with the PHP file handling the request
+//         //     data: { nik: nik },
+//         //     success: function(response) {
+//         //         console.log(response)
+//         //         if (response == "Nik Tidak Terdaftar") {
+//         //             alert('Nik Tidak Terdaftar.');
+//         //         } else {
+//         //             alert('NIK terdaftar.');
+//         //         }
+//         //     },
 
 
-        //     error: function() {
-        //         alert('Terjadi kesalahan saat memeriksa NIK.');
-        //     }
-        // });
-    });
-});
-</script>
+//         //     error: function() {
+//         //         alert('Terjadi kesalahan saat memeriksa NIK.');
+//         //     }
+//         // });
+//     });
+// });
+// </script>
 <script>
 $(document).ready(function() {
   $('#sjpform').on('submit', function(e) {
