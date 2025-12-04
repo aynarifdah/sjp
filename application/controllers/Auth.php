@@ -50,7 +50,6 @@ class Auth extends CI_Controller
 
 	public function proses_login()
 	{
-		// Ambil username + password
 		if ($this->session->userdata('login_data')) {
 			$session_data = $this->session->userdata('login_data');
 			$username = $session_data['username'];
@@ -60,21 +59,18 @@ class Auth extends CI_Controller
 			$password = $this->input->post('password');
 		}
 
-		// Ambil token reCAPTCHA
 		$token = $this->input->post('g-recaptcha-response');
 
-		// Secret key (ambil dari Google)
 		$secret = "6LdRtyAsAAAAAKavFzlyOyHXQ33DR2X3alLWjjv_";
 		$verify_url = "https://www.google.com/recaptcha/api/siteverify";
 
-		// Data yg dikirim ke Google
+
 		$data = [
 			"secret"   => $secret,
 			"response" => $token,
 			"remoteip" => $this->input->ip_address()
 		];
 
-		// CURL request
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $verify_url);
 		curl_setopt($ch, CURLOPT_POST, true);
@@ -86,23 +82,18 @@ class Auth extends CI_Controller
 
 		$result = json_decode($response, true);
 
-		// VALIDASI CAPTCHA
 		if (empty($result["success"]) || $result["success"] !== true) {
 			$this->session->set_flashdata("gagalcaptcha", "Captcha gagal. Silakan coba lagi.");
 			redirect("Auth/", "refresh");
 			return;
 		}
 
-		// -----------------------------
-		// MULAI PROSES LOGIN
-		// -----------------------------
-
+		
 		$user = $this->M_login->readBy($username);
 		$ip = $this->input->ip_address();
 		$limitTime = date("Y-m-d H:i:s", strtotime("-5 minutes"));
 		$userId = $user ? $user->id_user : null;
 
-		// Hitung gagal login user & IP
 		$failUser = $userId
 			? $this->db->where("user_id", $userId)->where("created_at >", $limitTime)->count_all_results("log_login")
 			: 0;
@@ -116,7 +107,6 @@ class Auth extends CI_Controller
 			return;
 		}
 
-		// Cek username
 		if (!$user) {
 			$this->session->set_flashdata('pesan', 
 				'<div class="alert alert-warning fade show mb-1">Username tidak ditemukan!</div>');
@@ -124,7 +114,6 @@ class Auth extends CI_Controller
 			return;
 		}
 
-		// Cek password
 		if ($password != $this->encryption->decrypt($user->password)) {
 			$this->db->insert("log_login", [
 				"user_id"   => $userId,
@@ -136,7 +125,6 @@ class Auth extends CI_Controller
 			return;
 		}
 
-		// Cek aktif
 		if ($user->is_active != 1) {
 			$this->session->set_flashdata('pesan', 
 				'<div class="alert alert-warning fade show mb-1">Akun anda sudah tidak aktif.</div>');
@@ -144,7 +132,6 @@ class Auth extends CI_Controller
 			return;
 		}
 
-		// SUCCESS LOGIN → SET SESSION
 		$this->session->set_userdata([
 			'authenticated' => true,
 			'id_user'       => $user->id_user,
@@ -157,7 +144,6 @@ class Auth extends CI_Controller
 
 		helper_log("login", "Berhasil Login", $user->id_instansi);
 
-		// Redirect sesuai instansi
 		switch ($user->id_instansi) {
 			case "1": redirect('Dinkes/persetujuan_sjp_kayankesru'); break;
 			case "2": redirect('Rs/'); break;
