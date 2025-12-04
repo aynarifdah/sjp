@@ -49,129 +49,127 @@ class Auth extends CI_Controller
 	}
 
 	public function proses_login()
-	{	
+	{
+		// Ambil username + password
 		if ($this->session->userdata('login_data')) {
 			$session_data = $this->session->userdata('login_data');
 			$username = $session_data['username'];
 			$password = $session_data['password'];
 		} else {
-			$username 	= $this->input->post('username');
-			$password 	= $this->input->post('password');
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
 		}
 
-		$token    = $this->input->post('g-recaptcha-response');
+		// Ambil token reCAPTCHA
+		$token = $this->input->post('g-recaptcha-response');
 
-		$secret = "6LeMo8UrAAAAAE3nE7LGosEpY_YxrqQAiVFzO7RR";
-        $url = "https://www.google.com/recaptcha/api/siteverify";
+		// Secret key (ambil dari Google)
+		$secret = "6LdRtyAsAAAAAKavFzlyOyHXQ33DR2X3alLWjjv_";
+		$verify_url = "https://www.google.com/recaptcha/api/siteverify";
 
-		 $data = [
-            'secret'   => $secret,
-            'response' => $token,
-            'remoteip' => $this->input->ip_address()
-        ];
+		// Data yg dikirim ke Google
+		$data = [
+			"secret"   => $secret,
+			"response" => $token,
+			"remoteip" => $this->input->ip_address()
+		];
 
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
+		// CURL request
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $verify_url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $result = json_decode($response, true);
+		$response = curl_exec($ch);
+		curl_close($ch);
 
-        if (!empty($result["success"]) && $result["success"] == true && $result["score"] >= 0.5) {
-			$user 		= $this->M_login->readBy($username);
-			// var_dump($user);die;
-			//  echo  $this->encryption->encrypt($password);die; 
-			// echo "<br><br>";
-			// echo $this->encryption->decrypt($user->password);
-			// echo $password;die;
+		$result = json_decode($response, true);
 
-			$ip = $this->input->ip_address();
-				$userId = $user ? $user->id_user : null;
-				$limitTime = date("Y-m-d H:i:s", strtotime("-5 minutes"));
+		// VALIDASI CAPTCHA
+		if (empty($result["success"]) || $result["success"] !== true) {
+			$this->session->set_flashdata("gagalcaptcha", "Captcha gagal. Silakan coba lagi.");
+			redirect("Auth/", "refresh");
+			return;
+		}
 
-				$failUser = 0;
-				if ($userId) {
-					$failUser = $this->db->where("user_id", $userId)
-						->where("created_at >", $limitTime)
-						->count_all_results("log_login");
-				}
+		// -----------------------------
+		// MULAI PROSES LOGIN
+		// -----------------------------
 
-				$failIP = $this->db->where("ip_address", $ip)
-					->where("created_at >", $limitTime)
-					->count_all_results("log_login");
+		$user = $this->M_login->readBy($username);
+		$ip = $this->input->ip_address();
+		$limitTime = date("Y-m-d H:i:s", strtotime("-5 minutes"));
+		$userId = $user ? $user->id_user : null;
 
-				if ($failUser >= 5 || $failIP >= 5) {
-					$this->session->set_flashdata('login_error', 
-						'Terlalu banyak percobaan login gagal. Silakan coba lagi setelah 5 menit.');
-					redirect('Account/', 'refresh');
-					return;
-				}
+		// Hitung gagal login user & IP
+		$failUser = $userId
+			? $this->db->where("user_id", $userId)->where("created_at >", $limitTime)->count_all_results("log_login")
+			: 0;
 
-			if (empty($user)) {
-				$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Username tidak ditemukan !</div>');
-				redirect('Auth/', 'refresh');
-			} else {
-				if ($password == $this->encryption->decrypt($user->password)) {
-					if($user->is_active == 1){
-						$this->session->set_userdata('authenticated', true);
-						$this->session->set_userdata('id_user', $user->id_user);
-						$this->session->set_userdata('username', $user->username);
-						$this->session->set_userdata('nama', $user->nama);
-						$this->session->set_userdata('password', $user->nama);
-						$this->session->set_userdata('level', $user->level);
-						$this->session->set_userdata('instansi', $user->id_instansi);
-						$this->session->set_userdata('id_join', $user->id_join);
+		$failIP = $this->db->where("ip_address", $ip)->where("created_at >", $limitTime)->count_all_results("log_login");
 
-						helper_log("login", "Berhasil Login", $user->id_instansi);
+		if ($failUser >= 5 || $failIP >= 5) {
+			$this->session->set_flashdata('login_error', 
+				'Terlalu banyak percobaan login gagal. Silakan coba lagi setelah 5 menit.');
+			redirect('Account/', 'refresh');
+			return;
+		}
 
-						switch ($user->id_instansi) {
-							case "1":
-								redirect('Dinkes/persetujuan_sjp_kayankesru', 'refresh');
-								break;
-							case "2":
-								redirect('Rs/', 'refresh');
-								break;
-							case "3":
-								redirect('Home/', 'refresh');
-								break;
-							case "4":
-								redirect('Dinsos/', 'refresh');
-								break;
-							case "6":
-								redirect('Kelurahan/', 'refresh');
-								break;
-							case "7":
-								redirect('Home/', 'refresh');
-								break;
-							case "8":
-								redirect('Dinsos/', 'refresh');
-								break;
-							default:
-								redirect('Dinsos/', 'refresh');
-						}
-
-					} else {
-						$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Akun anda sudah Tidak Aktif</div>');
-						redirect('Auth/', 'refresh');
-					}
-				} else {
-					$this->db->insert("log_login", [
-						"user_id"   => $userId,
-						"ip_address"=> $ip
-					]);
-					$this->session->set_flashdata('pesan', '<div class="alert alert-warning fade show mb-1">Password salah</div>');
-					redirect('Auth/', 'refresh');
-				}
-			}
-
-		} else {
-			$this->session->set_flashdata('gagalcaptcha', 'Captcha Gagal');
+		// Cek username
+		if (!$user) {
+			$this->session->set_flashdata('pesan', 
+				'<div class="alert alert-warning fade show mb-1">Username tidak ditemukan!</div>');
 			redirect('Auth/', 'refresh');
 			return;
-        }
+		}
+
+		// Cek password
+		if ($password != $this->encryption->decrypt($user->password)) {
+			$this->db->insert("log_login", [
+				"user_id"   => $userId,
+				"ip_address"=> $ip
+			]);
+			$this->session->set_flashdata('pesan', 
+				'<div class="alert alert-warning fade show mb-1">Password salah!</div>');
+			redirect('Auth/', 'refresh');
+			return;
+		}
+
+		// Cek aktif
+		if ($user->is_active != 1) {
+			$this->session->set_flashdata('pesan', 
+				'<div class="alert alert-warning fade show mb-1">Akun anda sudah tidak aktif.</div>');
+			redirect('Auth/', 'refresh');
+			return;
+		}
+
+		// SUCCESS LOGIN → SET SESSION
+		$this->session->set_userdata([
+			'authenticated' => true,
+			'id_user'       => $user->id_user,
+			'username'      => $user->username,
+			'nama'          => $user->nama,
+			'level'         => $user->level,
+			'instansi'      => $user->id_instansi,
+			'id_join'       => $user->id_join
+		]);
+
+		helper_log("login", "Berhasil Login", $user->id_instansi);
+
+		// Redirect sesuai instansi
+		switch ($user->id_instansi) {
+			case "1": redirect('Dinkes/persetujuan_sjp_kayankesru'); break;
+			case "2": redirect('Rs/'); break;
+			case "3": redirect('Home/'); break;
+			case "4": redirect('Dinsos/'); break;
+			case "6": redirect('Kelurahan/'); break;
+			case "7": redirect('Home/'); break;
+			case "8": redirect('Dinsos/'); break;
+			default:  redirect('Dinsos/'); break;
+		}
 	}
+
 
 	function logout()
 	{

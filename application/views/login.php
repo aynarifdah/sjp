@@ -34,11 +34,12 @@
 
                  <input type="password" name="password" class="form-control form-control-lg input-lg" id="user-password" placeholder="Enter Password" required autocomplete="new-password">
 
-                  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                  <!-- <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response"> -->
                  <div class="form-control-position">
                    <i class="ft-lock"></i>
                  </div>
                </fieldset>
+               <div class="g-recaptcha" data-sitekey="6LdRtyAsAAAAAKei7EBa6dQbvUz8Ik2EkYdlnP04"></div>
                <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
 	       <!-- <div class="sso-depok-login-btn mt-1 text-center"></div> -->
              </form>
@@ -51,14 +52,14 @@
 
  </section>
 
- <script src="https://www.google.com/recaptcha/api.js?render=6LeMo8UrAAAAAGMjgZe1flrg_xhwfcsaNLPhlHRB"></script>
- <script>
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+ <!-- <script>
     grecaptcha.ready(function() {
         grecaptcha.execute("6LeMo8UrAAAAAGMjgZe1flrg_xhwfcsaNLPhlHRB", {action: "login"}).then(function(token) {
             document.getElementById("g-recaptcha-response").value = token;
         });
     });
-  </script>
+  </script> -->
   <script>
     <?php if ($this->session->flashdata('gagalcaptcha')): ?>
       swal.fire({
