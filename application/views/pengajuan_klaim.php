@@ -360,8 +360,18 @@
       },
       // {data: "nomor_tagihan", className : "dt-head-center dt-body-right bodyclick"},
       {
-        data: "nominal_klaim",
-        className: "dt-head-center dt-body-right bodyclick"
+          data: "nominal_klaim",
+          className: "dt-head-center dt-body-right bodyclick",
+          render: function(data, type, row) {
+              // Hilangkan karakter yang ga penting (Rp, koma, titik)
+              let clean = String(data).replace(/[^0-9]/g, "");
+
+              // Convert ke integer
+              let num = parseInt(clean) || 0;
+
+              // Format ke Rupiah
+              return "Rp " + num.toLocaleString('id-ID');
+          }
       },
       {
         data: "status_klaim",

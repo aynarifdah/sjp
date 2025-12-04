@@ -180,17 +180,21 @@
 														$value = str_replace($search, '', $subject);
 														echo number_format((float)$value);
 														?>
-
+														<input type="hidden" id="nominalKlaimVal" value="<?= $value ?>">
 													</td>
 												</tr>
 											<?php } ?>
 											<tr>
 												<th scope="row">Nominal Pembiayaan</th>
-												<?php if ($this->session->userdata('instansi') == 1 && $key['id_status_pengajuan'] == 6 && $key['nominal_pembiayaan'] == null && $key['status_klaim'] == 2) { ?>
+												<?php if ($this->session->userdata('instansi') == 1 
+													&& $key['id_status_pengajuan'] == 6 
+													&& $key['status_klaim'] == 2) { ?>
 													<td>
 														<div class="row">
 															<div class="col-md-8">
-																<input type="number" class="form-control tambahnominal">
+																 <input type="number" 
+																	class="form-control tambahnominal" 
+																	value="<?= $key['nominal_pembiayaan'] ?? '' ?>">
 																<input type="hidden" class="id_sjpval" value="<?= $key['id_sjp']; ?>">
 															</div>
 															<div class="col-md-4">
@@ -1148,6 +1152,20 @@
 			window.location.href = '<?= base_url($controller . 'updateStatusPengajuanDinkes/'); ?>' + id_pengajuan + '/' + id_status_pengajuan;
 		});
 
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			let klaim = document.getElementById("nominalKlaimVal");
+			
+			if (klaim) {
+				let nominal = klaim.value;
+				let inputPembiayaan = document.querySelector(".tambahnominal");
+				
+				if (inputPembiayaan) {
+					inputPembiayaan.value = nominal;
+				}
+			}
+		});
 	</script>
 	<script type="text/javascript">
 		$('.pdfPage').click(function() {
