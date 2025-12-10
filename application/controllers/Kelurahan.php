@@ -1182,30 +1182,38 @@ class Kelurahan extends CI_Controller
     public function getalldatapermohonan()
     {
         if ($this->input->post() !== Null) {
-            $kelurahan  = $this->input->post("kelurahan");
-            $mulai  = $this->input->post("mulai");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $datasjp    = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
+            $start          = $this->input->post("start");  
+            $length         = $this->input->post("length"); 
+            $draw           = $this->input->post("draw");
+            $puskesmas      = $this->input->post("puskesmas");
+            $jaminan        = $this->input->post("jaminan");
+            $mulai          = $this->input->post("mulai");
+            $akhir          = $this->input->post("akhir");
+            $rs             = $this->input->post("rs");
+            $status         = $this->input->post("status");
+            $status_jkn     = $this->input->post("status_jkn");
+            $cari           = $this->input->post("cari");
+            $datasjp        = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn, $start);
+            $total          = $this->total();
+            $filtered       = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
         } else {
-            $datasjp = $this->M_SJP->select_pengajuan_sjp_kelurahan();
+            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all();
+            $draw       = 1;
+            $total      = $this->total();
+            $filtered   = $total;
         }
-        // $total = $this->total();
 
         $result = [
-            'data' => $datasjp,
-            'draw' => '', // $_POST['draw']
-            'recordsFiltered' => '',
-            'recordsTotal' => '',
-            // 'query' => $this->db->last_query(),
-          
+            'draw' => intval($draw),
+            'recordsFiltered' => $total ,
+            'recordsTotal' => $filtered,
+            'data' => $datasjp
         ];
         // var_dump($result);
         // die;
         echo json_encode($result);
-        die;
     }
+
 
     public function hapussjp($id_sjp, $id_pengajuan)
     {
@@ -1219,20 +1227,24 @@ class Kelurahan extends CI_Controller
 
     public function permohonan_baru()
     {
-        $path = "";
-        $data = array(
+        $level = $this->session->userdata('level');
+        $datax = array(
+            'level'             => $level,
             'puskesmas'         => $this->M_data->getPuskesmas(),
             'rs'                => $this->M_data->getRS(),
             'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
-            'controller'        => $this->instansi()
+            'controller'        => $this->instansi(),
+            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
+            'jkn'                  => $this->M_SJP->jkn()
+
         );
 
-        $id_kelurahan = $this->session->userdata('id_kelurahan');
+        $path = "";
+        $data = array(
+            "page"    => $this->load("Permohonan Baru", $path),
+            "content" => $this->load->view('Kelurahan/pengajuanbaru', $datax, true)
+        );
 
-        $data['pengajuan'] = $this->M_SJP->getDataKelurahan($id_kelurahan);
-
-        $data['page'] = $this->load("Permohonan Baru", $path);
-        $data['content'] = $this->load->view('kelurahan/pengajuanbaru', $data, true);
         $this->load->view('template/default_template', $data);
     }
 
