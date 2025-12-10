@@ -6,7 +6,7 @@ class M_SJP extends CI_Model
 
   public function permohonanpengajuan($id)
   {
-    $query = $this->db->query('SELECT * FROM `permohonan_penguajuan` WHERE `permohonan_pengajuan`.`id_pengajuan` = ' . $id . ' ');
+    $query = $this->db->query('SELECT * FROM `permohonan_pengajuan` WHERE `permohonan_pengajuan`.`id_pengajuan` = ' . $id . ' ');
     return $query->result_array();
   }
 
@@ -15,6 +15,40 @@ class M_SJP extends CI_Model
     $query = $this->db->query('SELECT * FROM `sjp` WHERE `sjp`.`id_sjp` = ' . $id . ' ');
     return $query->result_array();
   }
+
+  public function getDataKelurahan($id_kelurahan)
+  {
+    $this->db->select('pp.*, sjp.*');
+    $this->db->from('sjp');
+    $this->db->join('permohonan_pengajuan pp', 'pp.id_pengajuan = sjp.id_pengajuan', 'left');
+
+    // filter kelurahan
+    $this->db->where('sjp.kd_kelurahan', $id_kelurahan);
+
+    // hanya pengajuan baru
+    $this->db->where('pp.id_status_pengajuan', 2);
+
+    // belum disurvey kelurahan
+    $this->db->where('sjp.surveyor', NULL);
+
+    return $this->db->get()->result();
+  }
+
+  public function getDataDinkes()
+  {
+      $this->db->where('surveyor IS NOT NULL', null, false);
+      return $this->db->get('sjp')->result();
+  }
+
+  public function updateSurveyor($id_sjp, $data)
+  {
+      $this->db->where('id_sjp', $id_sjp);
+      return $this->db->update('sjp', $data);
+  }
+
+
+
+
 
   //  public function pejabat($id)
   //  {
@@ -1399,8 +1433,8 @@ class M_SJP extends CI_Model
       $this->db->limit($limit, $offset);
     }
     //$this->db->where('pp.id_status_pengajuan !=', 4);
-    $where = array(1);
-    $this->db->where_not_in('pp.id_status_pengajuan',  $where);
+    // $where = array(1);
+    // $this->db->where_not_in('pp.id_status_pengajuan',  $where);
     // $this->db->where('id_puskesmas =', $id_puskesmas);
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();
@@ -1690,7 +1724,7 @@ class M_SJP extends CI_Model
       // $this->db->or_like('sjp.pekerjaan', $cari);
     }
 
-    $this->db->where('jenis_sjp !=', $id_jenissjp);
+    // $this->db->where('jenis_sjp !=', $id_jenissjp);
     // $this->db->where('user !=', $id_join, $id_instansi);
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();
@@ -1729,9 +1763,8 @@ class M_SJP extends CI_Model
     }
     // $this->db->where('pp.id_status_pengajuan =', 4);
     // $this->db->where_not_in('jenis_sjp', [1,3,5,7]);
-    if ($this->session->userdata('nama') != 'Dinsos View') {
-      // $this->db->where('jenis_sjp =', $id_jenissjp);
-      $this->db->where_in('jenis_sjp', $id_jenissjp);
+    if ($this->session->userdata('nama') != 'Dinsos View' && $id_jenissjp != null) {
+    $this->db->where_in('jenis_sjp', $id_jenissjp);
     }
     $this->db->order_by('pp.tanggal_pengajuan', 'desc');
     $query = $this->db->get()->result_array();

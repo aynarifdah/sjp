@@ -232,7 +232,7 @@ class Kelurahan extends CI_Controller
         $email1          = $this->input->post('email_pemohon');
         $statushubungan  = $this->input->post('status_hubungan');
         //$feedback        = $this->input->post('feedback_dokumen');
-        $jenisizin       = 1; //jenis izin sjp dibuat default 
+        $jenisizin       = 4; //jenis izin sjp dibuat default 
         $datapermohonan  = array(
             'nama_pemohon'  => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
@@ -808,7 +808,7 @@ class Kelurahan extends CI_Controller
         // $this->M_SJP->insert_survey($data15);
         // $this->M_SJP->update_survey_sjp($data_sjp,$input['id_sjp']);
 
-        redirect('Kelurahan/pengajuan', 'refresh');
+        redirect('Dinkes/pengajuanall', 'refresh');
     }
     public function getbobot()
     {
@@ -1226,8 +1226,12 @@ class Kelurahan extends CI_Controller
             'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
             'controller'        => $this->instansi()
         );
+
+        $id_kelurahan = $this->session->userdata('id_kelurahan');
+
+        $data['pengajuan'] = $this->M_SJP->getDataKelurahan($id_kelurahan);
+
         $data['page'] = $this->load("Permohonan Baru", $path);
-        //$d['pengajuan'] = $this->M_SJP->select_all_new();
         $data['content'] = $this->load->view('kelurahan/pengajuanbaru', $data, true);
         $this->load->view('template/default_template', $data);
     }
@@ -1240,9 +1244,9 @@ class Kelurahan extends CI_Controller
             $rs         = $this->input->post("rs");
             $status     = $this->input->post("status");
             $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(2, $kelurahan, $rs, $status, $cari, $mulai);
+            $data       = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
         } else {
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(2, Null, Null, 2);
+            $data       = $this->M_SJP->view_permohonansjp_kelurahan(Null, Null, Null, 2);
         }
 
         // $datapus = $this->M_SJP->select_all_new($id_puskesmas, $id_jenissjp);
@@ -1295,7 +1299,7 @@ class Kelurahan extends CI_Controller
 
             // Informasi Pasien | Tabel sjp
             $nikPasien          = $this->input->post('nikpasien');
-            $domisili          = $this->input->post('domisili');
+            $domisili           = $this->input->post('domisili');
             $nama_pasien        = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
             $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");

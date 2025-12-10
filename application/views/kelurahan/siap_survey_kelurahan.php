@@ -16,6 +16,9 @@
             <!-- <form class="form" > -->
             <div class="table-responsive">
               <form action="<?php echo base_url('Kelurahan/proses_survey/'.$id_sjp.'/'.$id_pengajuan);?>" method="POST">
+                <input type="hidden" name="id_sjp" value="<?= $id_sjp; ?>">
+                <input type="hidden" name="id_pengajuan" value="<?= $id_pengajuan; ?>">
+
                 <?php foreach($pengajuan as $key => $value) { $id = $value->id_sjp;$id_pengajuan = $value->id_pengajuan; ?>
                 <table class="table table-bordered table-striped col-12">
                   <tbody>

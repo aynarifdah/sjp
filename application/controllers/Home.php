@@ -247,10 +247,16 @@ class Home extends CI_Controller
         $this->form_validation->set_rules('kelas_rawat', 'Kelas Rawat', 'required');
         $this->form_validation->set_rules('mulairawat', 'Mulai Rawat', 'required');
         $this->form_validation->set_rules('akhirrawat', 'Akhir Rawat', 'required');
-        $this->form_validation->set_rules('diagnosa', 'Diagnosa', 'required');
-        $this->form_validation->set_rules('kd_topik', 'Diagnosa', 'required');
+        // $this->form_validation->set_rules('diagnosa', 'Diagnosa', 'required');
 
         if ($this->form_validation->run() == FALSE) {
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+
+            $this->form_validation->set_error_delimiters('<p>', '</p>');
+            echo validation_errors();
+            exit;
         $this->session->set_flashdata('message', 
             '<div class="alert alert-danger text-center">Harap lengkapi semua kolom wajib diisi.</div>'
         );
@@ -259,7 +265,7 @@ class Home extends CI_Controller
         }
         
         $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
-        $nama_pemohon            = $this->input->post('nama_pemohon');
+        $nama_pemohon    = $this->input->post('nama_pemohon');
         $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
         $alamat1         = $this->input->post('alamat_pemohon');
         $rt1             = $this->input->post('rt_pemohon');
@@ -288,6 +294,7 @@ class Home extends CI_Controller
             'email'         => $email1,
             'status_hubungan'       => $statushubungan,
             'jenis_izin'            => $jenisizin,
+            'id_status_pengajuan' => 2,
             // 'pemohon_pengajuan'            => $pemohonpengajuan,
             //'feedback_dokumen'   => $feedback
         );
