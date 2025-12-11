@@ -17,7 +17,7 @@ class M_Login extends CI_Model{
         $this->load->database();
     }
 
-    public function read(){
+    public function read(): mixed{
        
             $this->db->select("*");
             $this->db->from($this->TABLE);
