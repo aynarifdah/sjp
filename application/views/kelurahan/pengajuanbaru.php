@@ -417,6 +417,7 @@
       columns: columns,
       ajax: {
         url: ' <?php echo base_url("Kelurahan/getalldatapermohonan"); ?>',
+        url: ' <?php echo base_url("Kelurahan/getalldatapermohonan"); ?>',
         method: 'POST',
         "data": function (d) {
           d.mulai = $("#mulai").val();
@@ -440,7 +441,10 @@
       pagingType: "simple_numbers",
       pageLength: 10,
 
+
     });
+
+
 
     dtable
       .order([2, 'desc'])
