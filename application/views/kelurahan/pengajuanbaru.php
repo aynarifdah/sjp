@@ -81,6 +81,16 @@
               </select>
             </div>
             <div class="col-lg-3 filter">
+              <select name="session_kelurahan" id="session_kelurahan" class="form-control select2">
+                <option value="" selected>Semua Kelurahan</option>
+                <?php if (!empty($session_kelurahan)): ?>
+                  <?php foreach ($session_kelurahan as $sess): ?>
+                    <option value="<?= $sess['id'] ?>"><?= $sess['nama'] ?></option>
+                  <?php endforeach ?>
+                <?php endif ?>
+              </select>
+            </div>
+            <div class="col-lg-3 filter">
               <input type="date" name="mulai" id="mulai" class="form-control" placeholder="Tanggal Mulai Referensi">
             </div>
             <div class="col-lg-3 filter">
@@ -109,13 +119,13 @@
                     <th style="width: 10px !important; color: #6B6F82!important;">Tanggal Masuk RS</th>
                     <th style="width: 30px;">Jenis <br>Rawat</th>
                     <th style="width: 30px; color: #6B6F82!important;">Domisili</th>
+                    <th style="width: 30px;">Kelurahan</th>
                     <!-- <th>Diagnosa</th> -->
                     <th style="width: 30px; background: #fff !important; color: #6B6F82!important; text-align:  left !important;">Status <br>Pengajuan</th>
 
-                     <?php if($this->session->userdata('level') !== '7') : ?>
-                    <th style="width: 10px; color: #6B6F82;">Aksi</th>
-                    <?php endif;?>
-
+                     <?php if ($this->session->userdata('level') !== '7'): ?>
+                      <th style="width: 10px; color: #6B6F82;">Aksi</th>
+                    <?php endif; ?>
                   </tr>
                 </thead>
                 <tbody>
@@ -123,8 +133,7 @@
               </table>
             </div>
           </section>
-        
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -222,176 +231,181 @@
 
   <script>
     var base_url = "<?= base_url(); ?>";
+
     // Polaris Checkbox & Radio
     $('.skin-polaris input').iCheck({
       checkboxClass: 'icheckbox_polaris',
       increaseArea: '-10%'
     });
     $(".select2").select2();
-    let level='<?= $this->session->userdata('level') ?>';
-
-    let columns=[
+    let level = '<?= $this->session->userdata('level') ?>';
+    let columns = [
       {
-            data: "no",
-            className: " dt-head-center dt-body-center bodyclick",
-            render: function(data, type, row, meta) {
-                return meta.row + meta.settings._iDisplayStart + 1;
-            }
+        data: "no",
+        className: " dt-head-center dt-body-center bodyclick",
+        render: function (data, type, row, meta) {
+          return meta.row + meta.settings._iDisplayStart + 1;
+        }
+      },
+      {
+        data: "nama_pasien",
+        render: function (data, type, row) {
+          return `<a href="${base_url}Dinkes/detail_pengajuan/${row.id_sjp}/${row.id_pengajuan}" 
+                        target="_blank" 
+                        class="link-detail"
+                        onclick="event.stopPropagation();">${data}</a>`;
         },
-        {
-          data: "nama_pasien",
-          render: function(data, type, row) {
-            return `<a href="" 
-                      target="_blank" 
-                      class="link-detail"
-                      onclick="event.stopPropagation();">${data}</a>`;
-          },
-          className: "text-info dt-head-center dt-body-right"
-        },
-        {
-          data: "tanggal_pengajuan",
-          "render": function(data, type, row, meta) {
-            var date = new Date(data);
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var dt = date.getDate();;
+        className: "text-info dt-head-center dt-body-right"
+      },
+      {
+        data: "tanggal_pengajuan",
+        "render": function (data, type, row, meta) {
+          var date = new Date(data);
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var dt = date.getDate();;
 
-            if (dt < 10) {
-              dt = '0' + dt;
-            }
-            if (month < 10) {
-              month = '0' + month;
-            }
-
-            var datenow = dt + '-' + month + '-' + year;
-            // console.log(datenow);
-
-            return datenow;
-          },
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "nama_jenis",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "id_rumah_sakit",
-          className: "dt-head-center dt-body-right bodyclick",
-          "render": function(data, type, row, meta) {
-            if(data == 999){
-              rs = '<p>' + row.rs_lainnya + '</p>'
-            }else{
-              rs = '<p>' + row.nm_rs + '</p>'
-            }
-            return rs;
+          if (dt < 10) {
+            dt = '0' + dt;
           }
-        },
-        {
-          data: "mulai_rawat",
-          "render": function(data, type, row, meta) {
-            var date = new Date(data);
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var dt = date.getDate();
-
-            if (dt < 10) {
-              dt = '0' + dt;
-            }
-            if (month < 10) {
-              month = '0' + month;
-            }
-
-            var datenow = dt + '-' + month + '-' + year;
-            return datenow;
-          },
-          className: "text-info dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "jenis_rawat",
-          className: "dt-head-center dt-body-right bodyclick"
-        },
-        {
-          data: "kd_kecamatan",
-          className: "dt-head-center dt-body-right bodyclick",
-          "render": function(data, type, row, meta) {
-            if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' || 
-              data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
-              domisili = '<p>Depok</p>'
-            }else{
-              domisili = '<p>Non Depok</p>'
-            }
-            return domisili;
+          if (month < 10) {
+            month = '0' + month;
           }
-        },
-        {
-          data: "id_status_pengajuan",
-          "render": function(data, type, row, meta) {
-            if (data == 1) {
-              //$('.statuspengajuan').addClass('bg-info');
-              return '<div class="badge bg-blue-grey " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-              //return row.status_pengajuan;
-            } else if (data == 2) {
-              // $('.statuspengajuan').addClass('bg-warning');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-info " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 3) {
-              // $('.statuspengajuan').addClass('bg-danger');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 4) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 5) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 6) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-success " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 7) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 8) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else if (data == 9) {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
-            } else {
-              // $('.statuspengajuan').addClass('bg-success');
-              // return row.status_pengajuan;
-              return '<div class="badge bg-danger " style="font-size: 14px;">' + 'Unknown' + '</div>'
-            }
 
-          },
-          className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+          var datenow = dt + '-' + month + '-' + year;
+          // console.log(datenow);
+
+          return datenow;
         },
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "nama_jenis",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "id_rumah_sakit",
+        className: "dt-head-center dt-body-right bodyclick",
+        "render": function (data, type, row, meta) {
+          if (data == 999) {
+            rs = '<p>' + row.rs_lainnya + '</p>'
+          } else {
+            rs = '<p>' + row.nm_rs + '</p>'
+          }
+          return rs;
+        }
+      },
+      {
+        data: "mulai_rawat",
+        "render": function (data, type, row, meta) {
+          var date = new Date(data);
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var dt = date.getDate();;
+
+          if (dt < 10) {
+            dt = '0' + dt;
+          }
+          if (month < 10) {
+            month = '0' + month;
+          }
+
+          var datenow = dt + '-' + month + '-' + year;
+          // console.log(datenow);
+
+          return datenow;
+        },
+        className: "text-info dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "jenis_rawat",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "kd_kecamatan",
+        className: "dt-head-center dt-body-right bodyclick",
+        "render": function (data, type, row, meta) {
+          if (data == 'Bojongsari' || data == 'Beji' || data == 'Cimanggis' || data == 'Cinere' || data == 'Cipayung' || data == 'Limo' || data == 'Pancoran Mas' || data == 'Sawangan' || data == 'Sukmajaya' || data == 'Tapos' || data == 'Cilodong' ||
+            data == 'BOJONGSARI' || data == 'BEJI' || data == 'CIMANGGIS' || data == 'CINERE' || data == 'CIPAYUNG' || data == 'LIMO' || data == 'PANCORAN MAS' || data == 'SAWANGAN' || data == 'SUKMAJAYA' || data == 'TAPOS' || data == 'CILODONG') {
+            domisili = '<p>Depok</p>'
+          } else {
+            domisili = '<p>Non Depok</p>'
+          }
+          return domisili;
+        }
+      },
+      {
+        data: "kd_kelurahan",
+        className: "dt-head-center dt-body-right bodyclick"
+      },
+      {
+        data: "id_status_pengajuan",
+        "render": function (data, type, row, meta) {
+          if (data == 1) {
+            //$('.statuspengajuan').addClass('bg-info');
+            return '<div class="badge bg-blue-grey " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+            //return row.status_pengajuan;
+          } else if (data == 2) {
+            // $('.statuspengajuan').addClass('bg-warning');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-info " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 3) {
+            // $('.statuspengajuan').addClass('bg-danger');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 4) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 5) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 6) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-success " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 7) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-danger " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 8) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-primary " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else if (data == 9) {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-warning " style="font-size: 14px;">' + row.status_pengajuan + '</div>'
+          } else {
+            // $('.statuspengajuan').addClass('bg-success');
+            // return row.status_pengajuan;
+            return '<div class="badge bg-danger " style="font-size: 14px;">' + 'Unknown' + '</div>'
+          }
+
+        },
+        className: "dt-head-center dt-body-right bodyclick statuspengajuan text-white"
+      },
     ];
 
+    if (level !== "7") {
+      columns.push({
+        data: "id_sjp",
+        "render": function (data, type, row, meta) {
+          var pengajuan = row.id_pengajuan;
+          var hapus = `<a href="<?php echo base_url('/Dinkes/hapussjp/'); ?>` + row.id_sjp + "/" + row.id_pengajuan + `" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
 
-    if(level !== "7"){
-      columns.push(
-        {
-          data: "id_sjp",
-          "render": function(data, type, row, meta) {
-            var pengajuan = row.id_pengajuan;
-            var hapus = `<a href="" id="hapus" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin akan menghapus pengajuan ini?');" i><i class="ft-trash"></i></a>`;
-            
-            return hapus;
-          },
-          className: "dt-head-center dt-body-right"
-        }
-     );
+          return hapus;
+        },
+        className: "dt-head-center dt-body-right"
+      }
+      )
     }
 
     var dtable = $("#datatable").DataTable({
       // "responsive": true,
       "processing": true,
+      "serverSide": true,
       "paging": true,
       "ordering": false,
       "info": true,
@@ -403,15 +417,20 @@
       columns: columns,
       ajax: {
         url: ' <?php echo base_url("Kelurahan/getalldatapermohonan"); ?>',
+        url: ' <?php echo base_url("Kelurahan/getalldatapermohonan"); ?>',
         method: 'POST',
-        "data": function(d) {
+        "data": function (d) {
           d.mulai = $("#mulai").val();
           d.akhir = $("#akhir").val();
           d.puskesmas = $("#puskesmas").val();
-          d.jaminan = 4;
+          <?php if ($uhc == 4) { ?>
+            d.jaminan = 4;
+          <?php } else { ?>
+            d.jaminan = $("#jaminan").val();
+          <?php } ?>
           d.rs = $("#rs").val();
+          d.kelurahan = $("#kelurahan").val();
           d.status = $("#status").val();
-          d.status_jkn = $("#status_jkn").val();
           d.cari = $("#cari").val();
         }
       },
@@ -422,6 +441,7 @@
       pagingType: "simple_numbers",
       pageLength: 10,
 
+
     });
 
 
@@ -430,13 +450,13 @@
       .order([2, 'desc'])
       .draw();
 
-    $(".filter").on('change', function() {
+    $(".filter").on('change', function () {
       dtable.ajax.reload();
     });
 
     let timer;
 
-    $('#cari').on('keyup', function(e) {
+    $('#cari').on('keyup', function (e) {
       if (e.key !== 'Enter') {
         clearTimeout(timer);
         timer = setTimeout(() => {
@@ -445,16 +465,16 @@
       }
     });
 
-    $('#cari').on('keydown', function(e) {
+    $('#cari').on('keydown', function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        clearTimeout(timer);  
-        dtable.ajax.reload(); 
+        clearTimeout(timer);
+        dtable.ajax.reload();
       }
     });
 
-    $('form').on('submit', function(e) {
+    $('form').on('submit', function (e) {
       e.preventDefault();
       return false;
     });
@@ -462,8 +482,7 @@
 
 
 
-
-    $('#datatable').on('click', 'tbody tr', function() {
+    $('#datatable').on('click', 'tbody tr', function (e) {
       var data = dtable.row(this).data();
       var id_sjp = data.id_sjp;
       var id_pengajuan = data.id_pengajuan;
@@ -471,10 +490,10 @@
       //console.log("<?php echo base_url('Html/detail_harga/'); ?>" + komoditi);
       window.location.href = "<?php echo base_url($controller . 'detail_pengajuan/'); ?>" + id_sjp + "/" + id_pengajuan;
     })
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#advancedfilterform').hide();
     });
-    $('#advancedfilterbtn').on("click", function() {
+    $('#advancedfilterbtn').on("click", function () {
       if ($(this).hasClass('active')) {
         $(this).removeClass('active');
         $('#advancedfilterform').hide();
@@ -483,7 +502,7 @@
         $('#advancedfilterform').show();
       }
     });
-    $(".tambahkontrak").on("click", function() {
+    $(".tambahkontrak").on("click", function () {
       var tipe = $(this).attr("id");
       var title = $(this).attr("value");
       var data = {
@@ -493,10 +512,10 @@
       // alert(tipe);
       $("#content").load("<?= base_url(); ?>Home/KontrakAdd", data);
     });
-    $('.detail').on("click", function() {
+    $('.detail').on("click", function () {
       $("#content").load("<?= base_url(); ?>Home/Halaman_detail_pengajuan");
     });
-    $('#putuskontrak').on("click", function() {
+    $('#putuskontrak').on("click", function () {
       $("#content").load("<?= base_url(); ?>Home/putuskontrak");
     });
     // // Date Range from & to
@@ -532,10 +551,10 @@
     //     from_picker.set('max', false);
     //   }
     // });
-    $("#bayar").on("click", function() {
+    $("#bayar").on("click", function () {
       $("#content").load("<?= base_url(); ?>Home/bayarkontrak");
     });
-    $("#btlkontrak").on("click", function() {
+    $("#btlkontrak").on("click", function () {
       $("#content").load("<?= base_url(); ?>Home/putuskontrak");
     });
 
@@ -550,24 +569,24 @@
     //   }
     // });
     var triggeredByChild = false;
-    $('#check-all').on('ifChecked', function(event) {
+    $('#check-all').on('ifChecked', function (event) {
       $('.check').iCheck('check');
       triggeredByChild = false;
     });
 
-    $('#check-all').on('ifUnchecked', function(event) {
+    $('#check-all').on('ifUnchecked', function (event) {
       if (!triggeredByChild) {
         $('.check').iCheck('uncheck');
       }
       triggeredByChild = false;
     });
     // Removed the checked state from "All" if any checkbox is unchecked
-    $('.check').on('ifUnchecked', function(event) {
+    $('.check').on('ifUnchecked', function (event) {
       triggeredByChild = true;
       $('#check-all').iCheck('uncheck');
     });
 
-    $('.check').on('ifChecked', function(event) {
+    $('.check').on('ifChecked', function (event) {
       if ($('.check').filter(':checked').length == $('.check').length) {
         $('#check-all').iCheck('check');
       }

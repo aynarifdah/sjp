@@ -140,15 +140,15 @@ $query_builder = TRUE;
 // );
 
 $db['default'] = array(
-	'dsn'	=> '',
-    'hostname' => 'localhost',
+	'dsn' => '',
+	'hostname' => 'db',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'sjp',
+	'password' => 'root',
+	'database' => 'ci3_database',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
+	'db_debug' => TRUE,
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',

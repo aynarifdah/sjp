@@ -14,17 +14,17 @@ class Dinkes extends CI_Controller
         $this->load->model('M_SJP');
         $this->load->model('M_data');
         $this->load->library('custom_upload');
-        auth_menu();
-        is_login();
+        // auth_menu();
+        // is_login();
     }
     private function load($title = '', $datapath = '')
     {
         $page = array(
-            "head"    => $this->load->view('template/head', array("title" => $title), true),
-            "header"  => $this->load->view('template/header', false, true),
+            "head" => $this->load->view('template/head', array("title" => $title), true),
+            "header" => $this->load->view('template/header', false, true),
             "sidebar" => $this->load->view('dinkes/template/sidebar', false, true),
             "main_js" => $this->load->view('template/main_js', false, true),
-            "footer"  => $this->load->view('template/footer', false, true)
+            "footer" => $this->load->view('template/footer', false, true)
         );
         return $page;
     }
@@ -36,35 +36,35 @@ class Dinkes extends CI_Controller
     {
 
         $id_instansi = $this->session->userdata("instansi");
-        $id_join     = $this->session->userdata("id_join");
+        $id_join = $this->session->userdata("id_join");
         if (empty($idsjp) || empty($id_pengajuan)) {
             redirect($this->instansi() . 'UserManagement', 'refresh');
         }
         $this->load->library('encryption');
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
             // test
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
-            'topik'      => $this->M_SJP->diagnosa(),
+            'topik' => $this->M_SJP->diagnosa(),
             // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'dokumen' => $this->M_SJP->dokumen_persyaratan(),
             'rumahsakit' => $this->M_SJP->rumahsakit(),
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
             // test
-            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'detail' => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan,
             'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp),
-            'diagnosa'   => $this->M_SJP->diagpasien($idsjp)
+            'diagnosa' => $this->M_SJP->diagpasien($idsjp)
         ];
         // var_dump($data["diagnosa"]);
         // die;
 
         $path = "";
         $data = array(
-            "page"    => $this->load("edit data pasien", $path),
+            "page" => $this->load("edit data pasien", $path),
             "content" => $this->load->view('edit_data_pasien', $data, true)
         );
 
@@ -79,30 +79,30 @@ class Dinkes extends CI_Controller
         if ($this->input->post("btnEditInfo") !== Null) {
 
             // Informasi Pemohon | Tabel permohonan pengajuan
-            $nama                  = $this->input->post('nama_pemohon');
-            $jenisKelaminPemohon   = $this->input->post('jenis_kelamin_pemohon');
-            $teleponpemohon        = $this->input->post('teleponpemohon');
-            $whatsappemohon        = $this->input->post('whatsappemohon');
-            $emailpemohon          = $this->input->post('emailpemohon');
-            $status_hubungan       = $this->input->post('status_hubungan');
-            $alamatPemohon         = $this->input->post('alamatpemohon');
-            $rtPemohon             = $this->input->post('rtpemohon');
-            $rwPemohon             = $this->input->post('rwpemohon');
-            $kecamatanPemohon      = $this->input->post('kd_kecamatanpemohon');
-            $kelurahanPemohon      = $this->input->post('kd_kelurahanpemohon');
+            $nama = $this->input->post('nama_pemohon');
+            $jenisKelaminPemohon = $this->input->post('jenis_kelamin_pemohon');
+            $teleponpemohon = $this->input->post('teleponpemohon');
+            $whatsappemohon = $this->input->post('whatsappemohon');
+            $emailpemohon = $this->input->post('emailpemohon');
+            $status_hubungan = $this->input->post('status_hubungan');
+            $alamatPemohon = $this->input->post('alamatpemohon');
+            $rtPemohon = $this->input->post('rtpemohon');
+            $rwPemohon = $this->input->post('rwpemohon');
+            $kecamatanPemohon = $this->input->post('kd_kecamatanpemohon');
+            $kelurahanPemohon = $this->input->post('kd_kelurahanpemohon');
 
             $data_pemohon = [
-                'nama_pemohon'      => $nama,
-                'jenis_kelamin'     => $jenisKelaminPemohon,
-                'telepon'           => $teleponpemohon,
-                'whatsapp'          => $whatsappemohon,
-                'email'             => $emailpemohon,
-                'status_hubungan'   => $status_hubungan,
-                'alamat'            => $alamatPemohon,
-                'rt'                => $rtPemohon,
-                'rw'                => $rwPemohon,
-                'kd_kecamatan'      => $kecamatanPemohon,
-                'kd_kelurahan'      => $kelurahanPemohon
+                'nama_pemohon' => $nama,
+                'jenis_kelamin' => $jenisKelaminPemohon,
+                'telepon' => $teleponpemohon,
+                'whatsapp' => $whatsappemohon,
+                'email' => $emailpemohon,
+                'status_hubungan' => $status_hubungan,
+                'alamat' => $alamatPemohon,
+                'rt' => $rtPemohon,
+                'rw' => $rwPemohon,
+                'kd_kecamatan' => $kecamatanPemohon,
+                'kd_kelurahan' => $kelurahanPemohon
             ];
 
             // var_dump($data_pemohon);
@@ -113,29 +113,29 @@ class Dinkes extends CI_Controller
             // var_dump($this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon));
 
             // Informasi Pasien | Tabel sjp
-            $nikPasien          = $this->input->post('nikpasien');
-            $nama_pasien        = $this->input->post('nama_pasien');
+            $nikPasien = $this->input->post('nikpasien');
+            $nama_pasien = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
-            $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
+            $tempatLahirPasien = $this->input->post("tempat_lahir_pasien");
             $tanggalLahirPasien = $this->input->post("tanggal_lahir_pasien");
-            $pekerjaanPasien    = $this->input->post("pekerjaanpasien");
-            $golDarahPasien     = $this->input->post("golongan_darah_pasien");
-            $alamatPasien       = $this->input->post("alamatpasien");
-            $rtPasien           = $this->input->post("rtpasien");
-            $rwpasien           = $this->input->post("rwpasien");
-            $kecPasien          = $this->input->post("kd_kecamatanpasien");
-            $kelPasien          = $this->input->post("kd_kelurahanpasien");
-            $telPasien          = $this->input->post("teleponpasien");
-            $whatsapPasien      = $this->input->post("whatsappasien");
-            $emailPasien        = $this->input->post("emailpasien");
-            $namaRS             = $this->input->post("nama_rumah_sakit");
-            $jenisRawat         = $this->input->post("jenis_rawat");
-            $kelasRawat         = $this->input->post("kelas_rawat");
-            $mulaiRawatPasien   = $this->input->post("mulairawat");
-            $akhirRawatPasien   = $this->input->post("akhirrawat");
-            $feedback           = $this->input->post("feedback");
+            $pekerjaanPasien = $this->input->post("pekerjaanpasien");
+            $golDarahPasien = $this->input->post("golongan_darah_pasien");
+            $alamatPasien = $this->input->post("alamatpasien");
+            $rtPasien = $this->input->post("rtpasien");
+            $rwpasien = $this->input->post("rwpasien");
+            $kecPasien = $this->input->post("kd_kecamatanpasien");
+            $kelPasien = $this->input->post("kd_kelurahanpasien");
+            $telPasien = $this->input->post("teleponpasien");
+            $whatsapPasien = $this->input->post("whatsappasien");
+            $emailPasien = $this->input->post("emailpasien");
+            $namaRS = $this->input->post("nama_rumah_sakit");
+            $jenisRawat = $this->input->post("jenis_rawat");
+            $kelasRawat = $this->input->post("kelas_rawat");
+            $mulaiRawatPasien = $this->input->post("mulairawat");
+            $akhirRawatPasien = $this->input->post("akhirrawat");
+            $feedback = $this->input->post("feedback");
 
-            $jenisizin       = 1;
+            $jenisizin = 1;
             // test 05-02-2021
             $tanggalLahirPasien = date_format(date_create($tanggalLahirPasien), "Y-m-d");
             $mulaiRawatPasien = date_format(date_create($mulaiRawatPasien), "Y-m-d");
@@ -143,27 +143,27 @@ class Dinkes extends CI_Controller
             // test 05-02-2021
 
             $data_pasien = [
-                'nik'               => $nikPasien,
-                'nama_pasien'       => $nama_pasien,
-                'jenis_kelamin'     => $jenisKelaminPasien,
-                'tempat_lahir'      => $tempatLahirPasien,
-                'tanggal_lahir'     => $tanggalLahirPasien,
-                'pekerjaan'         => $pekerjaanPasien,
-                'golongan_darah'    => $golDarahPasien,
-                'whatsapp'          => $whatsapPasien,
-                'telepon'           => $telPasien,
-                'email'             => $emailPasien,
-                'id_rumah_sakit'    => $namaRS,
-                'jenis_rawat'       => $jenisRawat,
-                'kelas_rawat'       => $kelasRawat,
-                'mulai_rawat'       => $mulaiRawatPasien,
-                'selesai_rawat'     => $akhirRawatPasien,
-                'alamat'            => $alamatPasien,
-                'rt'                => $rtPasien,
-                'rw'                => $rwpasien,
-                'kd_kecamatan'      => $kecPasien,
-                'kd_kelurahan'      => $kelPasien,
-                'feedback'          => $feedback
+                'nik' => $nikPasien,
+                'nama_pasien' => $nama_pasien,
+                'jenis_kelamin' => $jenisKelaminPasien,
+                'tempat_lahir' => $tempatLahirPasien,
+                'tanggal_lahir' => $tanggalLahirPasien,
+                'pekerjaan' => $pekerjaanPasien,
+                'golongan_darah' => $golDarahPasien,
+                'whatsapp' => $whatsapPasien,
+                'telepon' => $telPasien,
+                'email' => $emailPasien,
+                'id_rumah_sakit' => $namaRS,
+                'jenis_rawat' => $jenisRawat,
+                'kelas_rawat' => $kelasRawat,
+                'mulai_rawat' => $mulaiRawatPasien,
+                'selesai_rawat' => $akhirRawatPasien,
+                'alamat' => $alamatPasien,
+                'rt' => $rtPasien,
+                'rw' => $rwpasien,
+                'kd_kecamatan' => $kecPasien,
+                'kd_kelurahan' => $kelPasien,
+                'feedback' => $feedback
             ];
 
             // var_dump($data_pasien);
@@ -188,7 +188,7 @@ class Dinkes extends CI_Controller
                     $diagnosaLainnya = $key['diagnosalainnya'];
                 }
                 $dataDiagnosa[] = array(
-                    'id_sjp'      => $id_sjp,
+                    'id_sjp' => $id_sjp,
                     'id_penyakit' => $penyakit,
                     'penyakit' => $diagnosaLainnya
                 );
@@ -266,7 +266,7 @@ class Dinkes extends CI_Controller
 
         $level = $this->session->userdata('level');
         $id_instansi = $this->session->userdata("instansi");
-        $id_join     = $this->session->userdata("id_join");
+        $id_join = $this->session->userdata("id_join");
         $id_jenis_izin = 1;
         // $level = $this->session->userdata('level');
         $path = "";
@@ -279,10 +279,10 @@ class Dinkes extends CI_Controller
         // Riwayat Cetak
         $kondisi = [
             'log_tipe' => 4,
-            'log_desc'  => "Cetak SJP",
-            'log_user'  => $this->session->userdata('id_user'),
+            'log_desc' => "Cetak SJP",
+            'log_user' => $this->session->userdata('id_user'),
             // hl = Tabble history_log
-            'hl.id_instansi'  => $this->session->userdata('instansi')
+            'hl.id_instansi' => $this->session->userdata('instansi')
         ];
         $data['riwayat_cetak'] = $this->M_log->getLast_log($kondisi);
 
@@ -290,7 +290,7 @@ class Dinkes extends CI_Controller
         $data['tanggalMenyetujui'] = $this->M_SJP->getTanggalMenyetujui($idsjp);
 
         $data['datapermohonan'] = $this->M_SJP->detail_permohonansjp_anjungan($idsjp);
-        $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
+        $id_puskesmas = $data['datapermohonan'][0]['id_puskesmas'];
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
         $data['penyakit'] = $this->M_SJP->diagpasien($idsjp);
         $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
@@ -314,13 +314,13 @@ class Dinkes extends CI_Controller
     {
 
         $data['getdokumenpersyaratan'] = $this->M_SJP->getSingledokumenpersyaratan($id_pengajuan, $id_persyaratan);
-        
+
         $level = $this->session->userdata('level');
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
         $data['pengajuan_sjp'] = $this->M_SJP->getSinglePengajuan($id_sjp, $id_pengajuan);
         // var_dump($data['pengajuan_sjp']);die;
-        
+
         $path = "";
         $data['page'] = $this->load("View PDF", $path);
         $data['content'] = $this->load->view('view_pdf', $data, true, false);
@@ -332,7 +332,7 @@ class Dinkes extends CI_Controller
         $level = $this->session->userdata('level');
         $data['level'] = $level;
         $data['controller'] = $this->instansi();
-        
+
         $data['pengajuan_sjp'] = $this->M_SJP->getSingleSjpRs($id_pengajuan);
         $data['pengajuan_sjpNamaFile'] = $this->M_SJP->getSingleSjpRsNamaFile($id_pengajuan, $file);
         $data['pengajuan_sjpFileResume'] = $this->M_SJP->getSingleSjpRsFileResume($id_pengajuan, $file);
@@ -340,7 +340,7 @@ class Dinkes extends CI_Controller
 
         // var_dump($data['pengajuan_sjp']);die;
         // $data['riwayatpengajuan'] = $this->M_SJP->riwayatsjpasien($idsjp);
-        
+
         $path = "";
         $data['page'] = $this->load("View PDF", $path);
         $data['content'] = $this->load->view('view_pdfRs', $data, true, false);
@@ -358,9 +358,9 @@ class Dinkes extends CI_Controller
         ));
 
         $persyaratan = array(
-            'id_jenis_izin'  => $id_jenis_izin,
-            'attachment'     => $file,
-            'id_pengajuan'   =>  $id_pengajuan,
+            'id_jenis_izin' => $id_jenis_izin,
+            'attachment' => $file,
+            'id_pengajuan' => $id_pengajuan,
             'id_persyaratan' => $nama_persyaratan,
 
         );
@@ -369,7 +369,7 @@ class Dinkes extends CI_Controller
         }
         // var_dump($persyaratan);die;
 
-        $datapengajuan = array('id_status_pengajuan' =>  $id_status_pengajuan);
+        $datapengajuan = array('id_status_pengajuan' => $id_status_pengajuan);
         $this->db->where('id_pengajuan', $id_pengajuan);
         $this->db->update('permohonan_pengajuan', $datapengajuan);
         redirect('Dinkes/pengajuan_sjp', 'refresh');
@@ -381,12 +381,12 @@ class Dinkes extends CI_Controller
         $id_status_pengajuan = 5;
         $datax = array(
             'datapermohonan' => $this->M_SJP->select_persetujuan_sjp_kayankesru($id_status_pengajuan),
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan()
         );
         $data = array(
-            "page"    => $this->load("Persetujuan SJP kayankesru", $path),
+            "page" => $this->load("Persetujuan SJP kayankesru", $path),
             "content" => $this->load->view('persetujuan_sjp_kayankesru', $datax, true)
         );
 
@@ -427,13 +427,13 @@ class Dinkes extends CI_Controller
         $id_rumah_sakit = 1;
         $datay = array(
             'dataklaim' => $this->M_SJP->view_pembayaran_klaimdinas($idsjp),
-            'penyakit'  => $this->M_SJP->diagpasien(),
+            'penyakit' => $this->M_SJP->diagpasien(),
 
         );
         // var_dump($datay['penyakit']);die;
         $path = "";
         $data = array(
-            "page"    => $this->load("entry klaim", $path),
+            "page" => $this->load("entry klaim", $path),
             "content" => $this->load->view('entry_pembayaran_klaim', $datay, true)
         );
 
@@ -443,16 +443,16 @@ class Dinkes extends CI_Controller
     {
         $id_sjp = $this->input->post('id_sjp');
         $tanggal_bayar = $this->input->post('tanggalbayar');
-        $nomortagihan   = $this->input->post('nomor_tagihan');
-        $nominalklaim   = $this->input->post('nominal_klaim');
-        $catatanklaim   = $this->input->post('catatan_klaim');
+        $nomortagihan = $this->input->post('nomor_tagihan');
+        $nominalklaim = $this->input->post('nominal_klaim');
+        $catatanklaim = $this->input->post('catatan_klaim');
         $dataklaim = array();
         $index = 0; // Set index array awal dengan 0
         foreach ($id_sjp as $key) { // Kita buat perulangan berdasarkan nis sampai data terakhir
             array_push($dataklaim, array(
-                'id_sjp'      => $key,
-                'tanggal_pembayaran'   => $tanggal_bayar,
-                'status_klaim'    => 4,
+                'id_sjp' => $key,
+                'tanggal_pembayaran' => $tanggal_bayar,
+                'status_klaim' => 4,
             ));
             $index++;
         }
@@ -463,7 +463,7 @@ class Dinkes extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Rekapitulasi SJP", $path),
+            "page" => $this->load("Rekapitulasi SJP", $path),
             "content" => $this->load->view('rekapitulasi_Sjp', false, true)
         );
 
@@ -478,7 +478,7 @@ class Dinkes extends CI_Controller
         $datafeedback = array(
             'feedback_dinkes' => $feedback_dinkes,
             // 'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
-        );  
+        );
 
         $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
         // var_dump($updatefeedback);
@@ -494,7 +494,7 @@ class Dinkes extends CI_Controller
         $datafeedback = array(
             // 'feedback_dinkes' => $feedback_dinkes,
             'feedback_dinkes_untuk_rumahsakit' => $feedback_rs,
-        );  
+        );
 
         $updatefeedback = $this->M_SJP->input_feedback($datafeedback, $id_sjp);
         // var_dump($updatefeedback);
@@ -541,25 +541,25 @@ class Dinkes extends CI_Controller
     public function index()
     {
         $path = "";
-        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $anggaran_tahun = $this->M_SJP->anggaran();
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
         // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
         $d = [
-            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
-            'tahun'             => $this->M_SJP->tahun(),
+            'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
+            'tahun' => $this->M_SJP->tahun(),
             // 'bulan'             => $this->M_SJP->bulan(),
-            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
+            'jumlah_sjp' => $this->M_SJP->jumlah_sjp(),
             // 'anggaran_tahun'    => $anggaran_tahun[0]["nominal_anggaran"],
             // 'sisa_anggaran'     => $sisa_anggaran,
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
-            'total_pasien'       => $this->M_SJP->total_pasien(),
-            'distribusi'         => json_encode($this->M_SJP->distribusi()),
+            'total_pasien' => $this->M_SJP->total_pasien(),
+            'distribusi' => json_encode($this->M_SJP->distribusi()),
             'jumlah_kunjungan_bulan' => json_encode($this->M_SJP->jumlah_kunjungan_bulan()),
-            'trend_pasien'      => $this->M_SJP->trend_pasien(),
-            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-            'chartJenisRawat'   => json_encode($this->M_SJP->chartJenisRawat()),
-            'controller'        => $this->instansi()
+            'trend_pasien' => $this->M_SJP->trend_pasien(),
+            'jenis_rawat' => $this->M_SJP->jenis_rawat(),
+            'chartJenisRawat' => json_encode($this->M_SJP->chartJenisRawat()),
+            'controller' => $this->instansi()
         ];
 
         // var_dump($d['distribusi']);
@@ -567,7 +567,7 @@ class Dinkes extends CI_Controller
         // var_dump(json_encode($this->M_SJP->chartJenisRawat()));die;
 
         $data = array(
-            "page"    => $this->load("Dashboard", $path),
+            "page" => $this->load("Dashboard", $path),
             "content" => $this->load->view('dashboard', $d, true)
         );
 
@@ -577,24 +577,24 @@ class Dinkes extends CI_Controller
     public function dashboard()
     {
         $path = "";
-        $anggaran_tahun     = $this->M_SJP->anggaran();
+        $anggaran_tahun = $this->M_SJP->anggaran();
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan();
 
         $d = [
-            'kecamatan'         => $this->M_SJP->wilayah('kecamatan'),
-            'tahun'             => $this->M_SJP->tahun(),
-            'jumlah_sjp'        => $this->M_SJP->jumlah_sjp(),
-            'jumlah_uhc'        => $this->M_SJP->jumlah_uhc(),
+            'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
+            'tahun' => $this->M_SJP->tahun(),
+            'jumlah_sjp' => $this->M_SJP->jumlah_sjp(),
+            'jumlah_uhc' => $this->M_SJP->jumlah_uhc(),
             'nominal_pembiayaan' => $nominal_pembiayaan[0]['nominal'],
-            'total_pasien'       => $this->M_SJP->total_pasien(),
-            'jenis_rawat'      => $this->M_SJP->jenis_rawat(),
-            'controller'        => $this->instansi()
+            'total_pasien' => $this->M_SJP->total_pasien(),
+            'jenis_rawat' => $this->M_SJP->jenis_rawat(),
+            'controller' => $this->instansi()
         ];
         // var_dump($d['kecamatan']);
         // die;
 
         $data = array(
-            "page"    => $this->load("Dashboard", $path),
+            "page" => $this->load("Dashboard", $path),
             "content" => $this->load->view('dashboard_perbaikan', $d, true)
         );
 
@@ -603,22 +603,22 @@ class Dinkes extends CI_Controller
 
     public function Filter_perbaikan()
     {
-        $bulan      = $this->input->post('bulan');
-        $tahun      = $this->input->post('tahun');
-        $kecamatan  = $this->input->post('kecamatan');
-        $kelurahan  = $this->input->post('kelurahan');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $kecamatan = $this->input->post('kecamatan');
+        $kelurahan = $this->input->post('kelurahan');
 
-        $anggaran_tahun     = $this->M_SJP->anggaran($bulan, $tahun, $kecamatan, $kelurahan);
+        $anggaran_tahun = $this->M_SJP->anggaran($bulan, $tahun, $kecamatan, $kelurahan);
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan, $tahun, $kecamatan, $kelurahan);
 
         $data = [
-            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
-            'jumlah_uhc'            => $this->M_SJP->jumlah_uhc($bulan, $tahun, $kecamatan, $kelurahan),
-            'anggaran_tahun'        => $anggaran_tahun,
+            'jumlah_sjp' => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
+            'jumlah_uhc' => $this->M_SJP->jumlah_uhc($bulan, $tahun, $kecamatan, $kelurahan),
+            'anggaran_tahun' => $anggaran_tahun,
             // 'sisa_anggaran'         => $sisa_anggaran,
-            'nominal_pembiayaan'    => $nominal_pembiayaan,
-            'total_pasien'          => $this->M_SJP->total_pasien($bulan, $tahun, $kecamatan, $kelurahan),
-            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan, $tahun, $kecamatan, $kelurahan)
+            'nominal_pembiayaan' => $nominal_pembiayaan,
+            'total_pasien' => $this->M_SJP->total_pasien($bulan, $tahun, $kecamatan, $kelurahan),
+            'jenis_rawat' => $this->M_SJP->jenis_rawat($bulan, $tahun, $kecamatan, $kelurahan)
         ];
 
         // var_dump($data["jumlah_kunjungan_bulan"]);die;
@@ -629,27 +629,27 @@ class Dinkes extends CI_Controller
 
     public function Filter()
     {
-        $bulan      = $this->input->post('bulan');
-        $tahun      = $this->input->post('tahun');
-        $kecamatan  = $this->input->post('kecamatan');
-        $kelurahan  = $this->input->post('kelurahan');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $kecamatan = $this->input->post('kecamatan');
+        $kelurahan = $this->input->post('kelurahan');
         $orderDistribusi = $this->input->post('orderDistribusi');
 
-        $anggaran_tahun     = $this->M_SJP->anggaran($bulan, $tahun, $kecamatan, $kelurahan);
+        $anggaran_tahun = $this->M_SJP->anggaran($bulan, $tahun, $kecamatan, $kelurahan);
         $nominal_pembiayaan = $this->M_SJP->nominal_pembiayaan($bulan, $tahun, $kecamatan, $kelurahan);
         // $sisa_anggaran      = $anggaran_tahun[0]["nominal_anggaran"] - $nominal_pembiayaan[0]['nominal'];
 
         $data = [
-            'jumlah_sjp'            => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
-            'anggaran_tahun'        => $anggaran_tahun,
+            'jumlah_sjp' => $this->M_SJP->jumlah_sjp($bulan, $tahun, $kecamatan, $kelurahan),
+            'anggaran_tahun' => $anggaran_tahun,
             // 'sisa_anggaran'         => $sisa_anggaran,
-            'nominal_pembiayaan'    => $nominal_pembiayaan,
-            'total_pasien'          => $this->M_SJP->total_pasien($bulan, $tahun, $kecamatan, $kelurahan),
-            'distribusi'            => $this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi),
+            'nominal_pembiayaan' => $nominal_pembiayaan,
+            'total_pasien' => $this->M_SJP->total_pasien($bulan, $tahun, $kecamatan, $kelurahan),
+            'distribusi' => $this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi),
             'jumlah_kunjungan_bulan' => $this->M_SJP->jumlah_kunjungan_bulan($bulan, $tahun, $kecamatan, $kelurahan),
-            'trend_pasien'          => json_decode($this->M_SJP->trend_pasien($bulan, $tahun, $kecamatan, $kelurahan)),
-            'jenis_rawat'           => $this->M_SJP->jenis_rawat($bulan, $tahun, $kecamatan, $kelurahan),
-            'chartJenisRawat'       => $this->M_SJP->chartJenisRawat($bulan, $tahun, $kecamatan, $kelurahan)
+            'trend_pasien' => json_decode($this->M_SJP->trend_pasien($bulan, $tahun, $kecamatan, $kelurahan)),
+            'jenis_rawat' => $this->M_SJP->jenis_rawat($bulan, $tahun, $kecamatan, $kelurahan),
+            'chartJenisRawat' => $this->M_SJP->chartJenisRawat($bulan, $tahun, $kecamatan, $kelurahan)
         ];
 
         // var_dump($data["jumlah_kunjungan_bulan"]);die;
@@ -659,10 +659,10 @@ class Dinkes extends CI_Controller
 
     public function orderDistribusi()
     {
-        $bulan      = $this->input->post('bulan');
-        $tahun      = $this->input->post('tahun');
-        $kecamatan  = $this->input->post('kecamatan');
-        $kelurahan  = $this->input->post('kelurahan');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $kecamatan = $this->input->post('kecamatan');
+        $kelurahan = $this->input->post('kelurahan');
         $orderDistribusi = $this->input->post('orderDistribusi');
         $data = [
             'distribusi' => json_encode($this->M_SJP->distribusi($bulan, $tahun, $kecamatan, $kelurahan, $orderDistribusi))
@@ -674,37 +674,37 @@ class Dinkes extends CI_Controller
     {
 
         $Kd_diagnosa = $this->input->post('id');
-        $diagnosa    = $this->M_SJP->diagnosa2($Kd_diagnosa);
+        $diagnosa = $this->M_SJP->diagnosa2($Kd_diagnosa);
         echo json_encode($diagnosa);
     }
 
     public function getalldatapermohonan()
     {
         if ($this->input->post() !== Null) {
-            $start          = $this->input->post("start");  
-            $length         = $this->input->post("length"); 
-            $draw           = $this->input->post("draw");
-            $puskesmas      = $this->input->post("puskesmas");
-            $jaminan        = $this->input->post("jaminan");
-            $mulai          = $this->input->post("mulai");
-            $akhir          = $this->input->post("akhir");
-            $rs             = $this->input->post("rs");
-            $status         = $this->input->post("status");
-            $status_jkn     = $this->input->post("status_jkn");
-            $cari           = $this->input->post("cari");
-            $datasjp        = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn, $start);
-            $total          = $this->total();
-            $filtered       = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
+            $start = $this->input->post("start");
+            $length = $this->input->post("length");
+            $draw = $this->input->post("draw");
+            $puskesmas = $this->input->post("puskesmas");
+            $jaminan = $this->input->post("jaminan");
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $status_jkn = $this->input->post("status_jkn");
+            $cari = $this->input->post("cari");
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn, $start);
+            $total = $this->total();
+            $filtered = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
         } else {
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all();
-            $draw       = 1;
-            $total      = $this->total();
-            $filtered   = $total;
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_all();
+            $draw = 1;
+            $total = $this->total();
+            $filtered = $total;
         }
 
         $result = [
             'draw' => intval($draw),
-            'recordsFiltered' => $total ,
+            'recordsFiltered' => $total,
             'recordsTotal' => $filtered,
             'data' => $datasjp
         ];
@@ -723,7 +723,8 @@ class Dinkes extends CI_Controller
     {
         $query = $this->db->select("COUNT(*) as num")->get("permohonan_pengajuan");
         $result = $query->row();
-        if (isset($result)) return $result->num;
+        if (isset($result))
+            return $result->num;
         return 0;
     }
 
@@ -731,19 +732,19 @@ class Dinkes extends CI_Controller
     {
         $level = $this->session->userdata('level');
         $datax = array(
-            'level'             => $level,
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
-            'controller'        => $this->instansi(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'uhc'      => $uhc,
+            'level' => $level,
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'uhc' => $uhc,
 
         );
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Pengajuan", $path),
+            "page" => $this->load("Pengajuan", $path),
             "content" => $this->load->view('pengajuanall', $datax, true)
         );
 
@@ -754,19 +755,19 @@ class Dinkes extends CI_Controller
     {
         $level = $this->session->userdata('level');
         $datax = array(
-            'level'             => $level,
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
-            'controller'        => $this->instansi(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'jkn'                  => $this->M_SJP->jkn()
+            'level' => $level,
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'jkn' => $this->M_SJP->jkn()
 
         );
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Pengajuan", $path),
+            "page" => $this->load("Pengajuan", $path),
             "content" => $this->load->view('dinkes/pengajuan_uhc', $datax, true)
         );
 
@@ -779,13 +780,13 @@ class Dinkes extends CI_Controller
         $path = "";
         $datax = array(
             'datapermohonan' => $this->M_SJP->select_pengajuan_sjp(),
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan()
         );
         $data = array(
-            "page"    => $this->load("Pengajuan SJP", $path),
+            "page" => $this->load("Pengajuan SJP", $path),
             "content" => $this->load->view('dinkes/pengajuan_sjp', $datax, true)
         );
 
@@ -795,16 +796,16 @@ class Dinkes extends CI_Controller
     public function getpersetujuansjpdinas()
     {
         if ($this->input->post() !== Null) {
-            $puskesmas  = $this->input->post("puskesmas");
-            $jaminan  = $this->input->post("jaminan");
-            $mulai  = $this->input->post("mulai");
-            $akhir  = $this->input->post("akhir");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
+            $puskesmas = $this->input->post("puskesmas");
+            $jaminan = $this->input->post("jaminan");
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
-            $data       = $this->M_SJP->getpersetujuansjpdinas();
+            $data = $this->M_SJP->getpersetujuansjpdinas();
         }
         $result = [
             'data' => $data,
@@ -822,13 +823,13 @@ class Dinkes extends CI_Controller
         $path = "";
         $datax = array(
             'datapermohonan' => $this->M_SJP->select_disetujui_sjp(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan()
         );
         $data = array(
-            "page"    => $this->load("Pengajuan SJP", $path),
+            "page" => $this->load("Pengajuan SJP", $path),
             "content" => $this->load->view('dinkes/disetujui_sjp', $datax, true)
         );
 
@@ -838,16 +839,16 @@ class Dinkes extends CI_Controller
     public function getdisetujuisjpdinas()
     {
         if ($this->input->post() !== Null) {
-            $puskesmas  = $this->input->post("puskesmas");
-            $jaminan  = $this->input->post("jaminan");
-            $mulai  = $this->input->post("mulai");
-            $akhir  = $this->input->post("akhir");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
+            $puskesmas = $this->input->post("puskesmas");
+            $jaminan = $this->input->post("jaminan");
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getpersetujuansjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
-            $data       = $this->M_SJP->getpersetujuansjpdinas();
+            $data = $this->M_SJP->getpersetujuansjpdinas();
         }
         $result = [
             'data' => $data,
@@ -863,13 +864,13 @@ class Dinkes extends CI_Controller
     {
         // $product_id = $this->uri->segment(3);
         $datax = array(
-            'status_klaim'      => $id_status_klaim,
-            'rs'                => $this->M_data->getRS(),
-            'statusklaim'       => $this->M_data->getStatusKlaim()
+            'status_klaim' => $id_status_klaim,
+            'rs' => $this->M_data->getRS(),
+            'statusklaim' => $this->M_data->getStatusKlaim()
         );
         $path = "";
         $data = array(
-            "page"    => $this->load("Pengajuan klaim", $path),
+            "page" => $this->load("Pengajuan klaim", $path),
             "content" => $this->load->view('pengajuan_klaim', $datax, true)
         );
 
@@ -880,16 +881,16 @@ class Dinkes extends CI_Controller
     {
         if ($this->input->post() !== Null) {
             $id_status_klaim = $this->input->post('status_klaim');
-            $mulai           = $this->input->post("mulai");
-            $akhir           = $this->input->post("akhir");
-            $rs              = $this->input->post("rs");
-            $status          = $this->input->post("status");
-            $jenis_rawat     = $this->input->post("jenis_rawat");
-            $cari            = $this->input->post("cari");
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $jenis_rawat = $this->input->post("jenis_rawat");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getdatapengajuanklaim($id_status_klaim, $mulai, $akhir, $rs, $status, $jenis_rawat, $cari);
         } else {
             $id_status_klaim = $this->input->post('status_klaim');
-            $data            = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
+            $data = $this->M_SJP->getdatapengajuanklaim($id_status_klaim);
         }
 
 
@@ -909,13 +910,13 @@ class Dinkes extends CI_Controller
         $datay = array(
             'dataklaim' => $this->M_SJP->getdatapengajuanklaim($id_status_klaim),
             'penyakit' => $this->M_SJP->diagpasien(),
-            'rs'            => $this->M_data->getRS(),
-            'controller'    => $this->instansi()
+            'rs' => $this->M_data->getRS(),
+            'controller' => $this->instansi()
         );
         //var_dump($datay['dataklaim']);die;
         $path = "";
         $data = array(
-            "page"    => $this->load("Daftar pembiayaan", $path),
+            "page" => $this->load("Daftar pembiayaan", $path),
             "content" => $this->load->view('daftar_pembiayaan', $datay, true)
         );
 
@@ -931,18 +932,18 @@ class Dinkes extends CI_Controller
         $this->load->library('encryption');
         // Tambah
         if ($this->input->post("btntambah") !== null) {
-            $nama       = $this->input->post("nama");
-            $username   = $this->input->post("username");
-            $password   = $this->encryption->encrypt($this->input->post("password"));
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
+            $nama = $this->input->post("nama");
+            $username = $this->input->post("username");
+            $password = $this->encryption->encrypt($this->input->post("password"));
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
 
             $data = [
-                'nama'      => $nama,
-                'username'  => $username,
-                'password'  => $password,
-                'level'     => $level,
-                'id_instansi'  => $instansi
+                'nama' => $nama,
+                'username' => $username,
+                'password' => $password,
+                'level' => $level,
+                'id_instansi' => $instansi
             ];
 
             if ($this->input->post("id_join") !== null) {
@@ -958,26 +959,26 @@ class Dinkes extends CI_Controller
 
         // Edit
         if ($this->input->post("btnedit") !== null) {
-            $id_user    = $this->input->post("id_user");
-            $nama       = $this->input->post("nama");
-            $username   = $this->input->post("username");
-            $password   = $this->encryption->encrypt($this->input->post("password"));
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
-            $id_join    = $this->input->post("id_join");
-            $is_active    = $this->input->post("is_active");
+            $id_user = $this->input->post("id_user");
+            $nama = $this->input->post("nama");
+            $username = $this->input->post("username");
+            $password = $this->encryption->encrypt($this->input->post("password"));
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
+            $id_join = $this->input->post("id_join");
+            $is_active = $this->input->post("is_active");
 
 
             $this->db->where("id_user =", $id_user);
             $data = [
-                'id_user'   => $id_user,
-                'nama'      => $nama,
-                'username'  => $username,
-                'password'  => $password,
-                'level'     => $level,
-                'id_instansi'  => $instansi,
-                'is_active'     => $is_active,
-                'id_join'   => $id_join
+                'id_user' => $id_user,
+                'nama' => $nama,
+                'username' => $username,
+                'password' => $password,
+                'level' => $level,
+                'id_instansi' => $instansi,
+                'is_active' => $is_active,
+                'id_join' => $id_join
             ];
             $this->db->set($data);
             if ($this->db->update('user')) {
@@ -989,7 +990,7 @@ class Dinkes extends CI_Controller
 
         // Hapus
         if ($this->input->get("delete") !== null) {
-            $id_user    = $this->input->get("delete");
+            $id_user = $this->input->get("delete");
             $this->db->where("id_user =", $id_user);
             if ($this->db->delete('user')) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>User BERHASIL dihapus!</div>');
@@ -1000,7 +1001,7 @@ class Dinkes extends CI_Controller
 
         // Tambah Level
         if ($this->input->post("btnTambahLevel") !== null) {
-            $level       = $this->input->post("level");
+            $level = $this->input->post("level");
             $data = [
                 'nama_level' => $level
             ];
@@ -1013,7 +1014,7 @@ class Dinkes extends CI_Controller
 
         // Tambah Instansi
         if ($this->input->post("btnTambahInstansi") !== null) {
-            $instansi       = $this->input->post("instansi");
+            $instansi = $this->input->post("instansi");
             $data = [
                 'nama_instansi' => $instansi
             ];
@@ -1027,14 +1028,14 @@ class Dinkes extends CI_Controller
 
         $path = "";
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
-            'status'     => '', // Status User aktif / engga
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
+            'status' => '', // Status User aktif / engga
             'controller' => $this->instansi()
         ];
 
         $data = array(
-            "page"    => $this->load("User Management", $path),
+            "page" => $this->load("User Management", $path),
             "content" => $this->load->view('user_management', $data, true)
         );
 
@@ -1045,7 +1046,7 @@ class Dinkes extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("add_pejabat", $path),
+            "page" => $this->load("add_pejabat", $path),
             "content" => $this->load->view('add_pejabat', false, true)
         );
 
@@ -1054,17 +1055,17 @@ class Dinkes extends CI_Controller
 
     public function tambah_pejabat()
     {
-        $nip           = $this->input->post('nip');
-        $nama_pejabat  = $this->input->post('nama_pejabat');
-        $jabatan       = $this->input->post('jabatan');
-        $instansi      = $this->input->post('instansi');
-        $tanda_tangan  = $this->input->post('tanda_tangan');
+        $nip = $this->input->post('nip');
+        $nama_pejabat = $this->input->post('nama_pejabat');
+        $jabatan = $this->input->post('jabatan');
+        $instansi = $this->input->post('instansi');
+        $tanda_tangan = $this->input->post('tanda_tangan');
 
         $datapejabat = array(
-            'nip'          => $nip,
+            'nip' => $nip,
             'nama_pejabat' => $nama_pejabat,
-            'jabatan'      => $jabatan,
-            'instansi'     => $instansi,
+            'jabatan' => $jabatan,
+            'instansi' => $instansi,
             'tanda_tangan' => $tanda_tangan,
         );
         $this->db->insert('pejabat', $datapejabat);
@@ -1081,10 +1082,10 @@ class Dinkes extends CI_Controller
         $path = "";
         $user = $this->M_SJP->getUser($this->session->userdata('id_user'));
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'user'       => $user
+            'user' => $user
         ];
 
         // var_dump($user[0]);die;
@@ -1096,7 +1097,7 @@ class Dinkes extends CI_Controller
         }
 
         $data = array(
-            "page"    => $this->load("Add User", $path),
+            "page" => $this->load("Add User", $path),
             "content" => $this->load->view('add_user', $data, true)
         );
 
@@ -1116,10 +1117,10 @@ class Dinkes extends CI_Controller
 
         $user = $this->M_SJP->getUser($id);
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'user'       => $user
+            'user' => $user
         ];
 
         // var_dump($user[0]);die;
@@ -1128,7 +1129,7 @@ class Dinkes extends CI_Controller
             $data["nama_join"] = $this->M_SJP->getRs();
         } else if ($instansi == 3) {
             $data["nama_join"] = $this->M_SJP->getPuskesmas();
-        }else if ($instansi == 6) {
+        } else if ($instansi == 6) {
             $data["nama_join"] = $this->M_SJP->getKelurahan();
         }
 
@@ -1136,7 +1137,7 @@ class Dinkes extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Add User", $path),
+            "page" => $this->load("Add User", $path),
             "content" => $this->load->view('edit_user', $data, true)
         );
 
@@ -1147,7 +1148,7 @@ class Dinkes extends CI_Controller
 
     private function instansi()
     {
-        $id_instansi    = $this->session->userdata('instansi');
+        $id_instansi = $this->session->userdata('instansi');
         switch ($id_instansi) {
             case 1:
                 $controller = "Dinkes/";
@@ -1169,8 +1170,8 @@ class Dinkes extends CI_Controller
 
     public function getDataUser()
     {
-        $instansi    = $this->input->get("instansi");
-        $cari       = $this->input->post("cari");
+        $instansi = $this->input->get("instansi");
+        $cari = $this->input->post("cari");
         $db = $this->M_SJP->getAllUser($instansi, $cari);
         $result = [
             'data' => $db,
@@ -1187,19 +1188,19 @@ class Dinkes extends CI_Controller
     public function getDataUserDinkes()
     {
         if ($this->input->post() !== Null) {
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
         } else if ($this->input->get() !== Null) {
-            $level      = $this->input->get("level");
-            $instansi   = $this->input->get("instansi");
-            $status     = $this->input->get("status");
-            $cari       = $this->input->get("cari");
-            $data       = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
+            $level = $this->input->get("level");
+            $instansi = $this->input->get("instansi");
+            $status = $this->input->get("status");
+            $cari = $this->input->get("cari");
+            $data = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
         } else {
-            $data       = $this->M_SJP->getAllUserDinkes();
+            $data = $this->M_SJP->getAllUserDinkes();
         }
 
         $result = [
@@ -1215,17 +1216,17 @@ class Dinkes extends CI_Controller
     public function getKelurahan()
     {
         $KecId = $this->input->post('id');
-        $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
+        $kel = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
         echo json_encode($kel);
     }
 
     public function logCetak()
     {
-        $idUser         = $this->input->post("idUser");
-        $idInstansi     = $this->input->post("idInstansi");
-        $pengajuan      = $this->input->post("pengajuan");
-        $type           = $this->input->post("type");
-        $desc           = $this->input->post("desc");
+        $idUser = $this->input->post("idUser");
+        $idInstansi = $this->input->post("idInstansi");
+        $pengajuan = $this->input->post("pengajuan");
+        $type = $this->input->post("type");
+        $desc = $this->input->post("desc");
         helper_log($type, $desc, $idInstansi, $pengajuan);
     }
 
@@ -1235,8 +1236,8 @@ class Dinkes extends CI_Controller
         $statuspersetujuan = $this->input->post('status_pengajuan');
         $nomor_surat = '401/' . $idsjp . '/' . $id_pengajuan . '.' . date_format(date_create($tanggalsurat), "dmy") . '/ Yankesru dan PK';
         $datasjp = array(
-            'tanggal_surat'     =>  $tanggalsurat,
-            'nomor_surat'       =>  $nomor_surat,
+            'tanggal_surat' => $tanggalsurat,
+            'nomor_surat' => $nomor_surat,
             'id_user_menyetujui' => $this->session->userdata('id_user')
         );
         $this->db->where('id_sjp', $idsjp);
@@ -1244,8 +1245,8 @@ class Dinkes extends CI_Controller
         $this->db->update('sjp', $datasjp);
 
         $datapengajuan = array(
-            'id_status_pengajuan' =>  $statuspersetujuan,
-            'tanggal_selesai' =>  $tanggalsurat
+            'id_status_pengajuan' => $statuspersetujuan,
+            'tanggal_selesai' => $tanggalsurat
         );
         $this->db->where('id_pengajuan', $id_pengajuan);
         $this->db->update('permohonan_pengajuan', $datapengajuan);
@@ -1276,14 +1277,14 @@ class Dinkes extends CI_Controller
 
     public function getPuskesmas()
     {
-        $id  = $this->input->post('id');
+        $id = $this->input->post('id');
         $pus = $this->M_SJP->getPuskesmas();
         echo json_encode($pus);
     }
 
     public function getLurah()
     {
-        $id  = $this->input->post('id');
+        $id = $this->input->post('id');
         $kel = $this->M_SJP->getKelurahan();
         echo json_encode($kel);
     }
@@ -1297,7 +1298,7 @@ class Dinkes extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Download Dokumen", $path),
+            "page" => $this->load("Download Dokumen", $path),
             "content" => $this->load->view('download_dokumen', $data, true)
         );
         $this->load->view('template/default_template', $data);
@@ -1365,11 +1366,11 @@ class Dinkes extends CI_Controller
 
         if ($passphrase == 'Hantek1234.!') {
             $this->CetakTest($id_sjp, $passphrase);
-        }else{
+        } else {
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>Passphrase yang dimasukkan Salah!</div>');
 
             $tte_gagal = array(
-                'pesan'          => 'Gagal Passphrase Salah',
+                'pesan' => 'Gagal Passphrase Salah',
             );
             $this->db->insert('log_tte', $tte_gagal);
 
@@ -1406,23 +1407,23 @@ class Dinkes extends CI_Controller
         // $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
-        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        $location = './pdfTemporary/sjp_' . $time . '.pdf';
         file_put_contents($location, $output);
 
-        
+
 
 
         $username = 'test';
         $password = 'test#2023';
         $url = "103.113.30.81/api/sign/pdf";
-        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+        $file = './pdfTemporary/sjp_' . $time . '.pdf';
 
-        
+
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-            'file' => curl_file_create($file,'application/pdf'),
-            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'file' => curl_file_create($file, 'application/pdf'),
+            'imageTTD' => curl_file_create($ttd, 'image/jpeg'),
             'nik' => '0803202100007062',
             'passphrase' => 'Hantek1234.!',
             'page' => '1',
@@ -1433,7 +1434,7 @@ class Dinkes extends CI_Controller
             'yAxis' => '117',
             'width' => '277',
             'height' => '227'
-            );
+        );
         $ch = curl_init();
         $options = array(
             CURLOPT_URL => $url,
@@ -1443,7 +1444,7 @@ class Dinkes extends CI_Controller
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => $postfields,
             CURLOPT_RETURNTRANSFER => true
-        ); 
+        );
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
         $error = curl_error($ch);
@@ -1456,24 +1457,24 @@ class Dinkes extends CI_Controller
         curl_close($ch);
 
         //////HIDE SEMENTARA KARENA AKUN TTE BELUM DIPERPANJANG////////////
-        if($httpCode != 200){
+        if ($httpCode != 200) {
 
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
-        	$responseData = json_decode($resp);
+            unlink('./pdfTemporary/sjp_' . $time . '.pdf');
+            $responseData = json_decode($resp);
 
 
-        	$response = array(
-                'pesan'          => 'Gagal',
-	            'status_code' => $responseData->status,
-	            'deskripsi_status' => $responseData->error,
+            $response = array(
+                'pesan' => 'Gagal',
+                'status_code' => $responseData->status,
+                'deskripsi_status' => $responseData->error,
                 'id_sjp' => $id_sjp,
                 'id_user' => $id_join
-	        );
+            );
 
             if ($responseData != null) {
                 $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($response));
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode($response));
 
             } else {
                 echo json_encode(['error' => 'Error decoding JSON response.']);
@@ -1483,15 +1484,15 @@ class Dinkes extends CI_Controller
 
             // $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
             // redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
-        }else{
-            
-            unlink('./pdfTemporary/sjp_'.$time.'.pdf');
+        } else {
 
-            $lok = './pdfTTE/cetaksjpSigned_'.$time.'.pdf';
+            unlink('./pdfTemporary/sjp_' . $time . '.pdf');
 
-        	if($status != 1){
+            $lok = './pdfTTE/cetaksjpSigned_' . $time . '.pdf';
+
+            if ($status != 1) {
                 $response = array(
-                    'pesan'          => 'Berhasil',
+                    'pesan' => 'Berhasil',
                     'status_code' => 200,
                     'deskripsi_status' => 'OK (Sucessful)',
                     'id_sjp' => $id_sjp,
@@ -1500,7 +1501,7 @@ class Dinkes extends CI_Controller
                 );
 
                 $this->db->insert('log_tte', $response);
-            
+
                 // var_dump($response);
                 // die();
                 // Set the filename for the download
@@ -1509,12 +1510,12 @@ class Dinkes extends CI_Controller
                 // Send the appropriate headers
                 header('Content-Type: application/pdf');
                 header('Content-Disposition: inline; filename="' . $filename . '"');
-                
+
                 file_put_contents($lok, $resp);
                 echo $resp;
             }
         }
-        
+
     }
 
     //Ketika blm ada akun tte//
@@ -1734,9 +1735,9 @@ class Dinkes extends CI_Controller
               <tr>
                 <td style="width: 30%">Batas Maksimal Pagu</td>
                 <td style="width: 5%">:</td>
-                <td>'.
-                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
-                 . '</td>
+                <td>' .
+            ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+            . '</td>
               </tr>
             </tbody>
           </table>
@@ -1979,9 +1980,9 @@ class Dinkes extends CI_Controller
               <tr>
                 <td style="width: 30%">Batas Maksimal Pagu</td>
                 <td style="width: 5%">:</td>
-                <td>'.
-                    ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
-                 . '</td>
+                <td>' .
+            ($sjp[0]->domisili == 'Depok' ? 'Rp. 75.000.000' : ($sjp[0]->domisili == 'Luar Depok' ? 'Rp. 25.000.000' : 'Depok : Rp. 75.000.000 <br> Luar Depok : Rp. 25.000.000'))
+            . '</td>
               </tr>
             </tbody>
           </table>
@@ -2014,7 +2015,7 @@ class Dinkes extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Waktu Pengajuan", $path),
+            "page" => $this->load("Waktu Pengajuan", $path),
             "content" => $this->load->view('dinkes/waktu_pengaju', false, true)
         );
 
@@ -2023,7 +2024,7 @@ class Dinkes extends CI_Controller
 
     public function parameter_waktu_pengajuan()
     {
-        $data       = $this->M_SJP->parameter_waktu_pengajuan();
+        $data = $this->M_SJP->parameter_waktu_pengajuan();
 
         $result = [
             'data' => $data,
@@ -2041,7 +2042,7 @@ class Dinkes extends CI_Controller
         $data['waktu'] = $this->M_SJP->detail_waktu_pengajuan($id);
 
         $data = array(
-            "page"    => $this->load("Edit Waktu", $path),
+            "page" => $this->load("Edit Waktu", $path),
             "content" => $this->load->view('edit_waktu_pengajuan', $data, true)
         );
         $this->load->view('template/default_template', $data);
@@ -2051,8 +2052,8 @@ class Dinkes extends CI_Controller
     {
         $id = $this->input->post('id');
         $data = array(
-            'waktu_buka' =>  $this->input->post('waktu_buka'),
-            'waktu_tutup' =>  $this->input->post('waktu_tutup')
+            'waktu_buka' => $this->input->post('waktu_buka'),
+            'waktu_tutup' => $this->input->post('waktu_tutup')
         );
         $this->db->where('id', $id);
         $this->db->update('jam_pengajuan', $data);
@@ -2060,7 +2061,7 @@ class Dinkes extends CI_Controller
     }
 
     public function hapussjp($id_sjp, $id_pengajuan)
-    {   
+    {
         $this->M_SJP->delete_pengajuan($id_pengajuan);
         $this->M_SJP->delete_sjp($id_sjp);
         // $this->M_SJP->delete_attachment($id_pengajuan);
@@ -2071,7 +2072,7 @@ class Dinkes extends CI_Controller
     }
 
     public function hapus_pengajuan_sjp($id_sjp, $id_pengajuan)
-    {   
+    {
         $this->M_SJP->delete_pengajuan($id_pengajuan);
         $this->M_SJP->delete_sjp($id_sjp);
         // $this->M_SJP->delete_attachment($id_pengajuan);
@@ -2082,7 +2083,7 @@ class Dinkes extends CI_Controller
     }
 
     public function hapus_persetujuan_sjp($id_sjp, $id_pengajuan)
-    {   
+    {
         $this->M_SJP->delete_pengajuan($id_pengajuan);
         $this->M_SJP->delete_sjp($id_sjp);
         // $this->M_SJP->delete_attachment($id_pengajuan);
@@ -2093,7 +2094,7 @@ class Dinkes extends CI_Controller
     }
 
     public function hapus_disetujui_sjp($id_sjp, $id_pengajuan)
-    {   
+    {
         $this->M_SJP->delete_pengajuan($id_pengajuan);
         $this->M_SJP->delete_sjp($id_sjp);
         // $this->M_SJP->delete_attachment($id_pengajuan);
@@ -2107,7 +2108,7 @@ class Dinkes extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Waktu Survey", $path),
+            "page" => $this->load("Waktu Survey", $path),
             "content" => $this->load->view('dinkes/waktu_survey', false, true)
         );
 
@@ -2116,7 +2117,7 @@ class Dinkes extends CI_Controller
 
     public function parameter_waktu_survey()
     {
-        $data       = $this->M_SJP->parameter_waktu_survey();
+        $data = $this->M_SJP->parameter_waktu_survey();
 
         $result = [
             'data' => $data,
@@ -2134,7 +2135,7 @@ class Dinkes extends CI_Controller
         $data['waktu'] = $this->M_SJP->detail_waktu_survey($id);
 
         $data = array(
-            "page"    => $this->load("Edit Waktu Survey", $path),
+            "page" => $this->load("Edit Waktu Survey", $path),
             "content" => $this->load->view('edit_waktu_survey', $data, true)
         );
         $this->load->view('template/default_template', $data);
@@ -2144,8 +2145,8 @@ class Dinkes extends CI_Controller
     {
         $id = $this->input->post('id');
         $data = array(
-            'waktu_survey' =>  $this->input->post('waktu_survey'),
-            'selesai_survey' =>  $this->input->post('selesai_survey')
+            'waktu_survey' => $this->input->post('waktu_survey'),
+            'selesai_survey' => $this->input->post('selesai_survey')
         );
         $this->db->where('id', $id);
         $this->db->update('jam_survey', $data);
@@ -2172,7 +2173,7 @@ class Dinkes extends CI_Controller
         } else {
             $datay = array(
                 'dataklaim' => $data_claims,
-                'penyakit'  => $this->M_SJP->diagpasien(),
+                'penyakit' => $this->M_SJP->diagpasien(),
             );
 
 
@@ -2182,7 +2183,7 @@ class Dinkes extends CI_Controller
 
             $path = "";
             $data = array(
-                "page"    => $this->load("entry klaim", $path),
+                "page" => $this->load("entry klaim", $path),
                 "content" => $this->load->view('nominal_pembiayaan', $datay, true)
             );
 
@@ -2193,17 +2194,17 @@ class Dinkes extends CI_Controller
     public function proses_input_pembiayaan()
     {
         $id_sjp = $this->input->post('id_sjp');
-        $nominalklaim   = $this->input->post('nominal');
+        $nominalklaim = $this->input->post('nominal');
         $dataklaim = array();
         $index = 0; // Set index array awal dengan 0
         if ($nominalklaim == null) {
-            redirect('Dinkes/pengajuan_klaim','refresh');
-        }else{
-            foreach ($id_sjp as $key) { 
+            redirect('Dinkes/pengajuan_klaim', 'refresh');
+        } else {
+            foreach ($id_sjp as $key) {
                 array_push($dataklaim, array(
-                    'id_sjp'      => $key,
-                    'nominal_pembiayaan'   => $nominalklaim[$index],
-                    'status_klaim'    => 3,
+                    'id_sjp' => $key,
+                    'nominal_pembiayaan' => $nominalklaim[$index],
+                    'status_klaim' => 3,
                     'tanggal_persetujuan_klaim' => date("Y-m-d")
                 ));
                 $index++;
@@ -2213,7 +2214,7 @@ class Dinkes extends CI_Controller
 
         $this->db->update_batch('sjp', $dataklaim, 'id_sjp');
 
-        redirect('Dinkes/pengajuan_klaim','refresh');
+        redirect('Dinkes/pengajuan_klaim', 'refresh');
     }
 
     public function ditolak_sjp()
@@ -2222,13 +2223,13 @@ class Dinkes extends CI_Controller
         $path = "";
         $datax = array(
             'datapermohonan' => $this->M_SJP->select_ditolak_sjp(),
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan()
         );
         $data = array(
-            "page"    => $this->load("Pengajuan SJP", $path),
+            "page" => $this->load("Pengajuan SJP", $path),
             "content" => $this->load->view('dinkes/ditolak_sjp', $datax, true)
         );
 
@@ -2238,16 +2239,16 @@ class Dinkes extends CI_Controller
     public function getditolaksjpdinas()
     {
         if ($this->input->post() !== Null) {
-            $puskesmas  = $this->input->post("puskesmas");
-            $jaminan  = $this->input->post("jaminan");
-            $mulai  = $this->input->post("mulai");
-            $akhir  = $this->input->post("akhir");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
+            $puskesmas = $this->input->post("puskesmas");
+            $jaminan = $this->input->post("jaminan");
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getditolaksjpdinas($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan);
         } else {
-            $data       = $this->M_SJP->getditolaksjpdinas();
+            $data = $this->M_SJP->getditolaksjpdinas();
         }
         $result = [
             'data' => $data,
@@ -2284,7 +2285,7 @@ class Dinkes extends CI_Controller
     //     $url = "103.113.30.81/api/sign/pdf";
     //     // $file = './pdfTemporary/sjp_'.$time.'.pdf';
 
-        
+
 
     //     $headers = array("Content-Type:multipart/form-data");
     //     $postfields = array(
@@ -2351,7 +2352,7 @@ class Dinkes extends CI_Controller
                 'pesan' => 'File belum ditandatangani',
                 'code' => '400'
             );
-        }else{
+        } else {
             $response = array(
                 'pesan' => 'File sudah ditandatangani',
                 'code' => '200'
@@ -2366,9 +2367,9 @@ class Dinkes extends CI_Controller
 
     public function ckeditor_upload()
     {
-        $config['upload_path']   = './uploads/ckeditor/';
+        $config['upload_path'] = './uploads/ckeditor/';
         $config['allowed_types'] = 'jpg|jpeg|png|gif';
-        $config['max_size']      = 2048;
+        $config['max_size'] = 2048;
 
         $this->load->library('upload', $config);
 

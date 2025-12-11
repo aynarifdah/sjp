@@ -4,12 +4,12 @@
 
       <?php if ($this->session->userdata('instansi') == 6) { ?>
 
-        <li class=" nav-item"><a href="<?php echo base_url('Kelurahan/pengajuan'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
+        <li class=" nav-item"><a href="<?php echo base_url('Kelurahan/pengajuanall'); ?>"><i class="ft-grid"></i><span class="menu-title" data-i18n="nav.add_on_block_ui.main">Semua Pengajuan</span></a>
         </li>
         <li class=" nav-item"><a href="#"><i class="ft-server"></i><span class="menu-title" data-i18n="nav.templates.main">Proses SJP</span></a>
           <ul class="menu-content">
 
-            <li><a class="menu-item" href="<?php echo base_url('Kelurahan/permohonan_baru'); ?>" data-i18n="nav.templates.horz.main">Pengajuan Baru</a></li>
+            <li><a class="menu-item" href="<?php echo base_url('Kelurahan/pengajuanbaru'); ?>" data-i18n="nav.templates.horz.main">Pengajuan Baru</a></li>
             <li><a class="menu-item" href="<?php echo base_url('Kelurahan/persetujuan_sjp'); ?>" data-i18n="nav.templates.horz.main">Persetujuan SJP</a></li>
 
           </ul>

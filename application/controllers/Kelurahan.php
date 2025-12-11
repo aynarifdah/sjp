@@ -19,11 +19,11 @@ class Kelurahan extends CI_Controller
     private function load($title = '', $datapath = '')
     {
         $page = array(
-            "head"    => $this->load->view('template/head', array("title" => $title), true),
-            "header"  => $this->load->view('template/header', false, true),
+            "head" => $this->load->view('template/head', array("title" => $title), true),
+            "header" => $this->load->view('template/header', false, true),
             "sidebar" => $this->load->view('template/sidebar', false, true),
             "main_js" => $this->load->view('template/main_js', false, true),
-            "footer"  => $this->load->view('template/footer', false, true)
+            "footer" => $this->load->view('template/footer', false, true)
         );
         return $page;
     }
@@ -122,10 +122,10 @@ class Kelurahan extends CI_Controller
                     'authenticated' => true,
                     'id_user' => $user->id_user,
                     'username' => $user->username,
-                    'nama'    => $user->nama,
+                    'nama' => $user->nama,
                     'password' => $user->nama,
-                    'level'   => $user->level,
-                    'instansi'   => $user->instansi
+                    'level' => $user->level,
+                    'instansi' => $user->instansi
                 );
 
                 $this->session->set_userdata($session);
@@ -141,7 +141,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Dashboard", $path),
+            "page" => $this->load("Dashboard", $path),
             "content" => $this->load->view('dashboard', false, true)
         );
 
@@ -173,9 +173,9 @@ class Kelurahan extends CI_Controller
                 redirect('Kelurahan/pengajuan');
             } else {
                 $data = array(
-                    'topik'      => $this->M_SJP->diagnosa(),
-                    'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
-                    'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+                    'topik' => $this->M_SJP->diagnosa(),
+                    'dokumen' => $this->M_SJP->dokumen_persyaratan(),
+                    'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
                     'rumahsakit' => $this->M_SJP->rumahsakit(),
                     'kelas_rawat' => $this->M_SJP->kelas_rawat(),
                     'jenisjaminan' => $this->M_SJP->jenisjaminan(),
@@ -195,7 +195,7 @@ class Kelurahan extends CI_Controller
     {
 
         $KecId = $this->input->post('id');
-        $kel   = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
+        $kel = $this->M_SJP->wilayah_kelurahan('kelurahan', $KecId);
         echo json_encode($kel);
     }
 
@@ -203,7 +203,7 @@ class Kelurahan extends CI_Controller
     {
 
         $Kd_diagnosa = $this->input->post('id');
-        $diagnosa    = $this->M_SJP->diagnosa2($Kd_diagnosa);
+        $diagnosa = $this->M_SJP->diagnosa2($Kd_diagnosa);
         echo json_encode($diagnosa);
         // var_dump($diagnosa);
         // die;
@@ -219,33 +219,33 @@ class Kelurahan extends CI_Controller
 
     public function input_pasien()
     {
-        $id_puskesmas    = $this->getIdPuskesmas($this->session->userdata('id_join'));
-        $nama_pemohon            = $this->input->post('nama_pemohon');
-        $jeniskelamin1   = $this->input->post('jenis_kelamin_pemohon');
-        $alamat1         = $this->input->post('alamat_pemohon');
-        $rt1             = $this->input->post('rt_pemohon');
-        $rw1             = $this->input->post('rw_pemohon');
-        $kelurahan1      = $this->input->post('kd_kelurahan_pemohon');
-        $kecamatan1      = $this->input->post('kd_kecamatan_pemohon');
-        $telepon1        = $this->input->post('telepon_pemohon');
-        $whatsapp1       = $this->input->post('whatsapp_pemohon');
-        $email1          = $this->input->post('email_pemohon');
-        $statushubungan  = $this->input->post('status_hubungan');
+        $id_puskesmas = $this->getIdPuskesmas($this->session->userdata('id_join'));
+        $nama_pemohon = $this->input->post('nama_pemohon');
+        $jeniskelamin1 = $this->input->post('jenis_kelamin_pemohon');
+        $alamat1 = $this->input->post('alamat_pemohon');
+        $rt1 = $this->input->post('rt_pemohon');
+        $rw1 = $this->input->post('rw_pemohon');
+        $kelurahan1 = $this->input->post('kd_kelurahan_pemohon');
+        $kecamatan1 = $this->input->post('kd_kecamatan_pemohon');
+        $telepon1 = $this->input->post('telepon_pemohon');
+        $whatsapp1 = $this->input->post('whatsapp_pemohon');
+        $email1 = $this->input->post('email_pemohon');
+        $statushubungan = $this->input->post('status_hubungan');
         //$feedback        = $this->input->post('feedback_dokumen');
-        $jenisizin       = 4; //jenis izin sjp dibuat default 
-        $datapermohonan  = array(
-            'nama_pemohon'  => $nama_pemohon,
+        $jenisizin = 4; //jenis izin sjp dibuat default 
+        $datapermohonan = array(
+            'nama_pemohon' => $nama_pemohon,
             'jenis_kelamin' => $jeniskelamin1,
-            'alamat'        => $alamat1,
-            'rt'            => $rt1,
-            'rw'            => $rw1,
-            'kd_kelurahan'  => $kelurahan1,
-            'kd_kecamatan'  => $kecamatan1,
-            'telepon'       => $telepon1,
-            'whatsapp'      => $whatsapp1,
-            'email'         => $email1,
-            'status_hubungan'       => $statushubungan,
-            'jenis_izin'            => $jenisizin,
+            'alamat' => $alamat1,
+            'rt' => $rt1,
+            'rw' => $rw1,
+            'kd_kelurahan' => $kelurahan1,
+            'kd_kecamatan' => $kecamatan1,
+            'telepon' => $telepon1,
+            'whatsapp' => $whatsapp1,
+            'email' => $email1,
+            'status_hubungan' => $statushubungan,
+            'jenis_izin' => $jenisizin,
             //'feedback_dokumen'   => $feedback
         );
         // var_dump($datapermohonan['status_hubungan']);
@@ -257,63 +257,63 @@ class Kelurahan extends CI_Controller
         //     $id_pengajuan = $value['id_pengajuan'];
         // }
 
-        $nik           = $this->input->post('nik');
-        $nama_pasien   = $this->input->post('nama_pasien');
-        $jeniskelamin  = $this->input->post('jenis_kelamin_pasien');
-        $tempatlahir   = $this->input->post('tempat_lahir');
-        $tanggallahir  = $this->input->post('tanggal_lahir');
-        $pekerjaan     = $this->input->post('pekerjaan');
+        $nik = $this->input->post('nik');
+        $nama_pasien = $this->input->post('nama_pasien');
+        $jeniskelamin = $this->input->post('jenis_kelamin_pasien');
+        $tempatlahir = $this->input->post('tempat_lahir');
+        $tanggallahir = $this->input->post('tanggal_lahir');
+        $pekerjaan = $this->input->post('pekerjaan');
         $golongandarah = $this->input->post('golongan_darah');
-        $alamat        = $this->input->post('alamat_pasien');
-        $rt            = $this->input->post('rt_pasien');
-        $rw            = $this->input->post('rw_pasien');
-        $kelurahan     = $this->input->post('kd_kelurahan_pasien');
-        $kecamatan     = $this->input->post('kd_kecamatan_pasien');
-        $telepon       = $this->input->post('telepon_pasien');
-        $whatsapp      = $this->input->post('whatsapp_pasien');
-        $email         = $this->input->post('email_pasien');
-        $jenisrawat    = $this->input->post('jenis_rawat');
-        $rumahsakit    = $this->input->post('nama_rumah_sakit');
-        $kelas_rawat     = $this->input->post('kelas_rawat');
-        $jenisjaminan    = $this->input->post('jenisjaminan');
-        $domisili       = $this->input->post('domisili');
-        $mulairawat      = $this->input->post('mulairawat');
-        $akhirrawat      = $this->input->post('akhirrawat');
-        $feedback      = $this->input->post('feedback');
-        $feedback_dinkes  = $this->input->post('feedback_dinkes');
+        $alamat = $this->input->post('alamat_pasien');
+        $rt = $this->input->post('rt_pasien');
+        $rw = $this->input->post('rw_pasien');
+        $kelurahan = $this->input->post('kd_kelurahan_pasien');
+        $kecamatan = $this->input->post('kd_kecamatan_pasien');
+        $telepon = $this->input->post('telepon_pasien');
+        $whatsapp = $this->input->post('whatsapp_pasien');
+        $email = $this->input->post('email_pasien');
+        $jenisrawat = $this->input->post('jenis_rawat');
+        $rumahsakit = $this->input->post('nama_rumah_sakit');
+        $kelas_rawat = $this->input->post('kelas_rawat');
+        $jenisjaminan = $this->input->post('jenisjaminan');
+        $domisili = $this->input->post('domisili');
+        $mulairawat = $this->input->post('mulairawat');
+        $akhirrawat = $this->input->post('akhirrawat');
+        $feedback = $this->input->post('feedback');
+        $feedback_dinkes = $this->input->post('feedback_dinkes');
 
         // test 02-05-2021
         $tanggallahir = date_format(date_create($tanggallahir), "Y-m-d");
         $mulairawat = date_format(date_create($mulairawat), "Y-m-d");
         $akhirrawat = date_format(date_create($akhirrawat), "Y-m-d");
         // test 02-05-2021
-        $datasjp       = array(
-            'id_pengajuan'     => $id_pengajuan,
-            'id_puskesmas'     => $id_puskesmas,
-            'id_rumah_sakit'   => $rumahsakit,
-            'nik'              => $nik,
-            'nama_pasien'      => $nama_pasien,
-            'jenis_kelamin'    => $jeniskelamin,
-            'tempat_lahir'     => $tempatlahir,
-            'tanggal_lahir'    => $tanggallahir,
-            'pekerjaan'        => $pekerjaan,
-            'golongan_darah'   => $golongandarah,
-            'alamat'           => $alamat,
-            'rt'               => $rt,
-            'rw'               => $rw,
-            'kd_kelurahan'     => $kelurahan,
-            'kd_kecamatan'     => $kecamatan,
-            'telepon'          => $telepon,
-            'whatsapp'         => $whatsapp,
-            'email'            => $email,
-            'jenis_rawat'      => $jenisrawat,
-            'jenis_sjp'         => $jenisjaminan,
-            'domisili'          => $domisili,
-            'kelas_rawat'      => $kelas_rawat,
-            'mulai_rawat'      => $mulairawat,
-            'selesai_rawat'    => $akhirrawat,
-            'feedback'         => $feedback,
-            'feedback_dinkes'  => $feedback_dinkes,
+        $datasjp = array(
+            'id_pengajuan' => $id_pengajuan,
+            'id_puskesmas' => $id_puskesmas,
+            'id_rumah_sakit' => $rumahsakit,
+            'nik' => $nik,
+            'nama_pasien' => $nama_pasien,
+            'jenis_kelamin' => $jeniskelamin,
+            'tempat_lahir' => $tempatlahir,
+            'tanggal_lahir' => $tanggallahir,
+            'pekerjaan' => $pekerjaan,
+            'golongan_darah' => $golongandarah,
+            'alamat' => $alamat,
+            'rt' => $rt,
+            'rw' => $rw,
+            'kd_kelurahan' => $kelurahan,
+            'kd_kecamatan' => $kecamatan,
+            'telepon' => $telepon,
+            'whatsapp' => $whatsapp,
+            'email' => $email,
+            'jenis_rawat' => $jenisrawat,
+            'jenis_sjp' => $jenisjaminan,
+            'domisili' => $domisili,
+            'kelas_rawat' => $kelas_rawat,
+            'mulai_rawat' => $mulairawat,
+            'selesai_rawat' => $akhirrawat,
+            'feedback' => $feedback,
+            'feedback_dinkes' => $feedback_dinkes,
             // 'nama_rumah_sakit' => $rumahsakit,
         );
         // var_dump($datasjp);
@@ -346,7 +346,7 @@ class Kelurahan extends CI_Controller
                 $diagnosaLainnya = $key['diagnosalainnya'];
             }
             $dataDiagnosa[] = array(
-                'id_sjp'      => $id_sjp,
+                'id_sjp' => $id_sjp,
                 'id_penyakit' => $penyakit,
                 'penyakit' => $diagnosaLainnya
             );
@@ -367,18 +367,18 @@ class Kelurahan extends CI_Controller
         $nama_persyaratan = $this->input->post('nama_persyaratan');
         // var_dump($nama_persyaratan);
         // die;
-        $dokumen          = $this->input->post('dokumen');
+        $dokumen = $this->input->post('dokumen');
         // var_dump($_FILES['dokumen']);
         // die;
         $pasien = $this->input->post('nama_pasien');
-        $persyaratan      = array();
+        $persyaratan = array();
         for ($i = 0; $i < count($nama_persyaratan); $i++) {
 
-            $_FILES['file']['name']     = $_FILES['dokumen']['name'][$i];
-            $_FILES['file']['type']     = $_FILES['dokumen']['type'][$i];
+            $_FILES['file']['name'] = $_FILES['dokumen']['name'][$i];
+            $_FILES['file']['type'] = $_FILES['dokumen']['type'][$i];
             $_FILES['file']['tmp_name'] = $_FILES['dokumen']['tmp_name'][$i];
-            $_FILES['file']['error']    = $_FILES['dokumen']['error'][$i];
-            $_FILES['file']['size']     = $_FILES['dokumen']['size'][$i];
+            $_FILES['file']['error'] = $_FILES['dokumen']['error'][$i];
+            $_FILES['file']['size'] = $_FILES['dokumen']['size'][$i];
 
             $name_file = $_FILES['file']['name'];
             $file_name_pieces = strtolower(preg_replace('/\s+/', '', $name_file));
@@ -401,12 +401,12 @@ class Kelurahan extends CI_Controller
             if ($this->upload->do_upload('file')) {
                 // Uploaded file data
 
-                $fileData      = $this->upload->data();
+                $fileData = $this->upload->data();
                 $persyaratan[] = array(
-                    'id_jenis_izin'  => $jenisizin,
-                    'attachment'     => $fileData['file_name'],
+                    'id_jenis_izin' => $jenisizin,
+                    'attachment' => $fileData['file_name'],
                     //'feedback'       => $feedback,
-                    'id_pengajuan'   => $id_pengajuan,
+                    'id_pengajuan' => $id_pengajuan,
                     'id_persyaratan' => $nama_persyaratan[$i],
                 );
             }
@@ -473,7 +473,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Cetak SJP", $path),
+            "page" => $this->load("Cetak SJP", $path),
             "content" => $this->load->view('cetak_sjp', false, true)
         );
 
@@ -483,7 +483,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("SJP", $path),
+            "page" => $this->load("SJP", $path),
             "content" => $this->load->view('sjp', false, true)
         );
 
@@ -668,7 +668,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Pengantar Puskesmas", $path),
+            "page" => $this->load("Pengantar Puskesmas", $path),
             "content" => $this->load->view('pengantar_puskesmas', false, true)
         );
 
@@ -681,7 +681,7 @@ class Kelurahan extends CI_Controller
             'datapermohonan' => $this->M_SJP->select_pengajuan_sjp()
         );
         $data = array(
-            "page"    => $this->load("Pengajuan SJP", $path),
+            "page" => $this->load("Pengajuan SJP", $path),
             "content" => $this->load->view('pengajuan_sjp', $datax, true)
         );
 
@@ -702,13 +702,13 @@ class Kelurahan extends CI_Controller
                 redirect($_SERVER['HTTP_REFERER'], 'refresh');
             } else {
                 $path = "";
-                $data['page']         = $this->load("Siap Survey", $path);
-                $data['pengajuan']    = $this->M_SJP->select_all_by_id($id_sjp);
-                $data['survey']       = $this->M_SJP->variabel_survey();
-                $data['opsi']         = $this->M_SJP->select_opsi_ceklist();
-                $data['id_sjp']       = $id_sjp;
+                $data['page'] = $this->load("Siap Survey", $path);
+                $data['pengajuan'] = $this->M_SJP->select_all_by_id($id_sjp);
+                $data['survey'] = $this->M_SJP->variabel_survey();
+                $data['opsi'] = $this->M_SJP->select_opsi_ceklist();
+                $data['id_sjp'] = $id_sjp;
                 $data['id_pengajuan'] = $id_pengajuan;
-                $data['content']      = $this->load->view('kelurahan/siap_survey_kelurahan', $data, true, false);
+                $data['content'] = $this->load->view('kelurahan/siap_survey_kelurahan', $data, true, false);
                 // var_dump($data['opsi']);die;
 
                 $this->load->view('template/default_template', $data);
@@ -719,24 +719,24 @@ class Kelurahan extends CI_Controller
     public function proses_survey($id_sjp, $id_pengajuan)
     {
         $tanggalsurvey = $this->input->post('tanggal_survey');
-        $surveyor      = $this->input->post('surveyor');
+        $surveyor = $this->input->post('surveyor');
         $status_pengajuan = $this->input->post('statussurvey');
-        $opsi          = $this->input->post('opsi');
+        $opsi = $this->input->post('opsi');
         $ceklistsurvey = $this->input->post('ceklist_survey');
-        $catatan       = $this->input->post('catatan');
-        $bobot         = $this->input->post('bobot');
-        $ket_miskin         = $this->input->post('ket_miskin');
+        $catatan = $this->input->post('catatan');
+        $bobot = $this->input->post('bobot');
+        $ket_miskin = $this->input->post('ket_miskin');
         $id_kelurahan = $this->getIdKelurahan($this->session->userdata('id_join'));
-        $datainsert    = array();
+        $datainsert = array();
         // echo count($ceklistsurvey);die;
         $index = 0; // Set index array awal dengan 0
         foreach ($ceklistsurvey as $ceklistsurvey) { // Kita buat perulangan berdasarkan nis sampai data terakhir
             array_push($datainsert, array(
-                'id_ceklist_survey'   => $ceklistsurvey,
-                'id_sjp'              => $id_sjp,
-                'id_opsi_ceklist'     => $opsi[$index],
-                'jawaban'             => $bobot[$index],
-                'id_kelurahan'        => $id_kelurahan
+                'id_ceklist_survey' => $ceklistsurvey,
+                'id_sjp' => $id_sjp,
+                'id_opsi_ceklist' => $opsi[$index],
+                'jawaban' => $bobot[$index],
+                'id_kelurahan' => $id_kelurahan
 
             ));
 
@@ -763,15 +763,15 @@ class Kelurahan extends CI_Controller
 
 
         $data_sjp = array(
-            'tanggal_survey'    => $tanggalsurvey,
-            'surveyor'          => $surveyor,
+            'tanggal_survey' => $tanggalsurvey,
+            'surveyor' => $surveyor,
             'keterangan_survey' => $catatan,
             'kemiskinan' => $ket_miskin,
             // 'status_survey'     => $status_survey
         );
         $this->M_SJP->update_survey_sjp($data_sjp, $id_sjp);
 
-        $data_pengajuan = array('id_status_pengajuan' =>  $status_pengajuan); //ubah status menjadi diajukan
+        $data_pengajuan = array('id_status_pengajuan' => $status_pengajuan); //ubah status menjadi diajukan
         if ($status_pengajuan == 7) {
             $data_pengajuan['tanggal_selesai'] = $tanggalsurvey;
         }
@@ -821,7 +821,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Daftar Klaim", $path),
+            "page" => $this->load("Daftar Klaim", $path),
             "content" => $this->load->view('daftar_klaim', false, true)
         );
 
@@ -831,7 +831,7 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            "page"    => $this->load("Entry Klaim", $path),
+            "page" => $this->load("Entry Klaim", $path),
             "content" => $this->load->view('entry_klaim', false, true)
         );
 
@@ -927,17 +927,17 @@ class Kelurahan extends CI_Controller
         $this->load->library('encryption');
         // Tambah
         if ($this->input->post("btntambah") !== null) {
-            $nama       = $this->input->post("nama");
-            $username   = $this->input->post("username");
-            $password   = $this->encryption->encrypt($this->input->post("password"));
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
+            $nama = $this->input->post("nama");
+            $username = $this->input->post("username");
+            $password = $this->encryption->encrypt($this->input->post("password"));
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
             $data = [
-                'nama'      => $nama,
-                'username'  => $username,
-                'password'  => $password,
-                'level'     => $level,
-                'id_instansi'  => $instansi
+                'nama' => $nama,
+                'username' => $username,
+                'password' => $password,
+                'level' => $level,
+                'id_instansi' => $instansi
             ];
             if ($this->db->insert('user', $data)) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>User BERHASIL ditambahkan!</div>');
@@ -948,21 +948,21 @@ class Kelurahan extends CI_Controller
 
         // Edit
         if ($this->input->post("btnedit") !== null) {
-            $id_user    = $this->input->post("id_user");
-            $nama       = $this->input->post("nama");
-            $username   = $this->input->post("username");
-            $password   = $this->encryption->encrypt($this->input->post("password"));
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
+            $id_user = $this->input->post("id_user");
+            $nama = $this->input->post("nama");
+            $username = $this->input->post("username");
+            $password = $this->encryption->encrypt($this->input->post("password"));
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
 
             $this->db->where("id_user =", $id_user);
             $data = [
-                'id_user'   => $id_user,
-                'nama'      => $nama,
-                'username'  => $username,
-                'password'  => $password,
-                'level'     => $level,
-                'id_instansi'  => $instansi
+                'id_user' => $id_user,
+                'nama' => $nama,
+                'username' => $username,
+                'password' => $password,
+                'level' => $level,
+                'id_instansi' => $instansi
             ];
 
             $this->db->set($data);
@@ -975,7 +975,7 @@ class Kelurahan extends CI_Controller
 
         // Hapus
         if ($this->input->get("delete") !== null) {
-            $id_user    = $this->input->get("delete");
+            $id_user = $this->input->get("delete");
             $this->db->where("id_user =", $id_user);
             if ($this->db->delete('user')) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show mb-1 mt-1"><button type="button" class="close" data-dismiss="alert">&times;</button>User BERHASIL dihapus!</div>');
@@ -986,7 +986,7 @@ class Kelurahan extends CI_Controller
 
         // Tambah Level
         if ($this->input->post("btnTambahLevel") !== null) {
-            $level       = $this->input->post("level");
+            $level = $this->input->post("level");
             $data = [
                 'nama_level' => $level
             ];
@@ -999,7 +999,7 @@ class Kelurahan extends CI_Controller
 
         // Tambah Instansi
         if ($this->input->post("btnTambahInstansi") !== null) {
-            $instansi       = $this->input->post("instansi");
+            $instansi = $this->input->post("instansi");
             $data = [
                 'nama_instansi' => $instansi
             ];
@@ -1013,14 +1013,14 @@ class Kelurahan extends CI_Controller
 
         $path = "";
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
-            'status'     => '', // Status User aktif / engga
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
+            'status' => '', // Status User aktif / engga
             'controller' => $this->instansi()
         ];
 
         $data = array(
-            "page"    => $this->load("User Management", $path),
+            "page" => $this->load("User Management", $path),
             "content" => $this->load->view('user_management', $data, true)
         );
 
@@ -1037,10 +1037,10 @@ class Kelurahan extends CI_Controller
         $path = "";
         $user = $this->M_SJP->getUser($this->session->userdata('id_user'));
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'user'       => $user
+            'user' => $user
         ];
 
         // var_dump($user[0]);die;
@@ -1051,7 +1051,7 @@ class Kelurahan extends CI_Controller
             $data["nama_join"] = $this->M_SJP->getPuskesmas();
         }
         $data = array(
-            "page"    => $this->load("Add User", $path),
+            "page" => $this->load("Add User", $path),
             "content" => $this->load->view('add_user', $data, true)
         );
 
@@ -1071,10 +1071,10 @@ class Kelurahan extends CI_Controller
 
         $user = $this->M_SJP->getUser($id);
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'user'       => $user
+            'user' => $user
         ];
 
         // var_dump($user[0]);die;
@@ -1087,7 +1087,7 @@ class Kelurahan extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Add User", $path),
+            "page" => $this->load("Add User", $path),
             "content" => $this->load->view('edit_user', $data, true)
         );
 
@@ -1096,7 +1096,7 @@ class Kelurahan extends CI_Controller
 
     private function instansi()
     {
-        $id_instansi    = $this->session->userdata('instansi');
+        $id_instansi = $this->session->userdata('instansi');
         switch ($id_instansi) {
             case 1:
                 $controller = "Dinkes/";
@@ -1121,8 +1121,8 @@ class Kelurahan extends CI_Controller
 
     public function getDataUser()
     {
-        $instansi    = $this->input->get("instansi");
-        $cari       = $this->input->post("cari");
+        $instansi = $this->input->get("instansi");
+        $cari = $this->input->post("cari");
         $db = $this->M_SJP->getAllUser($instansi, $cari);
         $result = [
             'data' => $db,
@@ -1137,19 +1137,19 @@ class Kelurahan extends CI_Controller
     public function getDataUserDinkes()
     {
         if ($this->input->post() !== Null) {
-            $level      = $this->input->post("level");
-            $instansi   = $this->input->post("instansi");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
+            $level = $this->input->post("level");
+            $instansi = $this->input->post("instansi");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
         } else if ($this->input->get() !== Null) {
-            $level      = $this->input->get("level");
-            $instansi   = $this->input->get("instansi");
-            $status     = $this->input->get("status");
-            $cari       = $this->input->get("cari");
-            $data       = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
+            $level = $this->input->get("level");
+            $instansi = $this->input->get("instansi");
+            $status = $this->input->get("status");
+            $cari = $this->input->get("cari");
+            $data = $this->M_SJP->getAllUserDinkes($level, $instansi, $status, $cari);
         } else {
-            $data       = $this->M_SJP->getAllUserDinkes();
+            $data = $this->M_SJP->getAllUserDinkes();
         }
 
         $result = [
@@ -1165,55 +1165,18 @@ class Kelurahan extends CI_Controller
     public function pengajuan()
     {
         $data = array(
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan()
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan()
         );
         $path = "";
         $data = array(
-            "page"    => $this->load("Pengajuan", $path),
+            "page" => $this->load("Pengajuan", $path),
             "content" => $this->load->view('kelurahan/pengajuanall', $data, true)
         );
 
         $this->load->view('template/default_template', $data);
     }
-
-
-    public function getalldatapermohonan()
-    {
-        if ($this->input->post() !== Null) {
-            $start          = $this->input->post("start");  
-            $length         = $this->input->post("length"); 
-            $draw           = $this->input->post("draw");
-            $puskesmas      = $this->input->post("puskesmas");
-            $jaminan        = $this->input->post("jaminan");
-            $mulai          = $this->input->post("mulai");
-            $akhir          = $this->input->post("akhir");
-            $rs             = $this->input->post("rs");
-            $status         = $this->input->post("status");
-            $status_jkn     = $this->input->post("status_jkn");
-            $cari           = $this->input->post("cari");
-            $datasjp        = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn, $start);
-            $total          = $this->total();
-            $filtered       = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
-        } else {
-            $datasjp    = $this->M_SJP->select_pengajuan_sjp_all();
-            $draw       = 1;
-            $total      = $this->total();
-            $filtered   = $total;
-        }
-
-        $result = [
-            'draw' => intval($draw),
-            'recordsFiltered' => $total ,
-            'recordsTotal' => $filtered,
-            'data' => $datasjp
-        ];
-        // var_dump($result);
-        // die;
-        echo json_encode($result);
-    }
-
 
     public function hapussjp($id_sjp, $id_pengajuan)
     {
@@ -1225,40 +1188,132 @@ class Kelurahan extends CI_Controller
         redirect('Kelurahan/pengajuan');
     }
 
+    private function total()
+    {
+        $this->db->select('COUNT(*) as total');
+        $this->db->from('permohonan_pengajuan pp');
+        $this->db->join('sjp', 'sjp.id_pengajuan = pp.id_pengajuan', 'left');
+        $this->db->where('sjp.jenis_sjp !=', 4); // Exclude UHC
+
+        $query = $this->db->get();
+        $result = $query->row();
+
+        return $result ? $result->total : 0;
+    }
+
     public function permohonan_baru()
+    {
+        $path = "";
+        $data = array(
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi()
+        );
+
+        $id_kelurahan = $this->session->userdata('id_kelurahan');
+
+        $data['pengajuan'] = $this->M_SJP->getDataKelurahan($id_kelurahan);
+
+        $data['page'] = $this->load("Permohonan Baru", $path);
+        $data['content'] = $this->load->view('kelurahan/pengajuanbaru', $data, true);
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function pengajuanall($uhc = null)
     {
         $level = $this->session->userdata('level');
         $datax = array(
-            'level'             => $level,
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
-            'controller'        => $this->instansi(),
-            'jenisjaminan'      => $this->M_SJP->jenisjaminan('all'),
-            'jkn'                  => $this->M_SJP->jkn()
+            'level' => $level,
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi(),
+            'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'uhc' => $uhc,
 
         );
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Permohonan Baru", $path),
-            "content" => $this->load->view('Kelurahan/pengajuanbaru', $datax, true)
+            "page" => $this->load("Pengajuan", $path),
+            "content" => $this->load->view('kelurahan/pengajuanall', $datax, true)
         );
 
         $this->load->view('template/default_template', $data);
     }
 
+    public function pengajuanbaru($uhc = null)
+    {
+        $level = $this->session->userdata('level');
+        $datax = array(
+            'level' => $level,
+            // 'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            // 'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi(),
+            // 'jenisjaminan' => $this->M_SJP->jenisjaminan('all'),
+            'kelurahan' => $this->M_SJP->getKelurahan(),
+            'uhc' => $uhc,
+            'session_kelurahan' => $this->M_SJP->getKelurahanBySession(),
+        );
+
+        $path = "";
+        $data = array(
+            "page" => $this->load("Pengajuan", $path),
+            "content" => $this->load->view('kelurahan/pengajuanbaru', $datax, true)
+        );
+
+        $this->load->view('template/default_template', $data);
+    }
+
+    public function getalldatapermohonan()
+    {
+        if ($this->input->post() !== Null) {
+            $start = $this->input->post("start");
+            $length = $this->input->post("length");
+            $draw = $this->input->post("draw");
+            $puskesmas = $this->input->post("puskesmas");
+            $jaminan = $this->input->post("jaminan");
+            $mulai = $this->input->post("mulai");
+            $akhir = $this->input->post("akhir");
+            $rs = $this->input->post("rs");
+            $kelurahan = $this->input->post("kelurahan");
+            $status = $this->input->post("status");
+            $status_jkn = $this->input->post("status_jkn");
+            $cari = $this->input->post("cari");
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_all($length, $puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $kelurahan, $status_jkn, $start);
+            $total = $this->total();
+            $filtered = $this->M_SJP->count_filtered_sjp($puskesmas, $rs, $status, $cari, $mulai, $akhir, $jaminan, $status_jkn);
+        } else {
+            $datasjp = $this->M_SJP->select_pengajuan_sjp_all();// return query
+            $draw = 1;
+            $total = $this->total();
+            $filtered = $total;
+        }
+
+        $result = [
+            'draw' => intval($draw),
+            'recordsFiltered' => $total,
+            'recordsTotal' => $filtered,
+            'data' => $datasjp
+        ];
+        // var_dump($result);
+        // die;
+        echo json_encode($result);
+    }
+
     public function getnewdatapermohonan()
     {
         if ($this->input->post() !== Null) {
-            $kelurahan  = $this->input->post("kelurahan");
-            $mulai  = $this->input->post("mulai");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
+            $kelurahan = $this->input->post("kelurahan");
+            $mulai = $this->input->post("mulai");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->view_permohonansjp_kelurahan(Null, $kelurahan, $rs, $status, $cari, $mulai);
         } else {
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(Null, Null, Null, 2);
+            $data = $this->M_SJP->view_permohonansjp_kelurahan(Null, Null, Null, 2);
         }
 
         // $datapus = $this->M_SJP->select_all_new($id_puskesmas, $id_jenissjp);
@@ -1276,30 +1331,30 @@ class Kelurahan extends CI_Controller
     {
         if ($this->input->post("btnEditInfo") !== Null) {
             // Informasi Pemohon | Tabel permohonan pengajuan
-            $nama                  = $this->input->post('nama_pemohon');
-            $jenisKelaminPemohon   = $this->input->post('jenis_kelamin_pemohon');
-            $teleponpemohon        = $this->input->post('teleponpemohon');
-            $whatsappemohon        = $this->input->post('whatsappemohon');
-            $emailpemohon          = $this->input->post('emailpemohon');
-            $status_hubungan       = $this->input->post('status_hubungan');
-            $alamatPemohon         = $this->input->post('alamatpemohon');
-            $rtPemohon             = $this->input->post('rtpemohon');
-            $rwPemohon             = $this->input->post('rwpemohon');
-            $kecamatanPemohon      = $this->input->post('kd_kecamatanpemohon');
-            $kelurahanPemohon      = $this->input->post('kd_kelurahanpemohon');
+            $nama = $this->input->post('nama_pemohon');
+            $jenisKelaminPemohon = $this->input->post('jenis_kelamin_pemohon');
+            $teleponpemohon = $this->input->post('teleponpemohon');
+            $whatsappemohon = $this->input->post('whatsappemohon');
+            $emailpemohon = $this->input->post('emailpemohon');
+            $status_hubungan = $this->input->post('status_hubungan');
+            $alamatPemohon = $this->input->post('alamatpemohon');
+            $rtPemohon = $this->input->post('rtpemohon');
+            $rwPemohon = $this->input->post('rwpemohon');
+            $kecamatanPemohon = $this->input->post('kd_kecamatanpemohon');
+            $kelurahanPemohon = $this->input->post('kd_kelurahanpemohon');
 
             $data_pemohon = [
-                'nama_pemohon'      => $nama,
-                'jenis_kelamin'     => $jenisKelaminPemohon,
-                'telepon'           => $teleponpemohon,
-                'whatsapp'          => $whatsappemohon,
-                'email'             => $emailpemohon,
-                'status_hubungan'   => $status_hubungan,
-                'alamat'            => $alamatPemohon,
-                'rt'                => $rtPemohon,
-                'rw'                => $rwPemohon,
-                'kd_kecamatan'      => $kecamatanPemohon,
-                'kd_kelurahan'      => $kelurahanPemohon
+                'nama_pemohon' => $nama,
+                'jenis_kelamin' => $jenisKelaminPemohon,
+                'telepon' => $teleponpemohon,
+                'whatsapp' => $whatsappemohon,
+                'email' => $emailpemohon,
+                'status_hubungan' => $status_hubungan,
+                'alamat' => $alamatPemohon,
+                'rt' => $rtPemohon,
+                'rw' => $rwPemohon,
+                'kd_kecamatan' => $kecamatanPemohon,
+                'kd_kelurahan' => $kelurahanPemohon
             ];
 
             // var_dump($data_pemohon);
@@ -1310,30 +1365,30 @@ class Kelurahan extends CI_Controller
             // var_dump($this->M_SJP->editPermohonanPengajuan($id_pp, $data_pemohon));
 
             // Informasi Pasien | Tabel sjp
-            $nikPasien          = $this->input->post('nikpasien');
-            $domisili           = $this->input->post('domisili');
-            $nama_pasien        = $this->input->post('nama_pasien');
+            $nikPasien = $this->input->post('nikpasien');
+            $domisili = $this->input->post('domisili');
+            $nama_pasien = $this->input->post('nama_pasien');
             $jenisKelaminPasien = $this->input->post("jenis_kelamin_pasien");
-            $tempatLahirPasien  = $this->input->post("tempat_lahir_pasien");
+            $tempatLahirPasien = $this->input->post("tempat_lahir_pasien");
             $tanggalLahirPasien = $this->input->post("tanggal_lahir_pasien");
-            $pekerjaanPasien    = $this->input->post("pekerjaanpasien");
-            $golDarahPasien     = $this->input->post("golongan_darah_pasien");
-            $alamatPasien       = $this->input->post("alamatpasien");
-            $rtPasien           = $this->input->post("rtpasien");
-            $rwpasien           = $this->input->post("rwpasien");
-            $kecPasien          = $this->input->post("kd_kecamatanpasien");
-            $kelPasien          = $this->input->post("kd_kelurahanpasien");
-            $telPasien          = $this->input->post("teleponpasien");
-            $whatsapPasien      = $this->input->post("whatsappasien");
-            $emailPasien        = $this->input->post("emailpasien");
-            $namaRS             = $this->input->post("nama_rumah_sakit");
-            $jenisRawat         = $this->input->post("jenis_rawat");
-            $kelasRawat         = $this->input->post("kelas_rawat");
-            $mulaiRawatPasien   = $this->input->post("mulairawat");
-            $akhirRawatPasien   = $this->input->post("akhirrawat");
-            $feedback           = $this->input->post("feedback");
+            $pekerjaanPasien = $this->input->post("pekerjaanpasien");
+            $golDarahPasien = $this->input->post("golongan_darah_pasien");
+            $alamatPasien = $this->input->post("alamatpasien");
+            $rtPasien = $this->input->post("rtpasien");
+            $rwpasien = $this->input->post("rwpasien");
+            $kecPasien = $this->input->post("kd_kecamatanpasien");
+            $kelPasien = $this->input->post("kd_kelurahanpasien");
+            $telPasien = $this->input->post("teleponpasien");
+            $whatsapPasien = $this->input->post("whatsappasien");
+            $emailPasien = $this->input->post("emailpasien");
+            $namaRS = $this->input->post("nama_rumah_sakit");
+            $jenisRawat = $this->input->post("jenis_rawat");
+            $kelasRawat = $this->input->post("kelas_rawat");
+            $mulaiRawatPasien = $this->input->post("mulairawat");
+            $akhirRawatPasien = $this->input->post("akhirrawat");
+            $feedback = $this->input->post("feedback");
 
-            $jenisizin       = 1;
+            $jenisizin = 1;
             // test 05-02-2021
             $tanggalLahirPasien = date_format(date_create($tanggalLahirPasien), "Y-m-d");
             $mulaiRawatPasien = date_format(date_create($mulaiRawatPasien), "Y-m-d");
@@ -1341,28 +1396,28 @@ class Kelurahan extends CI_Controller
             // test 05-02-2021
 
             $data_pasien = [
-                'nik'               => $nikPasien,
-                'domisili'          => $domisili,
-                'nama_pasien'       => $nama_pasien,
-                'jenis_kelamin'     => $jenisKelaminPasien,
-                'tempat_lahir'      => $tempatLahirPasien,
-                'tanggal_lahir'     => $tanggalLahirPasien,
-                'pekerjaan'         => $pekerjaanPasien,
-                'golongan_darah'    => $golDarahPasien,
-                'whatsapp'          => $whatsapPasien,
-                'telepon'           => $telPasien,
-                'email'             => $emailPasien,
-                'id_rumah_sakit'    => $namaRS,
-                'jenis_rawat'       => $jenisRawat,
-                'kelas_rawat'       => $kelasRawat,
-                'mulai_rawat'       => $mulaiRawatPasien,
-                'selesai_rawat'     => $akhirRawatPasien,
-                'alamat'            => $alamatPasien,
-                'rt'                => $rtPasien,
-                'rw'                => $rwpasien,
-                'kd_kecamatan'      => $kecPasien,
-                'kd_kelurahan'      => $kelPasien,
-                'feedback'          => $feedback
+                'nik' => $nikPasien,
+                'domisili' => $domisili,
+                'nama_pasien' => $nama_pasien,
+                'jenis_kelamin' => $jenisKelaminPasien,
+                'tempat_lahir' => $tempatLahirPasien,
+                'tanggal_lahir' => $tanggalLahirPasien,
+                'pekerjaan' => $pekerjaanPasien,
+                'golongan_darah' => $golDarahPasien,
+                'whatsapp' => $whatsapPasien,
+                'telepon' => $telPasien,
+                'email' => $emailPasien,
+                'id_rumah_sakit' => $namaRS,
+                'jenis_rawat' => $jenisRawat,
+                'kelas_rawat' => $kelasRawat,
+                'mulai_rawat' => $mulaiRawatPasien,
+                'selesai_rawat' => $akhirRawatPasien,
+                'alamat' => $alamatPasien,
+                'rt' => $rtPasien,
+                'rw' => $rwpasien,
+                'kd_kecamatan' => $kecPasien,
+                'kd_kelurahan' => $kelPasien,
+                'feedback' => $feedback
             ];
 
             // var_dump($data_pasien);
@@ -1392,7 +1447,7 @@ class Kelurahan extends CI_Controller
                 // var_dump($penyakit);
                 // die;
                 $dataDiagnosa[] = array(
-                    'id_sjp'      => $id_sjp,
+                    'id_sjp' => $id_sjp,
                     'id_penyakit' => $penyakit,
                     'penyakit' => $diagnosaLainnya
                 );
@@ -1481,7 +1536,7 @@ class Kelurahan extends CI_Controller
 
         $level = $this->session->userdata('level');
         $id_instansi = $this->session->userdata("instansi");
-        $id_join     = $this->session->userdata("id_join");
+        $id_join = $this->session->userdata("id_join");
         $id_jenis_izin = 1;
         $path = "";
         $data['page'] = $this->load("Detail Pengajuan", $path);
@@ -1493,10 +1548,10 @@ class Kelurahan extends CI_Controller
         // Riwayat Cetak
         $kondisi = [
             'log_tipe' => 4,
-            'log_desc'  => "Cetak SJP",
-            'log_user'  => $this->session->userdata('id_user'),
+            'log_desc' => "Cetak SJP",
+            'log_user' => $this->session->userdata('id_user'),
             // hl = Tabble history_log
-            'hl.id_instansi'  => $this->session->userdata('instansi')
+            'hl.id_instansi' => $this->session->userdata('instansi')
         ];
         $data['riwayat_cetak'] = $this->M_log->getLast_log($kondisi);
 
@@ -1507,7 +1562,7 @@ class Kelurahan extends CI_Controller
         // print_r($data['datapermohonan']);
         // sementara dihide
         // $id_puskesmas =  $data['datapermohonan'][0]['id_puskesmas'];
-        $id_puskesmas =  $data['datapermohonan'][0];
+        $id_puskesmas = $data['datapermohonan'][0];
         // echo($id_puskesmas);die;
         $data['anggaran'] = $this->M_SJP->anggaran_pasien();
 
@@ -1549,13 +1604,13 @@ class Kelurahan extends CI_Controller
     {
         $path = "";
         $data = array(
-            'puskesmas'         => $this->M_data->getPuskesmas(),
-            'rs'                => $this->M_data->getRS(),
-            'statuspengajuan'   => $this->M_data->getStatusPengajuan(),
-            'controller'        => $this->instansi()
+            'puskesmas' => $this->M_data->getPuskesmas(),
+            'rs' => $this->M_data->getRS(),
+            'statuspengajuan' => $this->M_data->getStatusPengajuan(),
+            'controller' => $this->instansi()
         );
         $data = array(
-            "page"    => $this->load("Persetujuan SJP", $path),
+            "page" => $this->load("Persetujuan SJP", $path),
             "content" => $this->load->view('kelurahan/persetujuansjp', $data, true)
         );
 
@@ -1565,14 +1620,14 @@ class Kelurahan extends CI_Controller
     public function getpersetujuandatasjp()
     {
         if ($this->input->post() !== Null) {
-            $kelurahan  = $this->input->post("kelurahan");
-            $mulai  = $this->input->post("mulai");
-            $rs         = $this->input->post("rs");
-            $status     = $this->input->post("status");
-            $cari       = $this->input->post("cari");
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, $kelurahan, $rs, $status, $cari, $mulai);
+            $kelurahan = $this->input->post("kelurahan");
+            $mulai = $this->input->post("mulai");
+            $rs = $this->input->post("rs");
+            $status = $this->input->post("status");
+            $cari = $this->input->post("cari");
+            $data = $this->M_SJP->view_permohonansjp_kelurahan(6, $kelurahan, $rs, $status, $cari, $mulai);
         } else {
-            $data       = $this->M_SJP->view_permohonansjp_kelurahan(6, Null, Null, 6);
+            $data = $this->M_SJP->view_permohonansjp_kelurahan(6, Null, Null, 6);
         }
 
         // $datapus = $this->M_SJP->select_all_new($id_puskesmas, $id_jenissjp);
@@ -1594,26 +1649,26 @@ class Kelurahan extends CI_Controller
     public function edit_data_pasien($idsjp, $id_pengajuan)
     {
         $id_instansi = $this->session->userdata("instansi");
-        $id_join     = $this->session->userdata("id_join");
+        $id_join = $this->session->userdata("id_join");
         if (empty($idsjp) || empty($id_pengajuan)) {
             redirect($this->instansi() . 'UserManagement', 'refresh');
         }
         $this->load->library('encryption');
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
             // test
-            'topik'      => $this->M_SJP->diagnosa(),
-            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'topik' => $this->M_SJP->diagnosa(),
+            'diagnosa' => $this->M_SJP->diagpasien($idsjp),
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
             // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'dokumen' => $this->M_SJP->dokumen_persyaratan(),
             'rumahsakit' => $this->M_SJP->rumahsakit(),
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
             // test
-            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'detail' => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan,
             'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
         ];
@@ -1625,7 +1680,7 @@ class Kelurahan extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("edit data pasien", $path),
+            "page" => $this->load("edit data pasien", $path),
             "content" => $this->load->view('edit_data_pasien', $data, true)
         );
 
@@ -1641,7 +1696,7 @@ class Kelurahan extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("Download Dokumen", $path),
+            "page" => $this->load("Download Dokumen", $path),
             "content" => $this->load->view('download_dokumen', $data, true)
         );
         $this->load->view('template/default_template', $data);
@@ -1669,26 +1724,26 @@ class Kelurahan extends CI_Controller
     public function edit_berkas_persyaratan($idsjp, $id_pengajuan)
     {
         $id_instansi = $this->session->userdata("instansi");
-        $id_join     = $this->session->userdata("id_join");
+        $id_join = $this->session->userdata("id_join");
         if (empty($idsjp) || empty($id_pengajuan)) {
             redirect($this->instansi() . 'UserManagement', 'refresh');
         }
         $this->load->library('encryption');
         $data = [
-            "level"      => $this->M_data->getLevel(),
-            'instansi'   => $this->M_data->getInstansi(),
+            "level" => $this->M_data->getLevel(),
+            'instansi' => $this->M_data->getInstansi(),
             'controller' => $this->instansi(),
-            'kecamatan'  => $this->M_SJP->wilayah('kecamatan'),
+            'kecamatan' => $this->M_SJP->wilayah('kecamatan'),
             // test
-            'topik'      => $this->M_SJP->diagnosa(),
-            'diagnosa'   => $this->M_SJP->diagpasien($idsjp),
+            'topik' => $this->M_SJP->diagnosa(),
+            'diagnosa' => $this->M_SJP->diagpasien($idsjp),
             'getForUpdateFile' => $this->M_SJP->getForUpdateFile($id_pengajuan),
             // 'getdokumenpersyaratan' => $this->M_SJP->getdokumenpersyaratan($id_pengajuan, 1),
-            'dokumen'    => $this->M_SJP->dokumen_persyaratan(),
+            'dokumen' => $this->M_SJP->dokumen_persyaratan(),
             'rumahsakit' => $this->M_SJP->rumahsakit(),
             'kelas_rawat' => $this->M_SJP->kelas_rawat(),
             // test
-            'detail'       => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
+            'detail' => $this->M_SJP->detail_permohonansjp($idsjp, $id_instansi, $id_join),
             'id_pengajuan' => $id_pengajuan,
             'testDiagnosa' => $this->M_SJP->testDiagnosa($idsjp)
         ];
@@ -1700,7 +1755,7 @@ class Kelurahan extends CI_Controller
 
         $path = "";
         $data = array(
-            "page"    => $this->load("edit berkas persyaratan", $path),
+            "page" => $this->load("edit berkas persyaratan", $path),
             "content" => $this->load->view('kelurahan/edit_berkas_persyaratan', $data, true)
         );
 
@@ -1712,13 +1767,13 @@ class Kelurahan extends CI_Controller
         $id_sjp = $this->input->post("id_sjp");
         $id_pp = $this->input->post("id_pp");
         $nikPasien = $this->input->post('nikpasien');
-        $nama_pasien        = $this->input->post('nama_pasien');
+        $nama_pasien = $this->input->post('nama_pasien');
         // ==========================PERSYARATAN=========================
         $dokumen = $this->input->post('dokumen');
         $id_persyaratan = $this->input->post('id_persyaratan');
 
         $data_pasien = [
-            'feedback'          => $this->input->post("feedback")
+            'feedback' => $this->input->post("feedback")
         ];
 
         $this->M_SJP->editSJP($id_sjp, $data_pasien);
@@ -1763,14 +1818,14 @@ class Kelurahan extends CI_Controller
                     $data = [
                         'attachment' => $filename,
                     ];
-                    
-                    $configer =  array(
-                        'image_library'   => 'gd2',
-                        'source_image'    =>  $uploadData['full_path'],
-                        'maintain_ratio'  =>  TRUE,
-                        'width'           =>  750,
-                        'height'          =>  750,
-                        'quality'         =>  80
+
+                    $configer = array(
+                        'image_library' => 'gd2',
+                        'source_image' => $uploadData['full_path'],
+                        'maintain_ratio' => TRUE,
+                        'width' => 750,
+                        'height' => 750,
+                        'quality' => 80
                     );
                     $this->image_lib->clear();
                     $this->image_lib->initialize($configer);
@@ -1789,7 +1844,7 @@ class Kelurahan extends CI_Controller
     public function getKategoriPenerima()
     {
         $total = $this->input->post('totalakumulatif');
-        $kategori = $this->M_SJP->getKategoriPenerima((float)$total);
+        $kategori = $this->M_SJP->getKategoriPenerima((float) $total);
         echo json_encode($kategori);
     }
 
@@ -1826,23 +1881,23 @@ class Kelurahan extends CI_Controller
         $this->dompdf->stream("CetakTest_.pdf", ['Attachment' => 0]);
         $output = $this->dompdf->output();
         $time = date('His');
-        $location = './pdfTemporary/sjp_'.$time.'.pdf';
+        $location = './pdfTemporary/sjp_' . $time . '.pdf';
         file_put_contents($location, $output);
 
-        
+
 
 
         $username = 'esign';
         $password = 'qwerty';
         $url = "103.113.30.81/api/sign/pdf";
-        $file = './pdfTemporary/sjp_'.$time.'.pdf';
+        $file = './pdfTemporary/sjp_' . $time . '.pdf';
 
-        
+
 
         $headers = array("Content-Type:multipart/form-data");
         $postfields = array(
-            'file' => curl_file_create($file,'application/pdf'),
-            'imageTTD' => curl_file_create($ttd,'image/jpeg'),
+            'file' => curl_file_create($file, 'application/pdf'),
+            'imageTTD' => curl_file_create($ttd, 'image/jpeg'),
             'nik' => '0803202100007062',
             'passphrase' => '!Bsre1221*',
             'page' => '1',
@@ -1853,7 +1908,7 @@ class Kelurahan extends CI_Controller
             'yAxis' => '100',
             'width' => '300',
             'height' => '250'
-            );
+        );
         $ch = curl_init();
         $options = array(
             CURLOPT_URL => $url,
@@ -1863,7 +1918,7 @@ class Kelurahan extends CI_Controller
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POSTFIELDS => $postfields,
             CURLOPT_RETURNTRANSFER => true
-        ); 
+        );
         curl_setopt_array($ch, $options);
         $resp = curl_exec($ch);
         $error = curl_error($ch);
@@ -1884,7 +1939,7 @@ class Kelurahan extends CI_Controller
         //     $this->session->set_flashdata('pesan', '<script>alert("TTE gagal")</script>');
         //     redirect('Dinkes/detail_pengajuan/' . $id_sjp . '/' . $sjp[0]->id_pengajuan);
         // }else{
-            
+
         //     unlink('./pdfTemporary/sjp_'.$time.'.pdf');
 
         //     $tte_berhasil = array(
@@ -1895,7 +1950,7 @@ class Kelurahan extends CI_Controller
         //     header("Content-Type: application/pdf");
         //     echo $resp;
         // }
-        
+
     }
 
     public function drawpdf($img, $img_kop, $ttd, $diag, $sjp)
@@ -2099,7 +2154,7 @@ class Kelurahan extends CI_Controller
               <tr>
                 <td  style="width: 30%">Diberikan jaminan</td>
                 <td style="width: 5%">:</td>
-                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan'   . '</td>
+                <td>' . date_format(date_create($sjp[0]->mulai_rawat), "d-m-Y") . ' s/d Selesai perawatan' . '</td>
               </tr>
               <tr>
                 <td  style="width: 30%">Lain-lain</td>

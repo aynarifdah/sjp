@@ -766,7 +766,7 @@
         }
 
         $.ajax({
-            url: '<?= base_url("ajax/cek_nik"); ?>',
+            url: '<?= base_url("Ajax/cek_nik"); ?>',
             type: 'POST',
             data: { nik: nik },
             success: function(response) {

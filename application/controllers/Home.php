@@ -295,8 +295,6 @@ class Home extends CI_Controller
             'status_hubungan'       => $statushubungan,
             'jenis_izin'            => $jenisizin,
             'id_status_pengajuan' => 2,
-            // 'pemohon_pengajuan'            => $pemohonpengajuan,
-            //'feedback_dokumen'   => $feedback
         );
         // var_dump($datapermohonan['status_hubungan']);
         // die;
@@ -2290,7 +2288,7 @@ class Home extends CI_Controller
 
         $response = curl_exec($ch);
         $decodedResponse = json_decode($response, true);
-
+        $decodedData = '';
         if ($decodedResponse["message"] == "No Content") {
             $decodedData = "Nik Tidak Terdaftar";
             curl_close($ch);
